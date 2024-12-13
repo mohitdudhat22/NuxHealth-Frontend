@@ -19,18 +19,8 @@ import Bill2 from "./invoice/Bill2";
 import Bill3 from "./invoice/Bill3";
 import { Invoice } from "../imports";
 import EditDesignInvoice from "./billPayment/EditDesignInvoice";
-import { RiContactsBookFill } from "react-icons/ri";
-import {
-  FaCalendarCheck,
-  FaFilePrescription,
-  FaLaptopMedical,
-  FaCalendarAlt,
-  FaUser,
-  FaUsers,
-} from "react-icons/fa";
-import { IoMdChatbubbles } from "react-icons/io";
+import { FaLaptopMedical, FaUser, FaUsers } from "react-icons/fa";
 import { RiBillLine } from "react-icons/ri";
-import { ErrorSharp } from "@mui/icons-material";
 import { useAuth } from "../hooks/useAuth";
 import { useGlobal } from "../hooks/useGlobal";
 import { SearchResult } from "./SearchResult";
@@ -47,6 +37,52 @@ export default function AdminPanel() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  // Menu items with conditions
+  const menuItems = [
+    {
+      to: "/",
+      icon: MdDashboard,
+      text: "Dashboard",
+    },
+    {
+      to: "/doctorManagement",
+      icon: FaUser,
+      text: "Doctor Management",
+    },
+    {
+      to: "/patientManagement",
+      icon: FaUsers,
+      text: "Patient Management",
+    },
+    {
+      dropdown: true,
+      text: "Billing and Payments",
+      icon: FaLaptopMedical,
+      dropdownItems: [
+        {
+          to: "/monitorBilling",
+          text: "Monitor Billing",
+          icon: RiBillLine,
+        },
+        {
+          to: "/insuranceClaims",
+          text: "Insurance Claims",
+          icon: RiBillLine,
+        },
+        {
+          to: "/paymentMethod",
+          text: "Payment Methods",
+          icon: RiBillLine,
+        },
+      ],
+    },
+    {
+      to: "/reportingAndAnalytics",
+      icon: MdAnalytics,
+      text: "Reporting and Analytics",
+    },
+  ];
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -73,101 +109,72 @@ export default function AdminPanel() {
             />
             {/* </NavLink> */}
           </div>
-          <nav className="">
+          <nav>
             <ul className="space-y-2 p-2">
-              {[
-                {
-                  to: "/",
-                  icon: MdDashboard,
-                  text: "Dashboard",
-                },
-                {
-                  to: "/doctorManagement",
-                  icon: FaUser,
-                  text: "Doctor Management",
-                },
-                {
-                  to: "/patientManagement",
-                  icon: FaUsers,
-                  text: "Patient Management",
-                },
-              ].map((item, index) => (
-                <li key={index}>
-                  <NavLink
-                    to={item.to}
-                    className="flex items-center  p-3 text-base font-semibold text-gray-500 focus:bg-gradient-to-r from-[#D5F1FA] focus:text-[#0EABEB] transition duration-300"
-                  >
-                    <item.icon className="me-2" />
-                    <span>{item.text}</span>
-                  </NavLink>
-                </li>
-              ))}
-              <li>
-                <div>
-                  <button
-                    onClick={() => setBillingDropdownOpen(!billingDropdownOpen)}
-                    className="flex items-center w-full p-3 text-base font-semibold text-gray-500 hover:bg-gradient-to-r from-[#D5F1FA] hover:text-[#0EABEB] transition duration-300"
-                  >
-                    <FaLaptopMedical className="me-2" />
-                    <span>Billing and Payments</span>
-                    <svg
-                      className={`w-4 h-4 ml-auto transition-transform ${
-                        billingDropdownOpen ? "rotate-180" : ""
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+              {menuItems?.map((item, index) => {
+                if (item.dropdown) {
+                  return (
+                    <li key={index}>
+                      <div>
+                        <button
+                          onClick={() =>
+                            setBillingDropdownOpen((prev) => !prev)
+                          }
+                          className="flex items-center w-full p-3 text-base font-semibold text-gray-500 hover:bg-gradient-to-r from-[#D5F1FA] hover:text-[#0EABEB] transition duration-300"
+                        >
+                          <item.icon className="me-2" />
+                          <span>{item.text}</span>
+                          <svg
+                            className={`w-4 h-4 ml-auto transition-transform ${
+                              billingDropdownOpen ? "rotate-180" : ""
+                            }`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
+                        {billingDropdownOpen && (
+                          <ul className="pl-6 mt-2 space-y-2">
+                            {item.dropdownItems.map(
+                              (subItem, subIndex) =>
+                                subItem.condition && (
+                                  <li key={subIndex}>
+                                    <NavLink
+                                      to={subItem.to}
+                                      className="flex items-center p-2 text-sm text-gray-500 hover:text-[#0EABEB] transition duration-300"
+                                    >
+                                      <subItem.icon className="me-2" />
+                                      {subItem.text}
+                                    </NavLink>
+                                  </li>
+                                )
+                            )}
+                          </ul>
+                        )}
+                      </div>
+                    </li>
+                  );
+                }
+
+                return (
+                  <li key={index}>
+                    <NavLink
+                      to={item.to}
+                      className="flex items-center p-3 text-base font-semibold text-gray-500 hover:bg-gradient-to-r from-[#D5F1FA] hover:text-[#0EABEB] transition duration-300"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
-                  {billingDropdownOpen && (
-                    <ul className="pl-6 mt-2 space-y-2">
-                      <li>
-                        <NavLink
-                          to="/monitorBilling"
-                          className="flex items-center p-2 text-sm text-gray-500 hover:text-[#0EABEB] transition duration-300"
-                        >
-                          <RiBillLine className="me-2" />
-                          Monitor Billing
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/insuranceClaims"
-                          className="flex items-center p-2 text-sm text-gray-500 hover:text-[#0EABEB] transition duration-300"
-                        >
-                          <RiBillLine className="me-2" />
-                          Insurance Claims
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/paymentMethod"
-                          className="flex items-center p-2 text-sm text-gray-500 hover:text-[#0EABEB] transition duration-300"
-                        >
-                          <RiBillLine className="me-2" />
-                          Payment Methods
-                        </NavLink>
-                      </li>
-                    </ul>
-                  )}
-                </div>
-              </li>
-              <li>
-                <NavLink
-                  to="/reportingAndAnalytics"
-                  className="flex items-center p-3 text-base font-semibold text-gray-500  hover:bg-gradient-to-r from-[#D5F1FA] hover:text-[#0EABEB] transition duration-300"
-                >
-                  <MdAnalytics className="mr-3 text-xl" />
-                  <p>Reporting and Analytics</p>
-                </NavLink>
-              </li>
+                      <item.icon className="me-2" />
+                      <span>{item.text}</span>
+                    </NavLink>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
@@ -227,7 +234,7 @@ export default function AdminPanel() {
                 <Route
                   path="reportingAndAnalytics"
                   element={<ReportingAndAnalytics />}
-                />{" "}
+                />
               </Routes>
             ) : (
               <SearchResult />

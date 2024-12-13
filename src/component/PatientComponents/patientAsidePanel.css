@@ -17,10 +17,11 @@ input {
   outline: none;
 }
 
-.flex {
+/* .flex {
   display: flex;
   flex-wrap: wrap;
-}
+} */
+
 .align-center {
   align-items: center;
 }

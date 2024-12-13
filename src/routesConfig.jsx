@@ -11,7 +11,7 @@ import {
   DoctorPanel,
   DoctorProfile,
   PatientRegistration,
-  PatientPanel,
+  // PatientPanel,
   PatientDetails,
   Scheduler,
   Bill,
@@ -26,6 +26,7 @@ import {
   VideoCall,
   AppointmentBooking,
 } from "./imports";
+import { PatientPanel } from "./pages";
 import PatientRecordAccesst from "./pages/doctroPanel/PatientRecordAccesst";
 import { ReceptionPanel } from "./pages/ReceptionPanel/ReceptionPanel";
 import { ReceptionPatientRegistration } from "./pages/ReceptionPanel/ReceptionPatientRegistration";
@@ -399,6 +400,7 @@ const routesConfig = [
     path: "/patientRegistration",
     element: <PatientRegistration />,
   },
+
   {
     path: "/patient/*",
     element: (
@@ -552,7 +554,7 @@ const routesConfig = [
     ],
   },
 
-  // Reception routes 
+  // Reception routes
    {
     path: "/reception/*",
     element: (
@@ -565,7 +567,7 @@ const routesConfig = [
     children: [
       // { path: "", element: null, allowedRoles: ["doctor"] },
       {
-        path: "",
+        path: "registration",
         element: (
           <ProtectedRoute
             element={<ReceptionPatientRegistration />}
@@ -584,20 +586,10 @@ const routesConfig = [
           />
         ),
       },
-      {
-        path: "appointmentBooking",
-        element: (
-          <ProtectedRoute
-            element={<AppointmentBooking />}
-            allowedRoles={["doctor"]}
-            userRole={userRole}
-          />
-        ),
-      },
 
     ],
   },
-  
+
 
   // Extra routes
   // {

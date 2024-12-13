@@ -17,10 +17,10 @@ input {
   outline: none;
 }
 
-.flex {
+/* .flex {
   display: flex;
   flex-wrap: wrap;
-}
+} */
 
 .registration-section .row .main {
   height: 100vh;

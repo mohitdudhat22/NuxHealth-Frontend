@@ -8,7 +8,7 @@ export default defineConfig({
   base: "/",
   resolve: {
     alias: {
-      "@": path.resolve(fileURLToPath(import.meta.url), "../src"),
+      "@": path.resolve(__dirname, "./src"),
     },
     extensions: [".js", ".jsx", ".json"],
   },

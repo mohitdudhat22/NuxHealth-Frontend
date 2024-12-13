@@ -23,7 +23,7 @@
       "version": "detect"
     }
   },
-  "plugins": ["react", "react-hooks", "jsx-a11y", "prettier"],
+  "plugins": ["react", "react-hooks", "react-refresh", "jsx-a11y", "prettier"],
   "rules": {
     "semi": ["error", "always"],
     "quotes": ["error", "single", { "avoidEscape": true }],
