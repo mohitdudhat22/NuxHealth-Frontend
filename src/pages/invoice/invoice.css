@@ -1,0 +1,1011 @@
+.invoice-create-bill-section {
+  padding: 20px;
+}
+.invoice-create-bill-section .row .main {
+  padding: 15px;
+  background-color: white;
+  border-radius: 15px;
+}
+.invoice-create-bill-section .row .main .title p {
+  color: #030229;
+  font-size: 26px;
+  font-weight: 700;
+}
+.invoice-create-bill-section .row .main .hospital-details {
+  padding: 20px;
+  border: 2px solid #f4f4f4;
+  border-radius: 15px;
+  margin: 15px 0px;
+}
+.invoice-create-bill-section .row .main .hospital-details .content .head {
+  align-items: center;
+  justify-content: space-between;
+}
+.invoice-create-bill-section .row .main .hospital-details .content .head p {
+  font-size: 24px;
+  font-weight: 700;
+  color: #030229;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .head
+  button {
+  padding: 12px 14px;
+  background-color: #0eabeb;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .head
+  button
+  svg {
+  color: white;
+  font-size: 24px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .head
+  button
+  span {
+  display: inline-block;
+  padding-left: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+}
+.invoice-create-bill-section .row .main .hospital-details .content .details {
+  justify-content: space-between;
+  align-items: center;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .left {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .left
+  .upload-logo {
+  border: 2px dotted #d3d3d3;
+  border-radius: 6px;
+  padding: 20px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .left
+  .upload-logo
+  svg {
+  width: 36px;
+  height: 36px;
+  color: #a7a7a7;
+  margin: 0px auto;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .left
+  .upload-logo
+  p {
+  padding: 20px 0px 15px 0px;
+  color: #4f4f4f;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .left
+  .upload-logo
+  p
+  span {
+  color: #5678e9;
+  font-size: 14px;
+  font-weight: 700;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .left
+  .upload-logo
+  h5 {
+  color: #a7a7a7;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right {
+  width: 74%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box {
+  padding-top: 20px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form {
+  justify-content: start;
+  row-gap: 10px;
+  -moz-column-gap: 21px;
+  column-gap: 21px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box {
+  position: relative;
+  padding: 15px 0px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box
+  .label {
+  position: absolute;
+  top: 4px;
+  left: 14px;
+  background-color: white;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box
+  input {
+  padding: 12px 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box
+  input:focus {
+  border: 1px solid #718ebf;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box
+  input::-moz-placeholder {
+  color: #a7a7a7;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box
+  input::placeholder {
+  color: #a7a7a7;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box
+  .minus-circle {
+  position: absolute;
+  top: 6px;
+  right: -8px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box
+  .minus-circle
+  svg {
+  font-size: 20px;
+  color: #a7a7a7;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(1) {
+  width: 32%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(1)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(2) {
+  width: 32%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(2)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(3) {
+  width: 32%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(3)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(4) {
+  width: 32%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(4)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(5) {
+  width: 32%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(5)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(6) {
+  width: 32%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(6)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(7) {
+  width: 32%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(7)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(8) {
+  width: 32%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(8)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(9) {
+  width: 32%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .hospital-details
+  .content
+  .details
+  .right
+  .form-box
+  form
+  .input-box:nth-child(9)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section .row .main .patient-details {
+  margin: 15px 0px;
+  padding: 20px;
+  border: 2px solid #f4f4f4;
+  border-radius: 15px;
+}
+.invoice-create-bill-section .row .main .patient-details .content .head {
+  align-items: center;
+  justify-content: space-between;
+}
+.invoice-create-bill-section .row .main .patient-details .content .head p {
+  font-size: 24px;
+  font-weight: 700;
+  color: #030229;
+}
+.invoice-create-bill-section .row .main .patient-details .content .head button {
+  padding: 12px 14px;
+  background-color: #0eabeb;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .head
+  button
+  svg {
+  color: white;
+  font-size: 2opx;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .head
+  button
+  span {
+  display: inline-block;
+  padding-left: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box {
+  padding-top: 20px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form {
+  justify-content: space-between;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box {
+  position: relative;
+  padding: 15px 0px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box
+  .label {
+  position: absolute;
+  top: 4px;
+  left: 14px;
+  background-color: white;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box
+  input {
+  padding: 12px 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box
+  input:focus {
+  border: 1px solid #718ebf;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box
+  input::-moz-placeholder {
+  color: #a7a7a7;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box
+  input::placeholder {
+  color: #a7a7a7;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box
+  .minus-circle {
+  position: absolute;
+  top: 6px;
+  right: -8px;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box
+  .minus-circle
+  svg {
+  font-size: 20px;
+  color: #a7a7a7;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box
+  select {
+  padding: 12px 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  outline: none;
+  background-color: white;
+  color: #a7a7a7;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box
+  select:focus {
+  border: 1px solid #718ebf;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(1) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(1)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(2) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(2)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(3) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(3)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(4) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(4)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(5) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(5)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(6) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(6)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(7) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(7)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(8) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(8)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(9) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(9)
+  select {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(10) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(10)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(11) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(11)
+  select {
+  width: 100%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(12) {
+  width: 24%;
+}
+.invoice-create-bill-section
+  .row
+  .main
+  .patient-details
+  .content
+  .details
+  .form-box
+  form
+  .input-box:nth-child(12)
+  input {
+  width: 100%;
+}
+.invoice-create-bill-section .row .main .save-btn {
+  justify-content: end;
+}
+.invoice-create-bill-section .row .main .save-btn button {
+  background-color: #f6f8fb;
+  padding: 12px 40px;
+  color: #4f4f4f;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+.invoice-create-bill-section .row .main .save-btn button:hover {
+  background-color: #0eabeb;
+  color: white;
+} /*# sourceMappingURL=invoice.css.map */

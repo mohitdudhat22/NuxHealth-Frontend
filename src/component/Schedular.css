@@ -1,0 +1,87 @@
+.scheduler-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.scheduler {
+  display: flex;
+  background-color: #f9fbfd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.time-col {
+  width: 80px;
+  background-color: #f0f4f8;
+}
+
+.time-cell,
+.slot {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.days-row {
+  display: flex;
+  flex: 1;
+}
+
+.day-col {
+  flex: 1;
+  border-left: 1px solid #ddd;
+}
+
+.day-header {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px 0;
+  background-color: #eef2f7;
+}
+
+.slot.no-schedule {
+  color: #9ea7b3;
+  background-color: #f0f4f8;
+}
+
+.slot.not-available {
+  background-color: #ffe6e6;
+  color: #d9534f;
+}
+
+.slot.lunch-time {
+  background-color: #f9e7c3;
+  color: #8a6d3b;
+  font-style: italic;
+}
+
+.slot.available {
+  background-color: #e7f3ff;
+  color: #337ab7;
+}
+
+.button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.button.close {
+  background-color: #ccc;
+}
+
+.button.edit {
+  background-color: #4caf50;
+  color: white;
+}
+
+.button.delete {
+  background-color: #f44336;
+  color: white;
+}

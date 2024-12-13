@@ -1,0 +1,2543 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+input {
+  outline: none;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// .main-content {
+//   width: 83%;
+//   margin-left: 17%;
+//   // scrollbar-color: #030229 #f4f4f4;
+//   scrollbar-color: #9f9fa1 #f4f4f4;
+//   scrollbar-width: thin;
+// }
+
+//admin registration section start
+
+// .registration-section {
+//   .row {
+//     .main {
+//       height: 100vh;
+
+//       .form {
+//         padding: 120px;
+//         width: 50%;
+//         background-color: #fff;
+
+//         .content {
+//           padding: 60px 60px;
+//           border: 1px solid #f4f4f4;
+//           box-shadow: 0 2px 2px 0 #f4f4f4, 0 0px 10px 0 #f4f4f4;
+//           border-radius: 15px;
+
+//           .head {
+//             padding-bottom: 15px;
+
+//             p {
+//               font-size: 34px;
+//               font-weight: 600;
+//             }
+//           }
+
+//           .form-box {
+//             form {
+//               justify-content: space-between;
+
+//               .input-box {
+//                 position: relative;
+//                 padding: 15px 0px;
+
+//                 .label {
+//                   position: absolute;
+//                   top: 4px;
+//                   left: 14px;
+//                   background-color: white;
+//                   z-index: 2;
+
+//                   span {
+//                     color: red;
+//                   }
+//                 }
+
+//                 input {
+//                   padding: 12px 14px;
+//                   border: 1px solid #d9d9d9;
+//                   border-radius: 10px;
+
+//                   &:focus {
+//                     border: 1px solid #718ebf;
+//                   }
+
+//                   &::placeholder {
+//                     color: #a7a7a7;
+//                   }
+//                 }
+
+//                 .eye {
+//                   position: absolute;
+//                   top: 27px;
+//                   right: 15px;
+//                 }
+
+//                 select {
+//                   padding: 12px 14px;
+//                   border: 1px solid #d9d9d9;
+//                   border-radius: 10px;
+//                   outline: none;
+//                   background-color: white;
+//                   color: #a7a7a7;
+
+//                   &:focus {
+//                     border: 1px solid #718ebf;
+//                   }
+
+//                   option {
+//                     button {
+//                       width: 100%;
+//                       padding: 12px 14px;
+//                       background-color: #0eabeb;
+//                       text-align: center;
+//                     }
+//                   }
+//                 }
+
+//                 &:nth-child(1) {
+//                   width: 48%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(2) {
+//                   width: 48%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(3) {
+//                   width: 48%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(4) {
+//                   width: 48%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(5) {
+//                   width: 30%;
+
+//                   select {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(6) {
+//                   width: 30%;
+
+//                   select {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(7) {
+//                   width: 30%;
+
+//                   select {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(8) {
+//                   width: 100%;
+//                   // padding: 0px;
+
+//                   select {
+//                     width: 100%;
+//                   }
+
+//                   .css-13cymwt-control {
+//                     padding: 12px 14px;
+//                     border: 1px solid #d9d9d9;
+//                     border-radius: 10px;
+//                     outline: none;
+//                     background-color: white;
+//                     color: #a7a7a7;
+//                   }
+
+//                   // .css-1jqq78o-placeholder {
+//                   //   grid-area: 1 / 1 / 2 / 3;
+//                   //   color: hsl(0, 0%, 50%);
+//                   //   margin-left: 2px;
+//                   //   margin-right: 2px;
+//                   //   box-sizing: border-box;
+//                   //   padding: 33px 14px 0px;
+//                   // }
+
+//                   .css-t3ipsp-control {
+//                     -webkit-align-items: center;
+//                     -webkit-box-align: center;
+//                     -ms-flex-align: center;
+//                     align-items: center;
+//                     cursor: default;
+//                     display: -webkit-box;
+//                     display: -webkit-flex;
+//                     display: -ms-flexbox;
+//                     display: flex;
+//                     -webkit-box-flex-wrap: wrap;
+//                     -webkit-flex-wrap: wrap;
+//                     -ms-flex-wrap: wrap;
+//                     flex-wrap: wrap;
+//                     -webkit-box-pack: justify;
+//                     -webkit-justify-content: space-between;
+//                     justify-content: space-between;
+//                     min-height: 50px;
+//                     outline: 0 !important;
+//                     position: relative;
+//                     -webkit-transition: all 100ms;
+//                     transition: all 100ms;
+//                     background-color: hsl(0, 0%, 100%);
+//                     border: 1px solid #718ebf !important;
+//                     border-radius: 4px;
+//                     border-style: solid;
+//                     border-width: 1px;
+//                     box-shadow: 0 0 0 1px #2684ff;
+//                     box-sizing: border-box;
+//                   }
+
+//                   .css-1nmdiq5-menu {
+//                     z-index: 3;
+//                   }
+//                 }
+
+//                 &:nth-child(9) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(10) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+//               }
+
+//               .condition {
+//                 width: 100%;
+//                 padding-top: 20px;
+
+//                 .policies {
+//                   input {
+//                     width: 20px;
+//                   }
+
+//                   p {
+//                     display: inline-block;
+//                     padding-left: 10px;
+//                   }
+
+//                   span {
+//                     color: #5678e9;
+//                   }
+//                 }
+
+//                 .register-btn {
+//                   padding: 15px 0px;
+
+//                   button {
+//                     width: 100%;
+//                     background-color: #f6f8fb;
+//                     color: #4f4f4f;
+//                     padding: 12px 14px;
+//                     border-radius: 10px;
+//                     font-size: 20px;
+
+//                     &:hover {
+//                       background-color: #0eabeb;
+//                       color: white;
+//                     }
+//                   }
+//                 }
+
+//                 .login-btn {
+//                   p {
+//                     font-family: Lato;
+//                     font-size: 16px;
+//                     font-weight: 400;
+//                     line-height: 19.2px;
+//                     text-align: center;
+//                     color: #030229;
+
+//                     span {
+//                       color: #5678e9;
+//                     }
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         width: 50%;
+//         padding: 150px;
+//         position: relative;
+//         background-color: #f6f8fb;
+
+//         .slider {
+//           position: relative;
+//           width: 700px;
+//           height: 700px;
+
+//           img {
+//             width: 100%;
+//             height: 100%;
+//             display: flex;
+//             justify-content: center;
+//             display: none;
+//           }
+
+//           .dots {
+//             position: absolute;
+//             bottom: -20px;
+//             left: 55%;
+//             transform: translateX(-50%);
+//             text-align: center;
+
+//             .dot {
+//               display: inline-block;
+//               width: 10px;
+//               height: 10px;
+//               border-radius: 50%;
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               cursor: pointer;
+//               margin: 0 5px;
+//             }
+
+//             .dot.active {
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               width: 30px;
+//               border-radius: 10px;
+//             }
+//           }
+//         }
+
+//         .vector-1 {
+//           width: 30%;
+//           position: absolute;
+//           right: 1px;
+//           bottom: 0px;
+//         }
+
+//         .vector-2 {
+//           width: 30%;
+//           position: absolute;
+//           left: 0px;
+//           top: 0px;
+//         }
+
+//         .vector-dot {
+//           width: 10%;
+//           position: absolute;
+//           right: 0px;
+//           top: 0px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 575px) {
+//   .registration-section {
+//     .row {
+//       .main {
+//         .form {
+//           width: 100%;
+//           padding: 40px;
+
+//           .content {
+//             padding: 30px;
+//             .head {
+//               p {
+//                 font-size: 26px;
+//               }
+//             }
+
+//             .form-box {
+//               form {
+//                 .input-box {
+//                   .label {
+//                   }
+
+//                   input {
+//                   }
+
+//                   .eye {
+//                     img {
+//                     }
+//                   }
+
+//                   select {
+//                     option {
+//                       button {
+//                       }
+//                     }
+//                   }
+
+//                   &:nth-child(1) {
+//                     width: 100%;
+//                   }
+
+//                   &:nth-child(2) {
+//                     width: 100%;
+//                   }
+
+//                   &:nth-child(3) {
+//                     width: 100%;
+//                   }
+
+//                   &:nth-child(4) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(5) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(6) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(7) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(8) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(9) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(10) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(11) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(12) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(13) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(14) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(15) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(16) {
+//                     width: 100%;
+//                   }
+
+//                   .condition {
+//                     .policies {
+//                       .input {
+//                       }
+
+//                       p {
+//                       }
+
+//                       span {
+//                       }
+//                     }
+
+//                     .register-btn {
+//                       button {
+//                       }
+//                     }
+
+//                     .login-btn {
+//                       p {
+//                         span {
+//                         }
+//                       }
+//                     }
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+
+//         .img-box {
+//           width: 100%;
+//           padding: 40px;
+
+//           .slider {
+//             width: auto;
+//             height: auto;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+//admin registration section end
+
+// patient registration section start
+
+// .patient-registration-section {
+//   .row {
+//     .main {
+//       .form {
+//         padding: 120px;
+//         width: 50%;
+
+//         .content {
+//           padding: 60px 60px;
+//           border: 1px solid #f4f4f4;
+//           border-radius: 15px;
+
+//           .head {
+//             padding-bottom: 15px;
+
+//             p {
+//               font-size: 34px;
+//               font-weight: 600;
+//             }
+//           }
+
+//           .form-box {
+//             form {
+//               justify-content: space-between;
+
+//               .input-box {
+//                 position: relative;
+//                 padding: 15px 0px;
+
+//                 .label {
+//                   position: absolute;
+//                   top: 4px;
+//                   left: 14px;
+//                   background-color: white;
+//                   z-index: 2;
+//                 }
+
+//                 input {
+//                   // padding: 12px 14px;
+//                   // border: 1px solid #d9d9d9;
+//                   // border-radius: 10px;
+
+//                   &:focus {
+//                     border: 1px solid #718ebf;
+//                   }
+
+//                   &::placeholder {
+//                     color: #a7a7a7;
+//                   }
+//                 }
+
+//                 .eye {
+//                   position: absolute;
+//                   top: 27px;
+//                   right: 15px;
+
+//                   img {
+//                   }
+//                 }
+
+//                 select {
+//                   padding: 12px 14px;
+//                   border: 1px solid #d9d9d9;
+//                   border-radius: 10px;
+//                   outline: none;
+//                   background-color: white;
+
+//                   &:focus {
+//                     border: 1px solid #718ebf;
+//                   }
+
+//                   option {
+//                     button {
+//                       width: 100%;
+//                       padding: 12px 14px;
+//                       background-color: #0eabeb;
+//                       text-align: center;
+//                     }
+//                   }
+//                 }
+
+//                 &:nth-child(1) {
+//                   width: 48%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(2) {
+//                   width: 48%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(3) {
+//                   width: 48%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(4) {
+//                   width: 48%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(5) {
+//                   width: 30%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(6) {
+//                   width: 30%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(7) {
+//                   width: 30%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(8) {
+//                   width: 30%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(9) {
+//                   width: 30%;
+
+//                   select {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(10) {
+//                   width: 30%;
+
+//                   select {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(11) {
+//                   width: 30%;
+
+//                   select {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(12) {
+//                   width: 30%;
+
+//                   select {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(13) {
+//                   width: 30%;
+
+//                   select {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(13) {
+//                   width: 30%;
+
+//                   select {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(14) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(15) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(16) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+//               }
+
+//               .condition {
+//                 width: 100%;
+//                 padding-top: 20px;
+
+//                 .policies {
+//                   input {
+//                     width: 20px;
+//                   }
+
+//                   p {
+//                     display: inline-block;
+//                     padding-left: 10px;
+//                   }
+
+//                   span {
+//                     color: #5678e9;
+//                   }
+//                 }
+
+//                 .register-btn {
+//                   padding: 15px 0px;
+
+//                   button {
+//                     width: 100%;
+//                     background-color: #f6f8fb;
+//                     color: #4f4f4f;
+//                     padding: 12px 14px;
+//                     border-radius: 10px;
+//                     font-size: 20px;
+
+//                     &:hover {
+//                       background-color: #0eabeb;
+//                       color: white;
+//                     }
+//                   }
+//                 }
+
+//                 .login-btn {
+//                   p {
+//                     font-family: Lato;
+//                     font-size: 16px;
+//                     font-weight: 400;
+//                     line-height: 19.2px;
+//                     text-align: center;
+
+//                     span {
+//                       color: #5678e9;
+//                     }
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         width: 50%;
+//         padding: 150px;
+//         position: relative;
+//         background-color: #f6f8fb;
+
+//         .slider {
+//           position: relative;
+//           width: 650px;
+//           height: 650px;
+
+//           img {
+//             width: 100%;
+//             height: 100%;
+//             display: flex;
+//             justify-content: center;
+//             display: none;
+//           }
+
+//           .dots {
+//             position: absolute;
+//             bottom: -20px;
+//             left: 55%;
+//             transform: translateX(-50%);
+//             text-align: center;
+
+//             .dot {
+//               display: inline-block;
+//               width: 10px;
+//               height: 10px;
+//               border-radius: 50%;
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               cursor: pointer;
+//               margin: 0 5px;
+//             }
+
+//             .dot.active {
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               width: 30px;
+//               border-radius: 10px;
+//             }
+//           }
+//         }
+
+//         .vector-1 {
+//           width: 30%;
+//           position: absolute;
+//           right: 0px;
+//           bottom: 0px;
+//         }
+
+//         .vector-2 {
+//           width: 30%;
+//           position: absolute;
+//           left: 0px;
+//           top: 0px;
+//         }
+
+//         .vector-dot {
+//           width: 10%;
+//           position: absolute;
+//           right: 0px;
+//           top: 0px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// responsive start
+
+// @media (max-width: 575px) {
+//   .patient-registration-section {
+//     .row {
+//       .main {
+//         .form {
+//           width: 100%;
+//           padding: 40px;
+
+//           .content {
+//             padding: 30px;
+//             .head {
+//             }
+
+//             .form-box {
+//               form {
+//                 .input-box {
+//                   .label {
+//                   }
+
+//                   input {
+//                   }
+
+//                   .eye {
+//                     img {
+//                     }
+//                   }
+
+//                   select {
+//                     option {
+//                       button {
+//                       }
+//                     }
+//                   }
+
+//                   &:nth-child(1) {
+//                     width: 100%;
+//                   }
+
+//                   &:nth-child(2) {
+//                     width: 100%;
+//                   }
+
+//                   &:nth-child(3) {
+//                     width: 100%;
+//                   }
+
+//                   &:nth-child(4) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(5) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(6) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(7) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(8) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(9) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(10) {
+//                     width: 48%;
+//                   }
+//                   &:nth-child(11) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(12) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(13) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(14) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(15) {
+//                     width: 100%;
+//                   }
+//                   &:nth-child(16) {
+//                     width: 100%;
+//                   }
+
+//                   .condition {
+//                     .policies {
+//                       .input {
+//                       }
+
+//                       p {
+//                       }
+
+//                       span {
+//                       }
+//                     }
+
+//                     .register-btn {
+//                       button {
+//                       }
+//                     }
+
+//                     .login-btn {
+//                       p {
+//                         span {
+//                         }
+//                       }
+//                     }
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+
+//         .img-box {
+//           width: 100%;
+//           padding: 40px;
+
+//           .slider {
+//             width: auto;
+//             height: auto;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// responsive end
+
+// patient registration section end
+
+// create-hospital section start
+
+.hospital-section {
+  .row {
+    .main {
+      .form {
+        .content {
+          background-color: white;
+          border-radius: 15px;
+
+          .head {
+            padding-bottom: 15px;
+
+            p {
+              font-size: 34px;
+              font-weight: 600;
+            }
+          }
+
+          .form-box {
+            form {
+              justify-content: space-between;
+
+              .input-box {
+                position: relative;
+                padding: 15px 0px;
+
+                .label {
+                  position: absolute;
+                  top: 4px;
+                  left: 14px;
+                  background-color: white;
+
+                  span {
+                    color: red;
+                  }
+                }
+
+                input {
+                  padding: 12px 14px;
+                  border: 1px solid #d9d9d9;
+                  border-radius: 10px;
+                  width: 100%;
+
+                  &:focus {
+                    border: 1px solid #718ebf;
+                  }
+
+                  &::placeholder {
+                    color: #a7a7a7;
+                  }
+                }
+
+                select {
+                  width: 100%;
+                  padding: 12px 14px;
+                  border: 1px solid #d9d9d9;
+                  border-radius: 10px;
+                  outline: none;
+                  background-color: white;
+                  color: #a7a7a7;
+
+                  &:focus {
+                    border: 1px solid #718ebf;
+                  }
+
+                  option {
+                    button {
+                      width: 100%;
+                      padding: 12px 14px;
+                      background-color: #0eabeb;
+                      text-align: center;
+                    }
+                  }
+                }
+
+                &:nth-child(1) {
+                  width: 100%;
+
+                  input {
+                    width: 100%;
+                  }
+                }
+
+                &:nth-child(2) {
+                  width: 100%;
+
+                  input {
+                    width: 100%;
+                  }
+                }
+
+                &:nth-child(3) {
+                  width: 48%;
+
+                  input {
+                    width: 100%;
+                  }
+                }
+
+                &:nth-child(4) {
+                  width: 48%;
+
+                  input {
+                    width: 100%;
+                  }
+                }
+
+                &:nth-child(5) {
+                  width: 48%;
+
+                  select {
+                    width: 100%;
+                  }
+                }
+
+                &:nth-child(6) {
+                  width: 48%;
+
+                  select {
+                    width: 100%;
+                  }
+                }
+              }
+
+              .btn {
+                width: 100%;
+                padding-top: 20px;
+                justify-content: space-between;
+
+                .cancel-btn {
+                  width: 48%;
+
+                  button {
+                    text-align: center;
+                    width: 100%;
+                    border: 1px solid #d3d3d3;
+                    padding: 12px 14px;
+                    border-radius: 10px;
+                    font-size: 20px;
+                  }
+                }
+
+                .save-btn {
+                  width: 48%;
+
+                  button {
+                    text-align: center;
+                    width: 100%;
+                    padding: 12px 14px;
+                    border-radius: 10px;
+                    background-color: #f6f8fb;
+                    font-size: 20px;
+
+                    &:hover {
+                      background-color: #0eabeb;
+                      color: white;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .img-box {
+          width: 50%;
+          padding: 150px;
+          position: relative;
+          background-color: #f6f8fb;
+
+          .slider {
+            position: relative;
+            width: 650px;
+            height: 650px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              display: none;
+            }
+
+            .dots {
+              position: absolute;
+              bottom: -20px;
+              left: 55%;
+              transform: translateX(-50%);
+              text-align: center;
+
+              .dot {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: linear-gradient(
+                  107.38deg,
+                  #4c49ed 2.61%,
+                  #020067 101.2%
+                );
+                cursor: pointer;
+                margin: 0 5px;
+              }
+
+              .dot.active {
+                background: linear-gradient(
+                  107.38deg,
+                  #4c49ed 2.61%,
+                  #020067 101.2%
+                );
+                width: 30px;
+                border-radius: 10px;
+              }
+            }
+          }
+
+          .vector-1 {
+            width: 30%;
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+          }
+
+          .vector-2 {
+            width: 30%;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+          }
+
+          .vector-dot {
+            width: 10%;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// create-hospital section end
+
+//admin mobile section start
+
+// .admin-mobile-section {
+//   .row {
+//     .main {
+//       height: 100vh;
+
+//       .form {
+//         padding: 120px 100px;
+//         width: 50%;
+//         background-color: #fff;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+
+//         .admin-mobile-content {
+//           padding: 40px 40px;
+//           border: 1px solid #f4f4f4;
+//           box-shadow: 0 2px 2px 0 #f4f4f4, 0 0px 10px 0 #f4f4f4;
+//           border-radius: 15px;
+
+//           .head {
+//             padding-bottom: 15px;
+
+//             p {
+//               font-size: 34px;
+//               font-weight: 600;
+//             }
+//           }
+
+//           .note {
+//             p {
+//               color: #4f4f4f;
+//               font-size: 16px;
+//               font-weight: 500;
+//             }
+//           }
+
+//           .admin-mobile-form-box {
+//             padding-top: 10px;
+
+//             form {
+//               justify-content: space-between;
+
+//               .input-box {
+//                 position: relative;
+//                 padding: 15px 0px;
+
+//                 .label {
+//                   position: absolute;
+//                   top: 4px;
+//                   left: 14px;
+//                   background-color: white;
+//                 }
+
+//                 input {
+//                   padding: 12px 14px;
+//                   border: 1px solid #d9d9d9;
+//                   border-radius: 10px;
+
+//                   &:focus {
+//                     border: 1px solid #718ebf;
+//                   }
+
+//                   &::placeholder {
+//                     color: #a7a7a7;
+//                   }
+//                 }
+
+//                 &:nth-child(1) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+//               }
+
+//               .condition {
+//                 width: 100%;
+//                 padding-top: 20px;
+
+//                 .otp {
+//                   padding: 15px 0px;
+
+//                   button {
+//                     width: 100%;
+//                     background-color: #f6f8fb;
+//                     color: #4f4f4f;
+//                     padding: 12px 14px;
+//                     border-radius: 10px;
+//                     font-size: 20px;
+//                     transition: all 0.5s;
+
+//                     &:hover {
+//                       background-color: #0eabeb;
+//                       color: white;
+//                     }
+//                   }
+//                 }
+
+//                 .login-btn {
+//                   p {
+//                     font-family: Lato;
+//                     font-size: 16px;
+//                     font-weight: 400;
+//                     line-height: 19.2px;
+//                     text-align: center;
+//                     color: #5678e9;
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         width: 50%;
+//         padding: 150px;
+//         position: relative;
+//         background-color: #f6f8fb;
+
+//         .slider {
+//           position: relative;
+//           width: 650px;
+//           height: 650px;
+
+//           img {
+//             width: 100%;
+//             height: 100%;
+//             display: flex;
+//             justify-content: center;
+//             display: none;
+//           }
+
+//           .dots {
+//             position: absolute;
+//             bottom: -20px;
+//             left: 55%;
+//             transform: translateX(-50%);
+//             text-align: center;
+
+//             .dot {
+//               display: inline-block;
+//               width: 10px;
+//               height: 10px;
+//               border-radius: 50%;
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               cursor: pointer;
+//               margin: 0 5px;
+//             }
+
+//             .dot.active {
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               width: 30px;
+//               border-radius: 10px;
+//             }
+//           }
+//         }
+
+//         .vector-1 {
+//           width: 30%;
+//           position: absolute;
+//           right: 0px;
+//           bottom: 0px;
+//         }
+
+//         .vector-2 {
+//           width: 30%;
+//           position: absolute;
+//           left: 0px;
+//           top: 0px;
+//         }
+
+//         .vector-dot {
+//           width: 10%;
+//           position: absolute;
+//           right: 0px;
+//           top: 0px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// Responsive styles for admin-mobile-section
+// @media (max-width: 1200px) {
+//   .admin-mobile-section {
+//     .row .main {
+//       display: flex;
+//       flex-wrap: wrap;
+
+//       .form {
+//         padding: 60px 40px;
+//         width: 50%;
+
+//         .admin-mobile-content {
+//           padding: 30px;
+//         }
+//       }
+
+//       .img-box {
+//         padding: 60px 40px;
+//         width: 50%;
+
+//         .slider {
+//           width: 100%;
+//           height: auto;
+//           max-width: 500px;
+//           margin: 0 auto;
+//           position: relative;
+
+//           .dots {
+//             position: absolute;
+//             bottom: -20px;
+//             left: 50%;
+//             transform: translateX(-50%);
+
+//             .dot {
+//               width: 8px;
+//               height: 8px;
+//               margin: 0 4px;
+
+//               &.active {
+//                 width: 24px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 992px) {
+//   .admin-mobile-section {
+//     .row .main {
+//       .form {
+//         width: 100%;
+//         padding: 40px 20px;
+//         order: 1;
+//       }
+
+//       .img-box {
+//         width: 100%;
+//         padding: 30px 20px;
+//         order: 2;
+
+//         .slider {
+//           max-width: 400px;
+
+//           .dots {
+//             bottom: -15px;
+
+//             .dot {
+//               width: 7px;
+//               height: 7px;
+//               margin: 0 3px;
+
+//               &.active {
+//                 width: 21px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .admin-mobile-section {
+//     .row .main {
+//       .form {
+//         padding: 30px 15px;
+
+//         .admin-mobile-content {
+//           padding: 20px;
+
+//           .head p {
+//             font-size: 28px;
+//           }
+
+//           .note p {
+//             font-size: 14px;
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         padding: 20px 15px;
+
+//         .slider {
+//           max-width: 300px;
+
+//           .dots {
+//             bottom: -12px;
+
+//             .dot {
+//               width: 6px;
+//               height: 6px;
+//               margin: 0 3px;
+
+//               &.active {
+//                 width: 18px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 576px) {
+//   .admin-mobile-section {
+//     .row .main {
+//       .form {
+//         padding: 20px 10px;
+
+//         .admin-mobile-content {
+//           padding: 15px;
+
+//           .head p {
+//             font-size: 24px;
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         padding: 15px 10px;
+
+//         .slider {
+//           max-width: 250px;
+
+//           .dots {
+//             bottom: -10px;
+
+//             .dot {
+//               width: 5px;
+//               height: 5px;
+//               margin: 0 2px;
+
+//               &.active {
+//                 width: 15px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// Additional slider styles
+// .admin-mobile-section {
+//   .row .main .img-box .slider {
+//     // Base slider styles
+//     position: relative;
+//     margin: 0 auto;
+//     overflow: hidden;
+
+//     // Dots container
+//     .dots {
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//       gap: 5px;
+//       z-index: 2;
+
+//       .dot {
+//         transition: all 0.3s ease;
+//         cursor: pointer;
+//         border-radius: 50%;
+//         background: linear-gradient(107.38deg, #4c49ed 2.61%, #020067 101.2%);
+
+//         &.active {
+//           border-radius: 10px;
+//           transition: all 0.3s ease;
+//         }
+//       }
+//     }
+//   }
+// }
+
+//admin mobile section end
+
+//admin otp section start
+
+// .admin-otp-section {
+//   .row {
+//     .main {
+//       height: 100vh;
+
+//       .form {
+//         padding: 120px 100px;
+//         width: 50%;
+//         background-color: #fff;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+
+//         .admin-otp-content {
+//           padding: 40px 40px;
+//           border: 1px solid #f4f4f4;
+//           box-shadow: 0 2px 2px 0 #f4f4f4, 0 0px 10px 0 #f4f4f4;
+//           border-radius: 15px;
+
+//           .head {
+//             padding-bottom: 15px;
+
+//             p {
+//               font-size: 34px;
+//               font-weight: 600;
+//             }
+//           }
+
+//           .note {
+//             p {
+//               color: #4f4f4f;
+//               font-size: 16px;
+//               font-weight: 500;
+//             }
+//           }
+
+//           .admin-otp-form-box {
+//             padding-top: 10px;
+
+//             form {
+//               justify-content: space-between;
+
+//               .input-box {
+//                 position: relative;
+//                 padding: 15px 0px;
+
+//                 .label {
+//                   position: absolute;
+//                   top: 4px;
+//                   left: 14px;
+//                   background-color: white;
+//                 }
+
+//                 input {
+//                   padding: 12px 14px;
+//                   border: 1px solid #d9d9d9;
+//                   border-radius: 10px;
+//                   text-align: center;
+
+//                   &:focus {
+//                     border: 1px solid #718ebf;
+//                   }
+
+//                   &::placeholder {
+//                     color: #a7a7a7;
+//                   }
+//                 }
+
+//                 &:nth-child(1) {
+//                   width: 15%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(2) {
+//                   width: 15%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(3) {
+//                   width: 15%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(4) {
+//                   width: 15%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(5) {
+//                   width: 15%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(6) {
+//                   width: 15%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+//               }
+
+//               .condition {
+//                 width: 100%;
+//                 padding-top: 20px;
+
+//                 .resend-otp {
+//                   justify-content: space-between;
+//                   align-items: center;
+
+//                   .sec {
+//                     p {
+//                       align-items: center;
+
+//                       span {
+//                         padding: 0px 5px;
+//                       }
+//                     }
+//                   }
+
+//                   .r-otp {
+//                     button {
+//                       color: #5678e9;
+//                     }
+//                   }
+//                 }
+
+//                 .verify {
+//                   padding: 15px 0px;
+
+//                   button {
+//                     width: 100%;
+//                     background-color: #f6f8fb;
+//                     color: #4f4f4f;
+//                     padding: 12px 14px;
+//                     border-radius: 10px;
+//                     font-size: 20px;
+//                     transition: all 0.5s;
+
+//                     &:hover {
+//                       background-color: #0eabeb;
+//                       color: white;
+//                     }
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         width: 50%;
+//         padding: 150px;
+//         position: relative;
+//         background-color: #f6f8fb;
+
+//         .slider {
+//           position: relative;
+//           width: 650px;
+//           height: 650px;
+
+//           img {
+//             width: 100%;
+//             height: 100%;
+//             display: flex;
+//             justify-content: center;
+//             display: none;
+//           }
+
+//           .dots {
+//             position: absolute;
+//             bottom: -20px;
+//             left: 55%;
+//             transform: translateX(-50%);
+//             text-align: center;
+
+//             .dot {
+//               display: inline-block;
+//               width: 10px;
+//               height: 10px;
+//               border-radius: 50%;
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               cursor: pointer;
+//               margin: 0 5px;
+//             }
+
+//             .dot.active {
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               width: 30px;
+//               border-radius: 10px;
+//             }
+//           }
+//         }
+
+//         .vector-1 {
+//           width: 30%;
+//           position: absolute;
+//           right: 0px;
+//           bottom: 0px;
+//         }
+
+//         .vector-2 {
+//           width: 30%;
+//           position: absolute;
+//           left: 0px;
+//           top: 0px;
+//         }
+
+//         .vector-dot {
+//           width: 10%;
+//           position: absolute;
+//           right: 0px;
+//           top: 0px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+//admin otp section end
+
+//admin changePassword section start
+
+// .changePassword-section {
+//   .row {
+//     .main {
+//       height: 100vh;
+
+//       .form {
+//         padding: 120px 100px;
+//         width: 50%;
+//         background-color: #fff;
+//         justify-content: center;
+//         align-items: center;
+//         display: flex;
+
+//         .changePassword-content {
+//           padding: 40px 40px;
+//           border: 1px solid #f4f4f4;
+//           box-shadow: 0 2px 2px 0 #f4f4f4, 0 0px 10px 0 #f4f4f4;
+//           border-radius: 15px;
+
+//           .head {
+//             padding-bottom: 15px;
+
+//             p {
+//               font-size: 34px;
+//               font-weight: 600;
+//             }
+//           }
+
+//           .changePassword-form-box {
+//             padding-top: 10px;
+
+//             form {
+//               justify-content: space-between;
+
+//               .input-box {
+//                 position: relative;
+//                 padding: 15px 0px;
+
+//                 .label {
+//                   position: absolute;
+//                   top: 4px;
+//                   left: 14px;
+//                   background-color: white;
+//                 }
+
+//                 input {
+//                   padding: 12px 14px;
+//                   border: 1px solid #d9d9d9;
+//                   border-radius: 10px;
+
+//                   &:focus {
+//                     border: 1px solid #718ebf;
+//                   }
+
+//                   &::placeholder {
+//                     color: #a7a7a7;
+//                   }
+//                 }
+
+//                 .eye {
+//                   position: absolute;
+//                   top: 27px;
+//                   right: 15px;
+//                 }
+
+//                 &:nth-child(1) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(2) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+//               }
+
+//               .condition {
+//                 width: 100%;
+//                 padding-top: 20px;
+
+//                 .otp {
+//                   padding: 15px 0px;
+
+//                   button {
+//                     width: 100%;
+//                     background-color: #f6f8fb;
+//                     color: #4f4f4f;
+//                     padding: 12px 14px;
+//                     border-radius: 10px;
+//                     font-size: 20px;
+//                     transition: all 0.5s;
+
+//                     &:hover {
+//                       background-color: #0eabeb;
+//                       color: white;
+//                     }
+//                   }
+//                 }
+
+//                 .login-btn {
+//                   p {
+//                     font-family: Lato;
+//                     font-size: 16px;
+//                     font-weight: 400;
+//                     line-height: 19.2px;
+//                     text-align: center;
+//                     color: #5678e9;
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         width: 50%;
+//         padding: 120px;
+//         position: relative;
+//         background-color: #f6f8fb;
+
+//         .slider {
+//           position: relative;
+//           width: 650px;
+//           height: 650px;
+
+//           img {
+//             width: 100%;
+//             height: 100%;
+//             display: flex;
+//             justify-content: center;
+//             display: none;
+//           }
+
+//           .dots {
+//             position: absolute;
+//             bottom: -20px;
+//             left: 55%;
+//             transform: translateX(-50%);
+//             text-align: center;
+
+//             .dot {
+//               display: inline-block;
+//               width: 10px;
+//               height: 10px;
+//               border-radius: 50%;
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               cursor: pointer;
+//               margin: 0 5px;
+//             }
+
+//             .dot.active {
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               width: 30px;
+//               border-radius: 10px;
+//             }
+//           }
+//         }
+
+//         .vector-1 {
+//           width: 30%;
+//           position: absolute;
+//           right: 0px;
+//           bottom: 0px;
+//         }
+
+//         .vector-2 {
+//           width: 30%;
+//           position: absolute;
+//           left: 0px;
+//           top: 0px;
+//         }
+
+//         .vector-dot {
+//           width: 10%;
+//           position: absolute;
+//           right: 0px;
+//           top: 0px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// Add responsive styles for changePassword-section
+// @media (max-width: 1200px) {
+//   .changePassword-section {
+//     .row .main {
+//       display: flex;
+//       flex-wrap: wrap;
+
+//       .form {
+//         padding: 60px 40px;
+//         width: 50%;
+
+//         .changePassword-content {
+//           padding: 30px;
+//         }
+//       }
+
+//       .img-box {
+//         padding: 60px 40px;
+//         width: 50%;
+
+//         .slider {
+//           width: 100%;
+//           height: auto;
+//           max-width: 500px;
+//           margin: 0 auto;
+
+//           .dots {
+//             bottom: -20px;
+//             left: 50%;
+
+//             .dot {
+//               width: 8px;
+//               height: 8px;
+//               margin: 0 4px;
+
+//               &.active {
+//                 width: 24px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 992px) {
+//   .changePassword-section {
+//     .row .main {
+//       .form {
+//         width: 100%;
+//         padding: 40px 20px;
+//         order: 1;
+//       }
+
+//       .img-box {
+//         width: 100%;
+//         padding: 30px 20px;
+//         order: 2;
+
+//         .slider {
+//           max-width: 400px;
+
+//           .dots {
+//             bottom: -15px;
+
+//             .dot {
+//               width: 7px;
+//               height: 7px;
+//               margin: 0 3px;
+
+//               &.active {
+//                 width: 21px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .changePassword-section {
+//     .row .main {
+//       .form {
+//         padding: 30px 15px;
+
+//         .changePassword-content {
+//           padding: 20px;
+
+//           .head p {
+//             font-size: 28px;
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         padding: 20px 10px;
+
+//         .slider {
+//           max-width: 300px;
+
+//           .dots {
+//             bottom: -12px;
+
+//             .dot {
+//               width: 6px;
+//               height: 6px;
+//               margin: 0 3px;
+
+//               &.active {
+//                 width: 18px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width: 576px) {
+//   .changePassword-section {
+//     .row .main {
+//       .form {
+//         padding: 20px 10px;
+
+//         .changePassword-content {
+//           padding: 15px;
+
+//           .head p {
+//             font-size: 24px;
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         padding: 15px 10px;
+
+//         .slider {
+//           max-width: 250px;
+
+//           .dots {
+//             bottom: -10px;
+
+//             .dot {
+//               width: 5px;
+//               height: 5px;
+//               margin: 0 2px;
+
+//               &.active {
+//                 width: 15px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// Additional slider enhancements
+// .changePassword-section {
+//   .row .main .img-box .slider {
+//     // Base slider styles
+//     position: relative;
+//     margin: 0 auto;
+//     overflow: hidden;
+
+//     // Dots container
+//     .dots {
+//       display: flex;
+//       justify-content: center;
+//       align-items: center;
+//       gap: 5px;
+//       z-index: 2;
+
+//       .dot {
+//         transition: all 0.3s ease;
+//         cursor: pointer;
+//         border-radius: 50%;
+//         background: linear-gradient(107.38deg, #4c49ed 2.61%, #020067 101.2%);
+
+//         &.active {
+//           border-radius: 10px;
+//           transition: all 0.3s ease;
+//         }
+//       }
+//     }
+//   }
+// }
+
+//login section start
+
+// .login-section {
+//   .row {
+//     .main {
+//       height: 100vh;
+
+//       .form {
+//         padding: 120px;
+//         width: 50%;
+//         background-color: #fff;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+
+//         .content {
+//           padding: 60px 60px;
+//           border: 1px solid #f4f4f4;
+//           box-shadow: 0 2px 2px 0 #f4f4f4, 0 0px 10px 0 #f4f4f4;
+//           border-radius: 15px;
+
+//           .head {
+//             padding-bottom: 15px;
+
+//             p {
+//               font-size: 34px;
+//               font-weight: 600;
+//             }
+//           }
+
+//           .form-box {
+//             form {
+//               justify-content: space-between;
+
+//               .input-box {
+//                 position: relative;
+//                 padding: 15px 0px;
+
+//                 .label {
+//                   position: absolute;
+//                   top: 4px;
+//                   left: 14px;
+//                   background-color: white;
+
+//                   span {
+//                     color: red;
+//                   }
+//                 }
+
+//                 input {
+//                   padding: 12px 14px;
+//                   border: 1px solid #d9d9d9;
+//                   border-radius: 10px;
+
+//                   &:focus {
+//                     border: 1px solid #718ebf;
+//                   }
+
+//                   &::placeholder {
+//                     color: #a7a7a7;
+//                   }
+//                 }
+
+//                 .eye {
+//                   position: absolute;
+//                   top: 27px;
+//                   right: 15px;
+//                 }
+
+//                 select {
+//                   padding: 12px 14px;
+//                   border: 1px solid #d9d9d9;
+//                   border-radius: 10px;
+//                   outline: none;
+//                   background-color: white;
+//                   color: #a7a7a7;
+
+//                   &:focus {
+//                     border: 1px solid #718ebf;
+//                   }
+
+//                   option {
+//                     button {
+//                       width: 100%;
+//                       padding: 12px 14px;
+//                       background-color: #0eabeb;
+//                       text-align: center;
+//                     }
+//                   }
+//                 }
+
+//                 &:nth-child(1) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+
+//                 &:nth-child(2) {
+//                   width: 100%;
+
+//                   input {
+//                     width: 100%;
+//                   }
+//                 }
+//               }
+
+//               .condition {
+//                 width: 100%;
+//                 padding-top: 20px;
+
+//                 .remember-forgot {
+//                   justify-content: space-between;
+//                   align-items: center;
+
+//                   .remember {
+//                     p {
+//                       padding-left: 15px;
+//                     }
+//                   }
+
+//                   .forgot {
+//                     span {
+//                       color: #5678e9;
+//                     }
+//                   }
+//                 }
+
+//                 .login-btn {
+//                   padding: 15px 0px;
+
+//                   button {
+//                     width: 100%;
+//                     background-color: #f6f8fb;
+//                     color: #4f4f4f;
+//                     padding: 12px 14px;
+//                     border-radius: 10px;
+//                     font-size: 20px;
+//                     transition: all 0.5s;
+
+//                     &:hover {
+//                       background-color: #0eabeb;
+//                       color: white;
+//                     }
+//                   }
+//                 }
+
+//                 .registration-btn {
+//                   p {
+//                     font-family: Lato;
+//                     font-size: 16px;
+//                     font-weight: 400;
+//                     line-height: 19.2px;
+//                     text-align: center;
+//                     color: #030229;
+
+//                     span {
+//                       color: #5678e9;
+//                       display: inline-block;
+//                       font-weight: 400;
+//                     }
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       .img-box {
+//         width: 50%;
+//         padding: 150px;
+//         position: relative;
+//         background-color: #f6f8fb;
+
+//         .slider {
+//           position: relative;
+//           width: 650px;
+//           height: 650px;
+
+//           img {
+//             width: 100%;
+//             height: 100%;
+//             display: flex;
+//             justify-content: center;
+//             display: none;
+//           }
+
+//           .dots {
+//             position: absolute;
+//             bottom: -20px;
+//             left: 55%;
+//             transform: translateX(-50%);
+//             text-align: center;
+
+//             .dot {
+//               display: inline-block;
+//               width: 10px;
+//               height: 10px;
+//               border-radius: 50%;
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               cursor: pointer;
+//               margin: 0 5px;
+//             }
+
+//             .dot.active {
+//               background: linear-gradient(
+//                 107.38deg,
+//                 #4c49ed 2.61%,
+//                 #020067 101.2%
+//               );
+//               width: 30px;
+//               border-radius: 10px;
+//             }
+//           }
+//         }
+
+//         .vector-1 {
+//           width: 30%;
+//           position: absolute;
+//           right: 0px;
+//           bottom: 0px;
+//         }
+
+//         .vector-2 {
+//           width: 30%;
+//           position: absolute;
+//           left: 0px;
+//           top: 0px;
+//         }
+
+//         .vector-dot {
+//           width: 10%;
+//           position: absolute;
+//           right: 0px;
+//           top: 0px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+//login section end

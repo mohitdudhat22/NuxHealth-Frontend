@@ -1,0 +1,978 @@
+// * {
+//   margin: 0px;
+//   padding: 0px;
+//   box-sizing: border-box;
+// }
+
+// a {
+//   text-decoration: none;
+// }
+
+// ul,
+// ol {
+//   list-style-type: none;
+// }
+
+// .flex {
+//   display: flex;
+//   flex-wrap: wrap;
+// }
+
+// .thead {
+//   button {
+//     text-transform: capitalize;
+//     font-size: 14px;
+//     font-weight: 600;
+//     color: #667080;
+//   }
+// }
+
+// .menu {
+//   h3 {
+//     font-size: 26px;
+//     font-weight: 700;
+//     color: #030229;
+//   }
+// }
+
+// // appointmanagement component start
+
+// .search {
+//   padding: 12px 15px;
+//   background-color: #f6f8fb;
+//   border: 0px;
+//   border-radius: 50px;
+
+//   &::placeholder {
+//     color: #a7a7a7;
+//     font-size: 16px;
+//     font-weight: 400px;
+//   }
+// }
+
+// .css-1ll44ll-MuiOutlinedInput-notchedOutline {
+//   border: 0px !important;
+// }
+
+// .css-lzk69h-MuiButtonBase-root-MuiIconButton-root:hover {
+//   border-radius: 10px;
+// }
+
+// .time-slot {
+//   button {
+//     background-color: #0eabeb;
+//     padding: 12px 14px;
+//     color: white;
+//     font-size: 20px;
+//     font-weight: 600;
+//   }
+// }
+
+// .t-data {
+//   padding-top: 30px;
+
+//   table {
+//     thead {
+//       tr {
+//         background-color: #f6f8fb;
+
+//         th {
+//           font-size: 18px;
+//           font-weight: 700;
+//           color: #030229;
+//           padding: 20px;
+//           text-align: start;
+//         }
+//       }
+//     }
+
+//     tbody {
+//       tr {
+//         td {
+//           color: #4f4f4f;
+//           font-size: 18px;
+//           font-weight: 600;
+//           text-align: start;
+//           padding: 20px;
+//         }
+
+//         h3 {
+//           background-color: #f6f8fb;
+//           width: 111px;
+//           padding: 10px 0px;
+//           display: inline-block;
+//           text-align: center;
+//           border-radius: 33px;
+//           color: #718ebf;
+//         }
+
+//         .btn {
+//           button {
+//             background-color: #f6f8fb;
+//             padding: 7px;
+//             margin: 0px 5px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .custom-date {
+//   h2 {
+//     font-size: 28px;
+//     font-weight: 700;
+//     color: #030229;
+//   }
+
+//   .close-btn {
+//     button {
+//       &:hover {
+//         background-color: rgba(239, 91, 91, 0.337);
+//       }
+
+//       svg {
+//         color: white;
+//         border-radius: 50%;
+//         background-color: red;
+//       }
+//     }
+//   }
+// }
+
+// .condition {
+//   .reset {
+//     width: 48%;
+//     color: #141414;
+//     border: 1px solid #d3d3d3;
+//     border-radius: 10px;
+//     font-size: 16px;
+//     font-weight: 600;
+//   }
+
+//   .delete {
+//     width: 48%;
+//     background-color: #0eabeb;
+//     color: white;
+//     border: 1px solid #d3d3d3;
+//     border-radius: 10px;
+//     font-size: 16px;
+//     font-weight: 600;
+//   }
+// }
+
+// .AppointmentTimeSlot {
+//   h3 {
+//     font-size: 26px;
+//     font-weight: 700;
+//     color: #030229;
+//   }
+// }
+
+// // appointmanagement component end
+
+// // Patient Record Accesst component start
+
+// .patioentRecord {
+//   h2 {
+//     color: #030229;
+//     font-size: 26px;
+//     font-weight: 700;
+//   }
+
+//   .pr-search {
+//     background-color: #f6f8fb;
+//     border-radius: 50px;
+//     width: 335px;
+//     margin-right: 20px;
+//   }
+
+//   .pr-select {
+//     select {
+//       font-size: 20px;
+//       font-family: 600;
+//       color: #141414;
+
+//       option {
+//         font-size: 10px;
+//         font-family: 600;
+//         color: #141414;
+//       }
+//     }
+//   }
+
+//   .css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+//     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+//     font-size: 20px;
+//     font-weight: 600;
+//     border-radius: 10px;
+//     line-height: 1.5em;
+//     letter-spacing: 0.00938em;
+//     color: rgba(0, 0, 0, 0.87);
+//     box-sizing: border-box;
+//     position: relative;
+//     cursor: text;
+//     display: -webkit-inline-box;
+//     display: -webkit-inline-flex;
+//     display: -ms-inline-flexbox;
+//     display: inline-flex;
+//     -webkit-align-items: center;
+//     -webkit-box-align: center;
+//     -ms-flex-align: center;
+//     align-items: center;
+//     position: relative;
+//     border: 1px solid #d3d3d3;
+//     padding-left: 15px;
+//     width: 154px;
+//   }
+// }
+
+// .pr-data {
+//   table {
+//     thead {
+//       tr {
+//         th {
+//           font-size: 18px;
+//           font-weight: 700;
+//           color: #030229;
+//           background-color: #f6f8fb;
+//           padding: 20px;
+//           text-align: center;
+//         }
+//       }
+//     }
+
+//     tbody {
+//       tr {
+//         td {
+//           font-size: 18px;
+//           font-weight: 600;
+//           color: #4f4f4f;
+//           padding: 20px;
+//           text-align: center;
+//         }
+
+//         .gender {
+//           span {
+//             background-color: #f6f8fb;
+//             width: 40px;
+//             height: 40px;
+//             display: inline-block;
+//             font-size: 18px;
+//             border-radius: 50%;
+//             line-height: 2;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .p-details {
+//   h2 {
+//     font-size: 26px;
+//     font-weight: 700;
+//     color: #030229;
+//   }
+
+//   .p-record {
+//     p {
+//       color: #a7a7a7;
+//       font-size: 20px;
+//       font-weight: 500;
+
+//       span {
+//         display: inline-block;
+//         color: #141414;
+//         font-size: 18px;
+//         font-weight: 400;
+//       }
+//     }
+//   }
+// }
+
+// .p-btn {
+//   button {
+//     background-color: #0eabeb;
+//     color: white;
+//     padding: 12px 14px;
+//     font-size: 20px;
+//     font-weight: 600;
+//     border-radius: 10px;
+//   }
+// }
+
+// .p-table {
+//   h3 {
+//     font-size: 26px;
+//     font-weight: 700;
+//     color: #030229;
+//     padding-bottom: 15px;
+//   }
+
+//   table {
+//     thead {
+//       tr {
+//         th {
+//           color: #030229;
+//           font-size: 18px;
+//           font-weight: 700;
+//           text-align: center;
+//           padding: 20px;
+//         }
+//       }
+//     }
+
+//     tbody {
+//       tr {
+//         td {
+//           color: #4f4f4f;
+//           font-size: 18px;
+//           font-weight: 600;
+//           text-align: center;
+//           padding: 20px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .allFile-section {
+//   .pre-bill {
+//     position: relative;
+//     content: '';
+//     box-sizing: border-box;
+
+//     .viewFullPrescription-btn {
+//       visibility: hidden;
+//       position: absolute;
+//       top: 40%;
+//       left: 50%;
+//       transform: translateX(calc(0% - 50%));
+//       z-index: 22;
+//       background-color: #0EABEB;
+//       font-size: 20px;
+//       font-weight: 600;
+//       color: white;
+//       padding: 12px 14px;
+//       border-radius: 10px;
+//     }
+
+//     &::after {
+//       position: absolute;
+//       content: '';
+//       box-sizing: border-box;
+//       width: 0%;
+//       height: 0%;
+//       visibility: hidden;
+//     }
+
+//     &:hover {
+//       &::after {
+//         position: absolute;
+//         background-color: rgba(66, 62, 62, 0.596);
+//         top: 0px;
+//         left: 0px;
+//         border-radius: 10px;
+//         width: 100%;
+//         height: 100%;
+//         visibility: visible;
+//       }
+
+//       .viewFullPrescription-btn {
+//         visibility: visible;
+//       }
+//     }
+//   }
+// }
+
+// .patioentRecord .css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+//   font-size: 16px;
+// }
+
+// .css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+//   padding: 0px;
+// }
+
+// // Patient Record Accesst component end
+
+// // createPrescription tools start
+
+// .cp-tool {
+//   border-radius: 10px;
+
+//   .head {
+//     background-color: #f6f8fb;
+//     padding: 15px 15px;
+//     border-radius: 10px 10px 0px 0px;
+//   }
+
+//   .box-data {
+//     padding: 15px 15px;
+//   }
+
+//   .cp-add {
+//     padding-top: 30px;
+
+//     button {
+//       padding: 10px 14px;
+//       background-color: #0eabeb;
+//       border-radius: 10px;
+//       font-size: 17px;
+//       font-weight: 600;
+//       color: white;
+//       text-transform: capitalize;
+//     }
+//   }
+
+//   h1 {
+//     font-size: 26px;
+//     font-weight: 700;
+//     color: #030229;
+//   }
+
+//   h2 {
+//     font-size: 18px;
+//     font-weight: 600;
+//     color: #030229;
+//   }
+
+//   p {
+//     color: #818194;
+//     font-size: 16px;
+//     font-weight: 400;
+//     display: flex;
+//     justify-content: space-between;
+//     padding: 5px 0px;
+
+//     span {
+//       font-size: 16px;
+//       font-weight: 700;
+//       color: #4f4f4f;
+//     }
+
+//     .onside {
+//       color: #5678e9;
+//     }
+//   }
+// }
+
+// form {
+//   justify-content: space-between;
+
+//   .input-box {
+//     position: relative;
+//     padding: 15px 0px;
+
+//     .label {
+//       position: absolute;
+//       top: 4px;
+//       left: 14px;
+//       background-color: white;
+//     }
+
+//     input {
+//       padding: 12px 14px;
+//       border: 1px solid #d9d9d9;
+//       border-radius: 10px;
+//       background-color: white;
+
+//       &:focus {
+//         border: 1px solid #718ebf;
+//       }
+
+//       &::placeholder {
+//         color: #a7a7a7;
+//       }
+//     }
+
+//     &:nth-child(1) {
+//       width: 32%;
+
+//       input {
+//         width: 100%;
+//       }
+//     }
+
+//     &:nth-child(2) {
+//       width: 32%;
+
+//       input {
+//         width: 100%;
+//       }
+//     }
+
+//     &:nth-child(3) {
+//       width: 32%;
+
+//       input {
+//         width: 100%;
+//       }
+//     }
+//   }
+
+//   .condition {
+//     width: 100%;
+//     padding-top: 20px;
+
+//     .policies {
+//       input {
+//         width: 20px;
+//       }
+
+//       p {
+//         display: inline-block;
+//         padding-left: 10px;
+//       }
+
+//       span {
+//         color: #5678e9;
+//       }
+//     }
+
+//     .register-btn {
+//       padding: 15px 0px;
+
+//       button {
+//         width: 100%;
+//         background-color: #f6f8fb;
+//         color: #4f4f4f;
+//         padding: 12px 14px;
+//         border-radius: 10px;
+//         font-size: 20px;
+
+//         &:hover {
+//           background-color: #0eabeb;
+//           color: white;
+//         }
+//       }
+//     }
+
+//     .login-btn {
+//       p {
+//         font-family: Lato;
+//         font-size: 16px;
+//         font-weight: 400;
+//         line-height: 19.2px;
+//         text-align: center;
+//       }
+//     }
+//   }
+// }
+
+// .drug {
+//   label {
+//     background-color: white;
+//     z-index: 2;
+//   }
+
+//   input,
+//   .select {
+//     border: 1px solid #d3d3d3;
+//     border-radius: 10px;
+//   }
+
+//   .icon {
+//     svg {
+//       color: red;
+//     }
+//   }
+// }
+
+// .add-medicine {
+//   padding-top: 25px;
+
+//   button {
+//     background-color: #0eabeb;
+//     color: white;
+//   }
+// }
+
+// .addition-note {
+//   padding-top: 20px;
+
+//   label {
+//     padding: 10px;
+//   }
+
+//   textarea {
+//     border: 1px solid #d3d3d3;
+//     border-radius: 10px;
+//     padding: 10px;
+//   }
+// }
+
+// .save-btn {
+//   button {
+//     background-color: #0eabeb;
+//     color: white;
+//   }
+// }
+
+// .Prescription-bill {
+//   .head {
+//     .logo {
+//       img {}
+//     }
+
+//     .name {
+//       p {
+//         color: #0eabeb;
+//         font-size: 24px;
+//         font-weight: 700;
+//       }
+
+//       span {
+//         color: #818194;
+//         font-size: 14px;
+//         font-weight: 600;
+//       }
+//     }
+//   }
+
+//   .dr-details {
+//     padding-top: 15px;
+
+//     p {
+//       color: #141414;
+//       font-size: 16px;
+//       font-weight: 600;
+//       width: 50%;
+
+//       span {
+//         color: #818194;
+//         font-size: 14px;
+//         font-weight: 600;
+//       }
+//     }
+
+//     .add {
+//       width: 100%;
+//     }
+//   }
+
+//   table {
+//     thead {
+//       tr {
+//         th {}
+//       }
+//     }
+
+//     tbody {
+//       tr {
+//         td {}
+
+//         .duration {
+//           span {
+//             background-color: #39973d1a;
+//             display: inline-block;
+//             color: Green;
+//             padding: 3px 10px;
+//             border-radius: 20px;
+//           }
+//         }
+
+//         .take {
+//           span {
+//             background-color: #5678e91a;
+//             display: inline-block;
+//             color: Light #718ebf;
+//             padding: 3px 10px;
+//             border-radius: 20px;
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   .note {
+//     padding-top: 15px;
+
+//     h3 {
+//       color: #030229;
+//       font-size: 16px;
+//       font-weight: 500;
+//     }
+
+//     p {
+//       color: #4f4f4f;
+//       font-size: 14px;
+//       font-weight: 500;
+//     }
+//   }
+
+//   .condition {
+//     padding-top: 15px;
+
+//     .sign {
+//       span {
+//         color: #a7a7a7;
+//         font-size: 14px;
+//         font-weight: 600;
+//       }
+//     }
+
+//     .btn {
+//       button {
+//         color: white;
+//         background-color: #0eabeb;
+//         padding: 8px 25px;
+//         border-radius: 10px;
+//       }
+//     }
+//   }
+// }
+
+// // createPrescription tools end
+
+// // managePrescription tools start
+
+// .manage-p {
+
+//   .today,
+//   .older {
+//     color: #0eabeb;
+//     font-size: 14px;
+//     font-weight: 400;
+//     text-transform: capitalize;
+//   }
+
+//   .head {
+//     align-items: center;
+
+//     .tital {
+//       p {
+//         font-size: 26px;
+//         font-weight: 700;
+//         color: #030229;
+//       }
+//     }
+
+//     .mp-tool {
+//       background-color: #f6f8fb;
+//       border-radius: 15px;
+//     }
+//   }
+
+//   table {
+//     thead {
+//       tr {
+//         th {
+//           background-color: #f6f8fb;
+//           font-size: 18px;
+//           font-weight: 700;
+//           color: #030229;
+//           text-align: center;
+//           padding: 20px;
+//         }
+//       }
+//     }
+
+//     tbody {
+//       tr {
+//         td {
+//           font-size: 18px;
+//           font-weight: 600;
+//           color: #4f4f4f;
+//           text-align: center;
+//         }
+
+//         .type {
+//           span {
+//             padding: 0px 15px;
+//             display: inline-block;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .css-1peo4km-MuiPaper-root-MuiDialog-paper {
+//   max-width: 602px;
+// }
+
+// .manage-prescription {
+//   width: 700px;
+//   margin: 0px auto;
+
+//   .tital {
+//     color: #030229;
+//     font-size: 24px;
+//     font-weight: 700;
+//   }
+
+//   .close-btn {
+//     background-color: rgb(243, 130, 130);
+//     color: white;
+
+//     svg {
+//       font-size: 15px;
+//     }
+
+//     &:hover {
+//       background-color: red;
+//     }
+//   }
+
+//   .head {
+//     .logo {}
+
+//     .name {
+//       p {
+//         color: #0EABEB;
+//         font-size: 24px;
+//         font-weight: 700;
+//       }
+
+//       span {}
+//     }
+//   }
+
+//   .details {
+//     p {
+//       width: 50%;
+//       color: #141414;
+//       font-size: 16px;
+//       font-weight: 600;
+
+//       span {
+//         color: #818194;
+//         font-size: 14px;
+//         font-weight: 600;
+//       }
+//     }
+
+//     .add {
+//       width: 100%;
+//     }
+//   }
+
+//   .table-data {
+//     thead {
+//       tr {
+//         th {
+//           background-color: #f3f4f6;
+//         }
+//       }
+//     }
+
+//     tbody {
+//       tr {
+//         td {}
+
+//         .duration {
+//           span {
+//             background-color: #39973D1A;
+//             color: #39973D;
+//             font-size: 14px;
+//             font-weight: 600;
+//             padding: 5px 10px;
+//             border-radius: 15px;
+//           }
+//         }
+
+//         .take {
+//           span {
+//             color: #718EBF;
+//             background-color: #5678E91A;
+//             font-size: 14px;
+//             font-weight: 600;
+//             padding: 5px 10px;
+//             border-radius: 15px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// // managePrescription tools end
+
+// // teleconsultation module start
+
+// .teli-module {
+//   .teli-btn {
+//     button {
+//       font-size: 17px;
+//       font-weight: 400;
+//       text-transform: capitalize;
+//       // color: #0EABEB;
+//     }
+//   }
+
+//   .head {
+//     h2 {
+//       color: #030229;
+//       font-size: 26px;
+//       font-weight: 700;
+//       padding: 17px;
+//     }
+
+//     button {
+//       border: 2px solid #d3d3d3;
+//       border-radius: 10px;
+//       font-size: 16px;
+//       font-weight: 600;
+//       color: #141414;
+
+//       svg {
+//         font-size: 24px;
+//         color: #4f4f4f;
+//       }
+//     }
+//   }
+
+//   .box {
+//     padding: 0px !important;
+
+//     h3 {
+//       font-size: 18px;
+//       font-weight: 600;
+//       color: #030229;
+//       background-color: #f6f8fb;
+//       border-top-right-radius: 10px;
+//       border-top-left-radius: 10px;
+//       padding: 15px;
+//     }
+
+//     p {
+//       color: #4f4f4f;
+//       font-size: 16px;
+//       font-weight: 400;
+//       display: flex;
+//       justify-content: space-between;
+//       padding: 5px 15px;
+
+//       strong {
+//         color: #818194;
+//       }
+//     }
+
+//     .join {
+//       width: 47%;
+//       color: #ffffff;
+//       background-color: #39973d;
+//       padding: 12px 14px;
+//       border-radius: 10px;
+
+//       svg {
+//         font-size: 24px;
+//       }
+//     }
+
+//     .reschedule {
+//       width: 47%;
+//       color: #ffffff;
+//       background-color: #0eabeb;
+//       padding: 12px 14px;
+//       border-radius: 10px;
+
+//       svg {
+//         font-size: 24px;
+//       }
+//     }
+//   }
+// }
+
+// // teleconsultation module end
