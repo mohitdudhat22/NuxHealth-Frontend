@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+input {
+  outline: none;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .breadcrumbs {
+    font-size: 18px;
+    font-weight: 400;
+    border: 1px solid #d9d9d9;
+    padding: 5px 20px;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    color: #2bb5ed;
+    background-color: #f8fcfe;
+
+    @media (max-width: 576px) {
+      display: none;
+    }
+
+    svg {
+      font-size: 30px;
+      padding-right: 10px;
+      color: gray;
+
+      @media (max-width: 576px) {
+        padding-right: 5px;
+        max-width: 20px;
+        height: auto;
+      }
+    }
+
+    .icon {
+      padding-right: 10px;
+      font-size: 30px;
+      color: #ababab;
+
+      @media (max-width: 576px) {
+        font-size: 24px;
+        padding-right: 5px;
+      }
+    }
+  }
+  .note {
+    @media (max-width: 768px) {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
