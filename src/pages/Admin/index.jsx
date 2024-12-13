@@ -1,0 +1,37 @@
+import { AdminPanelData } from "@/constants/data";
+import Dashboard from "../dashboard/Dashboard";
+import Profile from "../profile/Profile";
+import { Edit } from "../profile/Edit";
+import { CreateBill } from "@/imports";
+
+const Admin = () => {
+  return (
+    <DashboardLayout items={AdminPanelData}>
+      <Routes>
+        <Route path="" element={<Dashboard />} />
+        <Route path="profile/*" element={<Profile />} />
+        <Route path="edit/" element={<Edit />} />
+        <Route path="/createBill" element={<CreateBill />} />
+        <Route path="/editBill/:id" element={<EditBill />} />
+        <Route path="/bill/:id" element={<MainBill />} />
+        <Route path="/bill2/:id" element={<Bill2 />} />
+        <Route path="/bill3/:id" element={<Bill3 />} />
+        <Route path="/editinvoice" element={<EditDesignInvoice />} />
+        <Route path="doctorManagement" element={<DoctorManagement />} />
+        <Route path="doctorAdd" element={<DoctorAdd />} />
+        <Route path="doctorEdit/:doctorId" element={<DoctorEdit />} />
+        <Route path="patientManagement" element={<PatientManagement />} />
+        <Route path="monitorBilling" element={<MonitorBilling />} />
+        <Route path="insuranceClaims" element={<InsuranceClaims />} />
+        <Route path="paymentMethod" element={<PaymentMethod />} />
+        <Route path="invoice" element={<Invoice />} />
+        <Route
+          path="reportingAndAnalytics"
+          element={<ReportingAndAnalytics />}
+        />
+      </Routes>
+    </DashboardLayout>
+  );
+};
+
+export default Admin;

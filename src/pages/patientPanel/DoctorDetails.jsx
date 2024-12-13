@@ -19,7 +19,7 @@ const DoctorDetails = ({ doctorId }) => {
     } finally {
       setLoading(false);
     }
-  }; 
+  };
 
   useEffect(() => {
     fetchDoctorData();

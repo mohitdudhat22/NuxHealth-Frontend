@@ -194,7 +194,7 @@ const Appointment = () => {
                       : "text-gray-500"
                   }`}
                 >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)} Appointment 
+                  {tab.charAt(0).toUpperCase() + tab.slice(1)} Appointment
                 </button>
               </li>
             ))}
@@ -205,7 +205,7 @@ const Appointment = () => {
               <div className="w-full p-4">
                 <div className="flex flex-col space-y-4 lg:space-y-0 lg:flex-row lg:justify-between lg:items-center justify-start">
                   <h1 className="sm:text-2xl font-semibold text-gray-900 text-md">
-                    My Appointment 
+                    My Appointment
                   </h1>
                   <div className="flex flex-col sm:flex-row sm:space-y-0 sm:space-x-3 new-lg:space-x-1 new-xl:space-x-2 space-y-3">
                     {/* Search input */}

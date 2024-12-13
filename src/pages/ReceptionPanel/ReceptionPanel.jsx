@@ -30,15 +30,13 @@ import PatientMeetingConference from '../PatientMeetingConference/PatientMeeting
 import { ErrorSharp } from '@mui/icons-material';
 import { useGlobal } from '../../hooks/useGlobal';
 import { ReceptionPatientRegistration } from './ReceptionPatientRegistration';
-import { ReceptionAppoinment } from './ReceptionAppoinment';
-import ReceptionAppoinmentBooking from './ReceptionAppoinmentBooking';
 
 export const ReceptionPanel = () => {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const { searchTerm, setSearchTerm } = useGlobal();
-    const { selectedOption, setSelectedOption } = useGlobal();
-    const { logout } = useAuth();
+      const { searchTerm, setSearchTerm } = useGlobal();
+      const { selectedOption, setSelectedOption } = useGlobal();
+      const { logout } = useAuth();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -72,7 +70,7 @@ export const ReceptionPanel = () => {
                         <ul className="space-y-2 p-2">
                             {[
                                 {
-                                    to: "",
+                                    to: "/reception/patientRegistration",
                                     icon: FaUser,
                                     text: "Patient Registration",
                                 },
@@ -101,12 +99,7 @@ export const ReceptionPanel = () => {
                                     icon: IoMdChatbubbles,
                                     text: "Chat",
                                 },
-                                {
-                                    to: "/patient/bills",
-                                    icon: RiBillLine,
-                                    text: "Bills"
-                                },
-
+                                { to: "/patient/bills", icon: RiBillLine, text: "Bills" },
                             ].map((item, index) => (
                                 <li key={index}>
                                     <NavLink
@@ -174,10 +167,9 @@ export const ReceptionPanel = () => {
                     <div className="max-w-10xl mx-auto py-2">
                         {searchTerm === "" ? (
                             <Routes>
-                                {/* <Route path="" element={"home"} /> */}
-                                <Route path="" element={<ReceptionPatientRegistration />} />
-                                <Route path="/appointment" element={<ReceptionAppoinment />} />
-                                <Route path="/appointmentBooking" element={<ReceptionAppoinmentBooking />} />
+                                <Route path="" element={"home"} />
+                                <Route path="/patientRegistration" element={<ReceptionPatientRegistration/>} />
+                                <Route path="/appointment" element={"hello"} />
 
 
                                 <Route path="profile/*" element={<PatientProfile />} />
@@ -185,8 +177,10 @@ export const ReceptionPanel = () => {
                                 <Route path="/testReport" element={<TestReport />} />
                                 <Route path="/medicalHistory" element={<MedicalHistory />} />
                                 <Route path="/allAppointment" element={<AllAppointment />} />
+                               
                                 <Route path="/bills" element={<Bills />} />
                                 <Route path="/teleconsultation" element={<Teleconsultation />} />
+                                <Route path="/appointmentBooking" element={<AppointmentBooking />} />
                                 <Route path="/priscriptionAccess" element={<PriscriptionAccess />} />
                                 <Route path="/chatScreen" element={<ChatScreen1 />} />
                                 <Route path="/vid" element={<PatientMeetingConference />} />
