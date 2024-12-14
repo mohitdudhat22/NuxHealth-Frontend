@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
 import { useGlobal } from "@/hooks/useGlobal";
-import { PatientPanelData } from "@/constants/data";
 import { HMHeader, HMSidebar } from "@/components";
 
 export const DashboardLayout = ({ children, items }) => {

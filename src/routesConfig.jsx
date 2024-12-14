@@ -4,7 +4,7 @@ import {
   AdminMobile,
   AdminOtp,
   AdminChangePassword,
-  AdminPanel,
+  // AdminPanel,
   Invoice,
   CreateBill,
   EditBill,
@@ -26,7 +26,7 @@ import {
   VideoCall,
   AppointmentBooking,
 } from "./imports";
-import { PatientPanel } from "./pages";
+import { AdminPanel, PatientPanel } from "./pages";
 import PatientRecordAccesst from "./pages/doctroPanel/PatientRecordAccesst";
 import { ReceptionProfile } from "./pages/ReceptionPanel/profile/ReceptionProfile";
 import { ReceptionPanel } from "./pages/ReceptionPanel/ReceptionPanel";
@@ -599,7 +599,6 @@ const routesConfig = [
       },
     ],
   },
-
 
   // Extra routes
   // {

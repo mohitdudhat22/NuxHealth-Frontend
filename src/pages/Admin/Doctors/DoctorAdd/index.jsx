@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { FaCircleMinus, FaImage } from "react-icons/fa6";
-import apiService from "../../services/api.js";
+import { FaImage } from "react-icons/fa6";
+import apiService from "../../../../services/api.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useGlobal } from "../../hooks/useGlobal.jsx";
-import { countryCodes, DoctorFormData, timeOptions } from "./constants.js";
+import { useGlobal } from "../../../../hooks/useGlobal.jsx";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Country, State, City } from "country-state-city"; // Import country-state-city
+import { Country, State, City } from "country-state-city";
+import { timeOptions } from "@/constants/data.jsx";
 
 const DoctorAdd = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,7 +15,38 @@ const DoctorAdd = () => {
 
   const [signaturePreview, setSignaturePreview] = useState(null);
   const [profilePicturePreview, setProfilePicturePreview] = useState(null);
-  const [formData, setFormData] = useState(DoctorFormData);
+  const [formData, setFormData] = useState({
+    name: "",
+    qualification: "",
+    gender: "",
+    speciality: "",
+    workOnStart: "",
+    workingTimeStart: "",
+    checkUpTimeStart: "",
+    breakTimeStart: "",
+    experience: "",
+    phone: "",
+    countryCode: "",
+    age: "",
+    email: "",
+    country: "",
+    state: "",
+    city: "",
+    zipCode: "",
+    doctorAddress: "",
+    description: "",
+    onlineConsultationRate: "",
+    currentHospital: "",
+    hospitalName: "",
+    hospitalAddress: "",
+    worksiteLink: "",
+    emergencyContactNo: "",
+    signature: null,
+    profilePicture: null,
+    password: "",
+    confirmPassword: "",
+    hospital: "",
+  });
 
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
@@ -29,7 +60,7 @@ const DoctorAdd = () => {
   useEffect(() => {
     if (formData.hospital && allHospitals.length) {
       const selectedHospital = allHospitals.find(
-        (hospital) => hospital._id === formData.hospital,
+        (hospital) => hospital._id === formData.hospital
       );
       setFormData((prevData) => ({
         ...prevData,
@@ -50,7 +81,7 @@ const DoctorAdd = () => {
 
     if (name === "country") {
       const selectedCountry = countries.find(
-        (country) => country.isoCode === value,
+        (country) => country.isoCode === value
       );
       setIsoCodes(selectedCountry.phonecode); // Set isoCode for use in the next step
       setFormData((prevData) => ({
@@ -67,7 +98,7 @@ const DoctorAdd = () => {
       setFormData((prevData) => ({ ...prevData, city: "" })); // Reset city
     } else if (name === "hospital") {
       const selectedHospital = allHospitals.find(
-        (hospital) => hospital._id === value,
+        (hospital) => hospital._id === value
       );
       setFormData({
         ...formData,
@@ -98,7 +129,7 @@ const DoctorAdd = () => {
       reader.readAsDataURL(file);
     } else {
       toast.error(
-        "Please upload a valid PNG or JPEG file for the profile picture.",
+        "Please upload a valid PNG or JPEG file for the profile picture."
       );
     }
   };
@@ -110,7 +141,7 @@ const DoctorAdd = () => {
     if (file) {
       if (file.type !== "image/png" && file.type !== "image/jpeg") {
         toast.error(
-          "Please upload a valid PNG or JPEG file for the signature.",
+          "Please upload a valid PNG or JPEG file for the signature."
         );
         input.value = ""; // Reset input
         return;
@@ -148,18 +179,18 @@ const DoctorAdd = () => {
 
     // Fetch the country, state, and city names based on the selected ISO codes
     const countryObj = Country.getAllCountries().find(
-      (country) => country.isoCode === formData.country,
+      (country) => country.isoCode === formData.country
     );
     const countryName = countryObj?.name;
 
     const stateObj = State.getStatesOfCountry(formData.country).find(
-      (state) => state.isoCode === formData.state,
+      (state) => state.isoCode === formData.state
     );
     const stateName = stateObj?.name;
 
     const cityObj = City.getCitiesOfState(
       formData.country,
-      formData.state,
+      formData.state
     ).find((city) => city.name === formData.city);
     const cityName = cityObj?.name;
 
@@ -712,7 +743,7 @@ const DoctorAdd = () => {
                               allHospitals.find(
                                 (hospital) =>
                                   hospital._id ===
-                                  formData.hospital.toString().name,
+                                  formData.hospital.toString().name
                               )) ||
                             formData.currentHospital
                           }
@@ -734,7 +765,7 @@ const DoctorAdd = () => {
                           maxLength={100}
                           value={
                             allHospitals?.find(
-                              (item) => item._id === formData.hospital,
+                              (item) => item._id === formData.hospital
                             )?.name || formData.hospitalName
                           }
                           onChange={handleChange}
@@ -777,7 +808,7 @@ const DoctorAdd = () => {
                           maxLength={200}
                           value={
                             allHospitals?.find(
-                              (item) => item._id === formData.hospital,
+                              (item) => item._id === formData.hospital
                             )?.address || formData.hospitalAddress
                           }
                           onChange={handleChange}

@@ -7,11 +7,11 @@ import {
   FaEye,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useGlobal } from "../../hooks/useGlobal.jsx";
-import PatientsStatistics from "../../component/PatientComponents/PatientsStatistics.jsx";
-import PatientsBreakdown from "../../component/PatientComponents/PatienBreakDown.jsx";
-import apiService from "../../services/api.js";
+import PatientsStatistics from "@/component/PatientComponents/PatientsStatistics.jsx";
+import PatientsBreakdown from "@/component/PatientComponents/PatienBreakDown.jsx";
 import toast from "react-hot-toast";
+import apiService from "@/services/api.js";
+import { useGlobal } from "@/hooks/useGlobal";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -55,6 +55,7 @@ const Dashboard = () => {
       });
 
       setTodaysAppointments(filteredAppointments);
+      console.log(filteredAppointments);
     };
 
     const fetchPatients = async () => {
@@ -213,16 +214,16 @@ const Dashboard = () => {
                                 </p>
                               </td>
                               <td
-                                className={`${bill.status === "paid"
-                                  ? "status"
-                                  : "status1"
-                                  } px-2 py-1`}
+                                className={`${
+                                  bill.status === "paid" ? "status" : "status1"
+                                } px-2 py-1`}
                               >
                                 <p
-                                  className={`${bill.status === "paid"
-                                    ? "bg-green-100 text-green-600"
-                                    : "bg-red-100 text-red-600"
-                                    } text-sm font-semibold px-5 py-1 rounded-full`}
+                                  className={`${
+                                    bill.status === "paid"
+                                      ? "bg-green-100 text-green-600"
+                                      : "bg-red-100 text-red-600"
+                                  } text-sm font-semibold px-5 py-1 rounded-full`}
                                 >
                                   {bill.status}
                                 </p>
@@ -244,7 +245,6 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-
           </div>
 
           <div className="bottom flex px-[20px] py-[10px] pb-[30px]">
@@ -263,7 +263,7 @@ const Dashboard = () => {
                     </div>
                   </div>
 
-                  {todaysAppointments.length === 0 ? (
+                  {todaysAppointments?.length === 0 ? (
                     <div className="img h-[85%] pt-5">
                       <img
                         src="../img/Frame1.png"
@@ -273,15 +273,18 @@ const Dashboard = () => {
                     </div>
                   ) : (
                     <div className="appointments-list h-[80%] flex overflow-y-scroll scrollbar-thin scrollbar-thumb-[#030229] scrollbar-track-[#f4f4f4]">
-                      {todaysAppointments.map((appointment, index) => (
-                        <div className="box new-xxl:w-[33%] new-xl:w-[49%] new-lg:w-[49%] p-2" key={index}>
+                      {todaysAppointments?.map((appointment, index) => (
+                        <div
+                          className="box new-xxl:w-[33%] new-xl:w-[49%] new-lg:w-[49%] p-2"
+                          key={index}
+                        >
                           <div className="content">
                             <div className="heading flex justify-between items-center bg-[#f6f8fb] p-3 rounded-t-lg">
                               <p className="text-[18px] text-[#030229] font-semibold">
-                                {appointment.patientId.firstName}{" "}
-                                {appointment.patientId.lastName}
+                                {appointment?.patientId?.firstName}{" "}
+                                {appointment?.patientId?.lastName}
                               </p>
-                              <span>{appointment.type}</span>
+                              <span>{appointment?.type}</span>
                             </div>
                             <div className="data border border-[#f4f4f4] p-3">
                               <ul>

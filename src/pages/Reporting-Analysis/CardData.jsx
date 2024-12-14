@@ -1,5 +1,5 @@
 import { People, Repeat, LocalHospital, Assignment } from "@mui/icons-material";
-import InfoCard from "../Dashboard/InfoCard";
+import InfoCard from "../Admin/Dashboard/InfoCard";
 
 const CardData = () => {
   return (

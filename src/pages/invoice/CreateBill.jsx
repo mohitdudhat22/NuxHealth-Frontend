@@ -232,7 +232,7 @@ const CreateBill = () => {
           <div className="p-4 bg-white rounded-xl">
             <div className="mb-4">
               <p className="text-[#030229] text-[26px] font-bold">
-                Create Bill{" "}
+                Create Bill
               </p>
             </div>
 

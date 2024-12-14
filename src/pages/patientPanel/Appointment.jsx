@@ -12,7 +12,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import { IoCloseSharp } from "react-icons/io5";
 import CustomDateModal from "../../component/modals/CustomDateModal";
 import CancelAppointmentModal from "../../component/modals/CancelAppointmentModal";
-import Onsite from "../doctorManagement/Onsite";
+import Onsite from "../Admin/DoctorManagement/Onsite";
 import toast from "react-hot-toast";
 
 const Appointment = () => {
