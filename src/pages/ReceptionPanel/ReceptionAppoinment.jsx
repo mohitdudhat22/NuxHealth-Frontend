@@ -261,8 +261,8 @@ export const ReceptionAppoinment = () => {
                 </div>
               </div>
 
-              <div className="overflow-y-auto" style={{ height: "550px" }}>
-                {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 new-lg:grid-cols-3 new-xxl:grid-cols-4  gap-4">
+                            <div className="overflow-auto" style={{ height: "550px" }}>
+                               {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 new-lg:grid-cols-3 new-xxl:grid-cols-4  gap-4">
                                     {filteredAppointments?.length > 0 ? (
                                         filteredAppointments?.map((appointment) => (
                                             <div
@@ -376,77 +376,71 @@ export const ReceptionAppoinment = () => {
                                             No appointments found.
                                         </div>
                                     )}
-                                </div> */}
+                                </div>  */}
 
-                <div className="bill-table h-full scrollbar-thin scrollbar-thumb-[#030229] scrollbar-track-gray-200">
-                  <table className=" px-2 min-w-full table-auto">
-                    <thead>
-                      <tr className="bg-gray-100">
-                        <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
-                          Dr. Name
-                        </th>
-                        <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
-                          Appointment type
-                        </th>
-                        <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
-                          Hospital Name
-                        </th>
-                        <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
-                          Appointment Date
-                        </th>
-                        <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
-                          Appointment time
-                        </th>
-                        <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
-                          Patient issue
-                        </th>
-                        <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredAppointments?.map((appointment) => (
-                        <tr className="text-center">
-                          <td className="border-b border-[#F4F4F4]">
-                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold">
-                              Dr. {appointment.doctorId?.name}
-                            </p>
-                          </td>
-                          <td className="border-b border-[#F4F4F4]">
-                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold">
-                              {appointment.type}
-                            </p>
-                          </td>
-                          <td className="border-b border-[#F4F4F4]">
-                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold">
-                              {appointment?.doctorId?.hospitalId?.address}
-                            </p>
-                          </td>
-                          <td className="border-b border-[#F4F4F4]">
-                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold">
-                              {moment(appointment.appointmentTime).format(
-                                "DD/MM/YYYY"
-                              )}
-                            </p>
-                          </td>
-                          <td className="border-b border-[#F4F4F4]">
-                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold">
-                              {moment(appointment.appointmentTime).format(
-                                "hh:mm A"
-                              )}
-                            </p>
-                          </td>
-                          <td className="border-b border-[#F4F4F4]">
-                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold">
-                              {appointment.patient_issue}
-                            </p>
-                          </td>
-                          <td className="border-b border-[#F4F4F4]">
-                            <p className="p-4"></p>
-                          </td>
-                        </tr>
-                      ))}
+                                <div className="bill-table h-full scrollbar-thin scrollbar-thumb-[#030229] scrollbar-track-gray-200">
+                                    <table className=" px-2 min-w-full table-auto">
+                                        <thead>
+                                            <tr className="bg-gray-100">
+                                                <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
+                                                    Dr. Name
+                                                </th>
+                                                <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
+                                                    Appointment type
+                                                </th>
+                                                <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
+                                                    Hospital Name
+                                                </th>
+                                                <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
+                                                    Appointment Date
+                                                </th>
+                                                <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
+                                                    Appointment time
+                                                </th>
+                                                <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
+                                                    Patient issue
+                                                </th>
+                                                <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
+                                                    Action
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                filteredAppointments?.map((appointment) => (
+                                                   <tr className="text-center">
+                                                        <td className = "border-b border-[#F4F4F4]">
+                                                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold" >Dr. {appointment.doctorId?.name}</p>
+                                                        </td>
+                                                        <td className = "border-b border-[#F4F4F4]">
+                                                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold" >{appointment.type}</p>
+                                                        </td>
+                                                        <td className = "border-b border-[#F4F4F4]">
+                                                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold" >{appointment?.doctorId?.hospitalId?.address}</p>
+                                                        </td>
+                                                        <td className = "border-b border-[#F4F4F4]">
+                                                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold" >{moment(appointment.appointmentTime).format(
+                                                            "DD/MM/YYYY"
+                                                        )}</p>
+                                                        </td>
+                                                        <td className = "border-b border-[#F4F4F4]">
+                                                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold" >{moment(appointment.appointmentTime).format(
+                                                            "hh:mm A"
+                                                        )}</p>
+                                                        </td>
+                                                        <td className = "border-b border-[#F4F4F4]">
+                                                            <p className="p-4 text-[#4F4F4F] text-[18px] font-semibold" >{appointment.patient_issue}</p>
+                                                        </td>
+                                                        <td className = "border-b border-[#F4F4F4]">
+                                                            <p className="p-4" ></p>
+                                                        </td>
+                                                   </tr>
+
+
+                                                ))
+                                            }
+
+
 
                       {/* <tr className="text-center">
                                                 <td className="bill-num py-1 px-1">

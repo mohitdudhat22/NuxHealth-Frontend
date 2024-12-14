@@ -28,6 +28,7 @@ import {
 } from "./imports";
 import { AdminPanel, PatientPanel } from "./pages";
 import PatientRecordAccesst from "./pages/doctroPanel/PatientRecordAccesst";
+import { ReceptionProfile } from "./pages/ReceptionPanel/profile/ReceptionProfile";
 import { ReceptionPanel } from "./pages/ReceptionPanel/ReceptionPanel";
 import { ReceptionPatientRegistration } from "./pages/ReceptionPanel/ReceptionPatientRegistration";
 import ProtectedRoute from "./routes/PrivateRoute";
@@ -566,6 +567,16 @@ const routesConfig = [
     ),
     children: [
       // { path: "", element: null, allowedRoles: ["doctor"] },
+      {
+        path: "profile/",
+        element: (
+          <ProtectedRoute
+            element={<ReceptionProfile/>}
+            allowedRoles={["patient"]}
+            userRole={userRole}
+          />
+        ),
+      },
       {
         path: "registration",
         element: (

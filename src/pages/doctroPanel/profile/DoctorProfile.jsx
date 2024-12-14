@@ -15,7 +15,7 @@ export default function DoctorProfile() {
             <div className="profile-setting new-xxl:w-[80%] new-xl:w-[85%] new-lg:w-[90%] m-auto new-xxl:mt-[-12%] new-xl:mt-[-18%] new-lg:mt-[-20%]">
               <div className="head pb-[15px]">
                 <p className="new-xxl:text-[44px] new-xl:text-[40px] new-lg:text-[36px] font-bold text-white">
-                  Profile Setting
+                  Profile Setting 
                 </p>
               </div>
               <div className="content flex bg-white rounded-[15px] p-[20px] shadow-2xl ">

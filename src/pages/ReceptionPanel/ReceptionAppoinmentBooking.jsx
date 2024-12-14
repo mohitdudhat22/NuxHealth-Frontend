@@ -151,8 +151,8 @@ const ReceptionAppoinmentBooking = () => {
     return (
         <div className="container">
             <div className="p-4 shadow-lg m-3 rounded-lg" style={{ height: "auto" }}>
-                <h1 className="text-xl font-semibold mb-2 md:mb-0">
-                    Appointment Booking
+                <h1 className="text-[26px] text-[#030229] font-bold mb-2 md:mb-0 pb-5">
+                    Appointment Booking 
                 </h1>
                 <div className="w-full border-2 h-auto rounded-md px-3 py-2 bg-white">
                     <div className="flex flex-col m-2">
@@ -280,14 +280,14 @@ const ReceptionAppoinmentBooking = () => {
 }
 
 const SelectInput = ({ label, value, onChange, options }) => (
-    <div className="relative border border-gray-300 rounded-md">
+    <div className="relative border border-gray-300 rounded-md px-2">
         <label className="absolute left-3 -top-2.5 bg-white px-1 text-sm font-semibold text-gray-800">
             {label}
         </label>
         <select
             value={value}
             onChange={onChange}
-            className="block w-full px-3 py-3 text-gray-500 bg-white border-0 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none"
+            className="block w-full px-3 py-3 text-gray-500 bg-white border-0 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 "
         >
             <option value="" disabled>
                 Select {label}

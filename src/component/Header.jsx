@@ -204,6 +204,7 @@ const Header = () => {
             <NotificationBox />
           </Badge>
         </button>
+        
         <NavLink to={"/profile"}>
         <div className=" flex items-center ml-4">
           <Avatar src={userAvatar} alt="User Image" />
