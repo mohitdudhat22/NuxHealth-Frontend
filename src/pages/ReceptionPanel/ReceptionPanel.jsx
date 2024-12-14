@@ -30,13 +30,16 @@ import PatientMeetingConference from '../PatientMeetingConference/PatientMeeting
 import { ErrorSharp } from '@mui/icons-material';
 import { useGlobal } from '../../hooks/useGlobal';
 import { ReceptionPatientRegistration } from './ReceptionPatientRegistration';
+import { ReceptionAppoinment } from './ReceptionAppoinment';
+import ReceptionAppoinmentBooking from './ReceptionAppoinmentBooking';
+import { ReceptionProfile } from './profile/ReceptionProfile';
 
 export const ReceptionPanel = () => {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-      const { searchTerm, setSearchTerm } = useGlobal();
-      const { selectedOption, setSelectedOption } = useGlobal();
-      const { logout } = useAuth();
+    const { searchTerm, setSearchTerm } = useGlobal();
+    const { selectedOption, setSelectedOption } = useGlobal();
+    const { logout } = useAuth();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -70,12 +73,12 @@ export const ReceptionPanel = () => {
                         <ul className="space-y-2 p-2">
                             {[
                                 {
-                                    to: "/reception/patientRegistration",
+                                    to: "/reception",
                                     icon: FaUser,
                                     text: "Patient Registration",
                                 },
                                 {
-                                    to: "/patient",
+                                    to: "/reception/PersonalHealth",
                                     icon: RiContactsBookFill,
                                     text: "Personal Health Record",
                                 },
@@ -85,21 +88,21 @@ export const ReceptionPanel = () => {
                                     text: "Appointment Booking",
                                 },
                                 {
-                                    to: "/patient/priscriptionAccess",
+                                    to: "/reception/priscriptionAccess",
                                     icon: FaFilePrescription,
                                     text: "Prescription Access",
                                 },
                                 {
-                                    to: "/patient/teleconsultation",
+                                    to: "/reception/teleconsultation",
                                     icon: FaLaptopMedical,
                                     text: "Teleconsultation Access",
                                 },
                                 {
-                                    to: "/patient/chatScreen",
+                                    to: "/reception/chatScreen",
                                     icon: IoMdChatbubbles,
                                     text: "Chat",
                                 },
-                                { to: "/patient/bills", icon: RiBillLine, text: "Bills" },
+                                { to: "/reception/bills", icon: RiBillLine, text: "Bills" },
                             ].map((item, index) => (
                                 <li key={index}>
                                     <NavLink
@@ -167,20 +170,23 @@ export const ReceptionPanel = () => {
                     <div className="max-w-10xl mx-auto py-2">
                         {searchTerm === "" ? (
                             <Routes>
-                                <Route path="" element={"home"} />
-                                <Route path="/patientRegistration" element={<ReceptionPatientRegistration/>} />
-                                <Route path="/appointment" element={"hello"} />
+                                <Route path="" element={<ReceptionPatientRegistration />} />
+                                <Route path="/patientRegistration" element={<ReceptionPatientRegistration />} />
+                                <Route path="/appointment" element={<ReceptionAppoinment />} />
+                                <Route path="/appointmentBooking" element={<ReceptionAppoinmentBooking />} />
+                                <Route path="profile/*" element={<ReceptionProfile/>} />
 
 
-                                <Route path="profile/*" element={<PatientProfile />} />
+
+
                                 <Route path="/prescriptions" element={<Prescriptions />} />
                                 <Route path="/testReport" element={<TestReport />} />
                                 <Route path="/medicalHistory" element={<MedicalHistory />} />
                                 <Route path="/allAppointment" element={<AllAppointment />} />
-                               
+
                                 <Route path="/bills" element={<Bills />} />
                                 <Route path="/teleconsultation" element={<Teleconsultation />} />
-                                <Route path="/appointmentBooking" element={<AppointmentBooking />} />
+
                                 <Route path="/priscriptionAccess" element={<PriscriptionAccess />} />
                                 <Route path="/chatScreen" element={<ChatScreen1 />} />
                                 <Route path="/vid" element={<PatientMeetingConference />} />

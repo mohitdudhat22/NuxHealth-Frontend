@@ -126,13 +126,13 @@ export const PatientPanelData = [
 export const ReceptionPanelData = [
   {
     key: "reception",
-    to: "/reception/patientRegistration",
+    to: "/reception",
     icon: FaUser,
     text: "Patient Registration",
   },
   {
     key: "reception",
-    to: "/patient",
+    to: "/reception/PersonalHealth",
     icon: RiContactsBookFill,
     text: "Personal Health Record",
   },
@@ -144,25 +144,25 @@ export const ReceptionPanelData = [
   },
   {
     key: "reception",
-    to: "/patient/priscriptionAccess",
+    to: "/reception/priscriptionAccess",
     icon: FaFilePrescription,
     text: "Prescription Access",
   },
   {
     key: "reception",
-    to: "/patient/teleconsultation",
+    to: "/reception/teleconsultation",
     icon: FaLaptopMedical,
     text: "Teleconsultation Access",
   },
   {
     key: "reception",
-    to: "/patient/chatScreen",
+    to: "/reception/chatScreen",
     icon: IoMdChatbubbles,
     text: "Chat",
   },
   {
     key: "reception",
-    to: "/patient/bills",
+    to: "/reception/bills",
     icon: RiBillLine,
     text: "Bills",
   },

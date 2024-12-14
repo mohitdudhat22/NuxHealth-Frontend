@@ -83,8 +83,8 @@ const Calendar = ({
   };
   const handleBookAppointment = async (appointmentData) => {
     try {
-      await handlePayment(appointmentData);
-      // await createAppointment(user.id, appointmentData, selectedDoctor);
+      // await handlePayment(appointmentData);
+      await createAppointment(user.id, appointmentData, selectedDoctor);
       setEvents([...events, appointmentData]);
       handleCloseModal();
       navigate("/patient/appointment");

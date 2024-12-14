@@ -260,8 +260,8 @@ export const ReceptionAppoinment = () => {
                                 </div>
                             </div>
 
-                            <div className="overflow-y-auto" style={{ height: "550px" }}>
-                                {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 new-lg:grid-cols-3 new-xxl:grid-cols-4  gap-4">
+                            <div className="overflow-auto" style={{ height: "550px" }}>
+                               {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 new-lg:grid-cols-3 new-xxl:grid-cols-4  gap-4">
                                     {filteredAppointments?.length > 0 ? (
                                         filteredAppointments?.map((appointment) => (
                                             <div
@@ -375,12 +375,12 @@ export const ReceptionAppoinment = () => {
                                             No appointments found.
                                         </div>
                                     )}
-                                </div> */}
+                                </div>  */}
 
                                 <div className="bill-table h-full scrollbar-thin scrollbar-thumb-[#030229] scrollbar-track-gray-200">
-                                    <table className=" px-2 min-w-full table-auto">
+                                    <table className=" px-2 min-w-full table-auto border border-[#F4F4F4]">
                                         <thead>
-                                            <tr className="bg-gray-100">
+                                            <tr className="bg-gray-100 sticky top-[-1px]">
                                                 <th className="text-[#030229] text-[18px] font-bold px-4 py-3">
                                                     Dr. Name
                                                 </th>
@@ -404,7 +404,7 @@ export const ReceptionAppoinment = () => {
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody className="overflow-y-scroll ">
                                             {
                                                 filteredAppointments?.map((appointment) => (
                                                    <tr className="text-center">

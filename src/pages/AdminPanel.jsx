@@ -193,7 +193,7 @@ export default function AdminPanel() {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="bg-white shadow-sm z-10">
+        <header className="bg-white  shadow-sm z-10">
           <div className="max-w-10xl py-1 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
             <button onClick={toggleSidebar} className="lg:hidden">
               {isSidebarOpen ? (
