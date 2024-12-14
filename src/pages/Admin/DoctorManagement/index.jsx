@@ -8,9 +8,9 @@ import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import Onsite from "./Onsite"; // Import the Onsite component
 import Delete from "./Delete.jsx";
-import { useDoctor } from "../../hooks/useDoctor.jsx";
+import { useDoctor } from "../../../hooks/useDoctor.jsx";
 import toast from "react-hot-toast";
-import apiService from "../../services/api.js";
+import apiService from "../../../services/api.js";
 export default function DoctorManagement() {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);

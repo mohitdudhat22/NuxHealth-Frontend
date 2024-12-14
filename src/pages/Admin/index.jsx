@@ -1,8 +1,27 @@
 import { AdminPanelData } from "@/constants/data";
-import Dashboard from "../dashboard/Dashboard";
 import Profile from "../profile/Profile";
 import { Edit } from "../profile/Edit";
-import { CreateBill } from "@/imports";
+import {
+  Bill2,
+  Bill3,
+  CreateBill,
+  EditBill,
+  EditDesignInvoice,
+  Invoice,
+} from "@/imports";
+import { DashboardLayout } from "@/Layouts";
+import { Route, Routes } from "react-router-dom";
+import MainBill from "../patientPanel/MainBill";
+import PatientManagement from "../patientManagement/PatientManagement";
+import MonitorBilling from "../billPayment/MonitorBilling";
+import InsuranceClaims from "../billPayment/InsuranceClaims";
+import PaymentMethod from "../billPayment/PaymentMethod";
+import ReportingAndAnalytics from "../ReportingAndAnalytics/ReportingAndAnalytics";
+//
+import Dashboard from "./Dashboard";
+import DoctorManagement from "./DoctorManagement";
+import DoctorEdit from "./Doctors/DoctorEdit";
+import DoctorAdd from "./Doctors/DoctorAdd";
 
 const Admin = () => {
   return (

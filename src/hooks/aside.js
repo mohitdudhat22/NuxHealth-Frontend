@@ -9,7 +9,25 @@ export const useAside = () => {
     switch (location.pathname) {
       //  Website
       case "/":
-        setCurrentPage("Home");
+        setCurrentPage("/");
+        break;
+      case "/doctorManagement":
+        setCurrentPage("/doctorManagement");
+        break;
+      case "/patientManagement":
+        setCurrentPage("/patientManagement");
+        break;
+      case "/monitorBilling":
+        setCurrentPage("/monitorBilling");
+        break;
+      case "/insuranceClaims":
+        setCurrentPage("/insuranceClaims");
+        break;
+      case "/paymentMethod":
+        setCurrentPage("/paymentMethod");
+        break;
+      case "/reportingAndAnalytics":
+        setCurrentPage("/reportingAndAnalytics");
         break;
       // Admin
       // Doctor

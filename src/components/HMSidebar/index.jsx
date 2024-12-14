@@ -91,7 +91,7 @@ export const HMSidebar = ({ items, isSidebarOpen, handleClick }) => {
                                   to={subItem.to}
                                   className={({ isActive }) =>
                                     `flex items-center p-3 text-base font-semibold transition duration-300 hover:bg-gradient-to-r from-[#D5F1FA] hover:text-[#0EABEB] ${
-                                      currentPage === item.key
+                                      currentPage === subItem.key
                                         ? "bg-gradient-to-r from-[#D5F1FA] text-[#0EABEB]"
                                         : "text-gray-500"
                                     }`

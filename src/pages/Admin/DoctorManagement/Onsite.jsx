@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import apiService from "../../services/api.js";
+import apiService from "../../../services/api.js";
 import { IoIosArrowBack } from "react-icons/io";
 import { TbBuildingHospital } from "react-icons/tb";
 import { IoLinkSharp } from "react-icons/io5";
@@ -21,7 +21,7 @@ const Onsite = ({ selectedDoctor, setOpenModel }) => {
       } catch (error) {
         setError(
           "Error fetching doctor details: " +
-            (error.response ? error.response.data.message : error.message),
+            (error.response ? error.response.data.message : error.message)
         );
         toast.error("Error fetching doctor details");
       } finally {

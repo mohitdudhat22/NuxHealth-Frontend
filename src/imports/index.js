@@ -3,18 +3,17 @@ import { lazy } from "react";
 // Admin Components
 export const Login = lazy(() => import("../pages/Login/Login.jsx"));
 export const AdminRegistration = lazy(
-  () => import("../pages/adminRegister/AdminRegistration.jsx"),
+  () => import("../pages/adminRegister/AdminRegistration.jsx")
 );
 export const AdminMobile = lazy(
-  () => import("../pages/adminRegister/AdminMobile.jsx"),
+  () => import("../pages/adminRegister/AdminMobile.jsx")
 );
 export const AdminOtp = lazy(
-  () => import("../pages/adminRegister/AdminOtp.jsx"),
+  () => import("../pages/adminRegister/AdminOtp.jsx")
 );
 export const AdminChangePassword = lazy(
-  () => import("../pages/adminRegister/AdminChangePassword.jsx"),
+  () => import("../pages/adminRegister/AdminChangePassword.jsx")
 );
-export const AdminPanel = lazy(() => import("../pages/AdminPanel.jsx"));
 
 // Invoice Components
 export const Invoice = lazy(() => import("../pages/invoice/Invoice.jsx"));
@@ -23,65 +22,65 @@ export const EditBill = lazy(() => import("../pages/invoice/EditBill.jsx"));
 
 // Doctor Components
 export const DoctorPanel = lazy(
-  () => import("../pages/doctroPanel/DoctorPanel.jsx"),
+  () => import("../pages/doctroPanel/DoctorPanel.jsx")
 );
 export const DoctorProfile = lazy(
-  () => import("../pages/doctroPanel/profile/DoctorProfile.jsx"),
+  () => import("../pages/doctroPanel/profile/DoctorProfile.jsx")
 );
 
 // Patient Components
 export const PatientRegistration = lazy(
-  () => import("../pages/PatientRegistration.jsx"),
+  () => import("../pages/PatientRegistration.jsx")
 );
 export const PatientPanel = lazy(
-  () => import("../pages/patientPanel/PatientPanel.jsx"),
+  () => import("../pages/patientPanel/PatientPanel.jsx")
 );
 export const PersonalHealthRecord = lazy(
-  () => import("../pages/patientPanel/profile/PersonalHealthRecord.jsx"),
+  () => import("../pages/patientPanel/profile/PersonalHealthRecord.jsx")
 );
 export const PatientDetails = lazy(
-  () => import("../pages/patientManagement/PatientDetails.jsx"),
+  () => import("../pages/patientManagement/PatientDetails.jsx")
 );
 export const PatientProfile = lazy(
-  () => import("../pages/patientPanel/profile/PatientProfile.jsx"),
+  () => import("../pages/patientPanel/profile/PatientProfile.jsx")
 );
 export const Prescriptions = lazy(
-  () => import("../pages/patientPanel/profile/Prescriptions.jsx"),
+  () => import("../pages/patientPanel/profile/Prescriptions.jsx")
 );
 export const TestReport = lazy(
-  () => import("../pages/patientPanel/profile/TestReport.jsx"),
+  () => import("../pages/patientPanel/profile/TestReport.jsx")
 );
 export const MedicalHistory = lazy(
-  () => import("../pages/patientPanel/profile/MedicalHistory.jsx"),
+  () => import("../pages/patientPanel/profile/MedicalHistory.jsx")
 );
 export const AllAppointment = lazy(
-  () => import("../pages/patientPanel/profile/Allappoiment.jsx"),
+  () => import("../pages/patientPanel/profile/Allappoiment.jsx")
 );
 export const Appointment = lazy(
-  () => import("../pages/patientPanel/Appointment.jsx"),
+  () => import("../pages/patientPanel/Appointment.jsx")
 );
 export const AppointmentBooking = lazy(
-  () => import("../pages/patientPanel/AppointmentBooking.jsx"),
+  () => import("../pages/patientPanel/AppointmentBooking.jsx")
 );
 export const ChatScreen1 = lazy(
-  () => import("../pages/patientPanel/ChatScreen1.jsx"),
+  () => import("../pages/patientPanel/ChatScreen1.jsx")
 );
 
 // Extra Components
 export const Scheduler = lazy(() => import("../component/Schedular.jsx"));
 export const Bill = lazy(() => import("../pages/invoice/Bill.jsx"));
 export const Onsite = lazy(
-  () => import("../pages/doctorManagement/Onsite.jsx"),
+  () => import("../pages/Admin/DoctorManagement/Onsite.jsx")
 );
 export const CashPayment = lazy(
-  () => import("../pages/billPayment/CashPayment.jsx"),
+  () => import("../pages/billPayment/CashPayment.jsx")
 );
 export const Delete = lazy(
-  () => import("../pages/doctorManagement/Delete.jsx"),
+  () => import("../pages/Admin/DoctorManagement/Delete.jsx")
 );
 export const Bill2 = lazy(() => import("../pages/invoice/Bill2.jsx"));
 export const EditDesignInvoice = lazy(
-  () => import("../pages/billPayment/EditDesignInvoice.jsx"),
+  () => import("../pages/billPayment/EditDesignInvoice.jsx")
 );
 export const Bill3 = lazy(() => import("../pages/invoice/Bill3.jsx"));
 
