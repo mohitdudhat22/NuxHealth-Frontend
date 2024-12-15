@@ -1,33 +1,57 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { ReceptionPatientRegistration } from "../ReceptionPanel/ReceptionPatientRegistration";
-import {
-  AllAppointment,
-  AppointmentBooking,
-  ChatScreen1,
-  MedicalHistory,
-  PatientProfile,
-  Prescriptions,
-  TestReport,
-} from "@/imports";
-import Bills from "../patientPanel/Bills";
-import Teleconsultation from "../patientPanel/Teleconsultation";
-import PatientMeetingConference from "../PatientMeetingConference/PatientMeetingConference";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { RiContactsBookFill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
 import { ErrorSharp } from "@mui/icons-material";
+import {
+  FaCalendarCheck,
+  FaFilePrescription,
+  FaLaptopMedical,
+  FaCalendarAlt,
+} from "react-icons/fa";
+import { IoMdChatbubbles } from "react-icons/io";
+import { RiBillLine } from "react-icons/ri";
+import { Route, Routes, NavLink } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import PatientHeader from "../../component/PatientComponents/PatientHeader";
+import PersonalHealthRecord from "../Patient/profile/PersonalHealthRecord";
+import PatientProfile from "../Patient/profile/PatientProfile";
+import Prescriptions from "../Patient/profile/Prescriptions";
+import TestReport from "../Patient/profile/TestReport";
+import MedicalHistory from "../Patient/profile/MedicalHistory";
+import AllAppointment from "../Patient/profile/Allappoiment";
+import Appointment from "../Patient/Appointment";
+import Bills from "../Patient/Bills";
+import Teleconsultation from "../Patient/Teleconsultation";
+import AppointmentBooking from "../Patient/AppointmentBooking";
+import ChatScreen1 from "../Patient/ChatScreen1";
+import PriscriptionAccess from "../Patient/PriscriptionAccess";
+import PatientMeetingConference from "../Patient/PatientMeetingConference";
+import { useGlobal } from "../../hooks/useGlobal";
+import { ReceptionPatientRegistration } from "./ReceptionPatientRegistration";
+import { ReceptionAppoinment } from "./ReceptionAppoinment";
+import ReceptionAppoinmentBooking from "./ReceptionAppoinmentBooking";
+import { ReceptionProfile } from "./profile/ReceptionProfile";
+import { DashboardLayout } from "@/Layouts";
 import { ReceptionPanelData } from "@/constants/data";
 
-export const Reception = () => {
+const ReceptionPanel = () => {
   return (
     <DashboardLayout items={ReceptionPanelData}>
       <Routes>
-        <Route path="" element={"home"} />
+        <Route path="" element={<ReceptionPatientRegistration />} />
         <Route
           path="/patientRegistration"
           element={<ReceptionPatientRegistration />}
         />
-        <Route path="/appointment" element={"hello"} />
+        <Route path="/appointment" element={<ReceptionAppoinment />} />
+        <Route
+          path="/appointmentBooking"
+          element={<ReceptionAppoinmentBooking />}
+        />
+        <Route path="profile/*" element={<ReceptionProfile />} />
 
-        <Route path="profile/*" element={<PatientProfile />} />
         <Route path="/prescriptions" element={<Prescriptions />} />
         <Route path="/testReport" element={<TestReport />} />
         <Route path="/medicalHistory" element={<MedicalHistory />} />
@@ -35,7 +59,7 @@ export const Reception = () => {
 
         <Route path="/bills" element={<Bills />} />
         <Route path="/teleconsultation" element={<Teleconsultation />} />
-        <Route path="/appointmentBooking" element={<AppointmentBooking />} />
+
         <Route path="/priscriptionAccess" element={<PriscriptionAccess />} />
         <Route path="/chatScreen" element={<ChatScreen1 />} />
         <Route path="/vid" element={<PatientMeetingConference />} />
@@ -44,3 +68,5 @@ export const Reception = () => {
     </DashboardLayout>
   );
 };
+
+export default ReceptionPanel;

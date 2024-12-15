@@ -1,7 +1,7 @@
 import { MdCancel } from "react-icons/md";
 import PropTypes from "prop-types";
 
-export default function PatientDetails({ patient, closeModal }) {
+const PatientDetails=({ patient, closeModal }) =>{
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-3 rounded-lg shadow-lg new-xxl:w-[20%] new-xl:w-[25%] new-lg:w-[25%]">
@@ -153,6 +153,7 @@ export default function PatientDetails({ patient, closeModal }) {
   );
 }
 
+
 PatientDetails.propTypes = {
   patient: PropTypes.shape({
     firstName: PropTypes.string.isRequired,
@@ -181,3 +182,5 @@ PatientDetails.propTypes = {
   }).isRequired,
   closeModal: PropTypes.func.isRequired,
 };
+
+export default PatientDetails

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import FormInput from "../../component/common/FormInput";
-import { formDataObject, PatientBillFields } from "./Contants";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import FormInput from "../../component/common/FormInput";
+import { formDataObject, PatientBillFields } from "@/constants/data";
 import { useGlobal } from "../../hooks/useGlobal";
 import { useDoctor } from "../../hooks/useDoctor";
-import toast from "react-hot-toast";
 import InputField from "./InputField";
 
 const EditBill = () => {

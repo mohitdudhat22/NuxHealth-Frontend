@@ -1,15 +1,12 @@
-import { Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
-import "./pages/pages.css";
+import { Route, Routes } from "react-router-dom";
 import routesConfig from "./routesConfig.jsx";
 import { Loading } from "./imports/index.js";
-import AddRecord from "./pages/doctroPanel/AddRecord.jsx";
+import AddRecord from "./pages/Doctor/AddRecord.jsx";
 import { ErrorPage } from "./pages/ErrorPage.jsx";
 import SendNotificationForm from "./SendNotificationForm.jsx";
 import NotificationBox from "./NotificaitionBox.jsx";
-import { ReceptionPanel } from "./pages/ReceptionPanel/ReceptionPanel.jsx";
-import PatientRegistration from "./pages/PatientRegistration.jsx";
-import { ReceptionPatientRegistration } from "./pages/ReceptionPanel/ReceptionPatientRegistration.jsx";
+import "./pages/pages.css";
 
 function App() {
   return (

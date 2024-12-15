@@ -1,6 +1,6 @@
 import { lazy } from "react";
 
-export const AdminPanel = lazy(() => import("../pages/Admin/"));
-export const DoctorPanel = lazy(() => import("../pages/Doctor/"));
-export const PatientPanel = lazy(() => import("../pages/patient"));
-export const RecaptionPanel = lazy(() => import("../pages/Reception/"));
+export const AdminPanel = lazy(() => import("./Admin/"));
+export const DoctorPanel = lazy(() => import("./Doctor/"));
+export const PatientPanel = lazy(() => import("./patient"));
+export const ReceptionPanel = lazy(() => import("./Reception/"));

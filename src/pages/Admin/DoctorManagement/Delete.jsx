@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MdDeleteSweep } from "react-icons/md";
-import apiService from "../../../services/api";
 import toast from "react-hot-toast";
+import apiService from "../../../services/api";
 
 export default function Delete({ deleteId, onClose, onDeleteSuccess }) {
   const [loading, setLoading] = useState(false);

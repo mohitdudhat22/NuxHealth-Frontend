@@ -1,9 +1,9 @@
-import "../pages.css";
 import { IoTimeOutline } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import apiService from "../../services/api.js";
 import { toast } from "react-hot-toast";
+import "../pages.css";
+import apiService from "../../services/api.js";
 import ImageSlider from "../../components/Login/ImageSlider.jsx";
 
 export default function AdminOtp() {

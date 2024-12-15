@@ -2,9 +2,9 @@ import { BiSolidPhoneCall } from "react-icons/bi";
 import { IoMdMail } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
-import { useGlobal } from "../../hooks/useGlobal";
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { useGlobal } from "../../hooks/useGlobal";
 
 export default function Bill3() {
   const { id } = useParams();

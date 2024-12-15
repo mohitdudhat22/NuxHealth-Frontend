@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
 import { useDoctor } from "../hooks/useDoctor";
 import { usePatient } from "../hooks/usePatient";
 import { useGlobal } from "../hooks/useGlobal";
-import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
-import { FaEye } from "react-icons/fa";
 
-export const SearchResult = () => {
+ const SearchResult = () => {
   const { getAllDoctors, allDoctors } = useDoctor();
   const { getAllPatients, allPatients } = usePatient();
   const { searchTerm, setSearchTerm } = useGlobal();
@@ -336,3 +336,5 @@ export const SearchResult = () => {
     </div>
   );
 };
+
+export default SearchResult

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-
-import apiService from "../../../services/api.js";
 import { IoIosArrowBack } from "react-icons/io";
 import { TbBuildingHospital } from "react-icons/tb";
 import { IoLinkSharp } from "react-icons/io5";
@@ -8,6 +6,7 @@ import { BiSolidPhoneCall } from "react-icons/bi";
 import { IoLocation } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { CiMapPin } from "react-icons/ci";
+import apiService from "../../../services/api.js";
 
 const Onsite = ({ selectedDoctor, setOpenModel }) => {
   const [doctor, setDoctor] = useState({});

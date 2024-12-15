@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { FaImage } from "react-icons/fa6";
-import apiService from "../../../../services/api.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useGlobal } from "../../../../hooks/useGlobal.jsx";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Country, State, City } from "country-state-city";
+import apiService from "@/services/api.js";
+import { useGlobal } from "@/hooks/useGlobal.jsx";
 import { timeOptions } from "@/constants/data.jsx";
 
 const DoctorAdd = () => {

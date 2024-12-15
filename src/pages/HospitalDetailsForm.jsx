@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaCircleMinus, FaImage } from "react-icons/fa6";
-import DynamicField from "./DynamicField";
 import { FaEdit } from "react-icons/fa";
+import DynamicField from "./DynamicField";
 
 const HospitalDetailsForm = ({
   formData,

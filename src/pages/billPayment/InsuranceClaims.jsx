@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useGlobal } from "../../hooks/useGlobal";
 import toast from "react-hot-toast";
+import { useGlobal } from "../../hooks/useGlobal";
 
 export default function InsuranceClaims() {
   const navigate = useNavigate();

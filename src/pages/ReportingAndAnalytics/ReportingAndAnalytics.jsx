@@ -4,7 +4,7 @@ import AppointmentGraph from "../Reporting-Analysis/ApointmentGraph";
 import PatientSummary from "../Reporting-Analysis/PatientSummary";
 import PatientsAge from "../Reporting-Analysis/PatientsAge";
 import { useGlobal } from "../../hooks/useGlobal.jsx";
-export default function ReportingAndAnalytics() {
+ const ReportingAndAnalytics=() =>{
   const { fetchReportingAndAnalytics, cardData } = useGlobal();
   useEffect(() => {
     fetchReportingAndAnalytics();
@@ -230,3 +230,5 @@ export default function ReportingAndAnalytics() {
     </div>
   );
 }
+
+export default ReportingAndAnalytics

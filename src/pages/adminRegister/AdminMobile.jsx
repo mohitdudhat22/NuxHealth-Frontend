@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import apiService from "../../services/api.js";
 import { toast } from "react-hot-toast";
+import apiService from "../../services/api.js";
 import "../pages.css";
 import ImageSlider from "../../components/Login/ImageSlider.jsx";
 

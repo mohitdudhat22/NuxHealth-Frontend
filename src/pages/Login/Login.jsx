@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../pages.css";
 
 import { useAuth } from "../../hooks/useAuth";
-import toast from "react-hot-toast";
 import ImageSlider from "../../components/Login/ImageSlider";
 
 const Login = () => {
@@ -174,7 +174,7 @@ const Login = () => {
                 </div>
               </div>
             </div>
-         
+
             <div classNameName="img-box w-full md:w-1/2 w-1/2 md:p-32 p-0 relative bg-gray-100">
               <ImageSlider
                 images={["/img/register.png", "/img/register2.png"]}

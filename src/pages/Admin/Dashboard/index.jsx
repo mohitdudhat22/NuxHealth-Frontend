@@ -7,9 +7,9 @@ import {
   FaEye,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import PatientsStatistics from "@/component/PatientComponents/PatientsStatistics.jsx";
 import PatientsBreakdown from "@/component/PatientComponents/PatienBreakDown.jsx";
-import toast from "react-hot-toast";
 import apiService from "@/services/api.js";
 import { useGlobal } from "@/hooks/useGlobal";
 

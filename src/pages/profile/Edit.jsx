@@ -1,11 +1,11 @@
 import { FaCamera } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { useEdit } from "../../hooks/useEdit";
 import { useEffect, useState } from "react";
-
 import { Country, State, City } from "country-state-city";
+import { useEdit } from "../../hooks/useEdit";
 
-export const Edit = () => {
+
+ const Edit = () => {
   const navigate = useNavigate();
   const { profile, setProfile, handleInputChange, handleFormSubmit, allHospitals, handleImageChange } = useEdit();
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +35,7 @@ export const Edit = () => {
       const countryCode = allCountries.find((c) => c.label === profile.country)?.value;
       setSelectedCountry(countryCode);
     }
-  }, [profile?.country]); 
+  }, [profile?.country]);
   useEffect(() => {
     if (selectedCountry) {
       const statesList = State.getStatesOfCountry(selectedCountry).map((state) => ({
@@ -294,7 +294,7 @@ export const Edit = () => {
                             ))}
                           </select>
                         </div>
-                        
+
                         <div className="input-box w-[32%] relative py-[15px]">
                           <div className="label absolute top-[4px] left-[14px] bg-white z-10 new-xxl:text-[16px] new-xl:text:[15px] new-lg:text:[15px] font-medium">
                             City <span className="text-red-500">*</span>
@@ -351,3 +351,5 @@ export const Edit = () => {
     </div>
   );
 };
+
+export default Edit

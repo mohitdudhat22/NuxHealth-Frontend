@@ -5,9 +5,9 @@ import { FaEye } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { FaWallet } from "react-icons/fa";
 import { useGlobal } from "../../hooks/useGlobal"; // Ensure you import useGlobal here
 import CashPayment from "./CashPayment";
-import { FaWallet } from "react-icons/fa";
 
 export default function PaymentMethod() {
   const navigate = useNavigate();
