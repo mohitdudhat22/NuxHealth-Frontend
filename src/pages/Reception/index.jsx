@@ -29,27 +29,23 @@ import ChatScreen1 from "../Patient/ChatScreen1";
 import PriscriptionAccess from "../Patient/PriscriptionAccess";
 import PatientMeetingConference from "../Patient/PatientMeetingConference";
 import { useGlobal } from "../../hooks/useGlobal";
-import  ReceptionPatientRegistration  from "./ReceptionPatientRegistration";
+import ReceptionPatientRegistration from "./ReceptionPatientRegistration";
 import ReceptionAppoinmentBooking from "./ReceptionAppoinmentBooking";
-import  ReceptionProfile from "./profile/ReceptionProfile";
+import ReceptionProfile from "./profile/ReceptionProfile";
 import { DashboardLayout } from "@/Layouts";
 import { ReceptionPanelData } from "@/constants/data";
 import ReceptionAppoinment from "./ReceptionAppoinment";
+import { ReceptionPatientHealthRecord } from "./ReceptionPatientHealthRecord";
 
 const ReceptionPanel = () => {
   return (
     <DashboardLayout items={ReceptionPanelData}>
       <Routes>
         <Route path="" element={<ReceptionPatientRegistration />} />
-        <Route
-          path="/patientRegistration"
-          element={<ReceptionPatientRegistration />}
-        />
+        <Route path="/patientRegistration" element={<ReceptionPatientRegistration />} />
+        <Route path="/PersonalHealth" element={<ReceptionPatientHealthRecord />} />
         <Route path="/appointment" element={<ReceptionAppoinment />} />
-        <Route
-          path="/appointmentBooking"
-          element={<ReceptionAppoinmentBooking />}
-        />
+        <Route path="/appointmentBooking" element={<ReceptionAppoinmentBooking />} />
         <Route path="profile/*" element={<ReceptionProfile />} />
 
         <Route path="/prescriptions" element={<Prescriptions />} />
