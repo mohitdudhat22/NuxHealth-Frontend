@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
 import toast from "react-hot-toast";
 import { countryCodes, timeOptions } from "@/constants/data.jsx";
+import { useGlobal } from "@/hooks/useGlobal";
 const DoctorEdit = () => {
   const { doctorId } = useParams();
   const navigate = useNavigate();

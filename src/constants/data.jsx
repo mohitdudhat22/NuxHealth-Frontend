@@ -65,12 +65,14 @@ export const AdminPanelData = [
 
 export const DoctorPanelData = [
   {
+    key: "/",
     to: "/doctor",
     icon: FaCalendarAlt,
     text: "Appointment Management",
   },
   {
-    to: "/doctor/patientRecordAccesst",
+    key: "/patientRecordaccesst",
+    to: "/doctor/patientrecordaccesst",
     icon: IoMdListBox,
     text: "Patient Record Accesst",
   },
@@ -117,25 +119,25 @@ export const PatientPanelData = [
 
 export const ReceptionPanelData = [
   {
-    key: "reception",
+    key: "/reception",
     to: "/reception",
     icon: FaUser,
     text: "Patient Registration",
   },
   {
-    key: "reception",
-    to: "/reception/PersonalHealth",
+    key: "/personalhealth",
+    to: "/reception/personalhealth",
     icon: RiContactsBookFill,
     text: "patient Health Record",
   },
   {
-    key: "reception",
+    key: "/appointment",
     to: "/reception/appointment",
     icon: FaCalendarCheck,
     text: "Appointment Booking",
   },
   {
-    key: "reception",
+    key: "/bills",
     to: "/reception/bills",
     icon: RiBillLine,
     text: "Bills",

@@ -29,10 +29,12 @@ export const useAside = () => {
       case "/reportingAndAnalytics":
         setCurrentPage("/reportingAndAnalytics");
         break;
-      // Admin
       // Doctor
       case "/doctor":
-        setCurrentPage("/doctor");
+        setCurrentPage("/");
+        break;
+      case "/doctor/patientrecordaccesst":
+        setCurrentPage("/patientRecordaccesst");
         break;
       // patient
       case "/patient":
@@ -57,14 +59,11 @@ export const useAside = () => {
       case "/reception":
         setCurrentPage("/reception");
         break;
+      case "/reception/personalhealth":
+        setCurrentPage("/personalhealth");
+        break;
       case "/reception/appointment":
         setCurrentPage("/appointment");
-        break;
-      case "/reception/priscriptionAccess":
-        setCurrentPage("/priscriptionAccess");
-        break;
-      case "/reception/teleconsultation":
-        setCurrentPage("/teleconsultation");
         break;
       case "/reception/chatScreen":
         setCurrentPage("/chatScreen");

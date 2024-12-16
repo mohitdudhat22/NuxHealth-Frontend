@@ -15,6 +15,7 @@ import { DashboardLayout } from "@/Layouts/index.js";
 import { DoctorPanelData } from "@/constants/data.jsx";
 import DoctorMeetingConference from "./DoctorMeetingConference/DoctorMeetingConference.jsx";
 import CreatePrescriptionTools from "./CreatePrescriptionTools.jsx";
+import ChatScreen from "./ChatScreen.jsx";
 
 const DoctorPanel = () => {
   return (

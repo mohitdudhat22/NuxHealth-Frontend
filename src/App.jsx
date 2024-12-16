@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import routesConfig from "./routesConfig.jsx";
 import { Loading } from "./imports/index.js";
 import AddRecord from "./pages/Doctor/AddRecord.jsx";
-import { ErrorPage } from "./pages/ErrorPage.jsx";
+import { ErrorPage } from "./pages/Error/ErrorPage.jsx";
 import SendNotificationForm from "./SendNotificationForm.jsx";
 import NotificationBox from "./NotificaitionBox.jsx";
 import "./pages/pages.css";
+import routesConfig from "./routes/routesConfig.jsx";
 
 function App() {
   return (

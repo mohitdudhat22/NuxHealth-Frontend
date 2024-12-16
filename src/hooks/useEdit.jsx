@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./useAuth";
-import { useGlobal } from "./useGlobal";
 import toast from "react-hot-toast";
+import { useGlobal } from "./useGlobal";
 
 export const useEdit = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export const useEdit = () => {
     const { name, value } = e.target;
     if (name === "hospitalName") {
       const hospitalName = allHospitals?.find(
-        (hospital) => hospital._id === value,
+        (hospital) => hospital._id === value
       );
       setProfile((prevProfile) => ({
         ...prevProfile,
@@ -54,9 +54,9 @@ export const useEdit = () => {
     const file = e.target.files[0];
     if (file) {
       const previewUrl = URL.createObjectURL(file);
-      setProfile(prev => ({
+      setProfile((prev) => ({
         ...prev,
-        avatar: previewUrl
+        avatar: previewUrl,
       }));
 
       const blob = new Blob([file], { type: file.type });

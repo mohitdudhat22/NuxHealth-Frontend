@@ -2,7 +2,7 @@ import { lazy } from "react";
 export { TailSpin } from "react-loader-spinner";
 
 // Admin Components
-export const Login = lazy(() => import("../pages/Login/Login.jsx"));
+export const Login = lazy(() => import("../pages/Auth/Login/Login.jsx"));
 export const AdminRegistration = lazy(
   () => import("../pages/adminRegister/AdminRegistration.jsx")
 );

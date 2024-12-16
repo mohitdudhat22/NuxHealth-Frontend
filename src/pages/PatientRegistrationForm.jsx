@@ -60,6 +60,7 @@ const SelectInput = ({
     </select>
   </div>
 );
+
 const InputField = ({ label, name, type, value, handleChange }) => (
   <div className="input-box">
     <div className="label">
@@ -75,6 +76,7 @@ const InputField = ({ label, name, type, value, handleChange }) => (
     />
   </div>
 );
+
 const PatientRegistrationForm = ({
   handleSubmit,
   genders,
