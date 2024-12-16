@@ -29,12 +29,12 @@ import ChatScreen1 from "../Patient/ChatScreen1";
 import PriscriptionAccess from "../Patient/PriscriptionAccess";
 import PatientMeetingConference from "../Patient/PatientMeetingConference";
 import { useGlobal } from "../../hooks/useGlobal";
-import { ReceptionPatientRegistration } from "./ReceptionPatientRegistration";
-import { ReceptionAppoinment } from "./ReceptionAppoinment";
+import  ReceptionPatientRegistration  from "./ReceptionPatientRegistration";
 import ReceptionAppoinmentBooking from "./ReceptionAppoinmentBooking";
-import { ReceptionProfile } from "./profile/ReceptionProfile";
+import  ReceptionProfile from "./profile/ReceptionProfile";
 import { DashboardLayout } from "@/Layouts";
 import { ReceptionPanelData } from "@/constants/data";
+import ReceptionAppoinment from "./ReceptionAppoinment";
 
 const ReceptionPanel = () => {
   return (

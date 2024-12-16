@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { AdminPanelData } from "@/constants/data";
 import Profile from "../profile/Profile";
-import { Edit } from "../profile/Edit";
+import Edit from "../profile/Edit";
 import {
   Bill2,
   Bill3,

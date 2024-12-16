@@ -126,31 +126,13 @@ export const ReceptionPanelData = [
     key: "reception",
     to: "/reception/PersonalHealth",
     icon: RiContactsBookFill,
-    text: "Personal Health Record",
+    text: "patient Health Record",
   },
   {
     key: "reception",
     to: "/reception/appointment",
     icon: FaCalendarCheck,
     text: "Appointment Booking",
-  },
-  {
-    key: "reception",
-    to: "/reception/priscriptionAccess",
-    icon: FaFilePrescription,
-    text: "Prescription Access",
-  },
-  {
-    key: "reception",
-    to: "/reception/teleconsultation",
-    icon: FaLaptopMedical,
-    text: "Teleconsultation Access",
-  },
-  {
-    key: "reception",
-    to: "/reception/chatScreen",
-    icon: IoMdChatbubbles,
-    text: "Chat",
   },
   {
     key: "reception",
@@ -184,7 +166,6 @@ export const timeOptions = [
   "20:00-21:00",
   "21:00-22:00",
 ];
-
 
 export const initialChats = [
   {
@@ -494,7 +475,6 @@ export const initialChats = [
   },
 ];
 
-
 export const FormData = {
   firstName: "vvv",
   lastName: "vvv",
@@ -518,7 +498,6 @@ export const HospitalFormData = {
   city: "",
   zipcode: "",
 };
-
 
 export const PatientBillFields = [
   { label: "Insurance Company", name: "insuranceCompany", type: "text" },
@@ -549,7 +528,6 @@ export const formDataObject = {
   claimAmount: "",
   claimedAmount: "",
 };
-
 
 export const PatientFormData = {
   firstName: "",
