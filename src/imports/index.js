@@ -1,4 +1,5 @@
 import { lazy } from "react";
+export { TailSpin } from "react-loader-spinner";
 
 // Admin Components
 export const Login = lazy(() => import("../pages/Login/Login.jsx"));
@@ -21,49 +22,45 @@ export const CreateBill = lazy(() => import("../pages/invoice/CreateBill.jsx"));
 export const EditBill = lazy(() => import("../pages/invoice/EditBill.jsx"));
 
 // Doctor Components
-export const DoctorPanel = lazy(
-  () => import("../pages/doctroPanel/DoctorPanel.jsx")
-);
+export const DoctorPanel = lazy(() => import("../pages/Doctor/index.jsx"));
 export const DoctorProfile = lazy(
-  () => import("../pages/doctroPanel/profile/DoctorProfile.jsx")
+  () => import("../pages/Doctor/profile/DoctorProfile.jsx")
 );
 
 // Patient Components
 export const PatientRegistration = lazy(
   () => import("../pages/PatientRegistration.jsx")
 );
-export const PatientPanel = lazy(
-  () => import("../pages/patientPanel/PatientPanel.jsx")
-);
+export const PatientPanel = lazy(() => import("../pages/Patient/index.jsx"));
 export const PersonalHealthRecord = lazy(
-  () => import("../pages/patientPanel/profile/PersonalHealthRecord.jsx")
+  () => import("../pages/Patient/profile/PersonalHealthRecord.jsx")
 );
 export const PatientDetails = lazy(
   () => import("../pages/patientManagement/PatientDetails.jsx")
 );
 export const PatientProfile = lazy(
-  () => import("../pages/patientPanel/profile/PatientProfile.jsx")
+  () => import("../pages/Patient/profile/PatientProfile.jsx")
 );
 export const Prescriptions = lazy(
-  () => import("../pages/patientPanel/profile/Prescriptions.jsx")
+  () => import("../pages/Patient/profile/Prescriptions.jsx")
 );
 export const TestReport = lazy(
-  () => import("../pages/patientPanel/profile/TestReport.jsx")
+  () => import("../pages/Patient/profile/TestReport.jsx")
 );
 export const MedicalHistory = lazy(
-  () => import("../pages/patientPanel/profile/MedicalHistory.jsx")
+  () => import("../pages/Patient/profile/MedicalHistory.jsx")
 );
 export const AllAppointment = lazy(
-  () => import("../pages/patientPanel/profile/Allappoiment.jsx")
+  () => import("../pages/Patient/profile/Allappoiment.jsx")
 );
 export const Appointment = lazy(
-  () => import("../pages/patientPanel/Appointment.jsx")
+  () => import("../pages/Patient/Appointment.jsx")
 );
 export const AppointmentBooking = lazy(
-  () => import("../pages/patientPanel/AppointmentBooking.jsx")
+  () => import("../pages/Patient/AppointmentBooking.jsx")
 );
 export const ChatScreen1 = lazy(
-  () => import("../pages/patientPanel/ChatScreen1.jsx")
+  () => import("../pages/Patient/ChatScreen1.jsx")
 );
 
 // Extra Components
@@ -91,4 +88,3 @@ export const VideoCall = lazy(() => import("../VideoCall.jsx"));
 
 // Common Components (not lazy-loaded)
 export { default as Loading } from "../component/common/Loading.jsx";
-export { TailSpin } from "react-loader-spinner";

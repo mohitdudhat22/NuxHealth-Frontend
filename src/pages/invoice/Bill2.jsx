@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useGlobal } from "../../hooks/useGlobal";
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { useGlobal } from "../../hooks/useGlobal";
 
 export default function Bill2() {
   const { id } = useParams();

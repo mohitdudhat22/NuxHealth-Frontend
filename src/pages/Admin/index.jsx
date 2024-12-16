@@ -1,6 +1,7 @@
+import { Route, Routes } from "react-router-dom";
 import { AdminPanelData } from "@/constants/data";
 import Profile from "../profile/Profile";
-import { Edit } from "../profile/Edit";
+import Edit from "../profile/Edit";
 import {
   Bill2,
   Bill3,
@@ -10,8 +11,7 @@ import {
   Invoice,
 } from "@/imports";
 import { DashboardLayout } from "@/Layouts";
-import { Route, Routes } from "react-router-dom";
-import MainBill from "../patientPanel/MainBill";
+import MainBill from "../Patient/MainBill";
 import PatientManagement from "../patientManagement/PatientManagement";
 import MonitorBilling from "../billPayment/MonitorBilling";
 import InsuranceClaims from "../billPayment/InsuranceClaims";

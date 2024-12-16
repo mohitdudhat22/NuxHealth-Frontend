@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import "./pages.css";
 import {toast} from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAuth } from "../hooks/useAuth";
+import "./pages.css";
 const Login = () => {
   const navigate = useNavigate();
   const { UniversalLogin, user } = useAuth();
@@ -59,7 +59,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //validtae the password should have the 1 symbol and one uppercase and one lowercase lettern and one number 
+      //validtae the password should have the 1 symbol and one uppercase and one lowercase lettern and one number
       if (formData.password.length < 6) {
         toast.error("Password should be atleast 6 characters long");
         return;
@@ -137,7 +137,7 @@ const Login = () => {
                           name="password"
                           value={formData.password}
                           onChange={handleChange}
-                          
+
                           placeholder="Enter Password"
                         />
                         <div className="eye" onClick={() => setShowPassword(!showPassword)}>
@@ -187,7 +187,7 @@ const Login = () => {
                         onClick={() => navigate("/adminRegistration")}
                       >
                         <p style={{ cursor: "pointer" }}>Don’t have an account? Register (As Admin)</p>
-                      </div> 
+                      </div>
                     </div>
                   </form>
                 </div>

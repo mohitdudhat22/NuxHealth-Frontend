@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Country, City, State } from "country-state-city";
 import "./pages.css";
 import { useAuth } from "../hooks/useAuth.jsx";
-import { Country, City, State } from "country-state-city";
-import {
-  bloodGroups,
+import { bloodGroups,
   genders,
   PatientFormData,
-  PatientRegistrationFormFields,
-} from "./constant.js";
+  PatientRegistrationFormFields, } from "@/constants/data";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import ImageSlider from "../components/Login/ImageSlider.jsx";
 

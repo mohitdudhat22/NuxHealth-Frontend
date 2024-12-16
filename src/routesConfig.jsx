@@ -4,14 +4,11 @@ import {
   AdminMobile,
   AdminOtp,
   AdminChangePassword,
-  // AdminPanel,
-  Invoice,
   CreateBill,
   EditBill,
   DoctorPanel,
   DoctorProfile,
   PatientRegistration,
-  // PatientPanel,
   PatientDetails,
   Scheduler,
   Bill,
@@ -26,31 +23,41 @@ import {
   VideoCall,
   AppointmentBooking,
 } from "./imports";
-import { AdminPanel, PatientPanel } from "./pages";
-import PatientRecordAccesst from "./pages/doctroPanel/PatientRecordAccesst";
-import { ReceptionProfile } from "./pages/ReceptionPanel/profile/ReceptionProfile";
-import { ReceptionPanel } from "./pages/ReceptionPanel/ReceptionPanel";
-import { ReceptionPatientRegistration } from "./pages/ReceptionPanel/ReceptionPatientRegistration";
+import { AdminPanel, PatientPanel, ReceptionPanel } from "./pages";
+import PatientRecordAccesst from "./pages/Doctor/PatientRecordAccesst";
+import ReceptionProfile from "./pages/Reception/profile/ReceptionProfile";
+import ReceptionPatientRegistration from "./pages/Reception/ReceptionPatientRegistration";
 import ProtectedRoute from "./routes/PrivateRoute";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const userRole = user?.role || "No Role";
 
 const routesConfig = [
-  { path: "/login", element: <Login />, allowedRoles: [] },
+  {
+    path: "/login",
+    element: <Login />,
+    allowedRoles: [],
+  },
   {
     path: "/adminRegistration",
     element: <AdminRegistration />,
     allowedRoles: [],
   },
-  { path: "/AdminMobile", element: <AdminMobile />, allowedRoles: [] },
-  { path: "/verifyOtp", element: <AdminOtp />, allowedRoles: [] },
+  {
+    path: "/AdminMobile",
+    element: <AdminMobile />,
+    allowedRoles: [],
+  },
+  {
+    path: "/verifyOtp",
+    element: <AdminOtp />,
+    allowedRoles: [],
+  },
   {
     path: "/resetPassword",
     element: <AdminChangePassword />,
     allowedRoles: [],
   },
-
   // Admin routes
   {
     path: "/",
@@ -571,7 +578,7 @@ const routesConfig = [
         path: "profile/",
         element: (
           <ProtectedRoute
-            element={<ReceptionProfile/>}
+            element={<ReceptionProfile />}
             allowedRoles={["patient"]}
             userRole={userRole}
           />

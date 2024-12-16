@@ -1,8 +1,8 @@
 import { useState } from "react";
-import apiService from "../../services/api.js";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import apiService from "../../services/api.js";
 import ImageSlider from "../../components/Login/ImageSlider.jsx";
 
 export default function AdminChangePassword() {

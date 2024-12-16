@@ -8,6 +8,7 @@ import { PatientProvider } from "./context/PatientContext.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorBoundary from "./context/ErrorBoundary.jsx";
 import { ToasterProvider } from "./providers/Toaster.jsx";
+import "./index.css"
 import App from "./App.jsx";
 
 const queryClient = new QueryClient();

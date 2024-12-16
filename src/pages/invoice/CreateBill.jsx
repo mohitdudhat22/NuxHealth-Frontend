@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { useAuth } from "../../hooks/useAuth";
 import { useGlobal } from "../../hooks/useGlobal";
-import { formDataObject, PatientBillFields } from "./Contants";
+import { formDataObject, PatientBillFields } from "@/constants/data";
 import InputField from "./InputField";
 import { useDoctor } from "../../hooks/useDoctor";
 import { usePatient } from "../../hooks/usePatient";
-import toast from "react-hot-toast";
 
 const CreateBill = () => {
   const navigate = useNavigate();

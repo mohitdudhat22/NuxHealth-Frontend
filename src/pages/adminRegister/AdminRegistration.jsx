@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Country, City, State } from "country-state-city";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useGlobal } from "../../hooks/useGlobal";
 import { useAuth } from "../../hooks/useAuth";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-hot-toast";
-import { FormData, HospitalFormData } from "./constants";
+import { HospitalFormData,FormData } from "@/constants/data";
 import ImageSlider from "../../components/Login/ImageSlider";
 
 const AdminRegistration = () => {

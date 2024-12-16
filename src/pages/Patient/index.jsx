@@ -1,23 +1,22 @@
 import { Route, Routes } from "react-router-dom";
-import { DashboardLayout } from "@/Layouts";
-import {
-  AllAppointment,
-  Appointment,
-  AppointmentBooking,
-  ChatScreen1,
-  MedicalHistory,
-  PatientProfile,
-  PersonalHealthRecord,
-  Prescriptions,
-  TestReport,
-} from "@/imports";
+import PersonalHealthRecord from "./profile/PersonalHealthRecord";
+import PatientProfile from "./profile/PatientProfile";
+import Prescriptions from "./profile/Prescriptions";
+import TestReport from "./profile/TestReport";
+import MedicalHistory from "./profile/MedicalHistory";
+import AllAppointment from "./profile/Allappoiment";
+import Appointment from "./Appointment";
+import AppointmentBooking from "./AppointmentBooking";
+import ChatScreen1 from "./ChatScreen1";
+import PriscriptionAccess from "./PriscriptionAccess";
+import Teleconsultation from "./Teleconsultation";
+import Bills from "./Bills";
+import PatientMeetingConference from "./PatientMeetingConference";
 import { ErrorSharp } from "@mui/icons-material";
-import PatientMeetingConference from "../PatientMeetingConference/PatientMeetingConference";
-import Teleconsultation from "../patientPanel/Teleconsultation";
-import Bills from "../patientPanel/Bills";
+import { DashboardLayout } from "@/Layouts";
 import { PatientPanelData } from "@/constants/data";
 
-const PatientPanel = () => {
+export default function PatientPanel() {
   return (
     <DashboardLayout items={PatientPanelData}>
       <Routes>
@@ -31,13 +30,11 @@ const PatientPanel = () => {
         <Route path="/bills" element={<Bills />} />
         <Route path="/teleconsultation" element={<Teleconsultation />} />
         <Route path="/appointmentBooking" element={<AppointmentBooking />} />
-        {/* <Route path="/priscriptionAccess" element={<PriscriptionAccess />} /> */}
+        <Route path="/priscriptionAccess" element={<PriscriptionAccess />} />
         <Route path="/chatScreen" element={<ChatScreen1 />} />
         <Route path="/vid" element={<PatientMeetingConference />} />
         <Route path="/404" element={<ErrorSharp />} />
       </Routes>
     </DashboardLayout>
   );
-};
-
-export default PatientPanel;
+}

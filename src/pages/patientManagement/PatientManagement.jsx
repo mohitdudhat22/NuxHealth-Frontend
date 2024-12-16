@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import PatientDetails from "./PatientDetails.jsx";
 import { usePatient } from "../../hooks/usePatient.jsx";
 
-export default function PatientManagement() {
+const PatientManagement =() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [activeTab, setActiveTab] = useState("today");
@@ -265,3 +265,5 @@ export default function PatientManagement() {
     </>
   );
 }
+
+export default PatientManagement
