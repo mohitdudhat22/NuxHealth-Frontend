@@ -596,7 +596,7 @@ const routesConfig = [
         ),
       },
       {
-        path: "patientHealthRecord",
+        path: "PersonalHealth",
         element: (
           <ProtectedRoute
             element={<ReceptionPatientHealthRecord />}

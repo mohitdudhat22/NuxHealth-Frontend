@@ -43,7 +43,7 @@ const ReceptionPanel = () => {
       <Routes>
         <Route path="" element={<ReceptionPatientRegistration />} />
         <Route path="/patientRegistration" element={<ReceptionPatientRegistration />} />
-        <Route path="/patientHealthRecord" element={<ReceptionPatientHealthRecord />} />
+        <Route path="/PersonalHealth" element={<ReceptionPatientHealthRecord />} />
         <Route path="/appointment" element={<ReceptionAppoinment />} />
         <Route path="/appointmentBooking" element={<ReceptionAppoinmentBooking />} />
         <Route path="profile/*" element={<ReceptionProfile />} />

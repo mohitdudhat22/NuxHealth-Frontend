@@ -321,7 +321,7 @@ const PersonalHealthRecord = () => {
                 </thead>
                 <tbody>
                   {Array.isArray(patientPrescription) &&
-                  patientPrescription.length > 0 ? (
+                    patientPrescription.length > 0 ? (
                     patientPrescription.map((prescription, index) => (
                       <tr key={index}>
                         <td className="py-2 px-4 text-[11] text-[#4F4F4F] font-medium">
@@ -359,7 +359,7 @@ const PersonalHealthRecord = () => {
 
           <div className="col-span-5 sm:col-span-5 bg-white rounded-lg p-3">
             <div className="bg-white rounded-lg border-b p-3">
-              <div className="flex justify-between items-center">
+              <div className="flex  justify-between items-center">
                 <h2 className="text-[18px] new-sm:text-[20px] new-lg:text-[22px] new-xl:text-[24px] new-xxl:text-[26px] text-[#030229] font-bold">
                   Test Reports
                 </h2>
@@ -372,7 +372,7 @@ const PersonalHealthRecord = () => {
               </div>
             </div>
 
-            <div className="flex justify-between align-center p-3 overflow-y-scroll h-[220px]">
+            <div className="flex flex-wrap justify-between align-center p-3 overflow-y-scroll h-[220px]">
               <div className="w-[100%] sm:w-[50%] p-1">
                 <div className="box rounded-lg  border p-2">
                   <div className="top flex justify-between align-center">
@@ -635,7 +635,7 @@ const PersonalHealthRecord = () => {
               Patient Status
             </h2>
 
-            <div className="all-box flex items-center">
+            <div className="all-box flex flex-wrap items-center">
               <div className="box w-[100%] new-sm:w-[50%]  flex new-lg:flex-col new-xl:flex-row items-center gap-3 p-2 pt-3">
                 <div className="icon bg-[#E9F9FF] text-[#36AAD6] text-[24px] p-3 rounded-full">
                   <FaHospital />
