@@ -78,8 +78,8 @@ import ImageSlider from "../../components/Login/ImageSlider.jsx";
   return (
     <div className="patient-registration-section flex justify-center flex-col md:flex-row py-5">
       {/* Main registration form */}
-      <div className="main w-full md:w-1/2 flex justify-center items-center">
-        <div className="w-[90%] md:w-[70%] bg-white p-5 shadow-md rounded-lg mx-4 md:mx-10">
+      <div className="main w-full flex justify-center items-center">
+        <div className="w-full  bg-white p-5 shadow-md rounded-lg mx-4 md:mx-10">
           <div className="head pb-5">
             <p className="text-2xl font-semibold">Registration</p>
           </div>
