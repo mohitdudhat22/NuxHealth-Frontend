@@ -1,93 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
-import { NavLink } from "react-router-dom";
-import { FaEye } from "react-icons/fa";
-import { FaHospital } from "react-icons/fa6";
-import { MdCancel } from "react-icons/md";
+import { useGlobal } from '@/hooks/useGlobal';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
 import moment from "moment";
-import * as htmlToImage from "html-to-image";
-import toast from "react-hot-toast";
-import "../style.css";
-import signature from "../../../assets/signature.svg";
-import { useGlobal } from "../../../hooks/useGlobal";
-import { useAuth } from "../../../hooks/useAuth";
+import { FaEye, FaHospital } from 'react-icons/fa';
 
-const PersonalHealthRecord = () => {
-  const { user } = useAuth();
-  const modalRef = useRef(); // Reference for the modal
-  const [selectedPrescription, setSelectedPrescription] = useState(null);
-  const [prescription, setPrescription] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState(null);
+export const ReceptionPatientHealthRecord = () => {
   const { userData, patientPrescription, findPatientPrescriptions } =
     useGlobal();
-  const [isDownloading, setIsDownloading] = useState(false);
-
-  useEffect(() => {
-    findPatientPrescriptions(user?.id);
-  }, []);
-
-  const handleShowModal = (prescription) => {
-    setSelectedPrescription(prescription);
-    setModalData(prescription);
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedPrescription(null);
-  };
-
-  // Function to handle downloading the modal as an image
-  const handleDownloadImage = async () => {
-    setIsDownloading(true);
-    try {
-      const modalContent = document.getElementById(
-        "prescription-modal-content"
-      );
-      if (!modalContent) {
-        throw new Error("Modal content not found");
-      }
-
-      // Hide buttons before capture
-      const elementsToHide =
-        modalContent.querySelectorAll(".hide-for-download");
-      elementsToHide.forEach((el) => {
-        if (el) el.style.display = "none";
-      });
-
-      const dataUrl = await htmlToImage.toPng(modalContent, {
-        quality: 1.0,
-        backgroundColor: "white",
-        pixelRatio: 2,
-        style: {
-          // Ensure modal content is visible during capture
-          opacity: "1",
-          display: "block",
-        },
-      });
-
-      // Restore hidden elements
-      elementsToHide.forEach((el) => {
-        if (el) el.style.display = "";
-      });
-
-      // Create and trigger download
-      const link = document.createElement("a");
-      link.download = `prescription-${modalData.patientId.firstName}-${new Date().toISOString()}.png`;
-      link.href = dataUrl;
-      link.click();
-      toast.success("Prescription downloaded successfully.");
-    } catch (error) {
-      console.error("Error downloading prescription:", error);
-      toast.error("Error downloading prescription.");
-    } finally {
-      setIsDownloading(false);
-    }
-  };
 
   return (
     <div className="p-4 bg-[#f6f8fb]">
       <div className="mx-3 mx-auto">
+
+        <div className="search p-5 bg-white my-2 shadow-lg rounded-lg flex justify-center">
+          <input type="text" name="" id="" placeholder='Search Patient' className='text-[##1f2937] bg-[#f6f8fb] w-[50%] py-3 px-5 rounded' />
+        </div>
+
         <div className="bg-white p-5 rounded-lg shadow-lg">
           <div className="flex justify-between items-center py-2">
             <h2 className="text-[18px] new-sm:text-[20px] new-lg:text-[22px] new-xl:text-[24px] new-xxl:text-[26px] text-[#030229] font-bold">
@@ -98,7 +26,8 @@ const PersonalHealthRecord = () => {
               className=" text-white text-center text-[18px] new-xxl:text-[26px font-semibold rounded-md bg-[#0EABEB] p-2 new-xxl:w-[160px] "
             >
               Edit Profile
-            </NavLink>
+            </NavLink >
+
           </div>
 
           <div className="flex justify-between items-center py-2">
@@ -373,6 +302,7 @@ const PersonalHealthRecord = () => {
             </div>
 
             <div className="flex flex-wrap justify-between align-center p-3 overflow-y-scroll h-[220px]">
+
               <div className="w-[100%] sm:w-[50%] p-1">
                 <div className="box rounded-lg  border p-2">
                   <div className="top flex justify-between align-center">
@@ -613,7 +543,7 @@ const PersonalHealthRecord = () => {
                   <div className="bottom flex justify-between align-center">
                     <div className="left">
                       <p className="text[#141414] text-[17px] font-semibold	">
-                        Dieses :{" "}
+                        Dieses : {""}
                         <span className="text-[#818194] font-medium	">
                           Viral Infection
                         </span>
@@ -695,194 +625,194 @@ const PersonalHealthRecord = () => {
               </div>
             </div>
           </div>
+
         </div>
+
       </div>
 
       {/* Prescription Modal */}
-      {showModal && modalData && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40">
-          <div
-            className="fixed inset-0 flex items-center justify-center z-50"
-            ref={modalRef}
-          >
-            <div className="bg-white rounded-lg shadow-lg w-11/12 max-w-md md:max-w-xl relative">
-              <div id="prescription-modal-content" className="bg-white p-4">
-                <div className="modal-header p-4">
-                  <h5 className="modal-title text-[24px] text-[#030229] font-bold">
-                    Prescription for {modalData.patientId.firstName}{" "}
-                    {modalData.patientId.lastName}
-                  </h5>
-                  <button
-                    type="button"
-                    className="hide-for-download absolute top-3 right-3 text-xl text-white rounded-full bg-red-600 w-6 h-6 flex items-center justify-center"
-                    onClick={handleCloseModal}
-                  >
-                    <MdCancel />
-                  </button>
-                </div>
-
-                <div className="modal-body p-4 pt-0">
-                  <div className="max-w-xl mx-auto bg-bg-color rounded-lg p-4 border border-gray-200">
-                    <div className="top bg-gray-100 rounded p-4">
-                      <div className="head flex justify-between align-center ">
-                        <div className="logo w-[140px] sm:w-[238px]">
-                          <img src="/image/bill-logo.png" alt="" />
-                        </div>
-                        <div className="name">
-                          <p className="text-[24px] text-[#0EABEB] font-bold">
-                            Dr. {modalData.doctorId.name}
-                          </p>
-                          <span className="text-[14px] text-[#818194] font-semibold">
-                            {modalData.doctorId.speciality}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="mt-4">
-                        <div className="details text-sm">
-                          <div className="flex align-center justify-between pb-2">
-                            <p className="text-[16px] text-[#141414] font-semibold">
-                              Patient Name:{" "}
-                              <span className="text-[14px] text-[#818194] font-semibold">
-                                {modalData.patientId.firstName}{" "}
-                                {modalData.patientId.lastName}
-                              </span>
-                            </p>
-                            <p className="text-[16px] text-[#141414] font-semibold">
-                              Prescription Date:{" "}
-                              <span className="text-[14px] text-[#818194] font-semibold">
-                                {moment(modalData.date).format("D MMM, YYYY")}
-                              </span>
-                            </p>
-                          </div>
-                          <div className="flex align-center justify-between pb-2">
-                            <p className="text-[16px] text-[#141414] font-semibold">
-                              Gender:{" "}
-                              <span className="text-[14px] text-[#818194] font-semibold">
-                                {modalData.patientId.gender}
-                              </span>
-                            </p>
-                            <p className="w-[50%] text-[16px] text-[#141414] font-semibold">
-                              Age:{" "}
-                              <span className="text-[14px] text-[#818194] font-semibold">
-                                {modalData.patientId.age}
-                              </span>
-                            </p>
-                          </div>
-                          <p className="text-[16px] text-[#141414] font-semibold">
-                            Instructions:{" "}
-                            <span className="text-[14px] text-[#818194] font-semibold">
-                              {modalData.instructions}
-                            </span>
-                          </p>
-                        </div>
-                      </div>
+      {/* {showModal && modalData && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40">
+              <div
+                className="fixed inset-0 flex items-center justify-center z-50"
+                ref={modalRef}
+              >
+                <div className="bg-white rounded-lg shadow-lg w-11/12 max-w-md md:max-w-xl relative">
+                  <div id="prescription-modal-content" className="bg-white p-4">
+                    <div className="modal-header p-4">
+                      <h5 className="modal-title text-[24px] text-[#030229] font-bold">
+                        Prescription for {modalData.patientId.firstName}{" "}
+                        {modalData.patientId.lastName}
+                      </h5>
+                      <button
+                        type="button"
+                        className="hide-for-download absolute top-3 right-3 text-xl text-white rounded-full bg-red-600 w-6 h-6 flex items-center justify-center"
+                        onClick={handleCloseModal}
+                      >
+                        <MdCancel />
+                      </button>
                     </div>
-
-                    <table className="w-[100%] mt-4 table-data">
-                      <thead className="bg-gray-100">
-                        <tr>
-                          <th className="text-[#030229] text-[14px] font-semibold	p-3">
-                            Medicine Name
-                          </th>
-                          <th className="text-[#030229] text-[14px] font-semibold	p-3">
-                            Strength
-                          </th>
-                          <th className="text-[#030229] text-[14px] font-semibold	p-3">
-                            Dose
-                          </th>
-                          <th className="text-[#030229] text-[14px] font-semibold	p-3">
-                            Duration
-                          </th>
-                          <th className="text-[#030229] text-[14px] font-semibold	p-3">
-                            When to Take
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {modalData.medications.map((medication, index) => (
-                          <tr key={index} className="text-center">
-                            <td className=" text-[#141414] text-[16px] font-semibold	py-3 border-b">
-                              {medication.medicineName}
-                            </td>
-                            <td className=" text-[#141414] text-[16px] font-semibold	py-3 border-b">
-                              {medication.strength}
-                            </td>
-                            <td className=" text-[#141414] text-[16px] font-semibold	py-3 border-b">
-                              {medication.dose}
-                            </td>
-                            <td className="duration text-[#141414] text-[16px] font-semibold	py-3 border-b">
-                              <span className="bg-[#39973D1A] text-[#39973D] text-[14px] font-semibold p-2 rounded-full">
-                                {medication.duration}
+    
+                    <div className="modal-body p-4 pt-0">
+                      <div className="max-w-xl mx-auto bg-bg-color rounded-lg p-4 border border-gray-200">
+                        <div className="top bg-gray-100 rounded p-4">
+                          <div className="head flex justify-between align-center ">
+                            <div className="logo w-[140px] sm:w-[238px]">
+                              <img src="/image/bill-logo.png" alt="" />
+                            </div>
+                            <div className="name">
+                              <p className="text-[24px] text-[#0EABEB] font-bold">
+                                Dr. {modalData.doctorId.name}
+                              </p>
+                              <span className="text-[14px] text-[#818194] font-semibold">
+                                {modalData.doctorId.speciality}
                               </span>
-                            </td>
-                            <td className="take text-[#718EBF] text-[16px] font-semibold	py-3 border-b">
-                              <span className="bg-[#5678E91A] text-[718EBF] text-[14px] font-semibold p-2 rounded-full">
-                                {medication.whenToTake}
-                              </span>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-
-                    <div className="mt-4 flex justify-between align-center">
-                      <div className="sign border-b pb-2">
-                        <div className="w-32 mt-4">
-                          <img
-                            src={modalData.doctorId.signature}
-                            alt="Signature"
-                            crossOrigin="anonymous"
-                          />
+                            </div>
+                          </div>
+    
+                          <div className="mt-4">
+                            <div className="details text-sm">
+                              <div className="flex align-center justify-between pb-2">
+                                <p className="text-[16px] text-[#141414] font-semibold">
+                                  Patient Name:{" "}
+                                  <span className="text-[14px] text-[#818194] font-semibold">
+                                    {modalData.patientId.firstName}{" "}
+                                    {modalData.patientId.lastName}
+                                  </span>
+                                </p>
+                                <p className="text-[16px] text-[#141414] font-semibold">
+                                  Prescription Date:{" "}
+                                  <span className="text-[14px] text-[#818194] font-semibold">
+                                    {moment(modalData.date).format("D MMM, YYYY")}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="flex align-center justify-between pb-2">
+                                <p className="text-[16px] text-[#141414] font-semibold">
+                                  Gender:{" "}
+                                  <span className="text-[14px] text-[#818194] font-semibold">
+                                    {modalData.patientId.gender}
+                                  </span>
+                                </p>
+                                <p className="w-[50%] text-[16px] text-[#141414] font-semibold">
+                                  Age:{" "}
+                                  <span className="text-[14px] text-[#818194] font-semibold">
+                                    {modalData.patientId.age}
+                                  </span>
+                                </p>
+                              </div>
+                              <p className="text-[16px] text-[#141414] font-semibold">
+                                Instructions:{" "}
+                                <span className="text-[14px] text-[#818194] font-semibold">
+                                  {modalData.instructions}
+                                </span>
+                              </p>
+                            </div>
+                          </div>
                         </div>
-                        <p>Doctor Signature</p>
-                      </div>
-
-                      <div className="hide-for-download">
-                        <button
-                          onClick={handleDownloadImage}
-                          disabled={isDownloading}
-                          className="text-white text-[18px] bg-[#0EABEB] font-semibold py-[8px] px-[20px] rounded-xl disabled:bg-gray-400 hover:bg-[#0d9bd4] transition-colors"
-                        >
-                          {isDownloading ? (
-                            <span className="flex items-center gap-2">
-                              <svg
-                                className="animate-spin h-5 w-5 text-white"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                              >
-                                <circle
-                                  className="opacity-25"
-                                  cx="12"
-                                  cy="12"
-                                  r="10"
-                                  stroke="currentColor"
-                                  strokeWidth="4"
-                                ></circle>
-                                <path
-                                  className="opacity-75"
-                                  fill="currentColor"
-                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                ></path>
-                              </svg>
-                              Processing...
-                            </span>
-                          ) : (
-                            "Download"
-                          )}
-                        </button>
+    
+                        <table className="w-[100%] mt-4 table-data">
+                          <thead className="bg-gray-100">
+                            <tr>
+                              <th className="text-[#030229] text-[14px] font-semibold	p-3">
+                                Medicine Name
+                              </th>
+                              <th className="text-[#030229] text-[14px] font-semibold	p-3">
+                                Strength
+                              </th>
+                              <th className="text-[#030229] text-[14px] font-semibold	p-3">
+                                Dose
+                              </th>
+                              <th className="text-[#030229] text-[14px] font-semibold	p-3">
+                                Duration
+                              </th>
+                              <th className="text-[#030229] text-[14px] font-semibold	p-3">
+                                When to Take
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {modalData.medications.map((medication, index) => (
+                              <tr key={index} className="text-center">
+                                <td className=" text-[#141414] text-[16px] font-semibold	py-3 border-b">
+                                  {medication.medicineName}
+                                </td>
+                                <td className=" text-[#141414] text-[16px] font-semibold	py-3 border-b">
+                                  {medication.strength}
+                                </td>
+                                <td className=" text-[#141414] text-[16px] font-semibold	py-3 border-b">
+                                  {medication.dose}
+                                </td>
+                                <td className="duration text-[#141414] text-[16px] font-semibold	py-3 border-b">
+                                  <span className="bg-[#39973D1A] text-[#39973D] text-[14px] font-semibold p-2 rounded-full">
+                                    {medication.duration}
+                                  </span>
+                                </td>
+                                <td className="take text-[#718EBF] text-[16px] font-semibold	py-3 border-b">
+                                  <span className="bg-[#5678E91A] text-[718EBF] text-[14px] font-semibold p-2 rounded-full">
+                                    {medication.whenToTake}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+    
+                        <div className="mt-4 flex justify-between align-center">
+                          <div className="sign border-b pb-2">
+                            <div className="w-32 mt-4">
+                              <img
+                                src={modalData.doctorId.signature}
+                                alt="Signature"
+                                crossOrigin="anonymous"
+                              />
+                            </div>
+                            <p>Doctor Signature</p>
+                          </div>
+    
+                          <div className="hide-for-download">
+                            <button
+                              onClick={handleDownloadImage}
+                              disabled={isDownloading}
+                              className="text-white text-[18px] bg-[#0EABEB] font-semibold py-[8px] px-[20px] rounded-xl disabled:bg-gray-400 hover:bg-[#0d9bd4] transition-colors"
+                            >
+                              {isDownloading ? (
+                                <span className="flex items-center gap-2">
+                                  <svg
+                                    className="animate-spin h-5 w-5 text-white"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <circle
+                                      className="opacity-25"
+                                      cx="12"
+                                      cy="12"
+                                      r="10"
+                                      stroke="currentColor"
+                                      strokeWidth="4"
+                                    ></circle>
+                                    <path
+                                      className="opacity-75"
+                                      fill="currentColor"
+                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                    ></path>
+                                  </svg>
+                                  Processing...
+                                </span>
+                              ) : (
+                                "Download"
+                              )}
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          )} */}
     </div>
-  );
-};
-
-export default PersonalHealthRecord;
+  )
+}
