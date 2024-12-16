@@ -6,12 +6,11 @@ import { useGlobal } from "../hooks/useGlobal";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-export const AuthContext = createContext(); //{}
-
+export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || "",
+    JSON.parse(localStorage.getItem("user")) || ""
   );
   const [loading, setLoading] = useState(true);
   const { getAdminProfile, getDoctorProfile, getPatientProfile } = useGlobal();

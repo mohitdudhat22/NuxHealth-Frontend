@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import "./ErrorPage.css";
-import { useAuth } from "../hooks/useAuth";
 
 export const ErrorPage = () => {
   const { user } = useAuth();

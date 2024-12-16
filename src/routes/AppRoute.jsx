@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import routesConfig from "../routesConfig";
+import routesConfig from "./routesConfig";
 
 const AppRoutes = () => {
   return (
