@@ -727,7 +727,7 @@ const DoctorAdd = () => {
 
               <div className="p-5 border-2 border-[#F4F4F4] rounded-[15px] my-4">
                 <div className="content">
-                  <div className="flex justify-between gap-y-8">
+                  <div className="flex flex-wrap justify-between gap-y-8">
                     <div className="w-[32%]">
                       <div className="input-box relative">
                         <div className="label absolute top-[-14px] left-3.5 bg-white z-10 text-[16px] font-medium">

@@ -47,7 +47,7 @@ const Onsite = ({ selectedDoctor, setOpenModel }) => {
                 <IoIosArrowBack />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 ml-4">
-                Doctor Management
+                Doctor Management 
               </h3>
             </div>
 
@@ -247,7 +247,7 @@ const Onsite = ({ selectedDoctor, setOpenModel }) => {
 
             {/* Working Details */}
             <div className="bg-gray-100 rounded-lg p-4 mt-6">
-              <div className="flex justify-between border-b border-white pb-4">
+              <div className="flex  justify-between border-b border-white pb-4">
                 <h3 className="text-xl font-bold text-gray-900">
                   Working On Online
                 </h3>
