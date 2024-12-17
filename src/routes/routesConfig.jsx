@@ -193,6 +193,26 @@ const routesConfig = [
         ),
       },
       {
+        path: "receptionManagement/*",
+        element: (
+          <ProtectedRoute
+            element={null}
+            allowedRoles={["admin"]}
+            userRole={userRole}
+          />
+        ),
+      },
+      {
+        path: "receptionAdd",
+        element: (
+          <ProtectedRoute
+            element={null}
+            allowedRoles={["admin"]}
+            userRole={userRole}
+          />
+        ),
+      },
+      {
         path: "monitorBilling",
         element: (
           <ProtectedRoute
