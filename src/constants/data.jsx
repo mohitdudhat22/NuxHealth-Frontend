@@ -31,6 +31,12 @@ export const AdminPanelData = [
     text: "Patient Management",
   },
   {
+    key: "/receptionManagement",
+    to: "/receptionManagement",
+    icon: FaUsers,
+    text: "Reception Management",
+  },
+  {
     dropdown: true,
     text: "Billing and Payments",
     icon: FaLaptopMedical,

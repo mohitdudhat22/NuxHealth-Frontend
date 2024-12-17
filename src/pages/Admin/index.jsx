@@ -22,6 +22,8 @@ import Dashboard from "./Dashboard";
 import DoctorManagement from "./DoctorManagement";
 import DoctorEdit from "./Doctors/DoctorEdit";
 import DoctorAdd from "./Doctors/DoctorAdd";
+import ReceptionManagement from "./ReceptionManagement";
+import { ReceptionAdd } from "./Reception/ReceptionAdd";
 
 const Admin = () => {
   return (
@@ -40,6 +42,8 @@ const Admin = () => {
         <Route path="doctorAdd" element={<DoctorAdd />} />
         <Route path="doctorEdit/:doctorId" element={<DoctorEdit />} />
         <Route path="patientManagement" element={<PatientManagement />} />
+        <Route path="receptionManagement" element={<ReceptionManagement />} />
+        <Route path="receptionAdd" element={<ReceptionAdd />} />
         <Route path="monitorBilling" element={<MonitorBilling />} />
         <Route path="insuranceClaims" element={<InsuranceClaims />} />
         <Route path="paymentMethod" element={<PaymentMethod />} />

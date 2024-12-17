@@ -11,6 +11,7 @@ import Onsite from "./Onsite"; // Import the Onsite component
 import Delete from "./Delete.jsx";
 import { useDoctor } from "../../../hooks/useDoctor.jsx";
 import apiService from "../../../services/api.js";
+
 export default function DoctorManagement() {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -190,7 +191,7 @@ export default function DoctorManagement() {
         <div className="bg-white rounded-lg p-2 shadow-lg">
           <div className="top flex justify-between items-center p-2 pb-5">
             <div className="heading font-bold text-[26px] new-lg:text-xl new-xl:text-[26px]">
-              <h3>Doctor Management</h3>
+              <h3>Doctor Management </h3>
             </div>
             <div className="flex items-center space-x-2">
               <div className="flex items-center bg-gray-100 border border-gray-300 rounded-full px-4 py-2 w-80 new-lg:w-64 new-xl:w-80">
