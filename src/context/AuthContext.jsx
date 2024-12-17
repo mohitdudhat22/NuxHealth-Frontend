@@ -14,25 +14,6 @@ export const AuthProvider = ({ children }) => {
   );
   const [loading, setLoading] = useState(true);
   const { getAdminProfile, getDoctorProfile, getPatientProfile } = useGlobal();
-  const PatientLogin = async (userData) => {
-    setLoading(true);
-    try {
-      const response = await apiService.PatientLogin(userData);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.patient));
-      axios.defaults.headers.common["Authorization"] =
-        `Barer ${response.data.token}`;
-      setUser(response.data.user);
-      toast.success("Login Successful");
-      return true;
-    } catch (error) {
-      console.error("Login error:", error);
-      toast.error("Login Failed");
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const PatientRegister = async (userData) => {
     setLoading(true);
@@ -46,26 +27,6 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Registration error:", error);
       toast.error("Registration failed. Please try again.");
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const AdminLogin = async (userData) => {
-    setLoading(true);
-    try {
-      const response = await apiService.AdminLogin(userData);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.patient));
-      axios.defaults.headers.common["Authorization"] =
-        `Bearer ${response.data.token}`;
-      setUser(response.data.user);
-      toast.success("Login Successful");
-      return true;
-    } catch (error) {
-      console.error("Login error:", error);
-      toast.error("Login Failed");
       throw error;
     } finally {
       setLoading(false);
@@ -89,53 +50,32 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const DoctorLogin = async (userData) => {
-    setLoading(true);
-    try {
-      const response = await apiService.DoctorLogin(userData);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      axios.defaults.headers.common["Authorization"] =
-        `Bearer ${response.data.token}`;
-      setUser(response.data.user);
-      toast.success("Login Successful");
-      return true;
-    } catch (error) {
-      console.error("Login error:", error);
-      toast.error("Login Failed");
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const UniversalLogin = async function (userData) {
     setLoading(true);
     try {
       const response = await apiService.UniversalLogin(userData);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      axios.defaults.headers.common["Authorization"] =
-        `Bearer ${response.data.token}`;
+      // axios.defaults.headers.common["Authorization"] =
+      //   `Bearer ${response.data.token}`;
       setUser(response.data.user);
       toast.success("Login Successful");
 
-      // Here we have to call the function based on the user role
       if (response.data.user.role === "doctor") {
         toast.success("Doctor login successful");
-        // navigate('/doctor', { replace: true });
         window.location.href = "/doctor";
-
         await getDoctorProfile(response.data.user.id);
       } else if (response.data.user.role === "admin") {
         toast.success("Admin login successful");
         window.location.href = "/";
         await getAdminProfile(response.data.user.id);
+      } else if (response.data.user.role === "reception") {
+        toast.success("Reception login successful");
+        window.location.href = "/reception";
+        await getReceptionProfile(response.data.user.id);
       } else {
         toast.success("Patient login successful");
-        // navigate('/patient', { replace: true });
         window.location.href = "/patient";
-
         await getPatientProfile(response.data.user.id);
       }
       return response.data.user.role;
@@ -170,11 +110,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         loading,
-        PatientLogin,
         logout,
         PatientRegister,
-        DoctorLogin,
-        AdminLogin,
         AdminRegister,
         UniversalLogin,
       }}

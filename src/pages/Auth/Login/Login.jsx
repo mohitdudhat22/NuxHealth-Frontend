@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "@/hooks/useAuth";
-import { AuthLayouts } from "@/Layouts/AuthLayouts";
+import { AuthLayouts } from "@/Layouts/";
 
 const Login = () => {
   const navigate = useNavigate();

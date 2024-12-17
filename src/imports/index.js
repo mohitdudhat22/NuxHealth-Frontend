@@ -27,10 +27,6 @@ export const DoctorProfile = lazy(
   () => import("../pages/Doctor/profile/DoctorProfile.jsx")
 );
 
-// Patient Components
-export const PatientRegistration = lazy(
-  () => import("../pages/PatientRegistration.jsx")
-);
 export const PatientPanel = lazy(() => import("../pages/Patient/index.jsx"));
 export const PersonalHealthRecord = lazy(
   () => import("../pages/Patient/profile/PersonalHealthRecord.jsx")

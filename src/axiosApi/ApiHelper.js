@@ -13,3 +13,6 @@ async function request(method, url, data) {
 /* Authentication */
 // export const register = (data) =>
 //   request("post", "/society-handler/create", data);
+
+export const register = (data) => request("post", "/register", data);
+export const login = (data) => request("post", "/login", data);

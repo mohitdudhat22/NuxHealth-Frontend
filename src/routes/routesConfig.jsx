@@ -8,7 +8,6 @@ import {
   EditBill,
   DoctorPanel,
   DoctorProfile,
-  PatientRegistration,
   PatientDetails,
   Scheduler,
   Bill,
@@ -23,7 +22,7 @@ import {
   VideoCall,
   AppointmentBooking,
 } from "@/imports";
-import { AdminPanel, PatientPanel, ReceptionPanel } from "@/pages";
+import { AdminPanel, PatientPanel, PatientRegistration, ReceptionPanel } from "@/pages";
 import PatientRecordAccesst from "@/pages/Doctor/PatientRecordAccesst";
 import ReceptionProfile from "@/pages/Reception/profile/ReceptionProfile";
 import { ReceptionPatientHealthRecord } from "@/pages/Reception/ReceptionPatientHealthRecord";

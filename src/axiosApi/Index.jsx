@@ -2,11 +2,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 // Base URL for the backend
-const backendUrl = import.meta.env.VITE_PUBLIC_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_API_BASE_URL;
+
+console.log(backendUrl);
 
 const axiosApi = axios.create({
   baseURL: backendUrl,
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 // Helper to get cookie by name
@@ -45,7 +47,6 @@ axiosApi.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
     const errorMsg = error.response?.data?.message || "An error occurred";
-
     switch (status) {
       case 400:
         toast.error(`Bad Request: ${errorMsg}`);
