@@ -1,3 +1,4 @@
+import Delete from "@/pages/Admin/DoctorManagement/Delete";
 import axios from "axios";
 
 const api = axios.create({
@@ -42,6 +43,13 @@ const apiService = {
   GetDoctorById: (id) => api.get(`/doctor/getDoctorById/${id}`),
   EditDoctor: (id, userData) => api.put(`/doctor/editDoctor/${id}`, userData),
   DeleteDoctor: (id) => api.delete(`/doctor/deleteDoctor/${id}`),
+
+  //Receiption
+  RegisterReceptionist:(userData)=>api.post("/receptionist/register",userData),
+  EditReceptionist:(id,userData)=>api.put(`/receptionist/editReceptionist/${id}`,userData),
+  DeleteReceptionist:(id)=>api.delete(`/receptionist/deleteReceptionist/${id}`),
+  GetReceptionistById:(id)=>api.get(`/receptionist/getReceptionist/${id}`),
+  GetAllReceptionists:(userData)=>api.get("/receptionist/getReceptionist",userData),
 
   // Universal Login /logout
   UniversalLogin: (userData) => api.post("/login", userData),
