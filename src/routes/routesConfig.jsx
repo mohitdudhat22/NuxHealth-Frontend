@@ -22,7 +22,12 @@ import {
   VideoCall,
   AppointmentBooking,
 } from "@/imports";
-import { AdminPanel, PatientPanel, PatientRegistration, ReceptionPanel } from "@/pages";
+import {
+  AdminPanel,
+  PatientPanel,
+  PatientRegistration,
+  ReceptionPanel,
+} from "@/pages";
 import PatientRecordAccesst from "@/pages/Doctor/PatientRecordAccesst";
 import ReceptionProfile from "@/pages/Reception/profile/ReceptionProfile";
 import { ReceptionPatientHealthRecord } from "@/pages/Reception/ReceptionPatientHealthRecord";
@@ -588,18 +593,17 @@ const routesConfig = [
     element: (
       <ProtectedRoute
         element={<ReceptionPanel />}
-        allowedRoles={["patient", "doctor", "admin"]}
+        allowedRoles={["receptionist"]}
         userRole={userRole}
       />
     ),
     children: [
-      // { path: "", element: null, allowedRoles: ["doctor"] },
       {
         path: "profile/",
         element: (
           <ProtectedRoute
             element={<ReceptionProfile />}
-            allowedRoles={["patient"]}
+            allowedRoles={["receptionist"]}
             userRole={userRole}
           />
         ),
@@ -609,7 +613,7 @@ const routesConfig = [
         element: (
           <ProtectedRoute
             element={<ReceptionPatientRegistration />}
-            allowedRoles={["doctor"]}
+            allowedRoles={["receptionist"]}
             userRole={userRole}
           />
         ),
@@ -619,7 +623,7 @@ const routesConfig = [
         element: (
           <ProtectedRoute
             element={<ReceptionPatientHealthRecord />}
-            allowedRoles={["doctor"]}
+            allowedRoles={["receptionist"]}
             userRole={userRole}
           />
         ),
@@ -629,7 +633,7 @@ const routesConfig = [
         element: (
           <ProtectedRoute
             element={<AppointmentBooking />}
-            allowedRoles={["doctor"]}
+            allowedRoles={["receptionist"]}
             userRole={userRole}
           />
         ),

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGlobal } from "@/hooks/useGlobal";
-import { City, Country, State } from "country-state-city";
+import { Country, State, City } from "country-state-city";
+import { CreateReception } from "@/axiosApi/ApiHelper";
+import toast from "react-hot-toast";
 
 const useReceptionManagement = () => {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const [profilePicturePreview, setProfilePicturePreview] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -20,11 +21,10 @@ const useReceptionManagement = () => {
     city: "",
     zipCode: "",
     address: "",
-    password: "",
+    qualification: "",
     emergencyContactNo: "",
     workingTime: "",
     breakTime: "",
-    confirmPassword: "",
   });
 
   const [countries, setCountries] = useState([]);
@@ -37,14 +37,20 @@ const useReceptionManagement = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
-    if (name === "country") {
-      const country = countries.find((c) => c.isoCode === value);
-      setStates(State.getStatesOfCountry(country.isoCode));
-      setCities([]);
-    } else if (name === "state") {
-      setCities(City.getCitiesOfState(formData.country, value));
+    switch (name) {
+      case "country":
+        const country = countries.find((c) => c.isoCode === value);
+        setStates(State.getStatesOfCountry(country.isoCode));
+        setCities([]);
+        break;
+      case "state":
+        setCities(City.getCitiesOfState(formData.country, value));
+        break;
     }
   };
 
@@ -52,7 +58,7 @@ const useReceptionManagement = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (!["image/png", "image/jpeg"].includes(file.type)) {
+    if (file.type !== "image/png" && file.type !== "image/jpeg") {
       toast.error("Please upload a PNG or JPEG image");
       return;
     }
@@ -65,20 +71,37 @@ const useReceptionManagement = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
 
     const formDataToSend = new FormData();
-    const { confirmPassword, ...data } = formData;
+    const data = formData;
 
-    Object.entries(data).forEach(([key, value]) => {
+    // Format and append text fields
+    const textFields = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      gender: data.gender,
+      country: data.country,
+      state: data.state,
+      city: data.city,
+      zipCode: data.zipCode,
+      address: data.address,
+      hospitalId: data.hospitalId,
+      qualification: data.qualification,
+      emergencyContactNo: data.emergencyContactNo,
+      workingTime: data.workingTime,
+      breakTime: data.breakTime,
+    };
+
+    // Append all text fields
+    Object.entries(textFields).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
 
+    // Handle profile picture
     if (data.profilePicture) {
-      formDataToSend.append("profilePicture", data?.profilePicture);
+      formDataToSend.append("profilePicture", data.profilePicture);
     }
 
     const response = await CreateReception(formDataToSend);
@@ -91,14 +114,14 @@ const useReceptionManagement = () => {
   return {
     showPassword,
     setShowPassword,
-    profilePicturePreview,
     formData,
-    countries,
-    states,
-    cities,
     handleChange,
     handleProfilePictureChange,
     handleSubmit,
+    profilePicturePreview,
+    countries,
+    states,
+    cities,
   };
 };
 

@@ -293,55 +293,6 @@ export const ReceptionAdd = () => {
                               className="w-full p-3 border border-[#d9d9d9] rounded-[10px] focus:border-[#718ebf] placeholder-[#a7a7a7]"
                             />
                           </div>
-                          <div className="relative w-[32%] pt-4">
-                            <div className="absolute top-1 left-3.5 bg-white z-10 text-[16px] font-medium">
-                              Password <span>*</span>
-                            </div>
-                            <div className="password-input-container">
-                              <input
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                placeholder="Enter Password"
-                                className="w-full p-3 border border-[#d9d9d9] rounded-[10px] focus:border-[#718ebf] placeholder-[#a7a7a7]"
-                              />
-                              <div
-                                onClick={() => setShowPassword(!showPassword)}
-                                className=" eye absolute top-[30px] right-3.5 cursor-pointer"
-                              >
-                                {showPassword ? (
-                                  <FaEye size={20} />
-                                ) : (
-                                  <FaEyeSlash size={20} />
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="relative w-[32%] pt-4">
-                            <div className="absolute top-1 left-3.5 bg-white z-10 text-[16px] font-medium">
-                              Confirm Password <span>*</span>
-                            </div>
-                            <input
-                              type={showPassword ? "text" : "password"}
-                              name="confirmPassword"
-                              value={formData.confirmPassword}
-                              onChange={handleChange}
-                              placeholder="Confirm Password"
-                              required
-                              className="w-full p-3 border border-[#d9d9d9] rounded-[10px] focus:border-[#718ebf] placeholder-[#a7a7a7]"
-                            />
-                            <div
-                              onClick={() => setShowPassword(!showPassword)}
-                              className="eye absolute top-[30px] right-3.5 cursor-pointer"
-                            >
-                              {showPassword ? (
-                                <FaEye size={20} />
-                              ) : (
-                                <FaEyeSlash size={20} />
-                              )}
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
