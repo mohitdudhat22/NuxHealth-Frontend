@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   FaUsers,
   FaUser,
@@ -7,85 +7,19 @@ import {
   FaEye,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import PatientsStatistics from "@/component/PatientComponents/PatientsStatistics.jsx";
 import PatientsBreakdown from "@/component/PatientComponents/PatienBreakDown.jsx";
-import apiService from "@/services/api.js";
-import { useGlobal } from "@/hooks/useGlobal";
+import useDashboardData from "@/hooks/Admin/Dashboard";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { getBills, allBills } = useGlobal();
-  const [totalAppointments, setTotalAppointments] = useState(0);
-  const [todaysAppointments, setTodaysAppointments] = useState([]);
-  const [totalPatients, setTotalPatients] = useState(0);
-  const [totalDoctors, setTotalDoctors] = useState(0);
-
-  useEffect(() => {
-    const fetchAllAppointments = async () => {
-      try {
-        const response = await apiService.GetallAppointmentsForCount();
-        if (response && response.data && Array.isArray(response.data)) {
-          const data = response.data;
-          setTotalAppointments(data.length);
-        } else {
-          console.error("Unexpected response structure:", response);
-          setTotalAppointments(0);
-        }
-      } catch (error) {
-        console.error("Error fetching all appointments:", error);
-        toast.error("Error fetching all appointments");
-        setTotalAppointments(0);
-      }
-    };
-
-    const fetchTodaysAppointments = async () => {
-      const response = await apiService.GetAllTodayAppointments();
-      const data = response.data;
-
-      // Get today's date in 'YYYY-MM-DD' format (UTC)
-      const today = new Date().toISOString().split("T")[0];
-
-      // Filter appointments with today's date
-      const filteredAppointments = data.filter((appointment) => {
-        const appointmentDate = new Date(appointment.date)
-          .toISOString()
-          .split("T")[0];
-        return appointmentDate === today;
-      });
-
-      setTodaysAppointments(filteredAppointments);
-      console.log(filteredAppointments);
-    };
-
-    const fetchPatients = async () => {
-      try {
-        const response = await apiService.GetAllPatients();
-        const data = response.data.data;
-        setTotalPatients(data.length);
-      } catch (error) {
-        console.error("Error fetching patients:", error);
-        toast.error("Error fetching patients");
-      }
-    };
-
-    const fetchDoctors = async () => {
-      try {
-        const response = await apiService.GetAllDoctors();
-        const data = response.data.data;
-        setTotalDoctors(data.length);
-      } catch (error) {
-        console.error("Error fetching doctors:", error);
-        toast.error("Error fetching doctors");
-      }
-    };
-
-    fetchAllAppointments();
-    fetchTodaysAppointments();
-    fetchPatients();
-    fetchDoctors();
-    getBills();
-  }, []);
+  const {
+    totalAppointments,
+    todaysAppointments,
+    totalPatients,
+    totalDoctors,
+    allBills,
+  } = useDashboardData();
 
   return (
     <div className="deshbord-section">

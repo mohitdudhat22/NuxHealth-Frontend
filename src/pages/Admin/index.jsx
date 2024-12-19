@@ -22,7 +22,7 @@ import Dashboard from "./Dashboard";
 import DoctorManagement from "./DoctorManagement";
 import DoctorEdit from "./Doctors/DoctorEdit";
 import DoctorAdd from "./Doctors/DoctorAdd";
-import ReceptionManagement from "./ReceptionManagement";
+import ReceptionManagement from "./Reception/ReceptionManagement";
 import { ReceptionAdd } from "./Reception/ReceptionAdd";
 
 const Admin = () => {

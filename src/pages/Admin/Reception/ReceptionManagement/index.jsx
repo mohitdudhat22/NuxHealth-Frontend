@@ -1,31 +1,62 @@
+import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdAdd } from "react-icons/md";
 import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import Onsite from "./Onsite";
-import Delete from "./Delete.jsx";
-import useDoctorManagement from "@/hooks/Admin/DoctorManagement";
+import { useDoctor } from "../../../../hooks/useDoctor.jsx";
+import apiService from "../../../../services/api.js";
+import { ListReception } from "@/axiosApi/ApiHelper.js";
 
-export default function DoctorManagement() {
+const ReceptionManagement = () => {
+  const [reception, setReception] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [openModel, setOpenModel] = useState(false);
+  const [selectedDoctorId, setSelectedDoctorId] = useState(null);
   const navigate = useNavigate();
-  const {
-    loading,
-    error,
-    searchTerm,
-    setSearchTerm,
-    selectedDoctor,
-    openModel,
-    setOpenModel,
-    selectedDoctorId,
-    setSelectedDoctorId,
-    filteredDoctors,
-    handleDeleteSuccess,
-    handleViewDoctorDetails,
-    handleDeleteDoctor,
-  } = useDoctorManagement();
+  const { getAllDoctors, allDoctors } = useDoctor();
 
+  useEffect(() => {
+    const fetchReception = async () => {
+      setLoading(true);
+      const response = await ListReception();
+      if (response.status === 1) {
+        setReception(response.data);
+      }
+      setLoading(false);
+    };
+    fetchReception();
+  }, [window.location.pathname]);
+
+  const handleDeleteSuccess = (deletedId) => {
+    setReception((prevDoctors) =>
+      prevDoctors.filter((doctor) => doctor._id !== deletedId)
+    );
+    setSelectedDoctorId(null);
+  };
+
+  const handleViewDoctorDetails = (doctor) => {
+    setSelectedDoctor(doctor);
+    setOpenModel(true);
+  };
+
+  const handleDeleteDoctor = async (id) => {
+    try {
+      const response = await apiService.DeleteDoctor(id);
+      if (response.data) {
+        toast.success("Doctor deleted successfully");
+        await getAllDoctors();
+      }
+    } catch (error) {
+      console.error("Error deleting doctor:", error);
+      toast.error("Error deleting doctor");
+    }
+  };
   const renderDoctorsTable = () => {
     return (
       <div
@@ -36,7 +67,7 @@ export default function DoctorManagement() {
           <thead className="sticky top-0 bg-gray-100 z-10">
             <tr>
               <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold rounded-tl-xl">
-                Doctor Name
+                Reception Name
               </th>
               <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229]  text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold">
                 Gender
@@ -44,41 +75,35 @@ export default function DoctorManagement() {
               <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold">
                 Qualification
               </th>
+              <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold"></th>
               <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold">
-                Specialty
+                Email
               </th>
-              <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold">
-                Working Time
-              </th>
-              <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold">
-                Patient Check Up Time
-              </th>
-              <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold">
-                Break Time
-              </th>
+              <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold"></th>
+              <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center text-left new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold"></th>
               <th className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#030229] text-center new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold rounded-tr-xl">
                 Action
               </th>
             </tr>
           </thead>
           <tbody>
-            {filteredDoctors.length > 0 ? (
-              filteredDoctors.map((doctor) => (
-                <tr key={doctor._id} className="border-t text-center">
+            {reception?.length > 0 ? (
+              reception?.map((data) => (
+                <tr key={data?._id} className="border-t text-center">
                   <td className="flex items-center new-xxl:p-3 new-lg:p-1 new-xl:p-2">
                     <div className="rounded-full overflow-hidden mr-2">
                       <img
-                        src={doctor.avatar}
-                        alt={doctor.name}
+                        src={data?.profilePicture}
+                        alt={data?.fullName}
                         className="new-xxl:w-[40px] new-xxl:h-[40px] new-lg:w-[25px] new-lg:h-[25px] new-xl:w-[30px] new-xl:h-[30px]"
                       />
                     </div>
                     <div className="text-[#4F4F4F] new-xxl:text-lg new-lg:text-sm new-xl:text-base font-semibold">
-                      <h3>{doctor.name}</h3>
+                      <h3>{data?.fullName}</h3>
                     </div>
                   </td>
                   <td className="">
-                    {doctor.gender === "female" ? (
+                    {data?.gender === "Female" ? (
                       <BsGenderFemale className="w-5 h-5 text-[#718ebf] bg-[#f6f8fb] rounded-full mr-2  " />
                     ) : (
                       <div className="w-10 h-10 text-[#718ebf] bg-[#f6f8fb] rounded-full flex items-center justify-center text-lg">
@@ -87,40 +112,40 @@ export default function DoctorManagement() {
                     )}
                   </td>
                   <td className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#4F4F4F] new-xxl:text-lg font-semibold new-lg:text-base new-xl:text-lg">
-                    {doctor.qualification}
+                    {data?.qualification}
                   </td>
                   <td className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#4F4F4F] new-xxl:text-lg font-semibold new-lg:text-base new-xl:text-lg">
-                    {doctor.speciality}
+                    {data?.email}
                   </td>
                   <td className="time new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-[#4F4F4F] new-xxl:text-lg font-semibold new-lg:text-base new-xl:text-lg">
-                    <h3>{doctor.workingOn}</h3>
+                    <h3>{data?.phone}</h3>
                   </td>
                   <td className="text-[#718EBF] new-xxl:text-lg new-lg:text-base new-xl:text-lg font-semibold flex justify-center">
                     <h3 className="mx-8 bg-[#f6f8fb] rounded-full p-1 text-center w-[47%]">
-                      {doctor.patientCheckupTime}
+                      {data?.patientCheckupTime}
                     </h3>
                   </td>
                   <td className="text-[#718EBF] new-xxl:text-lg new-lg:text-base new-xl:text-lg font-semibold">
                     <h3 className="bg-[#f6f8fb] rounded-full p-1 text-center">
-                      {doctor.breakTime}
+                      {data?.breakTime}
                     </h3>
                   </td>
                   <td className="flex items-center justify-center pb-2 px-2 new-lg:px-1 new-xl:px-2">
                     <div
                       className="new-xxl:w-10 new-xxl:h-10 new-lg:w-7 new-lg:h-7 new-xl:w-8 new-xl:h-8 text-[#39973D] bg-[#f6f8fb] rounded-md flex items-center justify-center new-xxl:text-base new-lg:text-sm new-xl:text-base"
-                      onClick={() => navigate(`/doctorEdit/${doctor._id}`)}
+                      onClick={() => navigate(`/doctorEdit/${data?._id}`)}
                     >
                       <FaEdit />
                     </div>
                     <div
                       className="new-xxl:w-10 new-xxl:h-10 new-lg:w-7 new-lg:h-7 new-xl:w-8 new-xl:h-8 text-[#0EABEB] bg-[#f6f8fb] rounded-md flex items-center justify-center new-xxl:text-base new-lg:text-sm new-xl:text-base mx-2"
-                      onClick={() => handleViewDoctorDetails(doctor)}
+                      onClick={() => handleViewDoctorDetails(data)}
                     >
                       <FaEye />
                     </div>
                     <div
                       className="new-xxl:w-10 new-xxl:h-10 new-lg:w-7 new-lg:h-7 new-xl:w-8 new-xl:h-8 text-[#E11D29] bg-[#f6f8fb] rounded-md flex items-center justify-center text-lg"
-                      onClick={() => handleDeleteDoctor(doctor._id)}
+                      onClick={() => handleDeleteDoctor(data?._id)}
                     >
                       <MdDelete />
                     </div>
@@ -132,7 +157,7 @@ export default function DoctorManagement() {
                 <td colSpan="8" className="text-center">
                   <div className="image">
                     <img src="/img/no_doctors.png" alt="No data" />
-                    <h1>No Doctor Found</h1>
+                    <h1>No Reception Found</h1>
                   </div>
                 </td>
               </tr>
@@ -142,14 +167,13 @@ export default function DoctorManagement() {
       </div>
     );
   };
-
   return (
     <div>
       <div className="bg-[#F6F8FB] p-3 h-[97%]">
         <div className="bg-white rounded-lg p-2 shadow-lg">
           <div className="top flex justify-between items-center p-2 pb-5">
             <div className="heading font-bold text-[26px] new-lg:text-xl new-xl:text-[26px]">
-              <h3>Doctor Management </h3>
+              <h3>Reception Management</h3>
             </div>
             <div className="flex items-center space-x-2">
               <div className="flex items-center bg-gray-100 border border-gray-300 rounded-full px-4 py-2 w-80 new-lg:w-64 new-xl:w-80">
@@ -166,13 +190,13 @@ export default function DoctorManagement() {
               </div>
               <button
                 className="btn flex items-center bg-[#0EABEB] text-white rounded-lg px-4 py-2 ml-2"
-                onClick={() => navigate("/doctorAdd")}
+                onClick={() => navigate("/receptionAdd")}
               >
                 <div className="bg-white text-[#0EABEB] rounded text-xl mr-2">
                   <MdAdd />
                 </div>
                 <div className="text font-semibold text-lg new-lg:text-base new-xl:text-lg">
-                  <h3>Add New Doctor</h3>
+                  <h3>Add New Reception</h3>
                 </div>
               </button>
             </div>
@@ -185,18 +209,20 @@ export default function DoctorManagement() {
       </div>
 
       {/* Modal for Onsite component */}
-      {openModel && (
-        <Onsite selectedDoctor={selectedDoctor} setOpenModel={setOpenModel} />
-      )}
+      {/* {openModel && (
+                <Onsite selectedDoctor={selectedDoctor} setOpenModel={setOpenModel} />
+            )} */}
 
       {/* Modal for Delete doctor */}
-      {selectedDoctorId && (
-        <Delete
-          deleteId={selectedDoctorId}
-          onClose={setSelectedDoctorId(null)}
-          onDeleteSuccess={handleDeleteSuccess}
-        />
-      )}
+      {/* {selectedDoctorId && (
+                <Delete
+                    deleteId={selectedDoctorId}
+                    onClose={setSelectedDoctorId(null)}
+                    onDeleteSuccess={handleDeleteSuccess}
+                />
+            )} */}
     </div>
   );
-}
+};
+
+export default ReceptionManagement;

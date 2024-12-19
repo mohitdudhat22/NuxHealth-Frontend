@@ -41,17 +41,17 @@ export default defineConfig({
         },
       },
     },
-    minify: "terser", // Use Terser for minification
+    minify: "terser",
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
         keep_classnames: true,
         keep_fnames: true,
-        reduce_vars: true, // Helps with eval minimization
+        reduce_vars: true,
       },
-      mangle: false, // Optional: prevent mangling of names
-      safari10: true, // Optional: improves Safari compatibility
+      mangle: false,
+      safari10: true,
     },
   },
   optimizeDeps: {
