@@ -2,25 +2,24 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 // Base URL for the backend
-const backendUrl = import.meta.env.VITE_API_BASE_URL;
+const backendUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
-console.log(backendUrl);
-
-const axiosApi = axios.create({
-  baseURL: backendUrl,
-  // withCredentials: true,
-});
-
-// Helper to get cookie by name
+// Function to get cookie by name
 const getCookie = (name) => {
   const cookieMatch = document.cookie.match("(?:^|; )" + name + "=([^;]*)");
   return cookieMatch ? decodeURIComponent(cookieMatch[1]) : "";
 };
 
-// Function to set Authorization header
+// Create axios instance with credentials
+const axiosApi = axios.create({
+  baseURL: backendUrl,
+  withCredentials: false,
+});
+
+// Helper function to set Authorization header
 const setAuthHeader = () => {
   const token =
-    window.localStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
+    localStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
     getCookie(import.meta.env.VITE_TOKEN_NAME);
   if (token) {
     axiosApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -35,7 +34,7 @@ setAuthHeader();
 // Intercept requests to ensure the latest token is always used
 axiosApi.interceptors.request.use(
   (config) => {
-    setAuthHeader();
+    setAuthHeader(); // Ensure the latest token is used in each request
     return config;
   },
   (error) => Promise.reject(error)
@@ -80,7 +79,6 @@ axiosApi.interceptors.response.use(
       default:
         toast.error(`Unexpected Error (${status || "Unknown"}): ${errorMsg}`);
     }
-
     return Promise.reject(error);
   }
 );

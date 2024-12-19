@@ -12,7 +12,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error),
+  (error) => Promise.reject(error)
 );
 
 const apiService = {
@@ -99,7 +99,7 @@ const apiService = {
   //Payment
   AppointmentFee: (doctorId, appointmentType) =>
     api.get(
-      `/appoinment/appointment-fee?doctorId=${doctorId}&appointmentType=${appointmentType}`,
+      `/appoinment/appointment-fee?doctorId=${doctorId}&appointmentType=${appointmentType}`
     ),
   createRazorpayOrder: (data) =>
     api.post("/appoinment/create-razorpay-order", data),
@@ -134,6 +134,9 @@ const apiService = {
     api.put(`/notification/markAllAsRead/${userId}`),
   DeleteNotification: (notificationId) =>
     api.delete(`/notification/deletenotification/${notificationId}`),
+
+  // Trupesh
+  CreateReception: (data) => api.post(`/receptionist/register`, data),
 
   // Token
   UpdateDoctorToken: (data) => api.post(`/notification/updateDoctor`, data),
