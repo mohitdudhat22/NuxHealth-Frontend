@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useAuth } from "@/hooks/useAuth";
 import { AuthLayouts } from "@/Layouts/";
+import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { UniversalLogin, user } = useAuth();
+  const { UniversalLogin } = useAuth();
   const [formData, setFormData] = useState({
     identifier: "",
     password: "",
@@ -25,22 +25,20 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const role = await UniversalLogin(formData);
-      if (role) {
-        if (role === "admin") {
-          window.location.href = "/";
-        } else if (role === "patient") {
-          window.location.href = "/patient";
-        } else if (role === "doctor") {
-          toast.success("doctor login successfully");
-          window.location.href = "/doctor";
-        }
+
+    const role = await UniversalLogin(formData);
+    if (role) {
+      if (role === "admin") {
+        window.location.href = "/";
+      } else if (role === "patient") {
+        window.location.href = "/patient";
+      } else if (role === "doctor") {
+        toast.success("doctor login successfully");
+        window.location.href = "/doctor";
       }
-    } catch (err) {
-      console.error(err);
-      toast.error("Login failed. Please check your credentials.");
-      setError("Login failed. Please check your credentials.");
+    } else if (role === "receptionist") {
+      toast.success("reception login successfully");
+      window.location.href = "/reception";
     }
   };
 

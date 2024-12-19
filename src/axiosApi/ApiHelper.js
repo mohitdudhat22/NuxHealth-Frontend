@@ -31,7 +31,7 @@ export const DeleteReception = (id) =>
 // Patient
 export const PatientLogin = (userData) =>
   request("post", "/patient/login", userData);
-export const PatientRegister = (userData) =>
+export const RegisterPatient = (userData) =>
   request("post", "/patient/register", userData);
 export const GetPatientProfile = (id) =>
   request("get", `/patient/getPatient/${id}`);
@@ -44,7 +44,7 @@ export const GetPatientById = (id) =>
 // Admin
 export const AdminLogin = (userData) =>
   request("post", "/admin/login", userData);
-export const AdminRegister = (userData) =>
+export const RegisterAdmin = (userData) =>
   request("post", "/admin/register", userData);
 export const GetAdminProfile = (id) => request("get", `/admin/profile/${id}`);
 export const EditAdminProfile = (id, userData) =>
@@ -68,8 +68,8 @@ export const DeleteDoctor = (id) =>
   request("delete", `/doctor/deleteDoctor/${id}`);
 
 // Universal Login /logout
-export const UniversalLogin = (userData) => request("post", "/login", userData);
-export const UniversalLogout = (userData) =>
+export const Login = (userData) => request("post", "/login", userData);
+export const Logout = (userData) =>
   request("post", "/logout", userData);
 export const ForgetPassword = (userData) =>
   request("post", "/forgetPassword", userData);
