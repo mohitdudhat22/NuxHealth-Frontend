@@ -27,6 +27,20 @@ export const UpdateReception = (id, data) =>
   request("put", `/receptionist/updateReceptionist/${id}`, data);
 export const DeleteReception = (id) =>
   request("delete", `/receptionist/deleteReceptionist/${id}`);
+export const ReceptionistGetBill = () =>
+  request("get", `/receptionist/getbill/`);
+
+
+
+// Bill API:
+
+// Create Bill: /receptionist/createbill
+// Get Bill: /receptionist/getbill
+// logged in User Bill: /receptionist/getbillsById
+// Get Insurance Bill: /receptionist/getInsuranceBills
+// View Single Bill: /receptionist/singlebill
+// Update Bill: /receptionist/billupdate
+// Delete Bill: /receptionist/deletebill
 
 // Patient
 export const PatientLogin = (userData) =>
