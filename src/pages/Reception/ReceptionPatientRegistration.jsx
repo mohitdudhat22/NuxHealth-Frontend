@@ -5,13 +5,16 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../../hooks/useAuth.jsx";
 import { Country, City, State } from "country-state-city";
 
-import { bloodGroups,
+import {
+  bloodGroups,
   genders,
   PatientFormData,
-  PatientRegistrationFormFields, } from '@/constants/data.jsx';
+  PatientRegistrationFormFields,
+} from '@/constants/data.jsx';
 import ImageSlider from "../../components/Login/ImageSlider.jsx";
+import { HMCard } from '@/components/index.js';
 
- const ReceptionPatientRegistration = () => {
+const ReceptionPatientRegistration = () => {
   const navigate = useNavigate();
   const { PatientRegister } = useAuth();
   const [error, setError] = useState("");
@@ -79,8 +82,8 @@ import ImageSlider from "../../components/Login/ImageSlider.jsx";
     <div className="patient-registration-section flex justify-center flex-col md:flex-row py-5">
       {/* Main registration form */}
       <div className="main w-full flex justify-center items-center">
-        <div className="w-full  bg-white p-5 shadow-md rounded-lg mx-4 md:mx-10">
-          <div className="head pb-5">
+        <HMCard>
+          <div className="pb-5">
             <p className="text-2xl font-semibold">Registration</p>
           </div>
           <div className="form-box">
@@ -339,7 +342,7 @@ import ImageSlider from "../../components/Login/ImageSlider.jsx";
               </div>
             </form>
           </div>
-        </div>
+        </HMCard>
       </div>
     </div>
   );

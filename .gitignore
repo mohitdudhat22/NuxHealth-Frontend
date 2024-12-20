@@ -22,6 +22,8 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?   
+*.sw?
 package-lock.json
 .env
+
+*.zip

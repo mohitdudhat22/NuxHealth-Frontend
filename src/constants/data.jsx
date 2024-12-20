@@ -143,10 +143,17 @@ export const ReceptionPanelData = [
     text: "Appointment Booking",
   },
   {
-    key: "/bills",
-    to: "/reception/bills",
-    icon: RiBillLine,
-    text: "Bills",
+    dropdown: true,
+    text: "Billing and Payments",
+    icon: FaLaptopMedical,
+    dropdownItems: [
+      {
+        key: "/monitorBilling",
+        to: "monitorBilling",
+        text: "Monitor Billing",
+        icon: RiBillLine,
+      },
+    ],
   },
 ];
 

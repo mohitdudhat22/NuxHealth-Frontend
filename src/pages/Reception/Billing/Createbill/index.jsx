@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { useAuth } from "../../hooks/useAuth";
-import { useGlobal } from "../../hooks/useGlobal";
-  import { formDataObject, PatientBillFields } from "@/constants/data";
-import InputField from "./InputField";
-import { useDoctor } from "../../hooks/useDoctor";
-import { usePatient } from "../../hooks/usePatient";
+import InputField from '@/components/InputField'
+import React, { useEffect, useState } from 'react'
+import { useAuth } from "@/hooks/useAuth";
+import { useGlobal } from "@/hooks/useGlobal";
+import { useNavigate } from 'react-router-dom';
+import { useDoctor } from '@/hooks/useDoctor';
+import { usePatient } from '@/hooks/usePatient';
+import { GetPatientById } from '@/axiosApi/ApiHelper';
+import { formDataObject, PatientBillFields } from "@/constants/data";
 
-const CreateBill = () => {
+export const Createbill = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { createBill } = useGlobal();
@@ -67,7 +67,7 @@ const CreateBill = () => {
   // Fetch patient details based on selected patient ID
   const fetchPatientDetails = async (patientId) => {
     try {
-      const patientDetails = await getPatientById(patientId);
+      const patientDetails = GetPatientById(patientId);
       setFormData((prev) => ({
         ...prev,
         phone: patientDetails.phone || "",
@@ -129,7 +129,6 @@ const CreateBill = () => {
 
     return () => clearInterval(interval);
   }, []);
-
   // Hospital bill fields
   const HospitalBillFields = [
     {
@@ -242,10 +241,10 @@ const CreateBill = () => {
                   <div className="w-full">
                     <form
                       id="create-bill-form"
-                      onsubmit="handleSubmit"
+                      onSubmit="handleSubmit"
                       className="flex flex-wrap justify-between"
                     >
-                      {HospitalBillFields.map((field, index) => (
+                      {HospitalBillFields?.map((field, index) => (
                         <InputField
                           key={index}
                           {...field}
@@ -259,7 +258,7 @@ const CreateBill = () => {
               </div>
             </div>
 
-            {formData.paymentType === "Insurance" && (
+            {/* {formData.paymentType === "Insurance" && ( */}
               <div className="mb-4 p-5 border-2 border-[#F4F4F4] rounded-xl">
                 <div className="space-y-4">
                   <p className="text-[#030229] text-[26px] font-bold">
@@ -268,27 +267,27 @@ const CreateBill = () => {
                   <div className="flex">
                     <div className="w-full">
                       <form className="flex flex-wrap justify-between gap-4">
-                        {PatientBillFields.map((field, index) => (
+                        {/* {PatientBillFields.map((field, index) => (
                           <InputField
                             key={index}
                             {...field}
                             value={formData[field.name]}
                             onChange={handleChange}
                           />
-                        ))}
+                        ))} */}
                       </form>
                     </div>
                   </div>
                 </div>
               </div>
-            )}
+            {/* )} */}
 
             <div className="flex justify-end">
               <button
                 type="submit"
                 form="create-bill-form"
                 className="bg-[#F6F8FB] text-[#4F4F4F] text-lg font-semibold py-3 px-8 rounded-lg hover:bg-[#0EABEB] hover:text-white"
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
               >
                 Save
               </button>
@@ -297,7 +296,5 @@ const CreateBill = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-export default CreateBill;
+  )
+}

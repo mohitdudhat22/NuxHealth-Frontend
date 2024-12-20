@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGlobal } from "@/hooks/useGlobal";
 import { HMHeader, HMSidebar } from "@/components";
+import SearchResult from "@/pages/SearchResult";
 
 export const DashboardLayout = ({ children, items }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -22,7 +23,7 @@ export const DashboardLayout = ({ children, items }) => {
       {/* Main content */}
       <div className="flex flex-col pl-0 flex-auto min-h-0">
         {/* Header */}
-        <HMHeader handleClick={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+        <HMHeader />
 
         {/* Page content */}
         <main className="flex-1 p-4 overflow-y-auto max-h-screen bg-gray-100">

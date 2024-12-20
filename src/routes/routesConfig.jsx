@@ -640,20 +640,6 @@ const routesConfig = [
       },
     ],
   },
-
-  // Extra routes
-  // {
-  //   path: "/invoice",
-  //   element: (
-  //     <ProtectedRoute
-  //       element={<Invoice />}
-  //       allowedRoles={["admin", "doctor", "patient"]}
-  //       userRole={userRole}
-  //     />
-  //   ),
-  //   allowedRoles: ["admin", "doctor", "patient"],
-  // },
-
   {
     path: "/schedular",
     element: (
