@@ -7,11 +7,12 @@ const DoctorDetails = ({ doctorId }) => {
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  console.log(doctorId, "doctor");
   const fetchDoctorData = async () => {
     try {
       const response = await apiService.GetDoctorById(doctorId);
       setDoctor(response.data.data);
+      console.log("Doctor data:", response.data.data);
     } catch (err) {
       console.error("Error fetching doctor data:", err);
       toast.error("Error fetching doctor data.");
@@ -42,7 +43,7 @@ const DoctorDetails = ({ doctorId }) => {
           />
           <div className="text-white">
             <h2 className="text-lg font-semibold">
-              {doctor.firstName} {doctor.lastName}
+              {doctor.name}
             </h2>
             <span className="bg-[#718ebf] flex w-[100px] p-1 rounded-full text-sm mt-2">
               <img src="/image/vuesax.png" alt="Gender icon" />

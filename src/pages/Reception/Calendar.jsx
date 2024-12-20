@@ -32,15 +32,10 @@ const Calendar = ({
     allAppointments: allAppointements,
     getAppointmetnsForPatient,
   } = useGlobal();
-  const { user } = useAuth();
-  console.log(
-    user,
-    "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-  );
+  const { patientIdForReception } = useAuth();
   useEffect(() => {
-    getAppointmetnsForPatient(user.id);
-  }, [user.id]);
-
+    getAppointmetnsForPatient(patientIdForReception._id);
+  }, [patientIdForReception._id]);
   useEffect(() => {
     const mappedEvents = allAppointements?.map((appointment) => ({
       title: `${appointment.patientId.firstName} with Dr. ${appointment.doctorId?.name}`,
@@ -83,11 +78,12 @@ const Calendar = ({
   };
   const handleBookAppointment = async (appointmentData) => {
     try {
-      await handlePayment(appointmentData);
-      // await createAppointment(user.id, appointmentData, selectedDoctor);
+      // await handlePayment(appointmentData);
+      console.log("patient---------------------------------", filterData.patient);
+      const {_id} = await createAppointment(filterData.patient, appointmentData, selectedDoctor);
       setEvents([...events, appointmentData]);
       handleCloseModal();
-      navigate("/patient/appointment");
+      navigate("/reception/monitorBilling/createbill/" + _id);
     } catch (error) {
       console.error("Error booking appointment:", error);
     }

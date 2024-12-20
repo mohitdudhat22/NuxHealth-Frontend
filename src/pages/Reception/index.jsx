@@ -30,6 +30,7 @@ const ReceptionPanel = () => {
         <Route path="/allAppointment" element={<AllAppointment />} />
         <Route path="/monitorBilling" element={<MonitorBilling />} />
         <Route path="/monitorBilling/createbill" element={<Createbill />} />
+        <Route path="/monitorBilling/createbill/:id" element={<Createbill />} />
         <Route path="/404" element={<ErrorSharp />} />
       </Routes>
     </DashboardLayout>

@@ -303,6 +303,7 @@ export const GlobalProvider = ({ children }) => {
     try {
       const response = await apiService.GetAllAppointments();
       setAllAppointments(response.data.data);
+      console.log(response.data.data);
     } catch (error) {
       console.error("Error fetching appointments:", error);
       toast.error("Error fetching appointments");
@@ -413,28 +414,33 @@ export const GlobalProvider = ({ children }) => {
   };
   const createAppointment = async (patientId, userData, selectedDoctor) => {
     try {
-      await apiService.createAppointment(patientId, userData);
-      onClickNotification(
-        selectedDoctor.deviceToken,
-        "New Appointment",
-        "You have a new appointment",
-      );
+      const response = await apiService.createAppointment(patientId, userData);
+     
+      if(user.role !== "receptionist") {
+        onClickNotification(
+          selectedDoctor.deviceToken,
+          "New Appointment",
+          "You have a new appointment",
+        );
       onClickNotification(
         fcmToken,
         "New Appointment",
         "Your appointment has been booked successfully.",
-      );
-      socket.emit("sendNotification", {
-        userId: patientId || user.id,
-        message: `Your appointment has been booked.`,
-        type: "bill",
-      });
+      ); 
+    }
+    socket.emit("sendNotification", {
+      userId: patientId || user.id,
+      message: `Your appointment has been booked.`,
+      type: "bill",
+    });
+   
       if (user.role === "patient") {
         getAppointmetnsForPatient(user.id);
       } else if (user.role === "doctor") {
         getAppointmetnsForDoctor(user.id);
       }
       toast.success("Appointment created successfully");
+      return response.data.data;
     } catch (error) {
       console.error(error);
       throw error;
