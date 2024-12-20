@@ -7,6 +7,7 @@ import { useGlobal } from "../../hooks/useGlobal";
 import DoctorDetails from "./DoctorDetails";
 import apiService from "../../services/api";
 import { useAuth } from "../../hooks/useAuth";
+import { usePatient } from "@/hooks/usePatient";
 
 const ReceptionAppoinmentBooking = () => {
     const { getAllDoctors, allDoctors } = useDoctor();
@@ -17,13 +18,15 @@ const ReceptionAppoinmentBooking = () => {
         onClickNotification,
     } = useGlobal();
     const { user } = useAuth();
+    const { getAllPatients, allPatients } = usePatient();
     const [specialty, setSpecialty] = useState("nuero");
     const [country, setCountry] = useState("IN");
     const [state, setState] = useState("GJ");
     const [city, setCity] = useState("Surat");
     const [hospital, setHospital] = useState("pm city hospital");
-    const [doctor, setDoctor] = useState("673de70674ea959e623329d0");
-    const [appointmentType, setAppointmentType] = useState("follow_up");
+    const [doctor, setDoctor] = useState(null);
+    const [patient, setPatient] = useState(null);
+    const [appointmentType, setAppointmentType] = useState("Offline");
     const [selectedDate, setSelectedDate] = useState("");
     const [selectedTime, setSelectedTime] = useState("");
     const [patientIssue, setPatientIssue] = useState("");
@@ -35,34 +38,11 @@ const ReceptionAppoinmentBooking = () => {
         getAllDoctors();
         getAllHospitals();
         getAllAppointments();
+        getAllPatients();
         loadRazorpayScript(); // Call the loadRazorpayScript function first
     }, []);
 
-    // Get unique values for each filter based on allDoctors data
-    const getUniqueValues = (key, filterKey, filterValue) => {
-        const data = filterKey
-            ? allDoctors.filter((doctor) => doctor[filterKey] === filterValue)
-            : allDoctors;
-        return [...new Set(data.map((doctor) => doctor[key]))];
-    };
-
-    const filteredHospitals = allHospitals.filter((hospital) => {
-        return (
-            (!country || hospital.country === country) &&
-            (!state || hospital.state === state) &&
-            (!city || hospital.city === city)
-        );
-    });
-
-    const filteredDoctors = allDoctors.filter((doctor) => {
-        return (
-            (!specialty || doctor.speciality === specialty) &&
-            (!country || doctor.country === country) &&
-            (!state || doctor.state === state) &&
-            (!city || doctor.city === city) &&
-            (!hospital || doctor.hospitalName === hospital)
-        );
-    });
+    console.log("filteredDoctors", allDoctors, hospital);
     // Load Razorpay script
     const loadRazorpayScript = () => {
         const script = document.createElement("script");
@@ -113,8 +93,9 @@ const ReceptionAppoinmentBooking = () => {
                             razorpayPaymentId: response.razorpay_payment_id,
                             razorpaySignature: response.razorpay_signature,
                             amount: amount,
+                            patientId : patient,
                         };
-
+                        console.log(newAppointmentData, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
                         await apiService.createAppointmentWithPayment(newAppointmentData);
                         toast.success("Appointment booked successfully!");
                     } catch (error) {
@@ -148,6 +129,7 @@ const ReceptionAppoinmentBooking = () => {
         setSelectedDate(date);
         setSelectedTime(time);
     };
+    console.log(patient, "============================== patient");
     return (
         <div className="container">
             <div className="p-4 shadow-lg m-3 rounded-lg" style={{ height: "auto" }}>
@@ -165,79 +147,27 @@ const ReceptionAppoinmentBooking = () => {
                                 options={[...new Set(allDoctors.map((doc) => doc.speciality))]}
                             />
 
-                            {/* Country Select */}
-                            <SelectInput
-                                label="Country"
-                                value={country}
-                                onChange={(e) => {
-                                    setCountry(e.target.value);
-                                    setState("");
-                                    setCity("");
-                                    setHospital("");
-                                    setDoctor("");
-                                }}
-                                options={getUniqueValues("country")}
-                            />
-
-                            {/* State Select */}
-                            <SelectInput
-                                label="State"
-                                value={state}
-                                onChange={(e) => {
-                                    setState(e.target.value);
-                                    setCity("");
-                                    setHospital("");
-                                    setDoctor("");
-                                }}
-                                options={getUniqueValues("state", "country", country)}
-                            />
-
-                            {/* City Select */}
-                            <SelectInput
-                                label="City"
-                                value={city}
-                                onChange={(e) => {
-                                    setCity(e.target.value);
-                                    setHospital("");
-                                    setDoctor("");
-                                }}
-                                options={getUniqueValues("city", "state", state)}
-                            />
-
-                            {/* Hospital Select */}
-                            <SelectInput
-                                label="Hospital"
-                                value={hospital}
-                                onChange={(e) => {
-                                    setHospital(e.target.value);
-                                    setDoctor("");
-                                }}
-                                options={filteredHospitals.map((hospital) => hospital.name)}
-                            />
                             {/* Doctor Select */}
                             <SelectInput
                                 label="Doctor"
                                 value={doctor}
                                 onChange={(e) => setDoctor(e.target.value)}
-                                options={filteredDoctors.map((doc) => ({
+                                options={allDoctors.map((doc) => ({
                                     value: doc._id,
                                     label: `Dr. ${doc.name}`,
                                 }))}
                             />
 
-                            {/* Appointment Type Select */}
+                            {/* Patient Select */}
                             <SelectInput
-                                label="Appointment Type"
-                                value={appointmentType}
-                                onChange={(e) => setAppointmentType(e.target.value)}
-                                options={[
-                                    { value: "consultation", label: "Consultation" },
-                                    { value: "follow_up", label: "Follow-Up" },
-                                    { value: "emergency", label: "Emergency" },
-                                    { value: "routine_checkup", label: "Routine Checkup" },
-                                    { value: "Online", label: "Online" },
-                                ]}
-                            />
+                                 label="Patient"
+                                 value={patient}
+                                 onChange={(e) => setPatient(e.target.value)}
+                                 options={allPatients.map((patient) => ({
+                                     value: patient._id,
+                                     label: `${patient.firstName} ${patient.lastName} (${patient.email})`,
+                                 }))}
+                                 />
                         </div>
 
                         {/* Conditionally Render Image and Paragraph */}
@@ -258,6 +188,7 @@ const ReceptionAppoinmentBooking = () => {
                                                 city,
                                                 country,
                                                 appointmentType,
+                                                patient,
                                             }}
                                             selectedDoctor={allDoctors.find(
                                                 (doc) => doc._id === doctor

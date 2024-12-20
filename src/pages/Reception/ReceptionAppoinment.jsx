@@ -16,7 +16,7 @@ import CancelAppointmentModal from "../../component/modals/CancelAppointmentModa
 import Onsite from "../Admin/DoctorManagement/Onsite";
 
  const ReceptionAppoinment = () => {
-  const { user } = useAuth();
+  const { patientIdForReception } = useAuth();
   const [activeTab, setActiveTab] = useState("scheduled");
   const [dateRange, setDateRange] = useState([null, null]);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
@@ -39,8 +39,9 @@ import Onsite from "../Admin/DoctorManagement/Onsite";
   } = useGlobal();
 
   useEffect(() => {
-    getAppointmetnsForPatient(user.id);
-  }, [user.id, searchTerm, dateRange]);
+    getAppointmetnsForPatient(patientIdForReception._id);
+    // getAllAppointments();
+  }, [patientIdForReception._id, searchTerm, dateRange]);
 
   useEffect(() => {
     filterAppointments();
@@ -53,14 +54,14 @@ import Onsite from "../Admin/DoctorManagement/Onsite";
   const handleDeleteAppointment = async (appointmentId) => {
     try {
       const response = await deleteAppointment(appointmentId);
-      await getAppointmetnsForPatient(user.id);
+      await getAppointmetnsForPatient(patientIdForReception._id);
       if (response.status === 200) {
         const updatedAppointments = allAppointments.map((appointment) =>
           appointment._id === appointmentId
             ? { ...appointment, status: "canceled" }
             : appointment
         );
-        getAppointmetnsForPatient(user.id);
+        getAppointmetnsForPatient(patientIdForReception._id);
         setAllAppointments(updatedAppointments);
         setActiveTab("cancel");
       }
@@ -135,7 +136,7 @@ import Onsite from "../Admin/DoctorManagement/Onsite";
             ? { ...appointment, status: "canceled" }
             : appointment
         );
-        getAppointmetnsForPatient(user.id);
+        getAppointmetnsForPatient(patientIdForReception.id);
         setAllAppointments(updatedAppointments);
         setActiveTab("cancel");
       }

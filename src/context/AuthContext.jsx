@@ -17,16 +17,19 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || ""
   );
+  const [patientIdForReception, setPatientIdForReception] = useState(JSON.parse(localStorage.getItem("patientIdForReception")) || "");
   const [loading, setLoading] = useState(true);
   const { getAdminProfile, getDoctorProfile, getPatientProfile } = useGlobal();
 
   const PatientRegister = async (userData) => {
     setLoading(true);
     const { data } = await RegisterPatient(userData);
+    setPatientIdForReception(data);
+    console.log(data);
     localStorage.setItem("token", data.token);
     setUser(data.user);
     toast.success("Registration Successful");
-    navigate("/login");
+    if(JSON.parse(localStorage.getItem("user")).role !== "receptionist") navigate("/login");
     setLoading(false);
   };
 
@@ -94,6 +97,9 @@ export const AuthProvider = ({ children }) => {
         PatientRegister,
         AdminRegister,
         UniversalLogin,
+        setPatientIdForReception,
+        patientIdForReception,
+        
       }}
     >
       {children}

@@ -16,7 +16,7 @@ import { HMCard } from '@/components/index.js';
 
 const ReceptionPatientRegistration = () => {
   const navigate = useNavigate();
-  const { PatientRegister } = useAuth();
+  const { PatientRegister , UniversalLogin } = useAuth();
   const [error, setError] = useState("");
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
@@ -28,7 +28,6 @@ const ReceptionPatientRegistration = () => {
   useEffect(() => {
     setCountries(Country.getAllCountries());
   }, []);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -138,6 +137,7 @@ const ReceptionPatientRegistration = () => {
                     name="age"
                     value={formData.age}
                     onChange={handleChange}
+                    type='number'
                     placeholder="Enter Age"
                     className="w-full border  border-gray-300 py-2 px-4 rounded-md"
                   />

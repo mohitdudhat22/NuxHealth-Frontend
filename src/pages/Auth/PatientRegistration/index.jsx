@@ -135,6 +135,7 @@ const PatientRegistration = () => {
                 value={formData.age}
                 onChange={handleChange}
                 placeholder="Enter Age"
+                type="number"
                 className="w-full border  border-gray-300 py-2 px-4 rounded-md"
               />
             </div>
