@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import { toast } from "react-hot-toast";
 import { requestFCMToken } from "../utils/firebaseUtils";
 import { getMessaging, onMessage } from "@firebase/messaging";
-import { io } from "socket.io-client";
-const socket = io(import.meta.env.VITE_API_BASE_URL);
+import {socket} from "../config/socket";
 export const GlobalContext = createContext();
 import { useQuery } from "@tanstack/react-query";
 export const GlobalProvider = ({ children }) => {

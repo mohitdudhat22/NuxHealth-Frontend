@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, TextField } from "@mui/material";
-import io from "socket.io-client";
+import {socket} from "./config/socket.js";
 import toast from "react-hot-toast";
 
-const socket = io("http://localhost:8001");
 
 const VideoCall = () => {
   const [room, setRoom] = useState("");
