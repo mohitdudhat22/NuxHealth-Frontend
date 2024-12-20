@@ -27,8 +27,6 @@ export default function MonitorBilling() {
   const billUrl = (selectedInvoice, bill) => {
     console.log(selectedInvoice, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", bill);
     switch (selectedInvoice) {
-      case "Bill":
-        return `/bill/${bill._id}`;
       case "Bill2":
         return `/bill2/${bill._id}`;
       case "Bill3":
@@ -167,8 +165,8 @@ export default function MonitorBilling() {
                       <td className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-center text-[#4F4F4F] new-xxl:text-lg new-lg:text-base new-xl:text-base font-semibold">
                         {bill.patientId
                           ? bill.patientId.firstName +
-                            " " +
-                            bill.patientId.lastName
+                          " " +
+                          bill.patientId.lastName
                           : "N/A"}
                       </td>
                       <td className="new-xxl:p-3 new-lg:p-1 new-xl:p-2 text-center text-[#4F4F4F] new-xxl:text-lg font-semibold new-lg:text-base new-xl:text-base">
@@ -178,11 +176,10 @@ export default function MonitorBilling() {
                         {bill.description}
                       </td>
                       <td
-                        className={`new-xxl:p-3 new-lg:p-1 new-xl:p-2 ${
-                          bill.status === "Paid"
-                            ? "bg-green-100 text-green-700"
-                            : "text-[#E11D29]"
-                        } rounded-full text-center m-3`}
+                        className={`new-xxl:p-3 new-lg:p-1 new-xl:p-2 ${bill.status === "Paid"
+                          ? "bg-green-100 text-green-700"
+                          : "text-[#E11D29]"
+                          } rounded-full text-center m-3`}
                       >
                         <h3 className="bg-red-100 p-2 rounded-full text-center new-xxl:text-lg font-semibold new-lg:text-base new-xl:text-base">
                           {bill.status}

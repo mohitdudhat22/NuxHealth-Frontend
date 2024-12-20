@@ -123,38 +123,43 @@ export const PatientPanelData = [
   },
 ];
 
-export const ReceptionPanelData = [
-  {
-    key: "/reception",
-    to: "/reception",
-    icon: FaUser,
-    text: "Patient Registration",
-  },
-  {
-    key: "/personalhealth",
-    to: "/reception/personalhealth",
-    icon: RiContactsBookFill,
-    text: "patient Health Record",
-  },
-  {
-    key: "/appointment",
-    to: "/reception/appointment",
-    icon: FaCalendarCheck,
-    text: "Appointment Booking",
-  },
-  {
-    dropdown: true,
-    text: "Billing and Payments",
-    icon: FaLaptopMedical,
-    dropdownItems: [
-      {
-        key: "/monitorBilling",
-        to: "monitorBilling",
-        text: "Monitor Billing",
-        icon: RiBillLine,
-      },
-    ],
-  },
+export const ReceptionPanelData = [{
+  key: "/reception",
+  to: "/reception",
+  icon: MdDashboard,
+  text: "Dashboard",
+},
+{
+  key: "patientregistration",
+  to: "/reception/patient-registration",
+  icon: FaUser,
+  text: "Patient Registration",
+},
+{
+  key: "/personalhealth",
+  to: "/reception/personalhealth",
+  icon: RiContactsBookFill,
+  text: "patient Health Record",
+},
+{
+  key: "/appointment",
+  to: "/reception/appointment",
+  icon: FaCalendarCheck,
+  text: "Appointment Booking",
+},
+{
+  dropdown: true,
+  text: "Billing and Payments",
+  icon: FaLaptopMedical,
+  dropdownItems: [
+    {
+      key: "/monitorBilling",
+      to: "monitorBilling",
+      text: "Monitor Billing",
+      icon: RiBillLine,
+    },
+  ],
+},
 ];
 
 export const countryCodes = [

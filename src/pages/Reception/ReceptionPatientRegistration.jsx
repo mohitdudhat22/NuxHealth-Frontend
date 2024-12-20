@@ -61,10 +61,7 @@ const ReceptionPatientRegistration = () => {
     <div className="patient-registration-section flex justify-center flex-col md:flex-row py-5">
       {/* Main registration form */}
       <div className="main w-full flex justify-center items-center">
-        <HMCard>
-          <div className="pb-5">
-            <p className="text-2xl font-semibold">Registration</p>
-          </div>
+        <HMCard title='Registration'>
           <div className="form-box">
             {error && <div className="text-red-500 mb-4">{error}</div>}
             <form onSubmit={handleSubmit} className="flex flex-wrap">

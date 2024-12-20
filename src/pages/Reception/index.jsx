@@ -14,12 +14,15 @@ import ReceptionAppoinment from "./ReceptionAppoinment";
 import { ReceptionPatientHealthRecord } from "./ReceptionPatientHealthRecord";
 import { MonitorBilling } from "./Billing/MonitorBilling";
 import { Createbill } from "./Billing/Createbill";
+import { ViewBill } from "./Billing/ViewBill";
+import { Dashboard } from "./Dashboard";
 
 const ReceptionPanel = () => {
   return (
     <DashboardLayout items={ReceptionPanelData}>
       <Routes>
-        <Route path="" element={<ReceptionPatientRegistration />} />
+        <Route path="" element={<Dashboard />} />
+        <Route path="/patient-registration" element={<ReceptionPatientRegistration />} />
         <Route path="/PersonalHealth" element={<ReceptionPatientHealthRecord />} />
         <Route path="/appointment" element={<ReceptionAppoinment />} />
         <Route path="/appointmentBooking" element={<ReceptionAppoinmentBooking />} />
@@ -29,8 +32,8 @@ const ReceptionPanel = () => {
         <Route path="/medicalHistory" element={<MedicalHistory />} />
         <Route path="/allAppointment" element={<AllAppointment />} />
         <Route path="/monitorBilling" element={<MonitorBilling />} />
-        <Route path="/monitorBilling/createbill" element={<Createbill />} />
         <Route path="/monitorBilling/createbill/:id" element={<Createbill />} />
+        <Route path="/bill/:id" element={<ViewBill />} />
         <Route path="/404" element={<ErrorSharp />} />
       </Routes>
     </DashboardLayout>

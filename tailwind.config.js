@@ -1,15 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+    darkMode: ["class"],
+    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {
-      screens: {
-        'new-sm': '601px',
-        'new-lg': '1280px', // Large screens (laptops)
-        'new-xl': '1440px', // Extra large screens (desktops)
-        'new-xxl': '1890px', // Extra large screens (desktops)
-      },
-    },  
+  	extend: {
+  		screens: {
+  			'new-sm': '601px',
+  			'new-lg': '1280px',
+  			'new-xl': '1440px',
+  			'new-xxl': '1890px'
+  		},
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		colors: {}
+  	}
   },
-  plugins: [import("tailwind-scrollbar")],
+  plugins: [import("tailwind-scrollbar"), require("tailwindcss-animate")],
 };
