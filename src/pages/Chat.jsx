@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { io } from "socket.io-client";
 
-const socket = io(import.meta.env.VITE_API_BASE_URL);
 
 const Chat = () => {
   const [message, setMessage] = useState("");

@@ -26,15 +26,13 @@ import {
   Close,
   Delete,
 } from "@mui/icons-material";
-import io from "socket.io-client";
+import {socket} from "../../config/socket.js";
 import toast from "react-hot-toast";
 import { useAuth } from "../../hooks/useAuth";
 import { useDoctor } from "../../hooks/useDoctor";
 import { usePatient } from "../../hooks/usePatient";
 import { useGlobal } from "../../hooks/useGlobal";
 import ArrowBack from "@mui/icons-material/ArrowBack";
-// Initialize socket connection - replace with your API URL
-const socket = io(import.meta.env.VITE_API_BASE_URL);
 
 const ChatScreen = () => {
   // States

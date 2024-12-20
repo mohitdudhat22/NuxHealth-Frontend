@@ -27,13 +27,10 @@ import {
   ArrowBack,
 } from "@mui/icons-material";
 import toast from "react-hot-toast";
-import { useDoctor } from "../../hooks/useDoctor";
-import { usePatient } from "../../hooks/usePatient";
 import { useGlobal } from "../../hooks/useGlobal";
-import io from "socket.io-client";
+import { socket } from "../../config/socket";
 import { useAuth } from "../../hooks/useAuth";
 
-const socket = io(import.meta.env.VITE_API_BASE_URL);
 
 const ChatScreen1 = () => {
   const { user } = useAuth();

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
 import { useGlobal } from "./hooks/useGlobal";
 import { useAuth } from "./hooks/useAuth";
 import apiService from "./services/api";
@@ -24,7 +23,7 @@ import {
   InfoOutlined,
 } from "@mui/icons-material";
 import { toast } from "react-hot-toast";
-
+import {socket} from "./config/socket.js";
 const NotificationBox = () => {
   const [unreadCount, setUnreadCount] = useState(0);
   const { notifications, setNotifications } = useGlobal();
@@ -54,7 +53,6 @@ const NotificationBox = () => {
   }, [userData]);
 
   useEffect(() => {
-    const socket = io(import.meta.env.VITE_API_BASE_URL);
 
     socket.emit("userOnline", userData.id);
 
