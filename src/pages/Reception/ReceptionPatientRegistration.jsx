@@ -29,26 +29,6 @@ const ReceptionPatientRegistration = () => {
     setCountries(Country.getAllCountries());
   }, []);
 
-  // useEffect(() => {
-  //   const slider = document.querySelector(".slider");
-  //   const images = slider.querySelectorAll("img");
-  //   const dots = slider.querySelectorAll(".dot");
-  //   let currentIndex = 0;
-  //   images[currentIndex].style.display = "block";
-  //   dots.forEach((dot, index) => {
-  //     dot.addEventListener("click", () => {
-  //       currentIndex = index;
-  //       updateSlider();
-  //     });
-  //   });
-  //   function updateSlider() {
-  //     images.forEach((image) => (image.style.display = "none"));
-  //     images[currentIndex].style.display = "block";
-  //     dots.forEach((dot, index) =>
-  //       dot.classList.toggle("active", index === currentIndex)
-  //     );
-  //   }
-  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,10 +62,7 @@ const ReceptionPatientRegistration = () => {
     <div className="patient-registration-section flex justify-center flex-col md:flex-row py-5">
       {/* Main registration form */}
       <div className="main w-full flex justify-center items-center">
-        <HMCard>
-          <div className="pb-5">
-            <p className="text-2xl font-semibold">Registration</p>
-          </div>
+        <HMCard title='Registration'>
           <div className="form-box">
             {error && <div className="text-red-500 mb-4">{error}</div>}
             <form onSubmit={handleSubmit} className="flex flex-wrap">
