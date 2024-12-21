@@ -32,6 +32,7 @@ const ReceptionPanel = () => {
         <Route path="/medicalHistory" element={<MedicalHistory />} />
         <Route path="/allAppointment" element={<AllAppointment />} />
         <Route path="/monitorBilling" element={<MonitorBilling />} />
+        <Route path="/monitorBilling/createbill/" element={<Createbill />} />
         <Route path="/monitorBilling/createbill/:id" element={<Createbill />} />
         <Route path="/bill/:id" element={<ViewBill />} />
         <Route path="/404" element={<ErrorSharp />} />

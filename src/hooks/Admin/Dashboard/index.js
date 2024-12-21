@@ -38,7 +38,7 @@ const useDashboardData = () => {
         }
 
         const today = new Date().toISOString().split("T")[0];
-        const filteredAppointments = todaysAppointmentsResponse.data?.filter(
+        const filteredAppointments = todaysAppointmentsResponse?.data?.filter(
           (appointment) => {
             const appointmentDate = new Date(appointment.date)
               .toISOString()

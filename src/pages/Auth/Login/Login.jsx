@@ -1,46 +1,15 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthLayouts } from "@/Layouts/";
-import { useAuth } from "@/hooks/useAuth";
+import { useLoginForm } from "@/hooks/Auth";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const { UniversalLogin } = useAuth();
-  const [formData, setFormData] = useState({
-    identifier: "",
-    password: "",
-    remember: "",
-  });
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const role = await UniversalLogin(formData);
-    if (role) {
-      if (role === "admin") {
-        window.location.href = "/";
-      } else if (role === "patient") {
-        window.location.href = "/patient";
-      } else if (role === "doctor") {
-        toast.success("doctor login successfully");
-        window.location.href = "/doctor";
-      }
-    } else if (role === "receptionist") {
-      toast.success("reception login successfully");
-      window.location.href = "/reception";
-    }
-  };
+  const {
+    formData,
+    showPassword,
+    setShowPassword,
+    handleChange,
+    handleSubmit,
+  } = useLoginForm();
 
   return (
     <AuthLayouts>
