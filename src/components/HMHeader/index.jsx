@@ -18,12 +18,8 @@ import {
 import { Notifications, ArrowDropDown, Search } from "@mui/icons-material";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-// import { breadcrumbNames } from "@/constants/data";
 import { useAuth } from "@/hooks/useAuth";
-import { IoHomeSharp } from "react-icons/io5";
 import { RiSearchLine } from "react-icons/ri";
-import { IoCloseCircle } from "react-icons/io5";
-import { Home, List } from "lucide-react";
 
 export const HMHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);

@@ -52,7 +52,7 @@ axiosApi.interceptors.response.use(
         break;
       case 401:
         toast.error(`Unauthorized: ${errorMsg}`);
-        localStorage.removeItem("import.meta.env.VITE_TOKEN_NAME");
+        localStorage.removeItem(import.meta.env.VITE_TOKEN_NAME);
         window.location.href = "/login";
         break;
       case 403:
