@@ -82,6 +82,18 @@ export const DoctorPanelData = [
     icon: IoMdListBox,
     text: "Patient Record Accesst",
   },
+  {
+    key: "/teleconsultationModule",
+    to: "/doctor/teleconsultationModule",
+    icon: IoMdListBox,
+    text: "teleconsultationModule",
+  },
+  {
+    key: "/chatScreen",
+    to: "/doctor/chatScreen",
+    icon: IoMdListBox,
+    text: "chatScreen",
+  },
 ];
 
 export const PatientPanelData = [

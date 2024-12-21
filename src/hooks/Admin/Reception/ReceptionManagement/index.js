@@ -32,7 +32,7 @@ const useReceptionManagement = () => {
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
-    setCountries(Country.getAllCountries());
+    setCountries(Country?.getAllCountries());
   }, []);
 
   const handleChange = (e) => {
@@ -45,11 +45,11 @@ const useReceptionManagement = () => {
     switch (name) {
       case "country":
         const country = countries.find((c) => c.isoCode === value);
-        setStates(State.getStatesOfCountry(country.isoCode));
+        setStates(State?.getStatesOfCountry(country.isoCode));
         setCities([]);
         break;
       case "state":
-        setCities(City.getCitiesOfState(formData.country, value));
+        setCities(City?.getCitiesOfState(formData?.country, value));
         break;
     }
   };
@@ -96,12 +96,12 @@ const useReceptionManagement = () => {
 
     // Append all text fields
     Object.entries(textFields).forEach(([key, value]) => {
-      formDataToSend.append(key, value);
+      formDataToSend?.append(key, value);
     });
 
     // Handle profile picture
     if (data.profilePicture) {
-      formDataToSend.append("profilePicture", data.profilePicture);
+      formDataToSend?.append("profilePicture", data.profilePicture);
     }
 
     const response = await CreateReception(formDataToSend);
