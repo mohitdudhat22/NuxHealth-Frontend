@@ -27,6 +27,8 @@ export const UpdateReception = (id, data) =>
   request("put", `/receptionist/updateReceptionist/${id}`, data);
 export const DeleteReception = (id) =>
   request("delete", `/receptionist/deleteReceptionist/${id}`);
+export const ReceptionistCreateBill = () =>
+  request("post", `/receptionist/createbill`);
 export const ReceptionistGetBill = () =>
   request("get", `/receptionist/getbill/`);
 export const ReceptionistSingleBill = (id) =>
