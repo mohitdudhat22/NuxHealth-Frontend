@@ -1,0 +1,18 @@
+.FormWrapper {
+  margin-top: var(--space-xl);
+  gap: var(--space-xl);
+}
+
+.InputWrapper {
+  row-gap: var(--space-sm);
+  column-gap: var(--space-xl);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.colSpan {
+  grid-column: span 2;
+}
+
+.selectSociety {
+  margin-top: var(--space-sm);
+}
