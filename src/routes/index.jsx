@@ -11,7 +11,7 @@ const NuxHealthRoute = createBrowserRouter(
       children: [
         {
           index: true,
-          // element: <NavLink to={"/login"}>Login</NavLink>,
+          element: <NavLink to={"/login"}>Login</NavLink>,
         },
         {
           path: "admin",
