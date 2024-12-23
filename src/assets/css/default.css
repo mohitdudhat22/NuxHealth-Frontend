@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.announcement-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+}
+
+.word-break {
+  word-break: break-all;
+}
+
+.edit-btn.ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover,
+.ant-btn-variant-dashed:not(:disabled):not(.ant-btn-disabled):hover {
+  color: var(--clr-success);
+  border-color: var(--clr-success);
+}
+
+.edit-btn {
+  color: var(--clr-success);
+}
+
+.view-btn.ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover,
+.ant-btn-variant-dashed:not(:disabled):not(.ant-btn-disabled):hover {
+  color: var(--clr-cult);
+  border-color: var(--clr-cult);
+}
+
+.view-btn {
+  color: var(--clr-cult);
+}
+
+.delete-btn.ant-btn-variant-outlined:not(:disabled):not(
+    .ant-btn-disabled
+  ):hover,
+.ant-btn-variant-dashed:not(:disabled):not(.ant-btn-disabled):hover {
+  color: var(--clr-danger);
+  border-color: var(--clr-danger);
+}
+
+.delete-btn {
+  color: var(--clr-danger);
+}

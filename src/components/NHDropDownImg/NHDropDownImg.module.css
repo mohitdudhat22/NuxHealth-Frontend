@@ -1,0 +1,29 @@
+.dropDwnButton {
+  box-shadow: unset;
+  border: 0;
+  background-color: transparent;
+  gap: var(--space-md);
+  cursor: pointer;
+}
+
+.dropDwnTitle{
+  margin-bottom: var(--space-xs);
+}
+
+@media (max-width: 1399px) {
+  .dropDwnContent {
+    display: none;
+  }
+
+  /* .dropdownImgContainer {
+    width: 28px;
+    height: 28px;
+  } */
+}
+
+@media (max-width: 992px) {
+  /* .dropdownImgContainer {
+    width: 25px;
+    height: 25px;
+  } */
+}

@@ -1,0 +1,25 @@
+.Button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  min-height: 40px;
+}
+
+.Button:global.ant-btn-primary.ant-btn-variant-solid:not(:disabled) {
+  background-image: var(--clr-primary-gradient);
+  transition: background 0.3s linear;
+}
+
+/* .Button:global.ant-btn-variant-solid:disabled, */
+.Button:global.ant-btn-primary.ant-btn-variant-solid.ant-btn-dangerous {
+  background-image: none;
+}
+
+.Button:global.ant-btn-primary.ant-btn-variant-solid:hover:not(:disabled) {
+  background: var(--clr-primary-gradient-hover);
+}
+
+.Button span {
+  display: flex;
+}
