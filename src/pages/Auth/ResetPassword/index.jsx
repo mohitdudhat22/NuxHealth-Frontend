@@ -1,7 +1,5 @@
-import clsx from "clsx";
 import { NHButton, NHPasswordInput } from "@/components";
 import { useResetPassword } from "@/hook/Auth/ResetPassword";
-import styles from "../Auth.module.css";
 
 export const ResetPassword = () => {
   const {
@@ -17,10 +15,10 @@ export const ResetPassword = () => {
     <>
       <h2>Reset Password</h2>
       <form
-        className={clsx(styles.FromWrapper, "d-flex flex-column")}
+        className="gap-5 mt-5 d-flex flex-column"
         onSubmit={handleSubmit}
       >
-        <div className={clsx(styles.InputWrapper, "d-flex flex-column")}>
+        <div className="gap-2 d-flex flex-column">
           <NHPasswordInput
             name="newPassword"
             label="New Password"

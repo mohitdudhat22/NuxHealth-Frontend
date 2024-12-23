@@ -1,8 +1,6 @@
 import { NHButton, NHInput, NHPasswordInput, NHCheckbox } from "@/components";
-import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { useLogin } from "@/hook/Auth/Login";
-import styles from "../Auth.module.css";
 
 export const Login = () => {
   const {
@@ -21,10 +19,10 @@ export const Login = () => {
     <>
       <h2>Login</h2>
       <form
-        className={clsx(styles.FromWrapper, "d-flex flex-column")}
+        className="gap-5 mt-5 d-flex flex-column"
         onSubmit={handleSubmit}
       >
-        <div className={clsx(styles.InputWrapper, "d-flex flex-column")}>
+        <div className="gap-2 d-flex flex-column">
           <NHInput
             label={"Email or Phone"}
             type={"email"}

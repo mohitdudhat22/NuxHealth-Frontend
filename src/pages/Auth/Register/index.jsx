@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import clsx from "clsx";
 import {
   NHButton,
   NHInput,
@@ -9,7 +8,6 @@ import {
   NHSelect,
 } from "@/components";
 import { useRegister } from "@/hook/Auth/Register";
-import styles from "./Register.module.css";
 
 export const Register = () => {
   const {
@@ -31,9 +29,9 @@ export const Register = () => {
       <h2>Registration</h2>
       <form
         onSubmit={handleSubmit}
-        className={clsx(styles.FormWrapper, "d-flex flex-column")}
+        className="gap-5 mt-5 d-flex flex-column"
       >
-        <div className={clsx(styles.InputWrapper, "d-grid flex-column")}>
+        <div className="grid grid-cols-2 d-grid flex-column gap-y-2 gap-x-5">
           <NHInput
             label="First Name"
             name="firstName"
@@ -111,7 +109,7 @@ export const Register = () => {
             label="Select Society"
             name="selectSociety"
             placeholder="Select Society"
-            parentClassName={styles.colSpan}
+            parentClassName="col-span-2"
             options={societyNames}
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
@@ -129,7 +127,7 @@ export const Register = () => {
                   onClick={() => setIsModalOpen(true)}
                   block
                   variant="primary"
-                  className={styles.selectSociety}
+                  className="mt-2"
                 >
                   Create New Society
                 </NHButton>
@@ -143,7 +141,7 @@ export const Register = () => {
             value={formData.password}
             onChange={handleChange}
             error={errors.password}
-            parentClassName={styles.colSpan}
+            parentClassName="col-span-2"
             require
           />
           <NHPasswordInput
@@ -153,7 +151,7 @@ export const Register = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
             error={errors.confirmPassword}
-            parentClassName={styles.colSpan}
+            parentClassName="col-span-2"
             require
           />
         </div>
