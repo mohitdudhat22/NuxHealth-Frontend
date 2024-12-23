@@ -31,7 +31,7 @@ export const Register = () => {
       <h2>Registration</h2>
       <form
         onSubmit={handleSubmit}
-        className={clsx(styles.FormWrapper, "d-flex flex-column")}
+        className={clsx(styles.FormWrapper, "flex flex-column")}
       >
         <div className={clsx(styles.InputWrapper, "d-grid flex-column")}>
           <NHInput

@@ -21,10 +21,10 @@ export const Login = () => {
     <>
       <h2>Login</h2>
       <form
-        className={clsx(styles.FromWrapper, "d-flex flex-column")}
+        className={clsx(styles.FromWrapper, "flex flex-column")}
         onSubmit={handleSubmit}
       >
-        <div className={clsx(styles.InputWrapper, "d-flex flex-column")}>
+        <div className={clsx(styles.InputWrapper, "flex flex-column")}>
           <NHInput
             label={"Email or Phone"}
             type={"email"}
@@ -38,7 +38,7 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="d-flex justify-content-between">
+          <div className="flex justify-between">
             <NHCheckbox
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)} // Update state on change

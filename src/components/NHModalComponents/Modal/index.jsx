@@ -49,7 +49,7 @@ export const NHModal = ({
           <div
             className={clsx(
               styles.Footer,
-              "d-flex align-items-center justify-content-center"
+              "flex items-center justify-content-center"
             )}
           >
             <NHButton block onClick={handleClose}>
@@ -74,7 +74,7 @@ export const NHModal = ({
           <div
             className={clsx(
               styles.closeBtn,
-              "clr-black d-flex align-items-center"
+              "clr-black flex items-center"
             )}
           >
             {Icons.CloseCircle}

@@ -22,7 +22,7 @@ export const NHDropDownImg = ({
       className={styles.dropDwn}
     >
       <button
-        className={clsx(styles.dropDwnButton, "d-flex align-items-center")}
+        className={clsx(styles.dropDwnButton, "flex items-center")}
       >
         <div className={clsx(styles.dropdownImgContainer)}>
           <Avatar src={image} size={48} alt={imageAlt} />

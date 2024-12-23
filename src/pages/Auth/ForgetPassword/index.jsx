@@ -11,8 +11,8 @@ export const ForgetPassword = () => {
     useForgetPassword();
 
   return (
-    <div className={clsx(styles.FromWrapper, "d-flex flex-column")}>
-      <div className={clsx(styles.contentWrapper, "d-flex flex-column")}>
+    <div className={clsx(styles.FromWrapper, "flex flex-column")}>
+      <div className={clsx(styles.contentWrapper, "flex flex-column")}>
         <h2>Forget Password</h2>
         <p>
           Enter your email and we'll send you an OTP to reset your password.
@@ -28,7 +28,7 @@ export const ForgetPassword = () => {
           onChange={handleInputChange}
         />
       </form>
-      <div className={clsx(styles.contentWrapper, "d-flex flex-column")}>
+      <div className={clsx(styles.contentWrapper, "flex flex-column")}>
         <NHButton
           block
           variant="primary"

@@ -14,7 +14,7 @@ export const NHCard = ({
         <div
           className={clsx(
             styles.header,
-            "d-flex align-items-center justify-content-between"
+            "flex items-center justify-between"
           )}
         >
           <h3 className="fw-semibold lh-base">{title}</h3>

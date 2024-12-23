@@ -6,6 +6,7 @@ import { useAside } from "@/hook";
 import styles from "./NHSidebar.module.css";
 import { NHButton } from "..";
 import Icons from "../../constants/Icons";
+import { FullLogo } from "@/assets/images";
 
 const { Sider } = Layout;
 
@@ -30,30 +31,33 @@ export const NHSidebar = ({ collapsed, className, items }) => {
       width={"var(--sidebar-width)"}
       collapsible
       collapsed={collapsed}
-      className={clsx(styles.sider, className)}
+      className={clsx(styles.sider, className, "z-10")}
     >
-      <div className={styles.logo}>
+      <div className="flex items-center justify-center leading-normal py-md px-[3rem] flex-[0_0_auto] h-[var(--header-height)]">
         <Link className="d-inline-block h2 font-secondary" to="">
-          <span className={styles.logoPart}>Dash</span>
-          Stack
+          <img
+            src={FullLogo}
+            alt="logo"
+            className=""
+          />
         </Link>
       </div>
       <Menu
         mode="inline"
-        className={clsx(styles.menu, "border-0")}
+        className={clsx(styles.menu, "border-0 h-screen overflow-auto")}
         defaultSelectedKeys={[currentPage]}
         selectedKeys={[currentPage]}
         openKeys={openKeys}
         onOpenChange={onOpenChange}
         items={items}
       />
-      <div className={styles.SidebarBottom}>
+      <div className={""}>
         <NHButton
           block
-          className={clsx(styles.SidebarBottomBtn, "justify-content-start")}
+          className={clsx("justify-content-start rounded-none")}
           icon={Icons.Logout}
-          variant={"text"}
           danger
+          variant="primary"
           onClick={handleLogout}
         >
           Logout

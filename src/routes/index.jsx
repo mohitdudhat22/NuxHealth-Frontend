@@ -1,5 +1,7 @@
-import { AuthLayouts } from "@/layouts";
+import { AdminAsideData } from "@/constants/data";
+import { AuthLayouts, DashboardLayout } from "@/layouts";
 import { ForgetPassword, Login, OTP, ResetPassword } from "@/pages";
+import { Dashboard } from "@/pages/Admin/Dashboard";
 import React from "react";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 
@@ -11,11 +13,7 @@ const NuxHealthRoute = createBrowserRouter(
       children: [
         {
           index: true,
-          // element: <NavLink to={"/login"}>Login</NavLink>,
-        },
-        {
-          path: "admin",
-          element: "admin",
+          element: <NavLink to={"/login"}>Login</NavLink>,
         },
         {
           element: <AuthLayouts />,
@@ -37,6 +35,40 @@ const NuxHealthRoute = createBrowserRouter(
               element: <ResetPassword />,
             },
           ],
+        },
+        {
+          path: "admin",
+          element: <DashboardLayout items={AdminAsideData} />,
+          children: [
+            {
+              index: true,
+              element: "admin",
+            },
+            {
+              path: "doctor-management",
+              element: "/admin/doctor-management",
+            },
+            {
+              path: "patient-management",
+              element: "/admin/patient-management",
+            },
+            {
+              path: "monitor-billing",
+              element: "/admin/monitor-billing",
+            },
+            {
+              path: "insurance-claims",
+              element: "/admin/insurance-claims",
+            },
+            {
+              path: "payment-process",
+              element: "/admin/payment-process",
+            },
+            {
+              path: "reporting-analytics",
+              element: "/admin/reporting-analytics",
+            },
+          ]
         },
       ],
     },

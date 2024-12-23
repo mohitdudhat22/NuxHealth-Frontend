@@ -29,7 +29,7 @@ export const NHSelect = ({
       {label && (
         <label
           htmlFor={id}
-          className={clsx(styles.label, "d-flex", labelClassName)}
+          className={clsx(styles.label, "flex", labelClassName)}
         >
           {label} {require && <span className="d-block clr-danger">*</span>}
         </label>

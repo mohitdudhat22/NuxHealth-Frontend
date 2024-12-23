@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
-// import { loginUser } from "@/axiosApi/ApiHelper";
+import { login } from "@/axiosApi/ApiHelper";
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const useLogin = () => {
     setIsLoading(true);
 
     try {
-      // const response = await loginUser({ email, password });
+      const response = await login({ email, password });
       toast.success("Login successful!");
       console.log("login response =====> ", response);
       const token = response.token;
@@ -32,12 +32,14 @@ export const useLogin = () => {
       const { role } = jwtDecode(token);
 
       // Navigate based on user role
-      if (role === "Chairman") {
+      if (role === "admin") {
         navigate("/admin");
-      } else if (role === "Member") {
-        navigate("/user");
-      } else if (role === "Security") {
-        navigate("/security");
+      } else if (role === "doctor") {
+        navigate("/doctor");
+      } else if (role === "patient") {
+        navigate("/patient");
+      } else if (role === "receptionist") {
+        navigate("/reception");
       } else {
         toast.error("Unauthorized role. Please contact support.");
         navigate("/login");

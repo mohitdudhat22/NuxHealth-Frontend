@@ -17,10 +17,10 @@ export const ResetPassword = () => {
     <>
       <h2>Reset Password</h2>
       <form
-        className={clsx(styles.FromWrapper, "d-flex flex-column")}
+        className={clsx(styles.FromWrapper, "flex flex-column")}
         onSubmit={handleSubmit}
       >
-        <div className={clsx(styles.InputWrapper, "d-flex flex-column")}>
+        <div className={clsx(styles.InputWrapper, "flex flex-column")}>
           <NHPasswordInput
             name="newPassword"
             label="New Password"

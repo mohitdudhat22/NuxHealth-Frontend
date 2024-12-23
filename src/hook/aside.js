@@ -8,9 +8,10 @@ export const useAside = () => {
   useEffect(() => {
     switch (location.pathname) {
       //  Website
-      case "/":
-        setCurrentPage("/");
-        break;
+      case "/admin":
+        setCurrentPage("admin");
+      case "/admin/doctor-management":
+        setCurrentPage("/doctor-management");
     }
   }, [location.pathname]);
 
