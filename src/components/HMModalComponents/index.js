@@ -1,1 +1,0 @@
-export { HMModal } from "./HMModal/";
