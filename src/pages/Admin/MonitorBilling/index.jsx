@@ -52,25 +52,25 @@ export const MonitorBilling = () => {
       title: "Action",
       key: "action",
       render: (_, record) =>
-          <Space size="middle">
-            <NHButton
-              type="primary"
-              size="small"
-              icon={Icons.CreateBillIcon}
-              className="edit-btn"
-              onClick={() => onEdit(record)}
-            />
-            <NHButton
-              type="primary"
-              size="small"
-              icon={Icons.CreateBillIcon}
-              className="view-btn"
-              onClick={() => onViewDetails(record)}
-            />
-          </Space>
+        <Space size="middle">
+          <NHButton
+            type="primary"
+            size="small"
+            icon={Icons.CreateBillIcon}
+            className="edit-btn"
+            onClick={() => onEdit(record)}
+          />
+          <NHButton
+            type="primary"
+            size="small"
+            icon={Icons.CreateBillIcon}
+            className="view-btn"
+            onClick={() => onViewDetails(record)}
+          />
+        </Space>
     },
   ];
-  
+
   // Example data
   const data = [
     {
@@ -100,11 +100,11 @@ export const MonitorBilling = () => {
 
   return (
     <>
-      <NHCard title={"Monitor Billing"} headerContent={<><NHInput prefix={Icons.SearchIcon} placeholder="Search Patient"/><NHButton variant="primary" onClick={()=>navigate("create-bill")}>Create Bills</NHButton></>}>
-      
-      <NHTable tableColumn={columns} tableDataSource={data}/>
+      <NHCard title={"Monitor Billing"} headerContent={<><NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" /><NHButton variant="primary" onClick={() => navigate("create-bill")}>Create Bills</NHButton></>}>
+
+        <NHTable tableColumn={columns} tableDataSource={data} />
       </NHCard >
-   </>
+    </>
 
   )
 }
