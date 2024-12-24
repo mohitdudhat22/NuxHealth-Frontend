@@ -26,8 +26,8 @@ export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
             parentClassName={styles.colSpan}
             label="Hospital Name"
             placeholder="Enter Hospital Name"
-            name="hospitalName"
-            value={formData.hospitalName}
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             required
           />
@@ -35,8 +35,8 @@ export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
             parentClassName={styles.colSpan}
             label="Hospital Address"
             placeholder="Enter Address"
-            name="hospitalAddress"
-            value={formData.hospitalAddress}
+            name="address"
+            value={formData.address}
             onChange={handleChange}
             required
           />
@@ -67,8 +67,24 @@ export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
           <NHInput
             label="Zip Code"
             placeholder="Enter Zip Code"
-            name="zipCode"
-            value={formData.zipCode}
+            name="zipcode"
+            value={formData.zipcode}
+            onChange={handleChange}
+            required
+          />
+          <NHInput
+            label="Emergency Contact"
+            placeholder="Emergency Contact No"
+            name="emergencyContactNo"
+            value={formData.emergencyContactNo}
+            onChange={handleChange}
+            required
+          />
+          <NHInput
+            label="WebSite link"
+            placeholder="Enter WebSite link"
+            name="worksiteLink"
+            value={formData.worksiteLink}
             onChange={handleChange}
             required
           />

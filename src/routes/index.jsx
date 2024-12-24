@@ -42,35 +42,48 @@ const NuxHealthRoute = createBrowserRouter(
         },
         {
           path: "admin",
-          element: <DashboardLayout items={AdminAsideData} />,
           children: [
             {
-              index: true,
-              element: "admin",
+              element: <DashboardLayout items={AdminAsideData} />,
+              children: [
+                {
+                  index: true,
+                  element: "admin",
+                },
+                {
+                  path: "doctor-management",
+                  element: "/admin/doctor-management",
+                },
+                {
+                  path: "patient-management",
+                  element: "/admin/patient-management",
+                },
+                {
+                  path: "monitor-billing",
+                  element: "/admin/monitor-billing",
+                },
+                {
+                  path: "insurance-claims",
+                  element: "/admin/insurance-claims",
+                },
+                {
+                  path: "payment-process",
+                  element: "/admin/payment-process",
+                },
+                {
+                  path: "reporting-analytics",
+                  element: "/admin/reporting-analytics",
+                },
+              ]
             },
             {
-              path: "doctor-management",
-              element: "/admin/doctor-management",
-            },
-            {
-              path: "patient-management",
-              element: "/admin/patient-management",
-            },
-            {
-              path: "monitor-billing",
-              element: "/admin/monitor-billing",
-            },
-            {
-              path: "insurance-claims",
-              element: "/admin/insurance-claims",
-            },
-            {
-              path: "payment-process",
-              element: "/admin/payment-process",
-            },
-            {
-              path: "reporting-analytics",
-              element: "/admin/reporting-analytics",
+              element: <AuthLayouts />,
+              children: [
+                {
+                  path: "register",
+                  element: <Register />,
+                },
+              ],
             },
           ]
         },
