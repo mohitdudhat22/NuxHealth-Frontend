@@ -7,8 +7,8 @@ import { login } from "@/axiosApi/ApiHelper";
 export const useLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("dhairydobaryia@gmail.com");
+  const [password, setPassword] = useState("dhairy@123");
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,18 +18,18 @@ export const useLogin = () => {
 
     try {
       const response = await login({ email, password });
-      toast.success("Login successful!");
-      console.log("login response =====> ", response);
-      const token = response.token;
+      toast.success(response.message);
+      const token = response.data;
 
       if (rememberMe) {
+        console.log("true")
         localStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
         sessionStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
       } else {
         sessionStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
       }
 
-      const { role } = jwtDecode(token);
+      const { role } = jwtDecode(response.role);
 
       // Navigate based on user role
       if (role === "admin") {

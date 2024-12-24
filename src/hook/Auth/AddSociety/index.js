@@ -1,34 +1,26 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { createSociety, createUnit } from "@/axiosApi/ApiHelper";
 
 export const useAddSociety = (handleClose) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    societyName: "",
-    societyAddress: "",
+    hospitalName: "",
+    hospitalAddress: "",
     country: "",
     state: "",
     city: "",
     zipCode: "",
-    societyType: "",
-    florNumber: "",
-    wingCount: "",
-    unitNumber: "",
-    selectSeries: "",
   });
 
-  // Compute if the form is valid
-  const isFormValid = Object.entries(formData).every(([key, value]) => {
-    if (key === "florNumber" && formData.societyType === "tenement") {
-      return true;
-    }
-    return value !== "";
-  });
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Validate form data
+  const isFormValid = () => {
+    return Object.values(formData).every((field) => field.trim() !== "");
   };
 
   // Handle form submission
@@ -36,48 +28,28 @@ export const useAddSociety = (handleClose) => {
     e.preventDefault();
 
     setIsLoading(true);
-    if (!isFormValid) {
+    if (!isFormValid()) {
       toast.error("All fields are required!");
+      setIsLoading(false);
       return;
     }
+
     try {
-      let data = {
-        societyName:formData.societyName,
-        societyAddress:formData.societyAddress,
-        country:formData.country,
-        state:formData.state,
-        city:formData.city,
-        zipCode:formData.zipCode,
-        societyType:formData.societyType,
-        wingCount:Number(formData.wingCount),
-      }
-      let result = await createSociety(data);
-      data = {
-        societyId: result?.data?._id,
-        unitCount: Number(formData.unitNumber),
-        series: formData.selectSeries,
-        floor: Number(formData.florNumber) || 0
-      }
-      await createUnit(data)
-      toast.success("Society created successfully!");
-      setFormData({
-        societyName: "",
-        societyAddress: "",
-        country: "",
-        state: "",
-        city: "",
-        zipCode: "",
-        societyType: "",
-        florNumber: "",
-        wingCount: "",
-        unitNumber: "",
-        selectSeries: "",
-      });
-      handleClose?.();
+      // Replace with your API call
+      // let data = await (formData);
+      toast.success("Hospital added successfully!");
+      handleClose();
+    } catch (error) {
+      toast.error("Failed to add society!");
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { handleChange, handleSubmit, formData, isFormValid, isLoading };
+  return {
+    isLoading,
+    formData,
+    handleChange,
+    handleSubmit,
+  };
 };

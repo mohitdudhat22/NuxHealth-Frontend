@@ -1,3 +1,4 @@
+import { getHospitals } from "@/axiosApi/ApiHelper";
 import { useState } from "react";
 // import { register, getSociety } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
@@ -6,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const useRegister = () => {
   let navigate = useNavigate();
 
-  const [societies, setSocieties] = useState([]);
+  const [Hospital, setHospital] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
@@ -26,14 +27,14 @@ export const useRegister = () => {
   });
 
   // Fetch societies based on zip code
-  const fetchSocieties = async (zipCode) => {
+  const fetchHospital = async (zipCode) => {
     try {
-      // const response = await getSociety();
-      const filteredSocieties = response.data.filter(
+      const response = await getHospitals();
+      const filteredHospital = response.data.filter(
         (item) => item.zipCode === zipCode
       );
 
-      setSocieties(filteredSocieties);
+      setHospital(filteredHospital);
     } catch (err) {
       toast.error("Error fetching societies.");
     }
@@ -121,7 +122,7 @@ export const useRegister = () => {
         selectSociety: formData.selectSociety,
         password: formData.password,
         confirmPassword: formData.confirmPassword,
-        zipCode:formData.zipCode
+        zipCode: formData.zipCode
       };
 
       // await register(apiRequestData);

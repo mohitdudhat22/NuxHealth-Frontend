@@ -11,8 +11,9 @@ async function request(method, url, data) {
 }
 
 /* Authentication */
+export const login = (data) => request("post", "/api/auth/login", data);
 export const register = (data) => request("post", "/register", data);
-export const login = (data) => request("post", "/login", data);
+export const getHospitals = (data) => request("post", "/api/hospital/getHospitals", data);
 
 // Reception
 export const CreateReception = (data) =>

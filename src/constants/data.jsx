@@ -540,3 +540,16 @@ export const AdminAsideData = [
 //       ),
 //   },
 // ];
+
+export const AuthSliderData = [
+  {
+    id: 1,
+    title: "Connect, Collaborate, and Control - Society Management Simplified",
+    // image: authOne,
+  },
+  {
+    id: 2,
+    title: "Your Space, Your Place: Society Management Made Simple",
+    // image: authTwo,
+  },
+];
