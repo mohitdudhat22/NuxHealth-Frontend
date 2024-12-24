@@ -9,6 +9,7 @@ export { NHBreadCrumb } from "./NHBreadCrumb/";
 export { NHDropDownImg } from "./NHDropDownImg/";
 export { NHHead } from "./NHHead/";
 export { NHOffcanvas } from "./NHOffcanvas/";
+// export { HMTable } from "./HMTable";
 
 /* NHCard */
 export { NHCard } from "./NHCards";

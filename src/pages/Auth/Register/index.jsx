@@ -7,11 +7,11 @@ import {
   SelectHospitalModal,
   NHSelect,
 } from "@/components";
-import { useRegister, } from "@/hook/Auth/Register";
+import { useRegister } from "@/hook/Auth/Register";
 
 export const Register = () => {
   const {
-    societyNames,
+    hospitalNames,
     formData,
     handleChange,
     handleZipCodeChange,
@@ -27,10 +27,7 @@ export const Register = () => {
   return (
     <>
       <h2>Registration</h2>
-      <form
-        onSubmit={handleSubmit}
-        className="gap-xl mt-xl flex flex-col"
-      >
+      <form onSubmit={handleSubmit} className="gap-xl mt-xl flex flex-col">
         <div className="grid grid-cols-2 d-grid flex-col gap-y-2 gap-x-5">
           <NHInput
             label="First Name"
@@ -61,19 +58,24 @@ export const Register = () => {
           />
           <NHInput
             label="Phone Number"
-            name="phoneNumber"
+            name="phone"
             placeholder="91+"
-            value={formData.phoneNumber}
+            value={formData.phone}
             onChange={handleChange}
-            error={errors.phoneNumber}
+            error={errors.phone}
             required
           />
           <NHInput
             label="Country"
             name="country"
             placeholder="Enter Country"
-            value={formData.country}
-            onChange={handleChange}
+            value={formData.address.country}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                address: { ...prev.address, country: e.target.value },
+              }))
+            }
             error={errors.country}
             required
           />
@@ -81,8 +83,13 @@ export const Register = () => {
             label="State"
             name="state"
             placeholder="Enter State"
-            value={formData.state}
-            onChange={handleChange}
+            value={formData.address.state}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                address: { ...prev.address, state: e.target.value },
+              }))
+            }
             error={errors.state}
             required
           />
@@ -90,8 +97,13 @@ export const Register = () => {
             label="City"
             name="city"
             placeholder="Enter City"
-            value={formData.city}
-            onChange={handleChange}
+            value={formData.address.city}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                address: { ...prev.address, city: e.target.value },
+              }))
+            }
             error={errors.city}
             required
           />
@@ -99,7 +111,7 @@ export const Register = () => {
             label="Zip Code"
             name="zipCode"
             placeholder="Enter Zip Code"
-            value={formData.zipCode}
+            value={formData.address.zipCode}
             onChange={handleZipCodeChange}
             error={errors.zipCode}
             required
@@ -107,19 +119,19 @@ export const Register = () => {
           <NHSelect
             showSearch
             label="Select Hospital*"
-            name="selectSociety"
+            name="hospitalId"
             placeholder="Select Hospital"
             parentClassName="col-span-2"
-            options={societyNames}
+            options={hospitalNames}
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
-            value={formData.selectSociety}
+            value={formData.hospitalId}
             required
             onChange={(value) =>
-              setFormData((prev) => ({ ...prev, selectSociety: value }))
+              setFormData((prev) => ({ ...prev, hospitalId: value }))
             }
-            error={errors.selectSociety}
+            error={errors.hospitalId}
             dropdownRender={(menu) => (
               <>
                 {menu}
@@ -129,7 +141,7 @@ export const Register = () => {
                   variant="primary"
                   className="mt-2"
                 >
-                  Create New Society
+                  Create New Hospital
                 </NHButton>
               </>
             )}
@@ -142,7 +154,7 @@ export const Register = () => {
             onChange={handleChange}
             error={errors.password}
             parentClassName="col-span-2"
-            require
+            required
           />
           <NHPasswordInput
             label="Confirm Password"
@@ -152,7 +164,7 @@ export const Register = () => {
             onChange={handleChange}
             error={errors.confirmPassword}
             parentClassName="col-span-2"
-            require
+            required
           />
         </div>
 
@@ -161,7 +173,7 @@ export const Register = () => {
           checked={formData.termsAccepted}
           onChange={handleChange}
         >
-          I agree to all the Terms and {""}
+          I agree to all the Terms and{" "}
           <Link to="/privacy-policies">Privacy Policies</Link>.
         </NHCheckbox>
 
@@ -169,7 +181,7 @@ export const Register = () => {
           variant="primary"
           block
           type="submit"
-          // disabled={isDisabled}
+          disabled={isDisabled}
           loading={isLoading}
         >
           Register

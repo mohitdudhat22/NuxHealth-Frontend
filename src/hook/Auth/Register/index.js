@@ -1,28 +1,32 @@
-import { getHospitals } from "@/axiosApi/ApiHelper";
 import { useState } from "react";
-// import { register, getSociety } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { getHospitals } from "@/axiosApi/ApiHelper";
 
 export const useRegister = () => {
   let navigate = useNavigate();
 
-  const [Hospital, setHospital] = useState([]);
+  const [hospital, setHospital] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    country: "",
-    state: "",
-    city: "",
-    zipCode: "",
-    selectSociety: [],
-    password: "",
-    confirmPassword: "",
+    firstName: "Dhairy",
+    lastName: "Dobariya",
+    email: "dhairydobaryia@gmail.com",
+    phone: "+918511623428",
+    gender: "Male",
+    hospitalId: "",
+    age: 30,
+    address: {
+      country: "INDIA",
+      state: "Gujarat",
+      city: "Surat",
+      zipCode: "394180",
+      fullAddress: "123 Main St, Los Angeles, CA 90001"
+    },
+    password: "dhairy@123",
+    confirmPassword: "dhairy@123",
     termsAccepted: false,
   });
 
@@ -30,10 +34,11 @@ export const useRegister = () => {
   const fetchHospital = async (zipCode) => {
     try {
       const response = await getHospitals();
-      const filteredHospital = response.data.filter(
-        (item) => item.zipCode === zipCode
+      console.log(response.data);
+      const filteredHospital = response?.data?.filter(
+        (item) => item.zipcode === zipcode
       );
-
+      console.log(filteredHospital)
       setHospital(filteredHospital);
     } catch (err) {
       toast.error("Error fetching societies.");
@@ -42,18 +47,32 @@ export const useRegister = () => {
 
   // Handle zip code change and fetch societies
   const handleZipCodeChange = (e) => {
+    console.log("code is run")
+    setFormData((prev) => ({
+      ...prev,
+      address: { ...prev.address, zipCode: e.target.value },
+    }));
     const { value } = e.target;
-    setFormData((prev) => ({ ...prev, zipCode: value }));
-    if (value.length >= 5) {
-      fetchSocieties(value);
+    setFormData((prev) => ({
+      ...prev,
+      address: { ...prev.address, zipCode: value },
+    }));
+    if (value.length === 5) {
+      fetchHospital(value);
     }
   };
 
   // Map societies for dropdown
-  const societyNames = societies.map((society) => ({
-    value: society._id,
-    label: society.societyName,
-  }));
+  const hospitalNames = hospital?.map((hospital) => {
+    console.log(hospital)
+    return (
+      {
+        value: hospital._id,
+        label: hospital.name,
+      })
+  });
+
+  // console.log(hospitalNames)
 
   // Handle input change
   const handleChange = (e) => {
@@ -136,7 +155,7 @@ export const useRegister = () => {
   };
 
   return {
-    societyNames,
+    hospitalNames,
     formData,
     handleChange,
     handleZipCodeChange,
