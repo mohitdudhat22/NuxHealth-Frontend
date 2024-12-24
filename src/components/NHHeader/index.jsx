@@ -33,7 +33,7 @@ export const NHHeader = () => {
     >
       <div className="flex items-center justify-content-center gap-xl">
         {location.pathname == "/admin" || location.pathname == "/resident" ? (
-          <NHInput placeholder={"Search"} prefix={Icons.Search} />
+          <NHInput placeholder={"Search"} prefix={Icons.SearchIcon} />
         ) : (
           <NHBreadCrumb separator=">" admin />
         )}

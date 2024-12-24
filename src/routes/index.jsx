@@ -2,6 +2,10 @@ import { AdminAsideData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
 import { ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
 import { Dashboard } from "@/pages/Admin/Dashboard";
+import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
+import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
+import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
+import CreateBill from "@/pages/CreateBill";
 import React from "react";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 
@@ -66,18 +70,18 @@ const NuxHealthRoute = createBrowserRouter(
                       element: <MonitorBilling />,
                     },
                     {
-                      path: "createbill",
-                      element: "/monitor-billing/createbill",
+                      path: "create-bill",
+                      element: <CreateBill />
                     },
                   ]
                 },
                 {
                   path: "insurance-claims",
-                  element: "/admin/insurance-claims",
+                  element: <InsuranceClaims />,
                 },
                 {
                   path: "payment-process",
-                  element: "/admin/payment-process",
+                  element: <PaymentProcess/>,
                 },
                 {
                   path: "reporting-analytics",

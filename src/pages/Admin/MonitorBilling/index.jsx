@@ -100,7 +100,7 @@ export const MonitorBilling = () => {
 
   return (
     <>
-      <NHCard title={"Monitor Billing"} headerContent={<><NHInput /><NHButton variant="primary" onClick={()=>navigate("create-bill")}>edit admina</NHButton></>}>
+      <NHCard title={"Monitor Billing"} headerContent={<><NHInput prefix={Icons.SearchIcon} placeholder="Search Patient"/><NHButton variant="primary" onClick={()=>navigate("create-bill")}>Create Bills</NHButton></>}>
       
       <NHTable tableColumn={columns} tableDataSource={data}/>
       </NHCard >
