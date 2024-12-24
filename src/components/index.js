@@ -8,7 +8,6 @@ export { NHSwiperSlider } from "./NHSwiperSlider/";
 export { NHBreadCrumb } from "./NHBreadCrumb/";
 export { NHDropDownImg } from "./NHDropDownImg/";
 export { NHHead } from "./NHHead/";
-// export { HMTable } from "./HMTable";
 
 /* NHCard */
 export { NHCard } from "./NHCards";
@@ -18,3 +17,4 @@ export * from "./FormComponents/";
 
 /* NHModalComponents */
 export * from "./NHModalComponents";
+
