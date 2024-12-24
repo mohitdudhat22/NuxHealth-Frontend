@@ -1,15 +1,23 @@
-import { useState } from "react";
-// import { resetPassword } from "@/axiosApi/ApiHelper";
+import { useState, useEffect } from "react";
+import { resetPassword } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const useResetPassword = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const isFormValid = newPassword.trim() !== "" && newPassword === confirmPassword;
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("hms_email");
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
+
+  const isFormValid = email.trim() !== "" && newPassword.trim() !== "" && newPassword === confirmPassword;
 
   const handleInputChange = (e) => {
     if (e.target.name === "newPassword") {
@@ -22,18 +30,21 @@ export const useResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid) {
-      toast.error("Passwords must match and cannot be empty.");
+      toast.error("Email, passwords must match and cannot be empty.");
       return;
     }
 
     try {
       setLoading(true);
-
-      // const response = await resetPassword({ newPassword });
-
-      console.log(response);
-
-      if (response && response.message) {
+      const Data = {
+        "email": email,
+        "password": newPassword,
+        "confirmPassword": confirmPassword
+      };
+      const response = await resetPassword(Data);
+      localStorage.removeItem("hms_email");
+      console.log(response?.status === 1)
+      if (response?.status === 1) {
         toast.success(response?.message || "Password reset successfully!");
         navigate("/login");
       } else {

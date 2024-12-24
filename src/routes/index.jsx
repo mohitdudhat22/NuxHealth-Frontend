@@ -1,7 +1,8 @@
+import React from "react";
 import { AdminAsideData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
 import { ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
-import { Dashboard } from "@/pages/Admin/Dashboard";
+import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
@@ -81,7 +82,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "payment-process",
-                  element: <PaymentProcess/>,
+                  element: <PaymentProcess />,
                 },
                 {
                   path: "reporting-analytics",
