@@ -60,7 +60,16 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "monitor-billing",
-                  element: "/admin/monitor-billing",
+                  children: [
+                    {
+                      index: true,
+                      element: <MonitorBilling />,
+                    },
+                    {
+                      path: "createbill",
+                      element: "/monitor-billing/createbill",
+                    },
+                  ]
                 },
                 {
                   path: "insurance-claims",
