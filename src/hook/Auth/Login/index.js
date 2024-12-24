@@ -22,14 +22,13 @@ export const useLogin = () => {
       const token = response.data;
 
       if (rememberMe) {
-        console.log("true")
         localStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
         sessionStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
       } else {
         sessionStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
       }
 
-      const { role } = jwtDecode(response.role);
+      const role = response.role;
 
       // Navigate based on user role
       if (role === "admin") {
