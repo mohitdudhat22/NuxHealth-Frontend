@@ -1,4 +1,4 @@
-import { DSModal } from "@/components/";
+import { NHModal } from "@/components/";
 
 export const DeleteModal = ({
   handleOk,
@@ -11,7 +11,7 @@ export const DeleteModal = ({
   ...rest
 }) => {
   return (
-    <DSModal
+    <NHModal
       title={Title}
       open={isModalOpen}
       handleOk={handleOk}
@@ -25,6 +25,6 @@ export const DeleteModal = ({
       {...rest}
     >
       <h6 className="lh-base clr-gray fw-normal">{children}</h6>
-    </DSModal>
+    </NHModal>
   );
 };

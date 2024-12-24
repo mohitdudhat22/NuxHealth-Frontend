@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { forgotPassword } from "@/axiosApi/ApiHelper";
+import { forgotPassword } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 
 export const useForgetPassword = () => {
@@ -22,10 +22,10 @@ export const useForgetPassword = () => {
 
     try {
       setLoading(true);
-
-      // const response = await forgotPassword({email: email});
-
-      console.log(response)
+      if (email) {
+        localStorage.setItem("hms_email", email)
+      }
+      const response = await forgotPassword({ email: email });
 
       if (response && response.message) {
         toast.success(response.data?.message || "OTP sent successfully!");
