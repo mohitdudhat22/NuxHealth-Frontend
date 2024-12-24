@@ -56,6 +56,7 @@ export const InsuranceClaims = () => {
             variant="secondary"
             size="small"
             icon={Icons.ViewBillIcon}
+            onClick={() => navigate("view-bill")}
             className="edit-btn bg-white"
           />
         </Space>
