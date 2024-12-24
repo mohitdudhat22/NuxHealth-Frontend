@@ -43,48 +43,11 @@ const NuxHealthRoute = createBrowserRouter(
         },
         {
           path: "admin",
+          element: <DashboardLayout items={AdminAsideData} />,
           children: [
             {
-              element: <DashboardLayout items={AdminAsideData} />,
-              children: [
-                {
-                  index: true,
-                  element: "admin",
-                },
-                {
-                  path: "doctor-management",
-                  element: "/admin/doctor-management",
-                },
-                {
-                  path: "patient-management",
-                  element: "/admin/patient-management",
-                },
-                {
-                  path: "monitor-billing",
-                  children: [
-                    {
-                      index: true,
-                      element: <MonitorBilling />,
-                    },
-                    {
-                      path: "createbill",
-                      element: "/monitor-billing/createbill",
-                    },
-                  ]
-                },
-                {
-                  path: "insurance-claims",
-                  element: "/admin/insurance-claims",
-                },
-                {
-                  path: "payment-process",
-                  element: "/admin/payment-process",
-                },
-                {
-                  path: "reporting-analytics",
-                  element: "/admin/reporting-analytics",
-                },
-              ]
+              index: true,
+              element: "admin",
             },
             {
               path: "doctor-management",
