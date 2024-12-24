@@ -60,7 +60,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "patient-management",
-                  element: <PatientManagement/>,
+                  element: <PatientManagement />,
                 },
                 {
                   path: "monitor-billing",
