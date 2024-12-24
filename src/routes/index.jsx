@@ -2,6 +2,7 @@ import { AdminAsideData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
 import { ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
 import { Dashboard } from "@/pages/Admin/Dashboard";
+import {MonitorBilling} from "@/pages/Admin/MonitorBilling";
 import React from "react";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 
@@ -58,7 +59,16 @@ const NuxHealthRoute = createBrowserRouter(
             },
             {
               path: "monitor-billing",
-              element: "/admin/monitor-billing",
+              children: [
+                {
+                  index: true,
+                  element: <MonitorBilling />,
+                },
+                {
+                  path: "createbill",
+                  element: "/monitor-billing/createbill",
+                },
+              ]
             },
             {
               path: "insurance-claims",
@@ -72,6 +82,8 @@ const NuxHealthRoute = createBrowserRouter(
               path: "reporting-analytics",
               element: "/admin/reporting-analytics",
             },
+            
+            
           ]
         },
       ],
