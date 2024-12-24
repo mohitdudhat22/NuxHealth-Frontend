@@ -34,7 +34,7 @@ export const ForgetPassword = () => {
           disabled={!isFormValid || loading}
           loading={loading}
         >
-          {loading ? "Sending..." : "Get OTP"}
+          {loading ? "Sending" : "Get OTP"}
         </NHButton>
         <NHButton block variant="link" onClick={() => navigate(-1)}>
           Back to Login

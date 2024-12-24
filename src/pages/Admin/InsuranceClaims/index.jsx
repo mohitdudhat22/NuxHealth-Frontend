@@ -102,12 +102,10 @@ export const InsuranceClaims = () => {
       <NHCard
         title={"Insurance Claims"}
         headerContent={
-          <>
-            <NHInput
-              prefix={Icons.SearchIcon}
-              placeholder="Search Patient"
-            />
-          </>
+          <NHInput
+            prefix={Icons.SearchIcon}
+            placeholder="Search Patient"
+          />
         }
       >
         <NHTable tableColumn={columns} tableDataSource={data} />

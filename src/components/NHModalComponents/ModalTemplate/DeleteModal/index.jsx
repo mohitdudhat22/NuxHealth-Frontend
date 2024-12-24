@@ -1,4 +1,4 @@
-import { NHModal } from "../..";
+import { NHModal } from "@/components/";
 
 export const DeleteModal = ({
   handleOk,

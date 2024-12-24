@@ -49,12 +49,15 @@ export const Login = () => {
         <NHButton type="submit" variant={"primary"} block loading={isLoading}>
           Login
         </NHButton>
-        {location.pathname === "/admin/login" && (
-          <h6 className="text-center fw-normal">
-            Don't have an account?{" "}
-            <Link to={"/admin/register"}>Registration</Link>
-          </h6>
-        )}
+        <h6 className="text-center fw-normal">
+          Don't have an account? {" "}
+          <Link to={"/register"}>Registration</Link>
+        </h6>
+
+        <h6 className="text-center fw-normal">
+          Don't have an account Admin? {" "}
+          <Link to={"/admin/register"}>Registration</Link>
+        </h6>
       </form>
     </>
   );
