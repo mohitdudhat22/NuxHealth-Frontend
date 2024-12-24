@@ -4,12 +4,15 @@ import { toast } from "react-hot-toast";
 export const useAddSociety = (handleClose) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    hospitalName: "",
-    hospitalAddress: "",
-    country: "",
-    state: "",
-    city: "",
-    zipCode: "",
+    name: "",
+    address: "",
+    country: "India",
+    state: "Gujarat",
+    city: "Surat",
+    zipcode: "395006",
+    emergencyContactNo: "1478523690",
+    worksiteLink: "https//www.google.com",
+    hospitalLogo: [],
   });
 
   // Handle input change

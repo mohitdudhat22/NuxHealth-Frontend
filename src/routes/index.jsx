@@ -2,7 +2,6 @@ import { AdminAsideData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
 import { ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
 import { Dashboard } from "@/pages/Admin/Dashboard";
-import {MonitorBilling} from "@/pages/Admin/MonitorBilling";
 import React from "react";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 
@@ -43,47 +42,58 @@ const NuxHealthRoute = createBrowserRouter(
         },
         {
           path: "admin",
-          element: <DashboardLayout items={AdminAsideData} />,
           children: [
             {
-              index: true,
-              element: "admin",
-            },
-            {
-              path: "doctor-management",
-              element: "/admin/doctor-management",
-            },
-            {
-              path: "patient-management",
-              element: "/admin/patient-management",
-            },
-            {
-              path: "monitor-billing",
+              element: <DashboardLayout items={AdminAsideData} />,
               children: [
                 {
                   index: true,
-                  element: <MonitorBilling />,
+                  element: "admin",
                 },
                 {
-                  path: "createbill",
-                  element: "/monitor-billing/createbill",
+                  path: "doctor-management",
+                  element: "/admin/doctor-management",
+                },
+                {
+                  path: "patient-management",
+                  element: "/admin/patient-management",
+                },
+                {
+                  path: "monitor-billing",
+                  children: [
+                    {
+                      index: true,
+                      element: <MonitorBilling />,
+                    },
+                    {
+                      path: "createbill",
+                      element: "/monitor-billing/createbill",
+                    },
+                  ]
+                },
+                {
+                  path: "insurance-claims",
+                  element: "/admin/insurance-claims",
+                },
+                {
+                  path: "payment-process",
+                  element: "/admin/payment-process",
+                },
+                {
+                  path: "reporting-analytics",
+                  element: "/admin/reporting-analytics",
                 },
               ]
             },
             {
-              path: "insurance-claims",
-              element: "/admin/insurance-claims",
+              element: <AuthLayouts />,
+              children: [
+                {
+                  path: "register",
+                  element: <Register />,
+                },
+              ],
             },
-            {
-              path: "payment-process",
-              element: "/admin/payment-process",
-            },
-            {
-              path: "reporting-analytics",
-              element: "/admin/reporting-analytics",
-            },
-            
-            
           ]
         },
       ],
