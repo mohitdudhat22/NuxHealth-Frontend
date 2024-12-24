@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: var(--html);
+}
+
+h1 {
+  @apply text-5xl;
+}
+
+h2 {
+  @apply text-4xl;
+}
+
+h3 {
+  @apply text-3xl;
+}
+
+h4 {
+  @apply text-2xl;
+}
+
+h5 {
+  @apply text-xl;
+}
+
+h6 {
+  @apply text-lg;
+}
+
+p {
+  @apply text-sm;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -36,14 +68,6 @@
   color: var(--clr-cult);
 }
 
-.delete-btn.ant-btn-variant-outlined:not(:disabled):not(
-    .ant-btn-disabled
-  ):hover,
-.ant-btn-variant-dashed:not(:disabled):not(.ant-btn-disabled):hover {
-  color: var(--clr-danger);
-  border-color: var(--clr-danger);
-}
-
-.delete-btn {
-  color: var(--clr-danger);
+.button.ant-btn > span:not(:only-child) {
+  align-self: center;
 }

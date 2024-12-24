@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { ConfigProvider } from "antd";
 
 const ThemeConfig = ({ children }) => {
@@ -8,7 +8,7 @@ const ThemeConfig = ({ children }) => {
         hashed: false,
         token: {
           fontFamily: "var(--font-primary)",
-          colorPrimary: "rgba(231, 76, 60,1)",
+          colorPrimary: "rgba(14, 171, 235)",
           colorInfo: "#f09619",
           colorSuccess: "#39973d",
           colorWarning: "#ffc313",
@@ -38,7 +38,7 @@ const ThemeConfig = ({ children }) => {
             motionDurationSlow: "1",
           },
           Button: {
-            defaultBg: "var(--clr-foundation)",
+            defaultBg: "var(--clr-primary)",
             defaultBorderColor: "rgb(246,248,251)",
             borderRadius: 10,
             fontWeight: 600,
@@ -52,22 +52,22 @@ const ThemeConfig = ({ children }) => {
             controlHeightSM: 40,
             borderRadiusSM: 10,
             colorError: "var(--clr-primary)",
-            defaultActiveBorderColor: "rgb(254,81,46)",
-            defaultActiveColor: "rgb(254,81,46)",
-            defaultColor: "rgb(32,34,36)",
+            // defaultActiveBorderColor: "rgb(254,81,46)",
+            // defaultActiveColor: "rgb(254,81,46)",
+            defaultColor: "var(--clr-primary)",
             defaultHoverBg: "var(--clr-white)",
             defaultHoverBorderColor: "var(--clr-dark)",
             defaultHoverColor: "var(--clr-dark)",
-            linkHoverBg: "rgb(246,248,251)",
+            // linkHoverBg: "rgb(246,248,251)",
             colorLink: "var(--clr-primary)",
             colorLinkActive: "rgb(254,81,46)",
             colorLinkHover: "rgb(254,81,46)",
             borderColorDisabled: "rgb(211,211,211)",
             colorBgContainerDisabled: "rgb(246,248,251)",
             colorTextDisabled: "rgb(167,167,167)",
-            colorPrimary: "rgb(231,76,60)",
-            colorPrimaryHover: "rgba(231,77,60,0.78)",
-            colorPrimaryActive: "rgba(231,77,60,0.6392156862745098)",
+            colorPrimary: "var(--clr-primary)",
+            colorPrimaryHover: "rgba(var(--clr-primary-rgb),0.75)",
+            colorPrimaryActive: "rgba(var(--clr-primary-rgb),0.6392156862745098)",
           },
           Input: {
             colorBorder: "rgb(211,211,211)",

@@ -1,6 +1,5 @@
 import { Button } from "antd";
 import clsx from "clsx";
-import styles from "./NHButton.module.css";
 
 export const NHButton = ({
   size,
@@ -25,7 +24,7 @@ export const NHButton = ({
       htmlType={type}
       type={variant}
       onClick={onClick}
-      className={clsx(styles.Button, className)}
+      className={clsx(className, "shadow-none inline-flex items-center justify-center min-h-[40px] gap-md button")}
       {...rest}
     >
       {children}

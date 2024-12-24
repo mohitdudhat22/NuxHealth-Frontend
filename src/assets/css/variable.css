@@ -3,7 +3,7 @@
   --font-primary: "Lato", Arial, sans-serif, system-ui, -apple-system;
 
   /* RGBA */
-  --clr-primary-rgb: 96, 91, 255;
+  --clr-primary-rgb: 14, 171, 235;
   --clr-secondary-rgb: 113, 142, 191;
   --clr-gray-rgb: 79, 79, 79;
 
@@ -26,6 +26,11 @@
   --clr-pearl: #f6f8fb;
 
   /* Gradients Colors */
+  --clr-primary-gradient: linear-gradient(
+    90deg,
+    #0eabeb 0%,
+    rgba(10, 186, 181, 0) 91.25%
+  );
 
   /* Header Height */
   --header-height: 8rem;

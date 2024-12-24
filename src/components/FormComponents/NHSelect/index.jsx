@@ -29,7 +29,7 @@ export const NHSelect = ({
       {label && (
         <label
           htmlFor={id}
-          className={clsx(styles.label, "d-flex", labelClassName)}
+          className={clsx(styles.label, "flex", labelClassName)}
         >
           {label} {require && <span className="d-block clr-danger">*</span>}
         </label>
@@ -41,7 +41,7 @@ export const NHSelect = ({
         value={value}
         onChange={onChange}
         status={isInvalid && "error"}
-        className={clsx(styles.select, "w-100", rootClassName)}
+        className={clsx(styles.select, "w-full", rootClassName)}
         placeholder={placeholder ? placeholder : '"Select a value"'}
         mode={mode}
         popupClassName={styles.selectPopup}

@@ -1,5 +1,7 @@
-import { AuthLayouts } from "@/layouts";
-import { ForgetPassword, Login, OTP, ResetPassword } from "@/pages";
+import { AdminAsideData } from "@/constants/data";
+import { AuthLayouts, DashboardLayout } from "@/layouts";
+import { ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
+import { Dashboard } from "@/pages/Admin/Dashboard";
 import React from "react";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 
@@ -14,15 +16,15 @@ const NuxHealthRoute = createBrowserRouter(
           element: <NavLink to={"/login"}>Login</NavLink>,
         },
         {
-          path: "admin",
-          element: "admin",
-        },
-        {
           element: <AuthLayouts />,
           children: [
             {
               path: "login",
               element: <Login />,
+            },
+            {
+              path: "register",
+              element: <Register />,
             },
             {
               path: "forgot-password",
@@ -37,6 +39,40 @@ const NuxHealthRoute = createBrowserRouter(
               element: <ResetPassword />,
             },
           ],
+        },
+        {
+          path: "admin",
+          element: <DashboardLayout items={AdminAsideData} />,
+          children: [
+            {
+              index: true,
+              element: "admin",
+            },
+            {
+              path: "doctor-management",
+              element: "/admin/doctor-management",
+            },
+            {
+              path: "patient-management",
+              element: "/admin/patient-management",
+            },
+            {
+              path: "monitor-billing",
+              element: "/admin/monitor-billing",
+            },
+            {
+              path: "insurance-claims",
+              element: "/admin/insurance-claims",
+            },
+            {
+              path: "payment-process",
+              element: "/admin/payment-process",
+            },
+            {
+              path: "reporting-analytics",
+              element: "/admin/reporting-analytics",
+            },
+          ]
         },
       ],
     },

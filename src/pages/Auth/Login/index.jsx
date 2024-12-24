@@ -19,10 +19,10 @@ export const Login = () => {
     <>
       <h2>Login</h2>
       <form
-        className="gap-5 mt-5 d-flex flex-column"
+        className="gap-5 mt-5 flex flex-col"
         onSubmit={handleSubmit}
       >
-        <div className="gap-2 d-flex flex-column">
+        <div className="gap-2 flex flex-col">
           <NHInput
             label={"Email or Phone"}
             type={"email"}
@@ -36,7 +36,7 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="d-flex justify-content-between">
+          <div className="flex justify-between">
             <NHCheckbox
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)} // Update state on change
@@ -47,7 +47,7 @@ export const Login = () => {
           </div>
         </div>
         <NHButton type="submit" variant={"primary"} block loading={isLoading}>
-          Sign In
+          Login
         </NHButton>
         {location.pathname === "/admin/login" && (
           <h6 className="text-center fw-normal">

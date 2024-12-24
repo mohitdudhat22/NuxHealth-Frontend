@@ -1,105 +1,241 @@
 // import { Avatar, Space, Tag } from "antd";
-// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import Icons from "./icons";
 // import { authOne, authTwo } from "@/assets/images";
 // import Icons from "@/constants/Icons";
 // import { NHButton } from "@/components";
 
-// const getItem = (label, key, icon, path, children) => {
-//   const wrappedLabel = path ? <NavLink to={`${path}`}>{label}</NavLink> : label;
+const getItem = (label, key, icon, path, children) => {
+  const wrappedLabel = path ? <NavLink to={`${path}`}>{label}</NavLink> : label;
 
-//   return {
-//     key,
-//     icon,
-//     children,
-//     label: wrappedLabel,
-//   };
-// };
+  return {
+    key,
+    icon,
+    children,
+    label: wrappedLabel,
+  };
+};
 
-// export const AdminAsideData = [
-//   getItem("Dashboard", "/admin", Icons.Dashboard, "/admin"),
-//   getItem(
-//     "Resident Management",
-//     "/admin/residents",
-//     Icons.Money,
-//     "/admin/residents"
-//   ),
-//   getItem(
-//     "Financial Management",
-//     "financial_management",
-//     Icons.DollarSquare,
-//     null,
-//     [
-//       getItem(
-//         "Income",
-//         "/admin/financial/income",
-//         null,
-//         "/admin/financial/income"
-//       ),
-//       getItem(
-//         "Expense",
-//         "/admin/financial/expense",
-//         null,
-//         "/admin/financial/expense"
-//       ),
-//       getItem("Note", "/admin/financial/note", null, "/admin/financial/note"),
-//     ]
-//   ),
-//   getItem(
-//     "Facility Management",
-//     "/admin/facility",
-//     Icons.Building,
-//     "/admin/facility"
-//   ),
-//   getItem("Complaint Tracking", "complaint_tracking", Icons.SmsTracking, null, [
-//     getItem(
-//       "Create Complaint",
-//       "/admin/complaint/create",
-//       null,
-//       "/admin/complaint/create"
-//     ),
-//     getItem(
-//       "Request Tracking",
-//       "/admin/complaint/request",
-//       null,
-//       "/admin/complaint/request"
-//     ),
-//   ]),
-//   getItem(
-//     "Security Management",
-//     "security_management",
-//     Icons.ShieldSecurity,
-//     null,
-//     [
-//       getItem(
-//         "Visitor Logs",
-//         "/admin/security/visitors",
-//         null,
-//         "/admin/security/visitors"
-//       ),
-//       getItem(
-//         "Security Protocols",
-//         "/admin/security/protocols",
-//         null,
-//         "/admin/security/protocols"
-//       ),
-//     ]
-//   ),
-//   getItem(
-//     "Security Guard",
-//     "/admin/guard",
-//     Icons.SecurityGuard,
-//     "/admin/guard"
-//   ),
-//   getItem(
-//     "Announcement",
-//     "/admin/announcement",
-//     Icons.Announcement,
-//     "/admin/announcement"
-//   ),
+export const AdminAsideData = [
+  getItem("Dashboard", "admin", Icons.Dashboard, "/admin"),
+  getItem(
+    "Doctor Management",
+    "/doctor-management",
+    Icons.DoctorUser,
+    "/admin/doctor-management"
+  ),
+  getItem(
+    "Patient Management",
+    "PatientManagement",
+    Icons.DoctorUser,
+    "/admin/patient-management"
+  ),
+  getItem(
+    "Billing And Payments",
+    "BillingPayments",
+    Icons.Wallet,
+    null,
+    [
+      getItem(
+        "Monitor Billing",
+        "MonitorBilling",
+        null,
+        "/admin/monitor-billing"
+      ),
+      getItem(
+        "Insurance Claims",
+        "InsuranceClaims",
+        null,
+        "/admin/insurance-claims"
+      ),
+      getItem(
+        "Payment Process",
+        "PaymentProcess",
+        null,
+        "/admin/payment-process"
+      ),
+    ]
+  ),
+  getItem(
+    "Reporting And Analytics",
+    "ReportingAndAnalytics",
+    Icons.Analytics,
+    "/admin/reporting-analytics"
+  ),
+];
+
+// export const DoctorPanelData = [
+//   {
+//     key: "/",
+//     to: "/doctor",
+//     icon: FaCalendarAlt,
+//     text: "Appointment Management",
+//   },
+//   {
+//     key: "/patientRecordaccesst",
+//     to: "/doctor/patientrecordaccesst",
+//     icon: IoMdListBox,
+//     text: "Patient Record Accesst",
+//   },
+//   {
+//     key: "/createPrescriptionTools",
+//     to: "/doctor/createPrescriptionTools",
+//     text: "Prescription Tools",
+//     icon: FaLaptopMedical,
+//   },
+//   {
+//     key: "/teleconsultationModule",
+//     to: "/doctor/teleconsultationModule",
+//     icon: IoMdListBox,
+//     text: "teleconsultationModule",
+//   },
+//   {
+//     key: "/chatScreen",
+//     to: "/doctor/chatScreen",
+//     icon: IoMdListBox,
+//     text: "chatScreen",
+//   },
+// ];
+
+// export const AdminPanelData = [
+//   {
+//     key: "/",
+//     to: "/",
+//     icon: MdDashboard,
+//     text: "Dashboard",
+//   },
+//   {
+//     key: "/doctorManagement",
+//     to: "/doctorManagement",
+//     icon: FaUser,
+//     text: "Doctor Management",
+//   },
+//   {
+//     key: "/patientManagement",
+//     to: "/patientManagement",
+//     icon: FaUsers,
+//     text: "Patient Management",
+//   },
+//   {
+//     key: "/receptionManagement",
+//     to: "/receptionManagement",
+//     icon: FaUsers,
+//     text: "Reception Management",
+//   },
+//   {
+//     dropdown: true,
+//     text: "Billing and Payments",
+//     icon: FaLaptopMedical,
+//     dropdownItems: [
+//       {
+//         key: "/monitorBilling",
+//         to: "/monitorBilling",
+//         text: "Monitor Billing",
+//         icon: RiBillLine,
+//       },
+//       {
+//         key: "/insuranceClaims",
+//         to: "/insuranceClaims",
+//         text: "Insurance Claims",
+//         icon: RiBillLine,
+//       },
+//       {
+//         key: "/paymentMethod",
+//         to: "/paymentMethod",
+//         text: "Payment Methods",
+//         icon: RiBillLine,
+//       },
+//     ],
+//   },
+//   {
+//     key: "/reportingAndAnalytics",
+//     to: "/reportingAndAnalytics",
+//     icon: MdAnalytics,
+//     text: "Reporting and Analytics",
+//   },
+// ];
+
+// export const PatientPanelData = [
+//   {
+//     key: "/patient",
+//     to: "/patient",
+//     icon: RiContactsBookFill,
+//     text: "Personal Health Record",
+//   },
+//   {
+//     key: "/appointment",
+//     to: "/patient/appointment",
+//     icon: FaCalendarCheck,
+//     text: "Appointment Booking",
+//   },
+//   {
+//     key: "/priscriptionAccess",
+//     to: "/patient/priscriptionAccess",
+//     icon: FaFilePrescription,
+//     text: "Prescription Access",
+//   },
+//   {
+//     key: "/teleconsultation",
+//     to: "/patient/teleconsultation",
+//     icon: FaLaptopMedical,
+//     text: "Teleconsultation Access",
+//   },
+//   {
+//     key: "/chatScreen",
+//     to: "/patient/chatScreen",
+//     icon: IoMdChatbubbles,
+//     text: "Chat",
+//   },
+//   {
+//     key: "/bills",
+//     to: "/patient/bills",
+//     icon: RiBillLine,
+//     text: "Bills",
+//   },
+// ];
+
+// export const ReceptionPanelData = [
+//   {
+//     key: "/reception",
+//     to: "/reception",
+//     icon: MdDashboard,
+//     text: "Dashboard",
+//   },
+//   {
+//     key: "patientregistration",
+//     to: "/reception/patient-registration",
+//     icon: FaUser,
+//     text: "Patient Registration",
+//   },
+//   {
+//     key: "/personalhealth",
+//     to: "/reception/personalhealth",
+//     icon: RiContactsBookFill,
+//     text: "patient Health Record",
+//   },
+//   {
+//     key: "/appointment",
+//     to: "/reception/appointment",
+//     icon: FaCalendarCheck,
+//     text: "Appointment Booking",
+//   },
+//   {
+//     dropdown: true,
+//     text: "Billing and Payments",
+//     icon: FaLaptopMedical,
+//     dropdownItems: [
+//       {
+//         key: "/monitorBilling",
+//         to: "monitorBilling",
+//         text: "Monitor Billing",
+//         icon: RiBillLine,
+//       },
+//     ],
+//   },
 // ];
 
 // export const ResidentAsidData = [
-//   getItem("Dashboard", "/resident", Icons.Dashboard, "/resident"),
+//   getItem("Dashboard", "/resident", "Icons.Dashboard", "/resident"),
 //   getItem(
 //     "Personal Detail",
 //     "/resident/personal-detail",
@@ -404,3 +540,16 @@
 //       ),
 //   },
 // ];
+
+export const AuthSliderData = [
+  {
+    id: 1,
+    title: "Connect, Collaborate, and Control - Society Management Simplified",
+    // image: authOne,
+  },
+  {
+    id: 2,
+    title: "Your Space, Your Place: Society Management Made Simple",
+    // image: authTwo,
+  },
+];

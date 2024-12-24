@@ -20,7 +20,7 @@ export const NHInput = ({
   parentClassName,
   labelClassName,
   rootClassName,
-  require,
+  required,
   ...rest
 }) => {
   return (
@@ -28,9 +28,9 @@ export const NHInput = ({
       {label && (
         <label
           htmlFor={id}
-          className={clsx(styles.label, "d-flex", labelClassName)}
+          className={clsx(styles.label, "flex", labelClassName)}
         >
-          {label} {require && <span className="d-block clr-danger">*</span>}
+          {label} {required && <span className="d-block text-danger">*</span>}
         </label>
       )}
       <Input
@@ -83,7 +83,7 @@ export const NHPasswordInput = ({
       {label && (
         <label
           htmlFor={id}
-          className={clsx(styles.label, "d-flex", labelClassName)}
+          className={clsx(styles.label, "flex", labelClassName)}
         >
           {label} {require && <span className="d-block clr-danger">*</span>}
         </label>

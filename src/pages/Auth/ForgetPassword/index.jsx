@@ -9,8 +9,8 @@ export const ForgetPassword = () => {
     useForgetPassword();
 
   return (
-    <div className="gap-5 mt-5 d-flex flex-column">
-      <div className="gap-2 d-flex flex-column">
+    <div className="gap-5 mt-5 flex flex-col">
+      <div className="gap-2 flex flex-col">
         <h2>Forget Password</h2>
         <p>
           Enter your email and we'll send you an OTP to reset your password.
@@ -26,7 +26,7 @@ export const ForgetPassword = () => {
           onChange={handleInputChange}
         />
       </form>
-      <div className="gap-2 d-flex flex-column">
+      <div className="gap-2 flex flex-col">
         <NHButton
           block
           variant="primary"

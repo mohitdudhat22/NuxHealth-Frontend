@@ -35,7 +35,7 @@ export default {
         '5xl': "var(--text-5xl)",
         '4xl': "var(--text-4xl)",
         '3xl': "var(--text-3xl)",
-        '2xl': "var(--text-2xl)",
+      '2xl': "var(--text-2xl)",
         xl: "var(--text-xl)",
         lg: "var(--text-lg)",
         sm: "var(--text-sm)",

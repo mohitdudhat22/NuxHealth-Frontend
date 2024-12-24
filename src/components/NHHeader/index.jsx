@@ -28,10 +28,10 @@ export const NHHeader = () => {
     <Header
       className={clsx(
         styles.header,
-        "d-flex align-items-center justify-content-between"
+        "flex items-center justify-between"
       )}
     >
-      <div className="d-flex align-items-center justify-content-center gap-xl">
+      <div className="flex items-center justify-content-center gap-xl">
         {location.pathname == "/admin" || location.pathname == "/resident" ? (
           <NHInput placeholder={"Search"} prefix={Icons.Search} />
         ) : (
@@ -41,7 +41,7 @@ export const NHHeader = () => {
       <div
         className={clsx(
           styles.HeaderRight,
-          "d-flex align-items-center justify-content-center gap-xl"
+          "flex items-center justify-content-center gap-xl"
         )}
       >
         <NHButton
@@ -51,9 +51,9 @@ export const NHHeader = () => {
         />
         <NHDropDownImg
           items={dropdownItems}
-          name={token?.fullName}
+          // name={token?.fullName}
           image={"https://i.pravatar.cc/300"}
-          position={token?.role}
+          // position={token?.role}
           imageAlt={"fakeImg"}
           onClick={() => handleMenuClick("1")}
           arrow
