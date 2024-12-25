@@ -7,6 +7,7 @@ import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
 import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
 import CreateBill from "@/components/CreateBill";
 import { createBrowserRouter, NavLink } from "react-router-dom";
+import { ProfileSetting } from "@/components/ProfileSetting";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -52,6 +53,10 @@ const NuxHealthRoute = createBrowserRouter(
                 {
                   index: true,
                   element: "admin",
+                },
+                {
+                  path:"profile",
+                  element: <ProfileSetting/>
                 },
                 {
                   path: "doctor-management",

@@ -3,4 +3,4 @@ export { Dashboard as AdminDashboard } from './Dashboard/';
 
 // Doctor Management
 export { DoctorManagement } from "./DoctorManagemnt/"
-export { AddNewDoctor } from "./DoctorManagemnt/AddNewDoctor/"
+// export { AddNewDoctor } from "./DoctorManagemnt/AddNewDoctor/"
