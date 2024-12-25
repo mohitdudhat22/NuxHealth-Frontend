@@ -55,7 +55,7 @@ export const MonitorBilling = () => {
             type="primary"
             size="small"
             icon={Icons.ViewBillIcon}
-            className="view-btn bg-white border-primary"
+            className="bg-white view-btn border-primary"
             onClick={() => navigate("view-bill")}
           />
         </Space>
@@ -92,9 +92,9 @@ export const MonitorBilling = () => {
     <>
       <NHCard title={"Monitor Billing"} headerContent={
         <div className="flex items-center gap-md">
-        <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-        <NHButton variant="default" className="bg-white border-primary" onClick={() => navigate("edit-invoice")}>{Icons.EditBillIcon}Edit Invoice Theme</NHButton>
-        <NHButton variant="primary" onClick={() => navigate("create-bill")}>Create Bills</NHButton>
+          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+          <NHButton variant="default" className="bg-white border-primary" onClick={() => navigate("edit-invoice")}>{Icons.EditBillIcon}Edit Invoice Theme</NHButton>
+          <NHButton variant="primary" onClick={() => navigate("create-bill")}>Create Bills</NHButton>
         </div>
       }>
         <NHTable tableColumn={columns} tableDataSource={data} />
