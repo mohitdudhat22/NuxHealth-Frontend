@@ -193,7 +193,7 @@ export const Register = () => {
       </form>
       <SelectHospitalModal
         open={isModalOpen}
-        handleClose={() => setIsModalOpen(true)}
+        handleClose={() => setIsModalOpen(false)}
       />
     </>
   );
