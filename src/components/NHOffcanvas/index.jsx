@@ -12,7 +12,7 @@ export const NHOffcanvas = ({
     triggerButtonText = "Open Drawer", // Text for the trigger button
     children,         // Content to display inside the drawer
     triggerButtonProps = {}, // Additional props for the trigger button
-    drawerProps = {}  // Additional props for the Drawer
+    ...rest  // Additional props for the Drawer
 }) => {
     return (
         <div>
@@ -28,7 +28,7 @@ export const NHOffcanvas = ({
                 onClose={onClose}
                 open={visible}
                 width={width}
-                {...drawerProps} // Spread additional drawer props
+                {...rest} // Spread additional drawer props
             >
                 {children}
             </Drawer>
