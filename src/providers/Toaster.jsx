@@ -8,6 +8,7 @@ export const ToasterProvider = () => {
       reverseOrder={false}
       toastOptions={{
         duration: 5000,
+        className: 'text-2xl',
       }}
     />
   );
