@@ -12,6 +12,7 @@ export { NHOffcanvas } from "./NHOffcanvas/";
 
 /* NHCard */
 export { NHCard } from "./NHCards";
+export * from "./NHCards/CardTemplate/"
 
 /* FormComponents */
 export * from "./FormComponents/";

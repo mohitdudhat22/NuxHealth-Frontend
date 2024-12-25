@@ -14,11 +14,11 @@ export const NHCard = ({
         <div
           className={clsx(
             styles.header,
-            "flex items-center justify-between"
+            "flex items-center justify-between gap-xl"
           )}
         >
           <h3 className="fw-semibold lh-base">{title}</h3>
-          <div className="flex items-center justify-start">{headerContent}</div>
+          <div className="flex items-center justify-start gap-lg">{headerContent}</div>
         </div>
       )}
       <div className={className}>{children}</div>

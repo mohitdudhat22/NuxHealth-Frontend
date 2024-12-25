@@ -23,9 +23,9 @@ const ThemeConfig = ({ children }) => {
           },
           Menu: {
             itemBg: "var(--clr-white)",
-            itemColor: "var(--clr-gray)",
-            itemHoverColor: "var(--clr-white)",
-            itemSelectedColor: "var(--clr-white)",
+            itemColor: "var(--clr-gray-blue)",
+            itemHoverColor: "var(--clr-gray-blue)",
+            itemSelectedColor: "var(--clr-primary)",
             iconMarginInlineEnd: "var(--space-lg)",
             iconSize: "var(--space-2xl)",
             itemHeight: 50,
