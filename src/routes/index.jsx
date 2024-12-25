@@ -1,10 +1,12 @@
 import { AdminAsideData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
+import { DoctorManagement } from "@/layouts/DoctorManagement";
 import { ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
+import { PatientManagement } from "@/pages/Admin/PatientManagement";
 import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
 import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
-import CreateBill from "@/pages/CreateBill";
+import CreateBill from "@/components/CreateBill";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 
 const NuxHealthRoute = createBrowserRouter(
@@ -58,7 +60,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "patient-management",
-                  element: "/admin/patient-management",
+                  element: <PatientManagement />,
                 },
                 {
                   path: "monitor-billing",
@@ -88,13 +90,28 @@ const NuxHealthRoute = createBrowserRouter(
               ]
             },
             {
-              element: <AuthLayouts />,
-              children: [
-                {
-                  path: "register",
-                  element: <Register />,
-                },
-              ],
+              path: "doctor-management",
+              element: <DoctorManagement />,
+            },
+            {
+              path: "patient-management",
+              element: "/admin/patient-management",
+            },
+            {
+              path: "monitor-billing",
+              element: "/admin/monitor-billing",
+            },
+            {
+              path: "insurance-claims",
+              element: "/admin/insurance-claims",
+            },
+            {
+              path: "payment-process",
+              element: "/admin/payment-process",
+            },
+            {
+              path: "reporting-analytics",
+              element: "/admin/reporting-analytics",
             },
           ]
         },
