@@ -16,9 +16,13 @@ export const login = (data) => request("post", "/api/auth/login", data);
 export const forgotPassword = (data) => request("post", "/api/auth/forgot-password", data);
 export const verifyOtp = (data) => request("post", "/api/auth/verify-otp", data);
 export const resetPassword = (data) => request("post", "/api/auth/reset-password", data);
+
 /* Admin Register Form */
 export const registerAdmin = (data) => request("post", "/api/registerAdmin", data);
 
+/* Hospital Add And Get */
+
+export const addHospitals = (data) => request("post", "/api/hospital/createHospital", data);
 export const getHospitals = () => request("get", "/api/hospital/getHospitals");
 
 // Reception

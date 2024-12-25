@@ -1,12 +1,15 @@
 import { useAddSociety } from "@/hook/Auth/AddSociety";
 import clsx from "clsx";
-import { NHInput, NHModal, NHUpload, } from "@/components/";
+import { NHInput, NHModal, NHUpload } from "@/components/";
 import styles from "./SelectSocietyModal.module.css";
-import Icons from "@/constants/icons";
 
 export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
-  const { handleSubmit, handleChange, formData, isFormValid } =
-    useAddSociety(handleClose);
+  const {
+    handleSubmit,
+    handleChange,
+    formData,
+    uploadProps
+  } = useAddSociety(handleClose);
 
   return (
     <NHModal
@@ -16,10 +19,9 @@ export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
       onCancel={onCancel}
       handleClose={handleClose}
       variant="primary"
-      // Apply Button
       handleContent="Apply"
       handleOk={handleSubmit}
-      disabledButton={!isFormValid}
+      disabledButton={false}
     >
       <form onSubmit={handleSubmit}>
         <div className={clsx(styles.InputWrapper, "grid flex-col")}>
@@ -89,7 +91,7 @@ export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
             onChange={handleChange}
             required
           />
-          <NHUpload />
+          <NHUpload rootClassName="col-span-2" {...uploadProps} />
         </div>
       </form>
     </NHModal>

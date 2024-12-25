@@ -1,17 +1,18 @@
+import { addHospitals } from "@/axiosApi/ApiHelper";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
 export const useAddSociety = (handleClose) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    address: "",
+    name: "1",
+    address: "2",
     country: "India",
     state: "Gujarat",
     city: "Surat",
     zipcode: "395006",
     emergencyContactNo: "1478523690",
-    worksiteLink: "https//www.google.com",
+    worksiteLink: "https://www.google.com",
     hospitalLogo: [],
   });
 
@@ -21,12 +22,35 @@ export const useAddSociety = (handleClose) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Validate form data
-  const isFormValid = () => {
-    return Object.values(formData).every((field) => field.trim() !== "");
+  // Handle file (image) change from NHUpload
+  const handleFileChange = (file) => {
+    setFormData((prev) => ({ ...prev, hospitalLogo: file }));
   };
 
-  // Handle form submission
+  const uploadProps = {
+    name: 'file',
+    showUploadList: false,
+    customRequest: ({ file, onError }) => {
+      console.log(file);
+      handleFileChange(file);
+    },
+  };
+
+  const isFormValid = () => {
+    return (
+      formData.name !== "" &&
+      formData.address !== "" &&
+      formData.country !== "" &&
+      formData.state !== "" &&
+      formData.city !== "" &&
+      formData.zipcode !== "" &&
+      formData.emergencyContactNo !== "" &&
+      formData.worksiteLink !== "" &&
+      formData.hospitalLogo !== ''
+    );
+  };
+
+  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,12 +62,40 @@ export const useAddSociety = (handleClose) => {
     }
 
     try {
-      // Replace with your API call
-      // let data = await (formData);
-      toast.success("Hospital added successfully!");
-      handleClose();
+      const formDataToSend = new FormData();
+      const data = formData;
+
+      // Append text fields to formData
+      const textFields = {
+        name: data.name,
+        address: data.address,
+        country: data.country,
+        state: data.state,
+        city: data.city,
+        zipcode: data.zipcode,
+        emergencyContactNo: data.emergencyContactNo,
+        worksiteLink: data.worksiteLink,
+      };
+
+      Object.entries(textFields).forEach(([key, value]) => {
+        formDataToSend.append(key, value);
+      });
+
+      // Append the hospital logo if it exists
+      if (data.hospitalLogo) {
+        formDataToSend.append("hospitalLogo", data.hospitalLogo);
+      }
+
+      let response = await addHospitals(formDataToSend);
+
+      if (response.status === 1) {
+        toast.success("Hospital added successfully!");
+        handleClose();
+      } else {
+        toast.error("Failed to add hospital.");
+      }
     } catch (error) {
-      toast.error("Failed to add society!");
+      toast.error("An error occurred while adding the hospital.");
     } finally {
       setIsLoading(false);
     }
@@ -54,5 +106,7 @@ export const useAddSociety = (handleClose) => {
     formData,
     handleChange,
     handleSubmit,
+    handleFileChange,
+    uploadProps,
   };
 };

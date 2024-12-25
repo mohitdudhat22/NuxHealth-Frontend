@@ -1,12 +1,15 @@
 import Dragger from "antd/es/upload/Dragger";
 import clsx from "clsx";
 import Icons from "@/constants/icons";
-import styles from "../NHInput/NHInput.module.css";
 
-export const NHUpload = ({ props, ...rest }) => {
+export const NHUpload = ({
+  rootClassName,
+  onChange,
+  ...rest
+}) => {
   return (
-    <div>
-      <Dragger {...props} className={styles.HQDropzone}>
+    <div className={rootClassName}>
+      <Dragger {...rest} className="block" onChange={onChange}>
         <p className="ant-upload-drag-icon">
           <span
             className={clsx(

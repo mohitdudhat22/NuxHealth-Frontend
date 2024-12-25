@@ -1,4 +1,3 @@
-import React from "react";
 import { AdminAsideData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
 import { DoctorManagement } from "@/layouts/DoctorManagement";
