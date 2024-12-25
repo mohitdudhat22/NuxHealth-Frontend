@@ -7,7 +7,7 @@ export const NHHead = ({
   ogTitle,
   ogDescription,
   ogImage,
-  ogUrl = "https://dashstack-smc.web.app/announcements",
+  ogUrl = "",
   twitterCard,
   twitterTitle,
   twitterDescription,

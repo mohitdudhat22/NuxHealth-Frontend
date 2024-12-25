@@ -1,5 +1,3 @@
-import React  from "react";
-
 export const getFormattedDateTime = ({ includeDate = true, includeTime = true } = {}) => {
   const currentTime = new Date();
 
