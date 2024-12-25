@@ -1,7 +1,6 @@
 import { AdminAsideData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
-import { DoctorManagement } from "@/layouts/DoctorManagement";
-import { ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
+import { DoctorManagement, ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
 import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
