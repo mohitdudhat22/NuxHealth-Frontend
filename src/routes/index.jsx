@@ -1,4 +1,4 @@
-import { AdminAsideData } from "@/constants/data";
+import { AdminAsideData, DoctorPanelData, PatientPanelData, ReceptionPanelData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
 import { DoctorManagement, ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
@@ -14,10 +14,12 @@ const NuxHealthRoute = createBrowserRouter(
     {
       path: "/",
       children: [
+        /* Website */
         {
           index: true,
           element: <NavLink to={"/login"}>Login</NavLink>,
         },
+        /* AuthCation */
         {
           element: <AuthLayouts />,
           children: [
@@ -41,119 +43,208 @@ const NuxHealthRoute = createBrowserRouter(
               path: "reset-password",
               element: <ResetPassword />,
             },
+            {
+              path: "admin/register",
+              element: <Register />,
+            },
           ],
         },
+        /* Admin */
         {
           path: "admin",
+          element: <DashboardLayout items={AdminAsideData} />,
           children: [
             {
-              element: <DashboardLayout items={AdminAsideData} />,
+              index: true,
+              element: "admin",
+            },
+            {
+              path: "doctor-management",
               children: [
                 {
                   index: true,
-                  element: "admin",
+                  element: <DoctorManagement />,
                 },
                 {
-                  path: "doctor-management",
-                  children: [
-                    {
-                      index: true,
-                      element: <DoctorManagement />,
-                    },
-                    {
-                      path: "create-doctor",
-                      element: "<DoctorManagement />"
-                    },
-                    {
-                      path: "edit-doctor",
-                      element: "<DoctorManagement />"
-                    }
-                  ]
+                  path: "create-doctor",
+                  element: "<DoctorManagement />"
                 },
                 {
-                  path: "patient-management",
-                  children: [
-                    {
-                      index: true,
-                      element: <PatientManagement />,
-                    },
-                    {
-                      path: "create-patient",
-                      element: "<DoctorManagement />"
-                    },
-                    {
-                      path: "edit-patient",
-                      element: "<DoctorManagement />"
-                    }
-                  ]
+                  path: "edit-doctor",
+                  element: "<DoctorManagement />"
+                }
+              ]
+            },
+            {
+              path: "patient-management",
+              children: [
+                {
+                  index: true,
+                  element: <PatientManagement />,
                 },
                 {
-                  path: "reception-management",
-                  children: [
-                    {
-                      index: true,
-                      element: <PatientManagement />,
-                    },
-                    {
-                      path: "create-reception",
-                      element: "<DoctorManagement />"
-                    },
-                    {
-                      path: "edit-reception",
-                      element: "<DoctorManagement />"
-                    }
-                  ]
+                  path: "create-patient",
+                  element: "<DoctorManagement />"
                 },
                 {
-                  path: "medical-management",
-                  children: [
-                    {
-                      index: true,
-                      element: <PatientManagement />,
-                    },
-                    {
-                      path: "create-medical",
-                      element: "<DoctorManagement />"
-                    },
-                    {
-                      path: "edit-medical",
-                      element: "<DoctorManagement />"
-                    }
-                  ]
+                  path: "edit-patient",
+                  element: "<DoctorManagement />"
+                }
+              ]
+            },
+            {
+              path: "reception-management",
+              children: [
+                {
+                  index: true,
+                  element: <PatientManagement />,
+                },
+                {
+                  path: "create-reception",
+                  element: "<DoctorManagement />"
+                },
+                {
+                  path: "edit-reception",
+                  element: "<DoctorManagement />"
+                }
+              ]
+            },
+            {
+              path: "medical-management",
+              children: [
+                {
+                  index: true,
+                  element: <PatientManagement />,
+                },
+                {
+                  path: "create-medical",
+                  element: "<DoctorManagement />"
+                },
+                {
+                  path: "edit-medical",
+                  element: "<DoctorManagement />"
+                }
+              ]
+            },
+            {
+              path: "monitor-billing",
+              children: [
+                {
+                  index: true,
+                  element: <MonitorBilling />,
+                },
+                {
+                  path: "create-bill",
+                  element: <CreateBill />
+                },
+              ]
+            },
+            {
+              path: "insurance-claims",
+              element: <InsuranceClaims />,
+            },
+            {
+              path: "payment-process",
+              element: <PaymentProcess />,
+            },
+            {
+              path: "reporting-analytics",
+              element: "/admin/reporting-analytics",
+            },
+          ],
+        },
+        /* Doctor */
+        {
+          path: "doctor",
+          children: [
+            {
+              element: <DashboardLayout items={DoctorPanelData} />,
+              children: [
+                {
+                  index: true,
+                  element: "doctor"
+                },
+                {
+                  path: "patientrecordaccess",
+                  element: "patientrecordaccess"
+                },
+                {
+                  path: "create-prescriptionTools",
+                  element: "create-prescriptionTools"
+                },
+                {
+                  path: "teleconsultation-module",
+                  element: "teleconsultation-module"
+                },
+                {
+                  path: "chat-screen",
+                  element: "chatScreen"
+                }
+              ]
+            }
+          ]
+        },
+        /* Patient */
+        {
+          path: "patient",
+          children: [
+            {
+              element: <DashboardLayout items={PatientPanelData} />,
+              children: [
+                {
+                  index: true,
+                  element: "patient"
+                },
+                {
+                  path: "appointment",
+                  element: "appointment",
+                },
+                {
+                  path: "prescription-access",
+                  element: "prescription-access",
+                },
+                {
+                  path: "teleconsultation",
+                  element: "teleconsultation",
+                },
+                {
+                  path: "chat-screen",
+                  element: "chat-screen",
+                },
+                {
+                  path: "bills",
+                  element: "bills",
+                },
+              ]
+            }
+          ]
+        },
+        /* Reception */
+        {
+          path: "reception",
+          children: [
+            {
+              element: <DashboardLayout items={ReceptionPanelData} />,
+              children: [
+                {
+                  index: true,
+                  element: "reception"
+                },
+                {
+                  path: "patient-registration",
+                  element: "patient-registration"
+                },
+                {
+                  path: "personal-health",
+                  element: "personal-health"
+                },
+                {
+                  path: "appointment",
+                  element: "appointmenton"
                 },
                 {
                   path: "monitor-billing",
-                  children: [
-                    {
-                      index: true,
-                      element: <MonitorBilling />,
-                    },
-                    {
-                      path: "create-bill",
-                      element: <CreateBill />
-                    },
-                  ]
-                },
-                {
-                  path: "insurance-claims",
-                  element: <InsuranceClaims />,
-                },
-                {
-                  path: "payment-process",
-                  element: <PaymentProcess />,
-                },
-                {
-                  path: "reporting-analytics",
-                  element: "/admin/reporting-analytics",
-                },
-              ],
-            },
-            {
-              element: <AuthLayouts />,
-              children: [
-                {
-                  path: "register",
-                  element: <Register />,
+                  element: "monitor-billing"
                 },
               ]
             }

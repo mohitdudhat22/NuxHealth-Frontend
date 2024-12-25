@@ -15,6 +15,7 @@
   --clr-black: #141414;
   --clr-dark: #202224;
   --clr-gray: rgba(var(--clr-gray-rgb), 1);
+  --clr-gray-blue: #818194;
 
   --clr-success: #39973d;
   --clr-warning: #ffb931;
@@ -28,7 +29,7 @@
   /* Gradients Colors */
   --clr-primary-gradient: linear-gradient(
     90deg,
-    #0eabeb 0%,
+    rgba(14, 171, 235, 40%) 0%,
     rgba(10, 186, 181, 0) 91.25%
   );
 
