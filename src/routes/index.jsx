@@ -1,9 +1,13 @@
+import React from "react";
 import { AdminAsideData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
 import { DoctorManagement } from "@/layouts/DoctorManagement";
 import { ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
-import { Dashboard } from "@/pages/Admin/Dashboard";
-import React from "react";
+import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
+import { PatientManagement } from "@/pages/Admin/PatientManagement";
+import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
+import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
+import CreateBill from "@/components/CreateBill";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 
 const NuxHealthRoute = createBrowserRouter(
@@ -43,11 +47,48 @@ const NuxHealthRoute = createBrowserRouter(
         },
         {
           path: "admin",
-          element: <DashboardLayout items={AdminAsideData} />,
           children: [
             {
-              index: true,
-              element: "admin",
+              element: <DashboardLayout items={AdminAsideData} />,
+              children: [
+                {
+                  index: true,
+                  element: "admin",
+                },
+                {
+                  path: "doctor-management",
+                  element: "/admin/doctor-management",
+                },
+                {
+                  path: "patient-management",
+                  element: <PatientManagement />,
+                },
+                {
+                  path: "monitor-billing",
+                  children: [
+                    {
+                      index: true,
+                      element: <MonitorBilling />,
+                    },
+                    {
+                      path: "create-bill",
+                      element: <CreateBill />
+                    },
+                  ]
+                },
+                {
+                  path: "insurance-claims",
+                  element: <InsuranceClaims />,
+                },
+                {
+                  path: "payment-process",
+                  element: <PaymentProcess />,
+                },
+                {
+                  path: "reporting-analytics",
+                  element: "/admin/reporting-analytics",
+                },
+              ]
             },
             {
               path: "doctor-management",

@@ -1,0 +1,5 @@
+Admin Register = admin/register (Only For Admin)
+Login = Login (For All)
+ForgotPassword = forgot-password (For All)
+otpVerify = otp (For All)
+ResetPassword = reset-password (For All)

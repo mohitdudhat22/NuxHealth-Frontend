@@ -3,7 +3,7 @@ import { NHButton, NHInputOtp } from "@/components";
 import { useVerifyOtp } from "@/hook/Auth/VerifyOTP";
 
 export const OTP = () => {
-  const { loading, handleInputChange, handleSubmit, otp } = useVerifyOtp();
+  const { loading, handleInputChange, handleSubmit, otp, isFormValid } = useVerifyOtp();
 
   return (
     <div className="gap-5 mt-5 flex flex-col">
@@ -30,7 +30,7 @@ export const OTP = () => {
           block
           variant="primary"
           onClick={handleSubmit}
-          // disabled={!isFormValid || loading}
+          disabled={!isFormValid || loading}
           loading={loading}
         >
           {loading ? "Verifying..." : "Verify"}

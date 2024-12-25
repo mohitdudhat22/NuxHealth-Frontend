@@ -1,8 +1,6 @@
-import { ReceptionistGetBill } from "@/axiosApi/ApiHelper"
 import { NHButton, NHCard, NHInput, NHTable } from "@/components"
 import Icons from "@/constants/icons"
 import { Space, Tag } from "antd"
-import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export const MonitorBilling = () => {
@@ -52,26 +50,18 @@ export const MonitorBilling = () => {
       title: "Action",
       key: "action",
       render: (_, record) =>
-          <Space size="middle">
-            <NHButton
-              type="primary"
-              size="small"
-              icon={Icons.CreateBillIcon}
-              className="edit-btn"
-              onClick={() => onEdit(record)}
-            />
-            <NHButton
-              type="primary"
-              size="small"
-              icon={Icons.CreateBillIcon}
-              className="view-btn"
-              onClick={() => onViewDetails(record)}
-            />
-          </Space>
+        <Space size="middle">
+          <NHButton
+            type="primary"
+            size="small"
+            icon={Icons.ViewBillIcon}
+            className="view-btn bg-white border-primary"
+            onClick={() => navigate("view-bill")}
+          />
+        </Space>
     },
   ];
-  
-  // Example data
+
   const data = [
     {
       key: "1",
@@ -100,11 +90,16 @@ export const MonitorBilling = () => {
 
   return (
     <>
-      <NHCard title={"Monitor Billing"} headerContent={<><NHInput /><NHButton variant="primary" onClick={()=>navigate("create-bill")}>edit admina</NHButton></>}>
-      
-      <NHTable tableColumn={columns} tableDataSource={data}/>
+      <NHCard title={"Monitor Billing"} headerContent={
+        <div className="flex items-center gap-md">
+        <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+        <NHButton variant="default" className="bg-white border-primary" onClick={() => navigate("edit-invoice")}>{Icons.EditBillIcon}Edit Invoice Theme</NHButton>
+        <NHButton variant="primary" onClick={() => navigate("create-bill")}>Create Bills</NHButton>
+        </div>
+      }>
+        <NHTable tableColumn={columns} tableDataSource={data} />
       </NHCard >
-   </>
+    </>
 
   )
 }
