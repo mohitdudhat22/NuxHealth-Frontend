@@ -31,6 +31,18 @@ export const AdminAsideData = [
     "/admin/patient-management"
   ),
   getItem(
+    "Reception Management",
+    "/reception-management",
+    Icons.DoctorUser,
+    "/admin/reception-management"
+  ),
+  getItem(
+    "Medical Management",
+    "medicalManagement",
+    Icons.DoctorUser,
+    "/admin/medical-management"
+  ),
+  getItem(
     "Billing And Payments",
     "BillingPayments",
     Icons.Wallet,
