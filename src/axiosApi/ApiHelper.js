@@ -10,6 +10,12 @@ async function request(method, url, data) {
   }
 }
 
+/* API Demo */
+// export const postDemo = (data) => request("post", "/api/demo", data);
+// export const getDemo = () => request("get", "/api/demo");
+// export const putDemo = (data) => request("put", "/api/demo", data);
+// export const deleteDemo = () => request("delete", "/api/demo");
+
 /* Authentication */
 // export const register = (data) => request("post", "/register", data);
 export const login = (data) => request("post", "/api/auth/login", data);
@@ -21,11 +27,21 @@ export const resetPassword = (data) => request("post", "/api/auth/reset-password
 export const registerAdmin = (data) => request("post", "/api/registerAdmin", data);
 
 /* Hospital Add And Get */
-
 export const addHospitals = (data) => request("post", "/api/hospital/createHospital", data);
 export const getHospitals = () => request("get", "/api/hospital/getHospitals");
 
-// Reception
+/* Admin */
+export const adminDoctor = () => request("get", "/api/admin/getDoctor");
+export const adminPatient = () => request("get", "/api/admin/getPatient");
+export const adminReceptionist = () => request("get", "/api/admin/getReceptionist");
+
+/* Reception */
+
+/* Doctor */
+
+/* Patient */
+
+/* Reception */
 export const CreateReception = (data) =>
   request("post", `/receptionist/register`, data);
 export const ListReception = () =>
