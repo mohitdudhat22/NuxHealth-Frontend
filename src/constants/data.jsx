@@ -114,6 +114,7 @@ export const PatientPanelData = [
   },
 ];
 
+<<<<<<< Updated upstream
 export const ReceptionPanelData = [
   {
     key: "reception",
@@ -175,6 +176,118 @@ export const ReceptionPanelData = [
 
 
 export const AuthSliderData = [
+=======
+// export const PatientPanelData = [
+//   {
+//     key: "/patient",
+//     to: "/patient",
+//     icon: RiContactsBookFill,
+//     text: "Personal Health Record",
+//   },
+//   {
+//     key: "/appointment",
+//     to: "/patient/appointment",
+//     icon: FaCalendarCheck,
+//     text: "Appointment Booking",
+//   },
+//   {
+//     key: "/priscriptionAccess",
+//     to: "/patient/priscriptionAccess",
+//     icon: FaFilePrescription,
+//     text: "Prescription Access",
+//   },
+//   {
+//     key: "/teleconsultation",
+//     to: "/patient/teleconsultation",
+//     icon: FaLaptopMedical,
+//     text: "Teleconsultation Access",
+//   },
+//   {
+//     key: "/chatScreen",
+//     to: "/patient/chatScreen",
+//     icon: IoMdChatbubbles,
+//     text: "Chat",
+//   },
+//   {
+//     key: "/bills",
+//     to: "/patient/bills",
+//     icon: RiBillLine,
+//     text: "Bills",
+//   },
+// ];
+
+// export const ReceptionPanelData = [{
+//   key: "/reception",
+//   to: "/reception",
+//   icon: MdDashboard,
+//   text: "Dashboard",
+// },
+// {
+//   key: "patientregistration",
+//   to: "/reception/patient-registration",
+//   icon: FaUser,
+//   text: "Patient Registration",
+// },
+// {
+//   key: "/personalhealth",
+//   to: "/reception/personalhealth",
+//   icon: RiContactsBookFill,
+//   text: "patient Health Record",
+// },
+// {
+//   key: "/personalhealth",
+//   to: "/reception/personalhealth",
+//   icon: RiContactsBookFill,
+//   text: "patient Health Record",
+// },
+// {
+//   key: "/appointment",
+//   to: "/reception/appointment",
+//   icon: FaCalendarCheck,
+//   text: "Appointment Booking",
+// },
+// {
+//   dropdown: true,
+//   text: "Billing and Payments",
+//   icon: FaLaptopMedical,
+//   dropdownItems: [
+//     {
+//       key: "/monitorBilling",
+//       to: "monitorBilling",
+//       text: "Monitor Billing",
+//       icon: RiBillLine,
+//     },
+//   ],
+// },
+// ];
+
+export const countryCodes = [
+  { code: "+1", country: "USA" },
+  { code: "+91", country: "India" },
+  { code: "+44", country: "UK" },
+  { code: "+61", country: "Australia" },
+  { code: "+49", country: "Germany" },
+];
+
+export const timeOptions = [
+  "08:00-09:00",
+  "09:00-10:00",
+  "10:00-11:00",
+  "11:00-12:00",
+  "12:00-13:00",
+  "13:00-14:00",
+  "14:00-15:00",
+  "15:00-16:00",
+  "16:00-17:00",
+  "17:00-18:00",
+  "18:00-19:00",
+  "19:00-20:00",
+  "20:00-21:00",
+  "21:00-22:00",
+];
+
+export const initialChats = [
+>>>>>>> Stashed changes
   {
     id: 1,
     title: "Connect, Collaborate, and Control - Society Management Simplified",

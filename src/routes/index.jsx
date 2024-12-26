@@ -1,13 +1,11 @@
 import { AdminAsideData, DoctorPanelData, PatientPanelData, ReceptionPanelData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
-import { DoctorManagement, ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
+import { AddNewDoctor, CreateBillForm, DoctorManagement, ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
 import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
 import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
-import CreateBill from "@/components/CreateBill";
 import { createBrowserRouter, NavLink } from "react-router-dom";
-
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
   [
@@ -66,8 +64,26 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <DoctorManagement />,
                 },
                 {
+<<<<<<< Updated upstream
                   path: "create-doctor",
                   element: "<DoctorManagement />"
+=======
+                  path: "doctor-management",
+                  children: [
+                    {
+                      index: true,
+                      element: <DoctorManagement />,
+                    },
+                    {
+                      path: "create-doctor",
+                      element: <AddNewDoctor />
+                    },
+                    {
+                      path: "edit-doctor",
+                      element: "<DoctorManagement />"
+                    }
+                  ]
+>>>>>>> Stashed changes
                 },
                 {
                   path: "edit-doctor",
@@ -244,7 +260,41 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "monitor-billing",
+<<<<<<< Updated upstream
                   element: "monitor-billing"
+=======
+                  children: [
+                    {
+                      index: true,
+                      element: <MonitorBilling />,
+                    },
+                    {
+                      path: "create-bill",
+                      element: <CreateBillForm />
+                    },
+                  ]
+                },
+                {
+                  path: "insurance-claims",
+                  element: <InsuranceClaims />,
+                },
+                {
+                  path: "payment-process",
+                  element: <PaymentProcess />,
+                },
+                {
+                  path: "reporting-analytics",
+                  element: "/admin/reporting-analytics",
+                },
+              ],
+            },
+            {
+              element: <AuthLayouts />,
+              children: [
+                {
+                  path: "register",
+                  element: <Register />,
+>>>>>>> Stashed changes
                 },
               ]
             }
