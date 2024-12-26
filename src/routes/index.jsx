@@ -1,6 +1,6 @@
 import { AdminAsideData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
-import { DoctorManagement, ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
+import { AddNewDoctor, DoctorManagement, ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
 import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
@@ -62,7 +62,7 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "create-doctor",
-                      element: "<DoctorManagement />"
+                      element: <AddNewDoctor />
                     },
                     {
                       path: "edit-doctor",
