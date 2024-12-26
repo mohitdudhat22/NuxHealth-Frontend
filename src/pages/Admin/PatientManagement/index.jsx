@@ -1,8 +1,18 @@
 import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components"
 import Icons from "@/constants/icons"
 import { Space, Tag } from "antd"
+import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
+import { useState } from "react";
 
 export const PatientManagement = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedPatient, setSelectedPatient] = useState(null);
+
+    const handleViewBill = (record) => {
+        setSelectedPatient(record);
+        setIsModalOpen(true);
+    };
+
     const columns = [
         {
             title: "Patient Name",
@@ -53,6 +63,7 @@ export const PatientManagement = () => {
                         type="primary"
                         size="small"
                         icon={Icons.ViewBillIcon}
+                        onClick={() => handleViewBill(record)}
                         className="view-btn bg-white"
                     />
                 </Space>
@@ -65,10 +76,16 @@ export const PatientManagement = () => {
             key: "1",
             patientName: "Marcus Phillips",
             avatar: "https://i.pravatar.cc/300",
-            diseaseName: "Stomach Ache",
+            diseaseName: "Viral Infection",
             doctorName: "Dr. Matthew Best",
             appointmentTime: "4:30 PM",
             appointmentType: "Online",
+            appointmentDate: "2 Jun, 2022",
+            phoneNumber: "92584 58475",
+            age: "27",
+            gender: "Male",
+            issue: "Stomach ache",
+            address: "B-408 Swastik society, Shivaji marg mota varacha rajkot"
         },
         {
             key: "2",
@@ -162,19 +179,30 @@ export const PatientManagement = () => {
     ];
 
     return (
-        <NHCard
-            headerContent={
-                <NHInput
-                    prefix={Icons.SearchIcon}
-                    placeholder="Search Patient"
+        <>
+            <NHCard
+                headerContent={
+                    <NHInput
+                        prefix={Icons.SearchIcon}
+                        placeholder="Search Patient"
+                    />
+                }
+            >
+                <NHTabs
+                    items={tabItems}
+                    defaultActiveKey="upcoming"
                 />
-            }
-        >
-            <NHTabs
-                items={tabItems}
-                defaultActiveKey="upcoming"
+            </NHCard>
+
+            <PatientDetailModal
+                isModalOpen={isModalOpen}
+                onCancel={() => setIsModalOpen(false)}
+                handleClose={() => setIsModalOpen(false)}
+                Title="Patient Details"
+                handleOk={() => setIsModalOpen(false)}
+                patientData={selectedPatient}
             />
-        </NHCard>
+        </>
     );
 };
 
