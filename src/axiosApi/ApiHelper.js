@@ -32,6 +32,8 @@ export const getHospitals = () => request("get", "/api/hospital/getHospitals");
 
 /* Admin */
 export const adminDoctor = () => request("get", "/api/admin/getDoctor");
+export const adminPatient = () => request("get", "/api/admin/getPatient");
+export const adminReceptionist = () => request("get", "/api/admin/getReceptionist");
 
 /* Reception */
 

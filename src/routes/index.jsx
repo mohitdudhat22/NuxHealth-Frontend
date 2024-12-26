@@ -1,6 +1,6 @@
 import { AdminAsideData, DoctorPanelData, PatientPanelData, ReceptionPanelData } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
-import { DoctorManagement, ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
+import { DoctorManagement, ForgetPassword, Login, OTP, ReceptionManagement, Register, ResetPassword } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
 import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
@@ -97,7 +97,7 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: <PatientManagement />,
+                  element: <ReceptionManagement />,
                 },
                 {
                   path: "create-reception",
