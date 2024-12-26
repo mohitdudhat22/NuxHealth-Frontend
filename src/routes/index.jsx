@@ -1,12 +1,26 @@
-import { AdminAsideData, DoctorPanelData, PatientPanelData, ReceptionPanelData } from "@/constants/data";
+import {
+  AdminAsideData,
+  DoctorPanelData,
+  PatientPanelData,
+  ReceptionPanelData,
+} from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
-import { DoctorManagement, ForgetPassword, Login, OTP, ReceptionManagement, Register, ResetPassword } from "@/pages";
+import {
+  DoctorManagement,
+  ForgetPassword,
+  Login,
+  OTP,
+  Register,
+  ReceptionManagement,
+  ResetPassword,
+} from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
 import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
 import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
 import CreateBill from "@/components/CreateBill";
 import { createBrowserRouter, NavLink } from "react-router-dom";
+import { ProfileSetting } from "@/components/ProfileSetting";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -67,13 +81,13 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create-doctor",
-                  element: "<DoctorManagement />"
+                  element: "<DoctorManagement />",
                 },
                 {
                   path: "edit-doctor",
-                  element: "<DoctorManagement />"
-                }
-              ]
+                  element: "<DoctorManagement />",
+                },
+              ],
             },
             {
               path: "patient-management",
@@ -84,13 +98,13 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create-patient",
-                  element: "<DoctorManagement />"
+                  element: "<DoctorManagement />",
                 },
                 {
                   path: "edit-patient",
-                  element: "<DoctorManagement />"
-                }
-              ]
+                  element: "<DoctorManagement />",
+                },
+              ],
             },
             {
               path: "reception-management",
@@ -101,13 +115,13 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create-reception",
-                  element: "<DoctorManagement />"
+                  element: "<DoctorManagement />",
                 },
                 {
                   path: "edit-reception",
-                  element: "<DoctorManagement />"
-                }
-              ]
+                  element: "<DoctorManagement />",
+                },
+              ],
             },
             {
               path: "medical-management",
@@ -118,13 +132,13 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create-medical",
-                  element: "<DoctorManagement />"
+                  element: "<DoctorManagement />",
                 },
                 {
                   path: "edit-medical",
-                  element: "<DoctorManagement />"
-                }
-              ]
+                  element: "<DoctorManagement />",
+                },
+              ],
             },
             {
               path: "monitor-billing",
@@ -135,9 +149,9 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create-bill",
-                  element: <CreateBill />
+                  element: <CreateBill />,
                 },
-              ]
+              ],
             },
             {
               path: "insurance-claims",
@@ -151,6 +165,10 @@ const NuxHealthRoute = createBrowserRouter(
               path: "reporting-analytics",
               element: "/admin/reporting-analytics",
             },
+            {
+              path: "profile",
+              element: <ProfileSetting />,
+            },
           ],
         },
         /* Doctor */
@@ -162,27 +180,27 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: "doctor"
+                  element: "doctor",
                 },
                 {
                   path: "patientrecordaccess",
-                  element: "patientrecordaccess"
+                  element: "patientrecordaccess",
                 },
                 {
                   path: "create-prescriptionTools",
-                  element: "create-prescriptionTools"
+                  element: "create-prescriptionTools",
                 },
                 {
                   path: "teleconsultation-module",
-                  element: "teleconsultation-module"
+                  element: "teleconsultation-module",
                 },
                 {
                   path: "chat-screen",
-                  element: "chatScreen"
-                }
-              ]
-            }
-          ]
+                  element: "chatScreen",
+                },
+              ],
+            },
+          ],
         },
         /* Patient */
         {
@@ -193,7 +211,7 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: "patient"
+                  element: "patient",
                 },
                 {
                   path: "appointment",
@@ -215,9 +233,9 @@ const NuxHealthRoute = createBrowserRouter(
                   path: "bills",
                   element: "bills",
                 },
-              ]
-            }
-          ]
+              ],
+            },
+          ],
         },
         /* Reception */
         {
@@ -228,27 +246,27 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: "reception"
+                  element: "reception",
                 },
                 {
                   path: "patient-registration",
-                  element: "patient-registration"
+                  element: "patient-registration",
                 },
                 {
                   path: "personal-health",
-                  element: "personal-health"
+                  element: "personal-health",
                 },
                 {
                   path: "appointment",
-                  element: "appointmenton"
+                  element: "appointmenton",
                 },
                 {
                   path: "monitor-billing",
-                  element: "monitor-billing"
+                  element: "monitor-billing",
                 },
-              ]
-            }
-          ]
+              ],
+            },
+          ],
         },
       ],
     },
