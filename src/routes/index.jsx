@@ -64,10 +64,6 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <DoctorManagement />,
                 },
                 {
-<<<<<<< Updated upstream
-                  path: "create-doctor",
-                  element: "<DoctorManagement />"
-=======
                   path: "doctor-management",
                   children: [
                     {
@@ -83,7 +79,6 @@ const NuxHealthRoute = createBrowserRouter(
                       element: "<DoctorManagement />"
                     }
                   ]
->>>>>>> Stashed changes
                 },
                 {
                   path: "edit-doctor",
@@ -151,7 +146,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create-bill",
-                  element: <CreateBill />
+                  element: <CreateBillForm />
                 },
               ]
             },
@@ -260,9 +255,6 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "monitor-billing",
-<<<<<<< Updated upstream
-                  element: "monitor-billing"
-=======
                   children: [
                     {
                       index: true,
@@ -294,7 +286,6 @@ const NuxHealthRoute = createBrowserRouter(
                 {
                   path: "register",
                   element: <Register />,
->>>>>>> Stashed changes
                 },
               ]
             }
