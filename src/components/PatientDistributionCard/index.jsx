@@ -1,0 +1,73 @@
+import React from 'react';
+import { NHCard } from '..';
+import ReactApexChart from 'react-apexcharts';
+
+export const PatientDistributionCard = () => {
+  const chartOptions = {
+    chart: {
+      type: 'donut',
+      height: 350, // Increase the height
+      offsetY: 0,  // Adjust vertical position if needed
+      padding: {
+        top: 20,
+        bottom: 20
+      }
+    },
+    colors: ['#F6AD37', '#4ADE80'],
+    labels: ['New Patients', 'Old Patients'],
+    dataLabels: {
+      enabled: false,
+    },
+    legend: {
+      show: false,
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: '80%',
+          labels: {
+            show: true,
+            total: {
+              show: true,
+              label: 'Total Patients',
+              color: '#1D4ED8',
+              fontSize: '14px',
+              fontWeight: 600,
+            },
+          },
+        },
+      },
+    },
+  };
+
+  const series = [35, 65]; // New patients, Old patients
+
+  return (
+    <NHCard title={"Patients Summary"}>
+      <div className="flex items-center justify-between">
+        <div className="space-y-2 w-1/2">
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 bg-[#F6AD37] rounded-full  mr-2"></span>
+            <span className="text-xl">New Patients: 35</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 bg-[#4ADE80] rounded-full mr-2"></span>
+            <span className="text-xl">Old Patients: 65</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 bg-blue-600 rounded-full mr-2"></span>
+            <span className="text-xl">Total Patients: 100</span>
+          </div>
+        </div>
+        <div className="w-auto">
+          <ReactApexChart
+            options={chartOptions}
+            series={series}
+            type="donut"
+            height="100%"
+          />
+        </div>
+      </div>
+    </NHCard>
+  );
+}; 

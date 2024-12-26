@@ -1,10 +1,14 @@
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
+import { PaymentProcessModal } from "@/components/NHModalComponents/ModalTemplate/PaymentProcessModal";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const PaymentProcess = () => {
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const onEdit = (record) => {
     console.log("Edit record:", record);
@@ -13,6 +17,12 @@ export const PaymentProcess = () => {
   const onViewDetails = (record) => {
     console.log("View details for:", record);
   };
+
+  const onPayment = (record) => {
+    console.log("Payment record:", record);
+    setIsModalOpen(true)
+  }
+
 
   const columns = [
     {
@@ -78,6 +88,7 @@ export const PaymentProcess = () => {
             size="small"
             icon={Icons.PaymentIcon}
             className="lock-btn bg-white"
+            onClick={() => onPayment(record)}
           />
         </Space>
       ),
@@ -132,6 +143,12 @@ export const PaymentProcess = () => {
       >
         <NHTable tableColumn={columns} tableDataSource={data} />
       </NHCard>
+
+      <PaymentProcessModal
+        open={isModalOpen}
+        handleClose={() => setIsModalOpen(false)}
+        // paymentData={record}
+      />
     </>
   );
 };
