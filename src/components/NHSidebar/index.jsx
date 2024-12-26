@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import clsx from "clsx";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Layout, Menu } from "antd";
-import { useAside } from "@/hook";
-import styles from "./NHSidebar.module.css";
-import { NHButton } from "..";
-import Icons from "../../constants/Icons";
 import { FullLogo } from "@/assets/images";
+import { useAside } from "@/hook";
+import { AppointmentCard, NHButton } from "..";
+import Icons from "@/constants/Icons";
+import styles from "./NHSidebar.module.css";
 
 const { Sider } = Layout;
 
 export const NHSidebar = ({ collapsed, className, items }) => {
   const navigation = useNavigate();
+  const location = useLocation();
   const { currentPage } = useAside();
   const [openKeys, setOpenKeys] = useState([]);
 
@@ -44,14 +45,19 @@ export const NHSidebar = ({ collapsed, className, items }) => {
       </div>
       <Menu
         mode="inline"
-        className={clsx(styles.menu, "border-0 h-screen overflow-auto")}
+        className={clsx(styles.menu, "border-0 h-screen overflow-auto flex flex-col")}
         defaultSelectedKeys={[currentPage]}
         selectedKeys={[currentPage]}
+        defaultOpenKeys={[currentPage]}
         openKeys={openKeys}
         onOpenChange={onOpenChange}
         items={items}
       />
-      <div className={""}>
+      <div>
+        {location.pathname.startsWith("/admin")
+          ? null
+          : <AppointmentCard />
+        }
         <NHButton
           block
           className={clsx("justify-content-start rounded-none")}

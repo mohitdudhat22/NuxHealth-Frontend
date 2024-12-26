@@ -58,6 +58,7 @@ export const MonitorBilling = () => {
             className="bg-white view-btn border-primary"
             onClick={() => navigate("view-bill")}
           />
+         
         </Space>
     },
   ];
