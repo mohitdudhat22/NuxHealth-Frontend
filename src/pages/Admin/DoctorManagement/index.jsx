@@ -1,7 +1,7 @@
 import { useDoctorManagement } from '@/hook';
 import { Space, Tag } from 'antd/lib';
 import Icons from '@/constants/icons'
-import { NHButton, NHCard, NHInput, NHTable } from '@/components'
+import { NHButton, NHCard, NHInput, NHTable, AppointmentCard } from '@/components'
 
 export const DoctorManagement = () => {
   const {
@@ -78,13 +78,37 @@ export const DoctorManagement = () => {
 
 
   return (
-    <NHCard title="Doctor Management" headerContent={
-      <>
-        <NHInput suffix={Icons.SerachIcon} placeholder={"Search"} />
-        <NHButton onClick={() => setVisible(true)} variant={"primary"}>Add New Doctor</NHButton>
-      </>
-    }>
-      <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
-    </NHCard >
+    <>
+      <NHCard title="Doctor Management" headerContent={
+        <>
+          <NHInput suffix={Icons.SerachIcon} placeholder={"Search"} />
+          <NHButton onClick={() => setVisible(true)} variant={"primary"}>Add New Doctor</NHButton>
+        </>
+      }>
+        <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
+      </NHCard >
+
+      <div className="flex flex-wrap mt-5 gap-lg">
+        <AppointmentCard
+          doctorName="Dr. Ryan Vetrovs"
+          appointmentType="Online"
+          hospitalName="Shamuba Hospital"
+          appointmentDate="2Jan,2022"
+          appointmentCancelDate="5Feb,2022"
+          appointmentTime="10:20AM"
+          patientIssue="Feeling Tired"
+          diseaseName="Desirae Saris"
+        />
+        <AppointmentCard
+          doctorName="Dr. Terry Press"
+          appointmentType="Online"
+          hospitalName="Shamuba Hospital"
+          appointmentDate="2Jan,2022"
+          appointmentTime="10:20AM"
+          patientIssue="Feeling Tired"
+        />
+      </div>
+    </>
+
   )
 }

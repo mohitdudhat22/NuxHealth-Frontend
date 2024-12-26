@@ -1,29 +1,50 @@
-import { firstAidKit } from "@/assets/images";
-import { NHButton } from "@/components";
+import { NHButton, NHCard } from "@/components";
+import Icons from "@/constants/icons";
 
-export const AppointmentCard = () => {
+export const AppointmentCard = ({
+  doctorName,
+  appointmentType,
+  hospitalName,
+  appointmentDate,
+  appointmentCancelDate,
+  appointmentTime,
+  patientIssue,
+  diseaseName,
+  className
+}) => {
   return (
-    <>
-      <div className="aside-img mx-auto w-4/5 bg-[#f4f4f4] text-center relative p-4 mb-4 rounded-lg">
-        <img
-          src={firstAidKit}
-          alt="Hospital"
-          className="absolute -top-2/4 left-1/2 transform -translate-x-1/2 w-1/2"
-        />
-        <div className="text mt-12">
-          <h4 className="text-[#141414] font-semibold">
-            Hospital appointment
-          </h4>
-          <p className="text-[#4f4f4f] py-2">
-            You have to fill up the form to be admitted to the hospital.
-          </p>
-          <div className="btn flex justify-center">
-            <NHButton block size='small' variant="primary" className='mt-4'>
-              Appointment
-            </NHButton>
-          </div>
-        </div>
-      </div>
-    </>
+    <NHCard title={doctorName} rootClass={className} headerBg headerContent={Icons.ViewBillIcon}>
+      <p>
+        <span className="text-xl text-[#818194]">Appointment Type:</span>
+        <span className="float-right text-xl font-bold text-[#FFC313]">{appointmentType}</span> </p>
+      <p>
+        <span className="text-xl text-[#818194]">Hospital Name:</span>
+        <span className="float-right text-xl font-bold text-[#4F4F4F]">{hospitalName}</span>
+      </p>
+      <p>
+        <span className="text-xl text-[#818194]">Appointment Date:</span>
+        <span className="float-right text-xl font-bold text-[#4F4F4F]">{appointmentDate}</span>
+      </p>
+      {appointmentCancelDate &&
+        <p>
+          <span className="text-xl text-[#818194]">Appointment Cancel Date:</span>
+          <span className="float-right text-xl font-bold text-[#4F4F4F]">{appointmentCancelDate}</span>
+        </p>
+      }
+      <p>
+        <span className="text-xl text-[#818194]">Appointment Time:</span>
+        <span className="float-right text-xl font-bold text-[#4F4F4F]">{appointmentTime}</span>
+      </p>
+      <p>
+        <span className="text-xl text-[#818194]">Patient Issue:</span>
+        <span className="float-right text-xl font-bold text-[#4F4F4F]">{patientIssue}</span>
+      </p>
+      {diseaseName &&
+        <p>
+          <span className="text-xl text-[#818194]">Disease Name:</span>
+          <span className="float-right text-xl font-bold text-[#4F4F4F]">{diseaseName}</span>
+        </p>
+      }
+    </NHCard>
   );
 };
