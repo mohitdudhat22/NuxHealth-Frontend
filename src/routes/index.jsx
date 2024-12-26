@@ -15,6 +15,8 @@ import {
   ResetPassword,
   AddNewDoctor,
   CreateBillForm,
+  AdminDashboard,
+  ReportingAnalytics,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -71,7 +73,7 @@ const NuxHealthRoute = createBrowserRouter(
           children: [
             {
               index: true,
-              element: "admin",
+              element: <AdminDashboard/>,
             },
             {
               path: "doctor-management",
@@ -177,7 +179,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
             {
               path: "reporting-analytics",
-              element: "/admin/reporting-analytics",
+              element: <ReportingAnalytics />,
             },
             {
               path: "profile",
