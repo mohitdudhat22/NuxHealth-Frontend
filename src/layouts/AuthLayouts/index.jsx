@@ -1,8 +1,11 @@
 import { Layout } from "antd";
 import clsx from "clsx";
+import { SwiperSlide } from "swiper/react";
 import { Outlet } from "react-router-dom";
+import { NHSwiperSlider } from "@/components";
 import styles from "./Authentication.module.css";
 import { motion } from "framer-motion";
+import { AuthSliderData } from "@/constants/data";
 import { FullLogo, logoBanner, vector, vector1, vector2, vector3 } from "@/assets/images";
 
 export const AuthLayouts = () => {
