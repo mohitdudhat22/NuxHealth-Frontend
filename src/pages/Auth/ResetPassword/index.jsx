@@ -1,5 +1,5 @@
 import { NHButton, NHPasswordInput } from "@/components";
-import { useResetPassword } from "@/hook/Auth/ResetPassword";
+import { useResetPassword } from "@/hook/";
 
 export const ResetPassword = () => {
   const {
