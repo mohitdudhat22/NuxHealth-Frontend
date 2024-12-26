@@ -5,22 +5,12 @@ import {
   ReceptionPanelData,
 } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
-import {
-  DoctorManagement,
-  ForgetPassword,
-  Login,
-  OTP,
-  Register,
-  ResetPassword,
-} from "@/pages";
+import { AddNewDoctor, CreateBillForm, DoctorManagement, ForgetPassword, Login, OTP, Register, ResetPassword } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
 import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
 import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
-import CreateBill from "@/components/CreateBill";
 import { createBrowserRouter, NavLink } from "react-router-dom";
-import { ProfileSetting } from "@/components/ProfileSetting";
-
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
   [
@@ -79,8 +69,21 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <DoctorManagement />,
                 },
                 {
-                  path: "create-doctor",
-                  element: "<DoctorManagement />",
+                  path: "doctor-management",
+                  children: [
+                    {
+                      index: true,
+                      element: <DoctorManagement />,
+                    },
+                    {
+                      path: "create-doctor",
+                      element: <AddNewDoctor />
+                    },
+                    {
+                      path: "edit-doctor",
+                      element: "<DoctorManagement />"
+                    }
+                  ]
                 },
                 {
                   path: "edit-doctor",
@@ -148,7 +151,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create-bill",
-                  element: <CreateBill />,
+                  element: <CreateBillForm />
                 },
               ],
             },
