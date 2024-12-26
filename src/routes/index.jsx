@@ -15,13 +15,14 @@ import {
   ResetPassword,
   AddNewDoctor,
   CreateBillForm,
-  DoctorManagement,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
 import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
 import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
 import { createBrowserRouter, NavLink } from "react-router-dom";
+import { ProfileSetting } from "@/components/ProfileSetting";
+
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
   [

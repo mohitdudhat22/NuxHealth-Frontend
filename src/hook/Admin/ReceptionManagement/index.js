@@ -33,7 +33,7 @@ export const useReceptionManagement = () => {
     };
 
     fetchReception();
-  }, [receptionDelete, ""]);
+  }, []);
 
   const data = reception?.map((reception) => ({
     key: reception?._id,
