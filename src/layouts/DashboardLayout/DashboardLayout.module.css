@@ -1,12 +1,13 @@
 .main {
   height: 100vh;
   --header-height: 100px;
+  width: 100%;
 }
 
 .content {
-  padding: 3rem;
   overflow: auto;
 }
+
 
 @media (max-width: 575px) {
   .Sidebar {
