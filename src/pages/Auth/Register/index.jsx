@@ -191,6 +191,7 @@ export const Register = () => {
           Already have an account? <Link to="/login">Login</Link>
         </h6>
       </form>
+      
       <SelectHospitalModal
         open={isModalOpen}
         handleClose={() => setIsModalOpen(false)}

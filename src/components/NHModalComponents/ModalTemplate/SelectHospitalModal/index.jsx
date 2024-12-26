@@ -13,7 +13,7 @@ export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
 
   return (
     <NHModal
-      title="Hospital Name"
+      title="Hospital Name ss"
       IsFooter
       open={open}
       onCancel={onCancel}
