@@ -1,7 +1,7 @@
-import { useAddSociety } from "@/hook/Auth/AddHospital";
 import clsx from "clsx";
 import { NHInput, NHModal, NHUpload } from "@/components/";
 import styles from "./SelectSocietyModal.module.css";
+import { useAddHospital } from "@/hook";
 
 export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
   const {
@@ -9,7 +9,7 @@ export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
     handleChange,
     formData,
     uploadProps
-  } = useAddSociety(handleClose);
+  } = useAddHospital(handleClose);
 
   return (
     <NHModal
