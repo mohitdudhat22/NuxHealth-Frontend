@@ -1,10 +1,10 @@
-import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
-import Icons from "@/constants/icons";
-import { Space, Tag } from "antd";
+import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components"
+import Icons from "@/constants/icons"
+import { Space, Tag } from "antd"
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 
-export const Manage = () => {
+export const Teleconsultation = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState(null);
 
@@ -30,9 +30,19 @@ export const Manage = () => {
             )
         },
         {
-            title: "Patient Number",
-            dataIndex: "patientNumber",
-            key: "patientNumber",
+            title: "Disease Name",
+            dataIndex: "diseaseName",
+            key: "diseaseName",
+        },
+        {
+            title: "Doctor Name",
+            dataIndex: "doctorName",
+            key: "doctorName",
+        },
+        {
+            title: "Appointment Time",
+            dataIndex: "appointmentTime",
+            key: "appointmentTime",
         },
         {
             title: "Appointment Type",
@@ -43,21 +53,6 @@ export const Manage = () => {
                     {type}
                 </Tag>
             ),
-        },
-        {
-            title: "Appointment Time",
-            dataIndex: "appointmentTime",
-            key: "appointmentTime",
-        },
-        {
-            title: "Age",
-            dataIndex: "age",
-            key: "age",
-        },
-        {
-            title: "Gender",
-            dataIndex: "gender",
-            key: "gender",
         },
         {
             title: "Action",
@@ -81,38 +76,44 @@ export const Manage = () => {
             key: "1",
             patientName: "Marcus Phillips",
             avatar: "https://i.pravatar.cc/300",
-            patientNumber: "92584 58475",
-            appointmentType: "Online",
+            diseaseName: "Viral Infection",
+            doctorName: "Dr. Matthew Best",
             appointmentTime: "4:30 PM",
+            appointmentType: "Online",
+            appointmentDate: "2 Jun, 2022",
+            phoneNumber: "92584 58475",
             age: "27",
+            gender: "Male",
+            issue: "Stomach ache",
+            address: "B-408 Swastik society, Shivaji marg mota varacha rajkot"
         },
         {
             key: "2",
             patientName: "Landyn Sheffey",
             avatar: "https://i.pravatar.cc/300",
-            patientNumber: "91827 12345",
-            appointmentType: "Onsite",
+            diseaseName: "Blood Pressure",
+            doctorName: "Dr. Annabella Porter",
             appointmentTime: "5:00 AM",
-            age: "34",
+            appointmentType: "Onsite",
         },
         {
             key: "3",
             patientName: "Leslie Murray",
             avatar: "https://i.pravatar.cc/300",
-            patientNumber: "92746 76358",
-            appointmentType: "Online",
+            diseaseName: "Diabetes",
+            doctorName: "Dr. Steven Ralph",
             appointmentTime: "7:30 PM",
-            age: "29",
+            appointmentType: "Online",
         },
     ];
 
     const tabItems = [
         {
             key: "today",
-            label: "Today Prescription",
+            label: "Today Appointment",
             children: (
                 <NHCard
-                    title="Patient Details"
+                    title="Today Appointment"
                     headerContent={
                         <NHInput
                             prefix={Icons.SearchIcon}
@@ -125,11 +126,31 @@ export const Manage = () => {
             )
         },
         {
-            key: "older",
-            label: "Older Prescription",
+            key: "upcoming",
+            label: "Upcoming Appointment",
             children: (
                 <NHCard
-                    title="Patient Details"
+                    title="Upcoming Appointment"
+                    headerContent={
+                        <>
+                        <NHInput
+                            prefix={Icons.SearchIcon}
+                            placeholder="Search Patient"
+                        />
+                        <NHButton variant="default" className="bg-white text-black">{Icons.CalenderIcon}2 March,2022 - 13 March, 2022{Icons.CloseCircle}</NHButton>
+                        </>
+                    }
+                >
+                    <NHTable columns={columns} dataSource={data} />
+                </NHCard>
+            )
+        },
+        {
+            key: "previous",
+            label: "Previous Appointment",
+            children: (
+                <NHCard
+                    title="Previous Appointment"
                     headerContent={
                         <NHInput
                             prefix={Icons.SearchIcon}
@@ -140,7 +161,24 @@ export const Manage = () => {
                     <NHTable columns={columns} dataSource={data} />
                 </NHCard>
             )
-        }
+        },
+        {
+            key: "cancel",
+            label: "Cancel Appointment",
+            children: (
+                <NHCard
+                    title="Cancel Appointment"
+                    headerContent={
+                        <NHInput
+                            prefix={Icons.SearchIcon}
+                            placeholder="Search Patient"
+                        />
+                    }
+                >
+                    <NHTable columns={columns} dataSource={data} />
+                </NHCard>
+            )
+        },
     ];
 
     return (
@@ -155,7 +193,7 @@ export const Manage = () => {
             >
                 <NHTabs
                     items={tabItems}
-                    defaultActiveKey="today"
+                    defaultActiveKey="upcoming"
                 />
             </NHCard>
 

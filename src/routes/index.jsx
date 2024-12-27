@@ -19,6 +19,7 @@ import {
   ReportingAnalytics,
   PatientRecordAccess,
   PatientViewDetails,
+  Teleconsultation,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -217,7 +218,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "teleconsultation-module",
-                  element: "teleconsultation-module",
+                  element: <Teleconsultation/>,
                 },
                 {
                   path: "chat-screen",
