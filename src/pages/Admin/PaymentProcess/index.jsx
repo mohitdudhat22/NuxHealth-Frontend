@@ -149,6 +149,7 @@ export const PaymentProcess = () => {
         handleClose={() => setIsModalOpen(false)}
         // paymentData={record}
       />
+
     </>
   );
 };
