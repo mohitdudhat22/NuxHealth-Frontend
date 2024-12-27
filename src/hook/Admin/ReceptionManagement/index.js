@@ -3,7 +3,7 @@ import { adminReceptionist, DeleteData } from '@/axiosApi/ApiHelper';
 import { useNavigation } from 'react-router-dom';
 
 export const useReceptionManagement = () => {
-  const navigation = useNavigation();
+  const navigate = useNavigation();
   const [reception, setReception] = useState([]);
   const [isDrawerVisible, setDrawerVisible] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ export const useReceptionManagement = () => {
     openDrawer,
     closeDrawer,
     data,
-    navigation,
+    navigate,
     fetchReception
   };
 };
