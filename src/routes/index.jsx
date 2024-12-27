@@ -27,6 +27,7 @@ import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
+import { AllBillModel } from "@/pages/Patients/AllBillModal/AllBillModel";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -259,7 +260,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: "bills",
+                  element: <AllBillModel/>,
                 },
               ],
             },

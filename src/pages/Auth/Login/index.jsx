@@ -17,7 +17,7 @@ export const Login = () => {
 
   return (
     <>
-      <h2>Login</h2>
+      <h2>Login </h2>
       <form
         className="gap-5 mt-5 flex flex-col"
         onSubmit={handleSubmit}
