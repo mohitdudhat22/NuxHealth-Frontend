@@ -9,3 +9,4 @@ export { MonitorBilling } from "./MonitorBilling/"
 export { ReportingAnalytics } from "./ReportingAnalytics"
 // Reception Management
 export { ReceptionManagement } from "./ReceptionManagement"
+export { AddNewReceptionist } from "./ReceptionManagement/AddNewReceptionist"

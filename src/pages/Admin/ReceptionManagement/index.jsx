@@ -7,7 +7,7 @@ export const ReceptionManagement = () => {
   const {
     data,
     loading,
-    navigation,
+    navigate,
     fetchReception
   } = useReceptionManagement();
 
@@ -61,7 +61,7 @@ export const ReceptionManagement = () => {
     <NHCard title="Reception Management" headerContent={
       <>
         <NHInput prefix={Icons.SearchIcon} placeholder={"Search"} />
-        <NHButton icon={Icons.PlusSquare} onClick={() => navigation(true)} variant={"primary"}>Add New Reception</NHButton>
+        <NHButton icon={Icons.PlusSquare} onClick={() => navigate("create")} variant={"primary"}>Add New Reception</NHButton>
       </>
     }>
       <NHTable
