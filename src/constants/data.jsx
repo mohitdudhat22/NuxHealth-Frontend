@@ -68,6 +68,16 @@ export const DoctorPanelData = [
     key: "createPrescriptionTools",
     icon: Icons.Analytics,
     label: <Link to='/doctor/create-prescriptionTools'>Prescription Tools</Link>,
+    children: [
+      {
+        key: "create",
+        label: <Link to='/doctor/create-prescriptionTools/create'>Create</Link>,
+      },
+      {
+        key: "manage",
+        label: <Link to='/doctor/create-prescriptionTools/manage'>Manage</Link>,
+      },
+    ],
   },
   {
     key: "teleConsultationModule",

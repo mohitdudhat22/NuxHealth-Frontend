@@ -1,89 +1,31 @@
-import React, { useState } from 'react';
 import { NHCard, NHInput, NHSelect, NHButton } from '@/components';
-import { Upload, message } from 'antd';
-import { NHProfilePicUploader } from '@/components/FormComponents/NHProfilePicUploader';
+import { useCreateDoctor } from '@/hook';
+import { Upload } from 'antd';
 
 export const AddNewDoctor = () => {
-  const [formData, setFormData] = useState({
-    doctorName: '',
-    doctorQualification: '',
-    gender: null,
-    specialtyType: '',
-    workOn: null,
-    workingTime: '',
-    checkUpTime: '',
-    breakTime: '',
-    experience: '',
-    phoneNumber: '',
-    age: '',
-    doctorEmail: '',
-    country: null,
-    state: null,
-    city: null,
-    zipCode: '',
-    doctorAddress: '',
-    description: '',
-    onlineConsultationRate: '',
-    doctorCurrentHospital: '',
-    hospitalName: '',
-    hospitalAddress: '',
-    hospitalWebsiteLink: '',
-    emergencyContactNumber: '',
-    profilePhoto: null,
-    signature: null,
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSelectChange = (value, name) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleFileChange = (file, name) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: file,
-    }));
-  };
-
-  const handleSubmit = () => {
-    // Basic form validation
-    if (!formData.doctorName || !formData.doctorQualification || !formData.gender) {
-      message.error('Please fill all required fields.');
-      return;
-    }
-    // Submit the form
-    console.log("🚀 ~ handleSubmit ~ formData:", formData)
-    message.success('Doctor added successfully!');
-  };
+  const {
+    formData,
+    handleChange,
+    handleSelectChange,
+    handleFileChange,
+    handleSubmit
+  } = useCreateDoctor();
 
   return (
     <NHCard title="Add New Doctor" className="p-6">
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
+        onSubmit={handleSubmit}
       >
         <div className="flex gap-7">
           {/* Profile Photo and Signature Section */}
           <div className="w-[17%]">
-            {/* <div className="flex flex-col items-center gap-2 mt-6">
+            <div className="flex flex-col items-center gap-2 mt-6">
               <div className="overflow-hidden bg-gray-100 rounded-full w-[22rem] h-[22rem]">
                 <Upload
                   className="flex items-center justify-center w-full h-full cursor-pointer"
                   showUploadList={false}
                   beforeUpload={(file) => {
-                    handleFileChange(file, 'profilePhoto');
+                    handleFileChange(file, 'profilePicture');
                     return false;
                   }}
                 >
@@ -106,8 +48,8 @@ export const AddNewDoctor = () => {
                 </Upload>
               </div>
               <div className="mt-1 font-medium text-blue-600">Choose Photo</div>
-            </div> */}
-            <NHProfilePicUploader />
+            </div>
+            {/* <NHProfilePicUploader /> */}
             <div className='mt-16 text-xl font-medium text-black ps-3'>Upload Signature</div>
             <div className="flex flex-col items-center gap-2">
               <div className="flex items-center justify-center w-[22rem] h-[22rem] border border-gray-300 border-dashed rounded-lg">
@@ -132,18 +74,34 @@ export const AddNewDoctor = () => {
           <div className='w-[83%]'>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <NHInput
-                label="Doctor Name"
-                name="doctorName"
-                placeholder="Enter Doctor Name"
-                value={formData.doctorName}
+                label="First Name"
+                name="firstName"
+                placeholder="Enter First Name"
+                value={formData.firstName}
                 onChange={handleChange}
               />
               <NHInput
-                label="Doctor Qualification"
-                name="doctorQualification"
-                placeholder="Enter Doctor Qualification"
-                value={formData.doctorQualification}
+                label="Last Name"
+                name="lastName"
+                placeholder="Enter Last Name"
+                value={formData.lastName}
                 onChange={handleChange}
+              />
+              <NHInput
+                label="Doctor Email"
+                name="email"
+                type="email"
+                placeholder="Enter Email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <NHInput
+                label="Age"
+                name="age"
+                placeholder="Enter Age"
+                value={formData.age}
+                onChange={handleChange}
+                type='number'
               />
               <NHSelect
                 label="Gender"
@@ -152,19 +110,30 @@ export const AddNewDoctor = () => {
                 value={formData.gender}
                 onChange={(value) => handleSelectChange(value, 'gender')}
                 options={[
-                  { value: 'male', label: 'Male' },
-                  { value: 'female', label: 'Female' },
-                  { value: 'other', label: 'Other' },
+                  { value: 'Male', label: 'Male' },
+                  { value: 'Female', label: 'Female' },
+                  { value: 'Other', label: 'Other' },
                 ]}
               />
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <NHInput
+                label="Phone Number"
+                name="phone"
+                placeholder="Enter Phone Number"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+              <NHInput
+                label="Doctor Qualification"
+                name="qualification"
+                placeholder="Enter Doctor Qualification"
+                value={formData.qualification}
+                onChange={handleChange}
+              />
               <NHInput
                 label="Specialty Type"
-                name="specialtyType"
+                name="speciality"
                 placeholder="Enter Specialty Type"
-                value={formData.specialtyType}
+                value={formData.speciality}
                 onChange={handleChange}
               />
               <NHSelect
@@ -174,69 +143,32 @@ export const AddNewDoctor = () => {
                 value={formData.workOn}
                 onChange={(value) => handleSelectChange(value, 'workOn')}
                 options={[
-                  { value: 'fulltime', label: 'Full Time' },
-                  { value: 'parttime', label: 'Part Time' }
+                  { value: 'Online', label: 'Online' },
+                  { value: 'Onsite', label: 'Onsite' },
+                  { value: 'Both', label: 'Both' }
                 ]}
               />
               <NHInput
                 label="Working Time"
-                name="workingTime"
+                name="morningSession"
                 type="time"
-                value={formData.workingTime}
+                value={formData.morningSession}
                 onChange={handleChange}
               />
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <NHInput
                 label="Check Up Time"
-                name="checkUpTime"
+                name="eveningSession"
                 type="time"
-                value={formData.checkUpTime}
+                value={formData.eveningSession}
                 onChange={handleChange}
               />
               <NHInput
                 label="Break Time"
-                name="breakTime"
+                name="duration"
                 type="time"
-                value={formData.breakTime}
+                value={formData.duration}
                 onChange={handleChange}
               />
-              <NHInput
-                label="Experience"
-                name="experience"
-                placeholder="Enter Experience"
-                value={formData.experience}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <NHInput
-                label="Phone Number"
-                name="phoneNumber"
-                placeholder="Enter Phone Number"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-              />
-              <NHInput
-                label="Age"
-                name="age"
-                placeholder="Enter Age"
-                value={formData.age}
-                onChange={handleChange}
-              />
-              <NHInput
-                label="Doctor Email"
-                name="doctorEmail"
-                type="email"
-                placeholder="Enter Email"
-                value={formData.doctorEmail}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <NHSelect
                 label="Country"
                 name="country"
@@ -254,7 +186,10 @@ export const AddNewDoctor = () => {
                 placeholder="Select State"
                 value={formData.state}
                 onChange={(value) => handleSelectChange(value, 'state')}
-                options={[]}
+                options={[
+                  { value: 'india', label: 'India' },
+                  { value: 'usa', label: 'USA' }
+                ]}
               />
               <NHSelect
                 label="City"
@@ -262,11 +197,11 @@ export const AddNewDoctor = () => {
                 placeholder="Select City"
                 value={formData.city}
                 onChange={(value) => handleSelectChange(value, 'city')}
-                options={[]}
+                options={[
+                  { value: 'india', label: 'India' },
+                  { value: 'usa', label: 'USA' }
+                ]}
               />
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <NHInput
                 label="Zip code"
                 name="zipCode"
@@ -276,10 +211,18 @@ export const AddNewDoctor = () => {
               />
               <NHInput
                 label="Doctor Address"
-                name="doctorAddress"
+                name="fullAddress"
                 placeholder="Enter Doctor Address"
-                value={formData.doctorAddress}
+                value={formData.fullAddress}
                 onChange={handleChange}
+              />
+              <NHInput
+                label="Experience"
+                name="experience"
+                placeholder="Enter Experience"
+                value={formData.experience}
+                onChange={handleChange}
+                type='number'
               />
               <NHInput
                 label="Description"
@@ -288,16 +231,25 @@ export const AddNewDoctor = () => {
                 value={formData.description}
                 onChange={handleChange}
               />
+              <NHInput
+                label="Consultation Rate"
+                name="consultationRate"
+                placeholder="0000"
+                value={formData.consultationRate}
+                onChange={handleChange}
+                prefix="₹"
+                type='number'
+              />
+              <NHInput
+                label="Online Consultation Rate"
+                name="onlineConsultationRate"
+                placeholder="0000"
+                value={formData.onlineConsultationRate}
+                onChange={handleChange}
+                prefix="₹"
+                type='number'
+              />
             </div>
-
-            <NHInput
-              label="Online Consultation Rate"
-              name="onlineConsultationRate"
-              placeholder="₹ 0000"
-              value={formData.onlineConsultationRate}
-              onChange={handleChange}
-              prefix="₹"
-            />
           </div>
         </div>
 
@@ -305,39 +257,39 @@ export const AddNewDoctor = () => {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <NHInput
               label="Doctor Current Hospital"
-              name="doctorCurrentHospital"
+              // name="doctorCurrentHospital"
               placeholder="Enter Current Hospital"
-              value={formData.doctorCurrentHospital}
-              onChange={handleChange}
+              // value={formData.doctorCurrentHospital}
+              // onChange={handleChange}
             />
             <NHInput
               label="Hospital Name"
-              name="hospitalName"
+              // name="hospitalName"
               placeholder="Enter Hospital Name"
-              value={formData.hospitalName}
-              onChange={handleChange}
+              // value={formData.hospitalName}
+              // onChange={handleChange}
             />
             <NHInput
               label="Hospital Address"
-              name="hospitalAddress"
+              // name="hospitalAddress"
               placeholder="Enter Hospital Address"
-              value={formData.hospitalAddress}
-              onChange={handleChange}
+              // onChange={handleChange}
             />
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <NHInput
               label="Hospital Website Link"
-              name="hospitalWebsiteLink"
+              name="worksiteLink"
               placeholder="Enter Hospital Website Link"
-              value={formData.hospitalWebsiteLink}
+              value={formData.worksiteLink}
               onChange={handleChange}
+              type="url"
             />
             <NHInput
               label="Emergency Contact Number"
-              name="emergencyContactNumber"
+              name="emergencyContactNo"
               placeholder="Enter Emergency Contact Number"
-              value={formData.emergencyContactNumber}
+              value={formData.emergencyContactNo}
               onChange={handleChange}
             />
           </div>

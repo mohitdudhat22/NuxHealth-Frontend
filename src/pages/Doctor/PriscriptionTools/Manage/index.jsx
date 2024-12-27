@@ -4,7 +4,7 @@ import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 
-export const AppointmentManagement = () => {
+export const Manage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState(null);
 
@@ -30,24 +30,9 @@ export const AppointmentManagement = () => {
             )
         },
         {
-            title: "Disease Name",
-            dataIndex: "diseaseName",
-            key: "diseaseName",
-        },
-        {
-            title: "Patient Issue",
-            dataIndex: "patientIssue",
-            key: "patientIssue",
-        },
-        {
-            title: "Appointment Date",
-            dataIndex: "appointmentDate",
-            key: "appointmentDate",
-        },
-        {
-            title: "Appointment Time",
-            dataIndex: "appointmentTime",
-            key: "appointmentTime",
+            title: "Patient Number",
+            dataIndex: "patientNumber",
+            key: "patientNumber",
         },
         {
             title: "Appointment Type",
@@ -60,6 +45,21 @@ export const AppointmentManagement = () => {
             ),
         },
         {
+            title: "Appointment Time",
+            dataIndex: "appointmentTime",
+            key: "appointmentTime",
+        },
+        {
+            title: "Age",
+            dataIndex: "age",
+            key: "age",
+        },
+        {
+            title: "Gender",
+            dataIndex: "gender",
+            key: "gender",
+        },
+        {
             title: "Action",
             key: "action",
             render: (_, record) => (
@@ -67,14 +67,7 @@ export const AppointmentManagement = () => {
                     <NHButton
                         type="primary"
                         size="small"
-                        icon={Icons.RedCalenderIcon}
-                        onClick={() => handleViewBill(record)}
-                        className="view-btn bg-white"
-                    />
-                     <NHButton
-                        type="primary"
-                        size="small"
-                        icon={Icons.BlueCalenderIcon}
+                        icon={Icons.ViewBillIcon}
                         onClick={() => handleViewBill(record)}
                         className="view-btn bg-white"
                     />
@@ -88,67 +81,38 @@ export const AppointmentManagement = () => {
             key: "1",
             patientName: "Marcus Phillips",
             avatar: "https://i.pravatar.cc/300",
-            diseaseName: "Viral Infection",
-            patientIssue:"abc test issue",
-            doctorName: "Dr. Matthew Best",
-            appointmentTime: "4:30 PM",
+            patientNumber: "92584 58475",
             appointmentType: "Online",
-            appointmentDate: "2 Jun, 2022",
-            phoneNumber: "92584 58475",
+            appointmentTime: "4:30 PM",
             age: "27",
-            gender: "Male",
-            issue: "Stomach ache",
-            address: "B-408 Swastik society, Shivaji marg mota varacha rajkot"
         },
         {
             key: "2",
             patientName: "Landyn Sheffey",
             avatar: "https://i.pravatar.cc/300",
-            diseaseName: "Blood Pressure",
-            doctorName: "Dr. Annabella Porter",
-            appointmentTime: "5:00 AM",
+            patientNumber: "91827 12345",
             appointmentType: "Onsite",
+            appointmentTime: "5:00 AM",
+            age: "34",
         },
         {
             key: "3",
             patientName: "Leslie Murray",
             avatar: "https://i.pravatar.cc/300",
-            diseaseName: "Diabetes",
-            doctorName: "Dr. Steven Ralph",
-            appointmentTime: "7:30 PM",
+            patientNumber: "92746 76358",
             appointmentType: "Online",
+            appointmentTime: "7:30 PM",
+            age: "29",
         },
     ];
 
     const tabItems = [
         {
             key: "today",
-            label: "Today Appointment",
+            label: "Today Prescription",
             children: (
                 <NHCard
-                    title="Today Appointment"
-                    headerContent={
-                        <>
-                        <NHInput
-                            prefix={Icons.SearchIcon}
-                            placeholder="Search Patient"
-                        />
-                        <NHButton>{Icons.CalenderIcon}Any Date</NHButton>
-                        <NHButton>{Icons.CalenderIcon}Apointment Time Slot</NHButton>
-                        </>
-                    }
-                >
-                    <NHTable columns={columns} dataSource={data} />
-                </NHCard>
-               
-            )
-        },
-        {
-            key: "upcoming",
-            label: "Upcoming Appointment",
-            children: (
-                <NHCard
-                    title="Upcoming Appointment"
+                    title="Patient Details"
                     headerContent={
                         <NHInput
                             prefix={Icons.SearchIcon}
@@ -161,11 +125,11 @@ export const AppointmentManagement = () => {
             )
         },
         {
-            key: "previous",
-            label: "Previous Appointment",
+            key: "older",
+            label: "Older Prescription",
             children: (
                 <NHCard
-                    title="Previous Appointment"
+                    title="Patient Details"
                     headerContent={
                         <NHInput
                             prefix={Icons.SearchIcon}
@@ -176,32 +140,8 @@ export const AppointmentManagement = () => {
                     <NHTable columns={columns} dataSource={data} />
                 </NHCard>
             )
-        },
-        {
-            key: "cancel",
-            label: "Cancel Appointment",
-            children: (
-                <NHCard
-                    title="Cancel Appointment"
-                    headerContent={
-                        <NHInput
-                            prefix={Icons.SearchIcon}
-                            placeholder="Search Patient"
-                        />
-                    }
-                >
-                    <NHTable columns={columns} dataSource={data} />
-                </NHCard>
-            )
-        },
+        }
     ];
-
-    const getColumnData = (columnKey) => {
-        return data.map(item => item[columnKey]);
-    };
-
-    console.log(getColumnData("patientName")); // Example usage to get patient names
-    console.log(getColumnData("appointmentType")); // Example usage to get appointment types
 
     return (
         <>
@@ -215,7 +155,7 @@ export const AppointmentManagement = () => {
             >
                 <NHTabs
                     items={tabItems}
-                    defaultActiveKey="upcoming"
+                    defaultActiveKey="today"
                 />
             </NHCard>
 

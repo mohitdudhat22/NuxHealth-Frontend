@@ -78,7 +78,7 @@ const NuxHealthRoute = createBrowserRouter(
           children: [
             {
               index: true,
-              element: <AdminDashboard/>,
+              element: <AdminDashboard />,
             },
             {
               path: "doctor-management",
@@ -123,7 +123,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create",
-                  element: "<DoctorManagement />",
+                  element: <AddNewReceptionist />,
                 },
                 {
                   path: "edit",
@@ -188,28 +188,37 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: <AppointmentManagement/>,
+                  element: <AppointmentManagement />,
                 },
                 {
                   path: "patientrecordaccess",
-                  children:[
+                  children: [
                     {
-                      index:true,
-                      element: <PatientRecordAccess/>,
+                      index: true,
+                      element: <PatientRecordAccess />,
                     },
                     {
-                      path:"patientviewdetails",
-                      element:<PatientViewDetails/>
+                      path: "patientviewdetails",
+                      element: <PatientViewDetails />
                     }
                   ]
                 },
                 {
                   path: "create-prescriptionTools",
-                  element: "create-prescriptionTools",
+                  children: [
+                    {
+                      index: true,
+                      element: "create",
+                    },
+                    {
+                      path: "manage",
+                      element: <Manage />
+                    }
+                  ]
                 },
                 {
                   path: "teleconsultation-module",
-                  element: "teleconsultation-module",
+                  element: <Teleconsultation />,
                 },
                 {
                   path: "chat-screen",

@@ -1,10 +1,10 @@
-import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
-import Icons from "@/constants/icons";
-import { Space, Tag } from "antd";
+import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components"
+import Icons from "@/constants/icons"
+import { Space, Tag } from "antd"
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 
-export const AppointmentManagement = () => {
+export const Teleconsultation = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState(null);
 
@@ -35,14 +35,9 @@ export const AppointmentManagement = () => {
             key: "diseaseName",
         },
         {
-            title: "Patient Issue",
-            dataIndex: "patientIssue",
-            key: "patientIssue",
-        },
-        {
-            title: "Appointment Date",
-            dataIndex: "appointmentDate",
-            key: "appointmentDate",
+            title: "Doctor Name",
+            dataIndex: "doctorName",
+            key: "doctorName",
         },
         {
             title: "Appointment Time",
@@ -67,14 +62,7 @@ export const AppointmentManagement = () => {
                     <NHButton
                         type="primary"
                         size="small"
-                        icon={Icons.RedCalenderIcon}
-                        onClick={() => handleViewBill(record)}
-                        className="view-btn bg-white"
-                    />
-                     <NHButton
-                        type="primary"
-                        size="small"
-                        icon={Icons.BlueCalenderIcon}
+                        icon={Icons.ViewBillIcon}
                         onClick={() => handleViewBill(record)}
                         className="view-btn bg-white"
                     />
@@ -89,7 +77,6 @@ export const AppointmentManagement = () => {
             patientName: "Marcus Phillips",
             avatar: "https://i.pravatar.cc/300",
             diseaseName: "Viral Infection",
-            patientIssue:"abc test issue",
             doctorName: "Dr. Matthew Best",
             appointmentTime: "4:30 PM",
             appointmentType: "Online",
@@ -128,19 +115,14 @@ export const AppointmentManagement = () => {
                 <NHCard
                     title="Today Appointment"
                     headerContent={
-                        <>
                         <NHInput
                             prefix={Icons.SearchIcon}
                             placeholder="Search Patient"
                         />
-                        <NHButton>{Icons.CalenderIcon}Any Date</NHButton>
-                        <NHButton>{Icons.CalenderIcon}Apointment Time Slot</NHButton>
-                        </>
                     }
                 >
                     <NHTable columns={columns} dataSource={data} />
                 </NHCard>
-               
             )
         },
         {
@@ -150,10 +132,13 @@ export const AppointmentManagement = () => {
                 <NHCard
                     title="Upcoming Appointment"
                     headerContent={
+                        <>
                         <NHInput
                             prefix={Icons.SearchIcon}
                             placeholder="Search Patient"
                         />
+                        <NHButton variant="default" className="bg-white text-black">{Icons.CalenderIcon}2 March,2022 - 13 March, 2022{Icons.CloseCircle}</NHButton>
+                        </>
                     }
                 >
                     <NHTable columns={columns} dataSource={data} />
@@ -195,13 +180,6 @@ export const AppointmentManagement = () => {
             )
         },
     ];
-
-    const getColumnData = (columnKey) => {
-        return data.map(item => item[columnKey]);
-    };
-
-    console.log(getColumnData("patientName")); // Example usage to get patient names
-    console.log(getColumnData("appointmentType")); // Example usage to get appointment types
 
     return (
         <>
