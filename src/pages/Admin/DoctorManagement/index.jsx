@@ -1,7 +1,7 @@
 import { useDeleteModal, useDoctorManagement } from '@/hook';
 import { Space, Tag } from 'antd/lib';
 import Icons from '@/constants/icons'
-import { DeleteModal, NHButton, NHCard, NHInput, NHTable } from '@/components'
+import { NHButton, NHCard, NHInput, NHTable, AppointmentCard, DeleteModal } from '@/components'
 
 export const DoctorManagement = () => {
   const {
@@ -80,24 +80,47 @@ export const DoctorManagement = () => {
 
 
   return (
-    <NHCard title="Doctor Management" headerContent={
-      <>
-        <NHInput prefix={Icons.SearchIcon} placeholder={"Search"} />
-        <NHButton icon={Icons.PlusSquare} onClick={() => navigate("create")} variant={"primary"}>Add New Doctor</NHButton>
-      </>
-    }>
-      <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
+    <>
+      <NHCard title="Doctor Management" headerContent={
+        <>
+          <NHInput prefix={Icons.SearchIcon} placeholder={"Search"} />
+          <NHButton icon={Icons.PlusSquare} onClick={() => navigate("create")} variant={"primary"}>Add New Doctor</NHButton>
+        </>
+      }>
+        <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
 
-      {/* Delete Complaint Modal */}
-      <DeleteModal
-        title={"Delete Doctor?"}
-        isModalOpen={isDelete}
-        handleClose={() => setDelete(false)}
-        handleOk={() => deleteData("admin/deleteDoctor", isDelete.key)}
-        onCancel={() => setDelete(false)}
-      >
-        Are you sure you want to delete this Doctor?
-      </DeleteModal>
-    </NHCard >
+        {/* Delete Complaint Modal */}
+        <DeleteModal
+          title={"Delete Doctor?"}
+          isModalOpen={isDelete}
+          handleClose={() => setDelete(false)}
+          handleOk={() => deleteData("admin/deleteDoctor", isDelete.key)}
+          onCancel={() => setDelete(false)}
+        >
+          Are you sure you want to delete this Doctor?
+        </DeleteModal>
+      </NHCard>
+
+      <div className="flex flex-wrap mt-5 gap-lg">
+        <AppointmentCard
+          doctorName="Dr. Ryan Vetrovs"
+          appointmentType="Online"
+          hospitalName="Shamuba Hospital"
+          appointmentDate="2Jan,2022"
+          appointmentCancelDate="5Feb,2022"
+          appointmentTime="10:20AM"
+          patientIssue="Feeling Tired"
+          diseaseName="Desirae Saris"
+        />
+        <AppointmentCard
+          doctorName="Dr. Terry Press"
+          appointmentType="Online"
+          hospitalName="Shamuba Hospital"
+          appointmentDate="2Jan,2022"
+          appointmentTime="10:20AM"
+          patientIssue="Feeling Tired"
+        />
+      </div>
+    </>
   )
 }

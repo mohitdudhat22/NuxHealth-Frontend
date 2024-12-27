@@ -15,6 +15,10 @@ import {
   ResetPassword,
   AddNewDoctor,
   CreateBillForm,
+  AdminDashboard,
+  ReportingAnalytics,
+  PatientRecordAccess,
+  PatientViewDetails,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -22,6 +26,7 @@ import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
 import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 import { ProfileSetting } from "@/components/ProfileSetting";
+import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -71,7 +76,7 @@ const NuxHealthRoute = createBrowserRouter(
           children: [
             {
               index: true,
-              element: "admin",
+              element: <AdminDashboard/>,
             },
             {
               path: "doctor-management",
@@ -164,7 +169,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
             {
               path: "reporting-analytics",
-              element: "/admin/reporting-analytics",
+              element: <ReportingAnalytics />,
             },
             {
               path: "profile",
@@ -181,11 +186,20 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: "doctor",
+                  element: <AppointmentManagement/>,
                 },
                 {
                   path: "patientrecordaccess",
-                  element: "patientrecordaccess",
+                  children:[
+                    {
+                      index:true,
+                      element: <PatientRecordAccess/>,
+                    },
+                    {
+                      path:"patientviewdetails",
+                      element:<PatientViewDetails/>
+                    }
+                  ]
                 },
                 {
                   path: "create-prescriptionTools",

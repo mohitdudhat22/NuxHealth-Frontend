@@ -1,92 +1,174 @@
-import { useState } from "react";
-import { NHButton, NHCard, NHInput, NHSelect } from "@/components";
+import React, { useRef, useState, useEffect } from "react";
+import styles from "./EditProfile.module.css";
+import { Avatar, Col, Row } from "antd";
+import { NHButton, NHCard, NHInput, NHSelect } from "..";
 
 export const ProfileSetting = () => {
   const [activeTab, setActiveTab] = useState("profile");
+
+  const [userdetail, setUserDetail] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    societyName: "",
+    country: "",
+    state: "",
+    city: "",
+    profileImage: "",
+  });
+
+  const fileUpload = useRef(null);
+
+  useEffect(() => {
+    // Fetch user data from API
+    fetch("/api/user")
+      .then((res) => res.json())
+      .then((data) => {
+        setUserDetail(data);
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
+  }, []);
+
+  const handleEditImage = () => {
+    fileUpload.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (!["image/jpeg", "image/png"].includes(file.type)) {
+        alert("Only JPG and PNG files are allowed");
+        return;
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        alert("File size should not exceed 2MB");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setUserDetail((prev) => ({
+          ...prev,
+          profileImage: event.target.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserDetail((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmitData = (e) => {
+    e.preventDefault();
+    // Add validation or API call here
+    console.log("Submitting Data:", userdetail);
+  };
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
   return (
-    <div className="max-w-[1200px] mx-auto">
-      <NHCard className="bg-white p-0">
-        <div className="flex">
-          <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
-            <div className="flex flex-col items-center py-8 px-4">
-              <img
-                src="https://i.pravatar.cc/300"
-                alt="Profile"
-                className="w-[70%] rounded-full mb-6 border-4 border-white shadow-lg"
-              />
-              <h2 className="text-xl font-semibold">Lincoln Phillips</h2>
-            </div>
+    <>
+      <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative min-h-[35%]">
+        <div className={styles.profileCard}>
+          <div className={styles.profile}>
+            <form action="" onSubmit={handleSubmitData}>
+              <h3 className="mb-10 text-white text-5xl">Profile Setting</h3>
 
-            <div className="px-4">
-              <nav className="bg-gray-100 rounded-lg p-2">
-                <ul className="space-y-1">
-                  <li>
-                    <button
-                      onClick={() => handleTabChange("profile")}
-                      className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                        activeTab === "profile"
-                          ? "bg-white text-blue-600 shadow-sm font-medium"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      Profile
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => handleTabChange("changePassword")}
-                      className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                        activeTab === "changePassword"
-                          ? "bg-white text-blue-600 shadow-sm font-medium"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      Change Password
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => handleTabChange("terms")}
-                      className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                        activeTab === "terms"
-                          ? "bg-white text-blue-600 shadow-sm font-medium"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      Terms & Condition
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => handleTabChange("privacy")}
-                      className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                        activeTab === "privacy"
-                          ? "bg-white text-blue-600 shadow-sm font-medium"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      Privacy Policy
-                    </button>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
+              <NHCard className="bg-white p-0">
+                <div className="flex">
+                  <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
+                    <div className="flex flex-col items-center py-8 px-4">
+                      <img
+                        src={
+                          userdetail.profileImage || "https://i.pravatar.cc/300"
+                        }
+                        alt="Profile"
+                        className="w-[70%] rounded-full mb-6 border-4 border-white shadow-lg"
+                      />
+                      <h2 className="text-xl font-semibold">
+                        {userdetail.firstName || "Lincoln"}{" "}
+                        {userdetail.lastName || "Phillips"}
+                      </h2>
+                    </div>
 
-          <div className="w-3/4 p-6">
-            {activeTab === "profile" && <Profile />}
-            {activeTab === "changePassword" && <ChangePassword />}
-            {activeTab === "terms" && <Terms />}
-            {activeTab === "privacy" && <Privacy />}
+                    <div className="px-4">
+                      <nav className="bg-gray-100 rounded-lg p-2">
+                        <ul className="space-y-1">
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("profile")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "profile"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Profile
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("changePassword")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "changePassword"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Change Password
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("terms")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "terms"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Terms & Condition
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("privacy")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "privacy"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Privacy Policy
+                            </button>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+
+                  <div className="w-3/4 p-6">
+                    {activeTab === "profile" && <Profile />}
+                    {activeTab === "changePassword" && <ChangePassword />}
+                    {activeTab === "terms" && <Terms />}
+                    {activeTab === "privacy" && <Privacy />}
+                  </div>
+                </div>
+              </NHCard>
+            </form>
           </div>
         </div>
-      </NHCard>
-    </div>
+      </div>
+    </>
   );
 };
 
@@ -137,7 +219,7 @@ const Profile = () => {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-7">
           <NHInput
             label="First Name"
             name="firstName"
@@ -165,7 +247,7 @@ const Profile = () => {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-7">
           <NHInput
             label="Phone Number"
             name="phoneNumber"
