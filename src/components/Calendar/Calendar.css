@@ -1,0 +1,100 @@
+/* Calendar.css */
+.appointment-calendar {
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.rbc-calendar {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.rbc-header {
+  padding: 10px;
+  font-weight: 500;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.rbc-time-slot {
+  border-top: 1px solid #f3f4f6;
+}
+
+.rbc-timeslot-group {
+  min-height: 80px;
+}
+
+.rbc-time-view {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.rbc-time-header-content {
+  border-left: 1px solid #e5e7eb;
+}
+
+.rbc-today {
+  background-color: #f3f4f6;
+}
+
+.custom-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+
+.nav-button {
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  background: #f3f4f6;
+}
+
+.date-label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.custom-event {
+  background: #3b82f6;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  height: 100%;
+}
+
+.event-doctor {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.event-treatment {
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+.rbc-time-gutter .rbc-timeslot-group {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.rbc-time-content {
+  border-top: 1px solid #e5e7eb;
+}
+
+.rbc-time-content > * + * > * {
+  border-left: 1px solid #e5e7eb;
+}
+
+.no-schedule {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  padding: 4px;
+  text-align: center;
+}
