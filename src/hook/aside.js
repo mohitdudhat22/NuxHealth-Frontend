@@ -22,6 +22,8 @@ export const useAside = () => {
       setCurrentPage("patientManagement");
     } else if (path === "/admin/reception-management") {
       setCurrentPage("receptionManagement");
+    } else if (path === "/admin/reception-management/create") {
+      setCurrentPage("receptionManagement");
     } else if (path === "/admin/medical-management") {
       setCurrentPage("medicalManagement");
     } else if (path === "/admin/monitor-billing") {

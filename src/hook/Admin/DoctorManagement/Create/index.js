@@ -18,7 +18,7 @@ export const useCreateDoctor = () => {
     email: '',
     age: '',
     gender: [],
-    phone: '+914586239872',
+    phone: '',
     qualification: '',
     speciality: '',
     workOn: [],

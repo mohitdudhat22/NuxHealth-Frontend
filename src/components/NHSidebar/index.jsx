@@ -11,7 +11,7 @@ import styles from "./NHSidebar.module.css";
 const { Sider } = Layout;
 
 export const NHSidebar = ({ collapsed, className, items }) => {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const { currentPage } = useAside();
   const [openKeys, setOpenKeys] = useState([]);
@@ -23,7 +23,7 @@ export const NHSidebar = ({ collapsed, className, items }) => {
 
   const handleLogout = () => {
     sessionStorage.clear();
-    navigation("/login");
+    navigate("/login");
   };
 
   return (
@@ -54,10 +54,10 @@ export const NHSidebar = ({ collapsed, className, items }) => {
         items={items}
       />
       <div>
-        {location.pathname.startsWith("/admin")
+        {/* {location.pathname.startsWith("/admin")
           ? null
           : <AppointmentCard />
-        }
+        } */}
         <NHButton
           block
           className={clsx("justify-content-start rounded-none")}

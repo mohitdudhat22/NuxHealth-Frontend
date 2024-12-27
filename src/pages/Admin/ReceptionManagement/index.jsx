@@ -2,12 +2,13 @@ import { useDeleteModal, useReceptionManagement } from '@/hook';
 import { Space } from 'antd/lib';
 import Icons from '@/constants/icons'
 import { DeleteModal, NHButton, NHCard, NHInput, NHTable } from '@/components'
+import { Avatar } from 'antd';
 
 export const ReceptionManagement = () => {
   const {
     data,
     loading,
-    navigation,
+    navigate,
     fetchReception
   } = useReceptionManagement();
 
@@ -18,6 +19,12 @@ export const ReceptionManagement = () => {
       title: "Receptionist Name",
       dataIndex: "receptionistName",
       key: "receptionistName",
+      render: (name, record) => (
+        <Space>
+          <Avatar src={record.avatar} alt={name} size={40} />
+          <span>{name}</span>
+        </Space>
+      ),
     },
     {
       title: "Email",
@@ -49,7 +56,6 @@ export const ReceptionManagement = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton size={"small"} icon={Icons.Edit} className="edit-btn" />
           <NHButton size={"small"} icon={Icons.View} className="view-btn" />
           <NHButton size={"small"} icon={Icons.Delete} className="delete-btn" onClick={() => setDelete(record)} />
         </Space>
@@ -61,7 +67,7 @@ export const ReceptionManagement = () => {
     <NHCard title="Reception Management" headerContent={
       <>
         <NHInput prefix={Icons.SearchIcon} placeholder={"Search"} />
-        <NHButton icon={Icons.PlusSquare} onClick={() => navigation(true)} variant={"primary"}>Add New Reception</NHButton>
+        <NHButton icon={Icons.PlusSquare} onClick={() => navigate("create")} variant={"primary"}>Add New Reception</NHButton>
       </>
     }>
       <NHTable

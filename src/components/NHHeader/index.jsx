@@ -1,16 +1,17 @@
-import { Divider, Layout } from "antd";
+import { Layout } from "antd";
 import clsx from "clsx";
 import { useLocation, useNavigate } from "react-router-dom";
-import { NHButton, NHInput, NHBreadCrumb, NHDropDownImg } from "@/components/";
+import { NHButton, NHBreadCrumb, NHDropDownImg } from "@/components/";
 import Icons from "@/constants/Icons";
 import styles from "./NHHeader.module.css";
+import { useDecodeToken } from "@/hook";
 
 const { Header } = Layout;
 
 export const NHHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const { token } = useDecodeToken();
   const dropdownItems = [
     {
       key: "1",
@@ -23,6 +24,8 @@ export const NHHeader = () => {
       navigate("/admin/profile");
     }
   };
+
+  console.log(token?.userData)
 
   return (
     <Header
@@ -51,9 +54,9 @@ export const NHHeader = () => {
         />
         <NHDropDownImg
           items={dropdownItems}
-          // name={token?.fullName}
-          image={"https://i.pravatar.cc/300"}
-          // position={token?.role}
+          name={token?.userData?.fullName}
+          image={token?.userData?.profilePicture}
+          position={token?.userData?.role}
           imageAlt={"fakeImg"}
           onClick={() => handleMenuClick("1")}
           arrow
