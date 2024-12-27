@@ -23,6 +23,7 @@ export const useDoctorManagement = () => {
   useEffect(() => {
     fetchDoctors();
   }, []);
+  console.log(doctors);
 
   const data = doctors?.map((doctor) => ({
     key: doctor?._id,
@@ -33,7 +34,7 @@ export const useDoctorManagement = () => {
     workingTime: doctor?.metaData?.doctorData?.duration + " Hours",
     patientCheckUpTime: doctor?.metaData?.doctorData?.morningSession + " Hours",
     breakTime: doctor?.metaData?.doctorData?.eveningSession + " Hours",
-  }));
+  })); 
 
   const openDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);
