@@ -1,32 +1,19 @@
 import React from 'react'
-import { NHCard, NHTable } from '..'
+import { NHCard } from '..'
 
-const columns = [
-  {
-    title: 'Department Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Patient Count',
-    dataIndex: 'count',
-    key: 'count',
-    render: (count) => (
-      <span>
-        <span style={{ color: '#4CAF50', marginRight: '4px' }}>👤</span>
-        {count}
-      </span>
-    ),
-  },
-]
-
-export const DepartmentCard = ({ title, departments }) => {
+export const DepartmentCard = ({ title, departments, icon, type="patient" }) => {
   return (
     <NHCard title={title}>
-      <NHTable 
-        columns={columns} 
-        dataSource={departments} 
-      />
+      <div className="space-y-4">
+        {departments.map((dept) => (
+          <div key={dept.key} className="flex justify-between items-center">
+            <span className="text-gray-700">{dept.name}</span>
+            <div className="w-12 h-12 flex items-center justify-center">
+                    {icon}
+                </div>
+          </div>
+        ))}
+      </div>
     </NHCard>
   )
 }
