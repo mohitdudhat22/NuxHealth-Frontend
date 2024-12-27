@@ -8,11 +8,12 @@ export const AddNewDoctor = () => {
     handleChange,
     handleSelectChange,
     handleFileChange,
-    handleSubmit
+    handleSubmit,
+    isEditing
   } = useCreateDoctor();
 
   return (
-    <NHCard title="Add New Doctor" className="p-6">
+    <NHCard title={isEditing ? "Edit Doctor" : "Add New Doctor"} className="p-6">
       <form
         onSubmit={handleSubmit}
       >
@@ -259,21 +260,21 @@ export const AddNewDoctor = () => {
               label="Doctor Current Hospital"
               // name="doctorCurrentHospital"
               placeholder="Enter Current Hospital"
-              // value={formData.doctorCurrentHospital}
-              // onChange={handleChange}
+            // value={formData.doctorCurrentHospital}
+            // onChange={handleChange}
             />
             <NHInput
               label="Hospital Name"
               // name="hospitalName"
               placeholder="Enter Hospital Name"
-              // value={formData.hospitalName}
-              // onChange={handleChange}
+            // value={formData.hospitalName}
+            // onChange={handleChange}
             />
             <NHInput
               label="Hospital Address"
               // name="hospitalAddress"
               placeholder="Enter Hospital Address"
-              // onChange={handleChange}
+            // onChange={handleChange}
             />
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -295,7 +296,7 @@ export const AddNewDoctor = () => {
           </div>
           <div className="flex justify-end mt-6">
             <NHButton type="submit" variant="primary">
-              Add Doctor
+              {isEditing ? "Update Doctor" : "Add Doctor"}
             </NHButton>
           </div>
         </div>

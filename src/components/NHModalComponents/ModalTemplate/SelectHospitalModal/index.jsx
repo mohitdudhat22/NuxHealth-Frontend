@@ -2,7 +2,6 @@ import { useAddHospital } from "@/hook";
 import clsx from "clsx";
 import { NHInput, NHModal, NHUpload } from "@/components/";
 import styles from "./SelectSocietyModal.module.css";
-import { useAddHospital } from "@/hook";
 
 export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
   const {

@@ -78,7 +78,7 @@ const NuxHealthRoute = createBrowserRouter(
           children: [
             {
               index: true,
-              element: <AdminDashboard/>,
+              element: <AdminDashboard />,
             },
             {
               path: "doctor-management",
@@ -92,8 +92,8 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <AddNewDoctor />
                 },
                 {
-                  path: "edit",
-                  element: "<DoctorManagement />",
+                  path: "edit/:id",
+                  element: <AddNewDoctor />,
                 },
               ],
             },
@@ -188,37 +188,37 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: <AppointmentManagement/>,
+                  element: <AppointmentManagement />,
                 },
                 {
                   path: "patientrecordaccess",
-                  children:[
+                  children: [
                     {
-                      index:true,
-                      element: <PatientRecordAccess/>,
+                      index: true,
+                      element: <PatientRecordAccess />,
                     },
                     {
-                      path:"patientviewdetails",
-                      element:<PatientViewDetails/>
+                      path: "patientviewdetails",
+                      element: <PatientViewDetails />
                     }
                   ]
                 },
                 {
                   path: "create-prescriptionTools",
-                  children:[
+                  children: [
                     {
-                      index:true,
+                      index: true,
                       element: "create",
                     },
                     {
-                      path:"manage",
-                      element:<Manage/>
+                      path: "manage",
+                      element: <Manage />
                     }
                   ]
                 },
                 {
                   path: "teleconsultation-module",
-                  element: <Teleconsultation/>,
+                  element: <Teleconsultation />,
                 },
                 {
                   path: "chat-screen",
