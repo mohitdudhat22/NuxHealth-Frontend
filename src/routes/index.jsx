@@ -19,6 +19,7 @@ import {
   ReportingAnalytics,
   PatientRecordAccess,
   PatientViewDetails,
+  Teleconsultation,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -27,6 +28,7 @@ import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
+import { Manage } from "@/pages/Doctor/PriscriptionTools/Manage";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -203,11 +205,20 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create-prescriptionTools",
-                  element: "create-prescriptionTools",
+                  children:[
+                    {
+                      index:true,
+                      element: "create",
+                    },
+                    {
+                      path:"manage",
+                      element:<Manage/>
+                    }
+                  ]
                 },
                 {
                   path: "teleconsultation-module",
-                  element: "teleconsultation-module",
+                  element: <Teleconsultation/>,
                 },
                 {
                   path: "chat-screen",
