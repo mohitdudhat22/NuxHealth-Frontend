@@ -19,6 +19,9 @@ import {
   ReportingAnalytics,
   PatientRecordAccess,
   PatientViewDetails,
+  Teleconsultation,
+  AddNewReceptionist,
+  PatientRegistration,
   ReceptionDashboard
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
@@ -68,7 +71,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
             {
               path: "admin/register",
-              element: <Register />,
+              element: <PatientRegistration />,
             },
           ],
         },
@@ -258,7 +261,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: <AllBillModel/>,
+                  element: <AllBillModel />,
                 },
               ],
             },
@@ -273,7 +276,7 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: <ReceptionDashboard/>,
+                  element: <ReceptionDashboard />,
                 },
                 {
                   path: "patient-registration",
