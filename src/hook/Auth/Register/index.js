@@ -8,7 +8,7 @@ export const useRegister = () => {
 
   const [hospital, setHospital] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     firstName: "",
