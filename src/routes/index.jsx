@@ -21,6 +21,7 @@ import {
   PatientViewDetails,
   Teleconsultation,
   AddNewReceptionist,
+  PatientRegistration,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -68,7 +69,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
             {
               path: "admin/register",
-              element: <Register />,
+              element: <PatientRegistration />,
             },
           ],
         },
@@ -277,7 +278,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "patient-registration",
-                  element: "patient-registration",
+                  element: <PatientRegistration />,
                 },
                 {
                   path: "personal-health",
