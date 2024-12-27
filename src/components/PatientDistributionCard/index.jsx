@@ -6,8 +6,8 @@ export const PatientDistributionCard = () => {
   const chartOptions = {
     chart: {
       type: 'donut',
-      height: 350, // Increase the height
-      offsetY: 0,  // Adjust vertical position if needed
+      height: 350,
+      offsetY: 0,  
       padding: {
         top: 20,
         bottom: 20

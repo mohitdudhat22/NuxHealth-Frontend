@@ -23,7 +23,7 @@ export const useDoctorManagement = () => {
   useEffect(() => {
     fetchDoctors();
   }, []);
-  console.log(doctors)
+
   const data = doctors?.map((doctor) => ({
     key: doctor?._id,
     avatar: doctor?.profilePicture,

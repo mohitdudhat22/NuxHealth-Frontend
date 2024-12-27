@@ -66,3 +66,12 @@ export const ReceptionistGetBill = () =>
   request("get", `/receptionist/getbill/`);
 export const ReceptionistSingleBill = (id) =>
   request("get", `/receptionist/singlebill/${id}`);
+
+
+
+
+export const getbill = () => request("get", "/api/admin/getBill");
+
+
+
+
