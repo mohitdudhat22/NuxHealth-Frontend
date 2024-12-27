@@ -10,41 +10,73 @@ export const AppointmentCard = ({
   appointmentTime,
   patientIssue,
   diseaseName,
-  className
+  footerContent,
+  className,
+  headerBg
 }) => {
   return (
-    <NHCard title={doctorName} rootClass={className} headerBg headerContent={Icons.ViewBillIcon}>
+    <NHCard
+      title={doctorName}
+      rootClass={className}
+      headerBg={headerBg}
+      headerContent={Icons.ViewBillIcon}
+    >
+      {/* Appointment Details */}
       <p>
         <span className="text-xl text-[#818194]">Appointment Type:</span>
-        <span className="float-right text-xl font-bold text-[#FFC313]">{appointmentType}</span> </p>
+        <span className="float-right text-xl font-bold text-[#FFC313]">
+          {appointmentType}
+        </span>
+      </p>
       <p>
         <span className="text-xl text-[#818194]">Hospital Name:</span>
-        <span className="float-right text-xl font-bold text-[#4F4F4F]">{hospitalName}</span>
+        <span className="float-right text-xl font-bold text-[#4F4F4F]">
+          {hospitalName}
+        </span>
       </p>
       <p>
         <span className="text-xl text-[#818194]">Appointment Date:</span>
-        <span className="float-right text-xl font-bold text-[#4F4F4F]">{appointmentDate}</span>
+        <span className="float-right text-xl font-bold text-[#4F4F4F]">
+          {appointmentDate}
+        </span>
       </p>
-      {appointmentCancelDate &&
+      {appointmentCancelDate && (
         <p>
-          <span className="text-xl text-[#818194]">Appointment Cancel Date:</span>
-          <span className="float-right text-xl font-bold text-[#4F4F4F]">{appointmentCancelDate}</span>
+          <span className="text-xl text-[#818194]">
+            Appointment Cancel Date:
+          </span>
+          <span className="float-right text-xl font-bold text-[#4F4F4F]">
+            {appointmentCancelDate}
+          </span>
         </p>
-      }
+      )}
       <p>
         <span className="text-xl text-[#818194]">Appointment Time:</span>
-        <span className="float-right text-xl font-bold text-[#4F4F4F]">{appointmentTime}</span>
+        <span className="float-right text-xl font-bold text-[#4F4F4F]">
+          {appointmentTime}
+        </span>
       </p>
       <p>
         <span className="text-xl text-[#818194]">Patient Issue:</span>
-        <span className="float-right text-xl font-bold text-[#4F4F4F]">{patientIssue}</span>
+        <span className="float-right text-xl font-bold text-[#4F4F4F]">
+          {patientIssue}
+        </span>
       </p>
-      {diseaseName &&
+      {diseaseName && (
         <p>
           <span className="text-xl text-[#818194]">Disease Name:</span>
-          <span className="float-right text-xl font-bold text-[#4F4F4F]">{diseaseName}</span>
+          <span className="float-right text-xl font-bold text-[#4F4F4F]">
+            {diseaseName}
+          </span>
         </p>
-      }
+      )}
+
+      {/* Footer Section */}
+      {footerContent && (
+        <div className="pt-4 mt-4 border-t border-gray-300">
+          {footerContent}
+        </div>
+      )}
     </NHCard>
   );
 };

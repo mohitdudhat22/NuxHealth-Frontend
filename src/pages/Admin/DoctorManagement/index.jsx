@@ -1,7 +1,7 @@
 import { useDeleteModal, useDoctorManagement } from '@/hook';
 import { Space, Tag } from 'antd/lib';
 import Icons from '@/constants/icons'
-import { NHButton, NHCard, NHInput, NHTable, AppointmentCard, DeleteModal } from '@/components'
+import { NHButton, NHCard, NHInput, NHTable, DeleteModal } from '@/components'
 
 export const DoctorManagement = () => {
   const {
@@ -100,27 +100,6 @@ export const DoctorManagement = () => {
           Are you sure you want to delete this Doctor?
         </DeleteModal>
       </NHCard>
-
-      <div className="flex flex-wrap mt-5 gap-lg">
-        <AppointmentCard
-          doctorName="Dr. Ryan Vetrovs"
-          appointmentType="Online"
-          hospitalName="Shamuba Hospital"
-          appointmentDate="2Jan,2022"
-          appointmentCancelDate="5Feb,2022"
-          appointmentTime="10:20AM"
-          patientIssue="Feeling Tired"
-          diseaseName="Desirae Saris"
-        />
-        <AppointmentCard
-          doctorName="Dr. Terry Press"
-          appointmentType="Online"
-          hospitalName="Shamuba Hospital"
-          appointmentDate="2Jan,2022"
-          appointmentTime="10:20AM"
-          patientIssue="Feeling Tired"
-        />
-      </div>
     </>
   )
 }
