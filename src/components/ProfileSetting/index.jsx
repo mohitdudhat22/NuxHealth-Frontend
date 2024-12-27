@@ -2,8 +2,10 @@ import React, { useRef, useState, useEffect } from "react";
 import styles from "./EditProfile.module.css";
 import { Avatar, Col, Row } from "antd";
 import { NHButton, NHCard, NHInput, NHSelect } from "..";
+import { useDecodeToken } from "@/hook";
 
 export const ProfileSetting = () => {
+  const { token } = useDecodeToken();
   const [activeTab, setActiveTab] = useState("profile");
 
   const [userdetail, setUserDetail] = useState({
@@ -77,7 +79,7 @@ export const ProfileSetting = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative min-h-[35%]">
+      <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative h-[35%] min-h-[40vh]">
         <div className={styles.profileCard}>
           <div className={styles.profile}>
             <form action="" onSubmit={handleSubmitData}>
@@ -87,13 +89,11 @@ export const ProfileSetting = () => {
                 <div className="flex">
                   <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
                     <div className="flex flex-col items-center py-8 px-4">
-                      <img
-                        src={
-                          userdetail.profileImage || "https://i.pravatar.cc/300"
-                        }
+                      <Avatar src={token?.userdetail?.profilePicture}
                         alt="Profile"
                         className="w-[70%] rounded-full mb-6 border-4 border-white shadow-lg"
                       />
+
                       <h2 className="text-xl font-semibold">
                         {userdetail.firstName || "Lincoln"}{" "}
                         {userdetail.lastName || "Phillips"}
@@ -106,11 +106,10 @@ export const ProfileSetting = () => {
                           <li>
                             <button
                               onClick={() => handleTabChange("profile")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                                activeTab === "profile"
-                                  ? "bg-white text-blue-600 shadow-sm font-medium"
-                                  : "text-gray-600 hover:bg-gray-50"
-                              }`}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "profile"
+                                ? "bg-white text-blue-600 shadow-sm font-medium"
+                                : "text-gray-600 hover:bg-gray-50"
+                                }`}
                             >
                               Profile
                             </button>
@@ -118,11 +117,10 @@ export const ProfileSetting = () => {
                           <li>
                             <button
                               onClick={() => handleTabChange("changePassword")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                                activeTab === "changePassword"
-                                  ? "bg-white text-blue-600 shadow-sm font-medium"
-                                  : "text-gray-600 hover:bg-gray-50"
-                              }`}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "changePassword"
+                                ? "bg-white text-blue-600 shadow-sm font-medium"
+                                : "text-gray-600 hover:bg-gray-50"
+                                }`}
                             >
                               Change Password
                             </button>
@@ -130,11 +128,10 @@ export const ProfileSetting = () => {
                           <li>
                             <button
                               onClick={() => handleTabChange("terms")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                                activeTab === "terms"
-                                  ? "bg-white text-blue-600 shadow-sm font-medium"
-                                  : "text-gray-600 hover:bg-gray-50"
-                              }`}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "terms"
+                                ? "bg-white text-blue-600 shadow-sm font-medium"
+                                : "text-gray-600 hover:bg-gray-50"
+                                }`}
                             >
                               Terms & Condition
                             </button>
@@ -142,11 +139,10 @@ export const ProfileSetting = () => {
                           <li>
                             <button
                               onClick={() => handleTabChange("privacy")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                                activeTab === "privacy"
-                                  ? "bg-white text-blue-600 shadow-sm font-medium"
-                                  : "text-gray-600 hover:bg-gray-50"
-                              }`}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "privacy"
+                                ? "bg-white text-blue-600 shadow-sm font-medium"
+                                : "text-gray-600 hover:bg-gray-50"
+                                }`}
                             >
                               Privacy Policy
                             </button>
@@ -173,10 +169,10 @@ export const ProfileSetting = () => {
 };
 
 const Profile = () => {
+  const { token } = useDecodeToken();
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
-    firstName: "Lincoln",
-    lastName: "Phillips",
+    fullName: token?.userData?.fullName,
     email: "lincoln@example.com",
     phoneNumber: "",
     hospitalName: "New York Medical Center",
@@ -223,15 +219,7 @@ const Profile = () => {
           <NHInput
             label="First Name"
             name="firstName"
-            value={profileData.firstName}
-            onChange={handleChange}
-            disabled={!isEditing}
-            required
-          />
-          <NHInput
-            label="Last Name"
-            name="lastName"
-            value={profileData.lastName}
+            value={profileData.fullName}
             onChange={handleChange}
             disabled={!isEditing}
             required

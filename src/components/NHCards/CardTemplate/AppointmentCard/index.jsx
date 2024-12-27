@@ -1,4 +1,4 @@
-import { NHButton, NHCard } from "@/components";
+import { NHCard } from "@/components";
 import Icons from "@/constants/icons";
 
 export const AppointmentCard = ({

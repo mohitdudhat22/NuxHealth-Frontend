@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { adminReceptionist, DeleteData } from '@/axiosApi/ApiHelper';
-import { useNavigation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const useReceptionManagement = () => {
-  const navigate = useNavigation();
+  const navigate = useNavigate();
   const [reception, setReception] = useState([]);
   const [isDrawerVisible, setDrawerVisible] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -26,6 +26,7 @@ export const useReceptionManagement = () => {
 
   const data = reception?.map((reception) => ({
     key: reception?._id,
+    avatar: reception?.profilePicture,
     receptionistName: reception?.fullName,
     gender: reception?.gender,
     qualification: reception?.metaData?.receptionistData?.qualification,

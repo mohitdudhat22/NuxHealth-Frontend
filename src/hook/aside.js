@@ -1,97 +1,73 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, matchPath } from "react-router-dom";
 
 export const useAside = () => {
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState();
 
   useEffect(() => {
-    switch (location.pathname) {
-      // Website
-      case "/":
-        setCurrentPage("/");
-        break;
-      // Admin
-      case "/admin":
-        setCurrentPage("/admin");
-        break;
-      case "/admin/doctor-management":
-        setCurrentPage("doctorManagement");
-        break;
-      case "/admin/patient-management":
-        setCurrentPage("patientManagement");
-        break;
-      case "/admin/reception-management":
-        setCurrentPage("receptionManagement");
-        break;
-      case "/admin/medical-management":
-        setCurrentPage("medicalManagement");
-        break;
-      case "/admin/monitor-billing":
-        setCurrentPage("monitorBilling");
-        break;
-      case "/admin/insurance-claims":
-        setCurrentPage("insuranceClaims");
-        break;
-      case "/admin/payment-process":
-        setCurrentPage("paymentProcess");
-        break;
-      case "/admin/reporting-analytics":
-        setCurrentPage("reportingAnalytics");
-        break;
-      // Doctor
-      case "/doctor":
-        setCurrentPage("/doctor");
-        break;
-      case "/doctor/patientrecordaccesst":
-        setCurrentPage("patientRecordAccess");
-        break;
-      case "/doctor/createPrescriptionTools":
-        setCurrentPage("createPrescriptionTools");
-        break;
-      case "/doctor/teleconsultationModule":
-        setCurrentPage("teleConsultationModule");
-        break;
-      case "/doctor/chatScreen":
-        setCurrentPage("chatScreen");
-        break;
-      // Patient
-      case "/patient":
-        setCurrentPage("/patient");
-        break;
-      case "/patient/appointment":
-        setCurrentPage("appointment");
-        break;
-      case "/patient/prescriptionaccess":
-        setCurrentPage("prescriptionAccess");
-        break;
-      case "/patient/teleconsultation":
-        setCurrentPage("teleConsultation");
-        break;
-      case "/patient/chatScreen":
-        setCurrentPage("chatScreen");
-        break;
-      case "/patient/bills":
-        setCurrentPage("bills");
-        break;
-      // Reception
-      case "/reception":
-        setCurrentPage("/reception");
-        break;
-      case "/reception/patient-registration":
-        setCurrentPage("patientRegistration");
-        break;
-      case "/reception/personalhealth":
-        setCurrentPage("personalHealth");
-        break;
-      case "/reception/appointment":
-        setCurrentPage("appointment");
-        break;
-      case "/reception/monitorBilling":
-        setCurrentPage("monitorBilling");
-        break;
-      default:
-        setCurrentPage(location.pathname);
+    const path = location.pathname;
+
+    if (path === "/") {
+      setCurrentPage("/");
+    } else if (path === "/admin") {
+      setCurrentPage("/admin");
+    } else if (path === "/admin/doctor-management") {
+      setCurrentPage("doctorManagement");
+    } else if (path === "/admin/doctor-management/create") {
+      setCurrentPage("doctorManagement");
+    } else if (matchPath("/admin/doctor-management/edit/:id", path)) {
+      setCurrentPage("doctorManagement");
+    } else if (path === "/admin/patient-management") {
+      setCurrentPage("patientManagement");
+    } else if (path === "/admin/reception-management") {
+      setCurrentPage("receptionManagement");
+    } else if (path === "/admin/reception-management/create") {
+      setCurrentPage("receptionManagement");
+    } else if (path === "/admin/medical-management") {
+      setCurrentPage("medicalManagement");
+    } else if (path === "/admin/monitor-billing") {
+      setCurrentPage("monitorBilling");
+    } else if (path === "/admin/insurance-claims") {
+      setCurrentPage("insuranceClaims");
+    } else if (path === "/admin/payment-process") {
+      setCurrentPage("paymentProcess");
+    } else if (path === "/admin/reporting-analytics") {
+      setCurrentPage("reportingAnalytics");
+    } else if (path === "/doctor") {
+      setCurrentPage("/doctor");
+    } else if (path === "/doctor/patientrecordaccesst") {
+      setCurrentPage("patientRecordAccess");
+    } else if (path === "/doctor/createPrescriptionTools") {
+      setCurrentPage("createPrescriptionTools");
+    } else if (path === "/doctor/teleconsultationModule") {
+      setCurrentPage("teleConsultationModule");
+    } else if (path === "/doctor/chatScreen") {
+      setCurrentPage("chatScreen");
+    } else if (path === "/patient") {
+      setCurrentPage("/patient");
+    } else if (path === "/patient/appointment") {
+      setCurrentPage("appointment");
+    } else if (path === "/patient/prescriptionaccess") {
+      setCurrentPage("prescriptionAccess");
+    } else if (path === "/patient/teleconsultation") {
+      setCurrentPage("teleConsultation");
+    } else if (path === "/patient/chatScreen") {
+      setCurrentPage("chatScreen");
+    } else if (path === "/patient/bills") {
+      setCurrentPage("bills");
+    } else if (path === "/reception") {
+      setCurrentPage("/reception");
+    } else if (path === "/reception/patient-registration") {
+      setCurrentPage("patientRegistration");
+    } else if (path === "/reception/personalhealth") {
+      setCurrentPage("personalHealth");
+    } else if (path === "/reception/appointment") {
+      setCurrentPage("appointment");
+    } else if (path === "/reception/monitorBilling") {
+      setCurrentPage("monitorBilling");
+    } else {
+      setCurrentPage(path);
     }
   }, [location.pathname]);
 
