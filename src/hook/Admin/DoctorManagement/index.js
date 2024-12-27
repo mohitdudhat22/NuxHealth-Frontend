@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react';
 import { adminDoctor } from '@/axiosApi/ApiHelper';
+import { useNavigate } from 'react-router-dom';
 
 export const useDoctorManagement = () => {
+  let navigate = useNavigate();
   const [doctors, setDoctors] = useState([]);
   const [isDrawerVisible, setDrawerVisible] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchDoctors = async () => {
-
+  const fetchDoctors = async () => {
+    try {
       setLoading(true);
       const response = await adminDoctor();
       if (response.status === 1) {
         setDoctors(response.data);
       }
+    } finally {
       setLoading(false);
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchDoctors();
   }, []);
 
@@ -40,6 +44,8 @@ export const useDoctorManagement = () => {
     loading,
     openDrawer,
     closeDrawer,
-    data
+    data,
+    fetchDoctors,
+    navigate
   };
 };

@@ -2,7 +2,7 @@ import { addHospitals } from "@/axiosApi/ApiHelper";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-export const useAddSociety = (handleClose) => {
+export const useAddHospital = (handleClose) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "1",
@@ -13,7 +13,7 @@ export const useAddSociety = (handleClose) => {
     zipcode: "395006",
     emergencyContactNo: "1478523690",
     worksiteLink: "https://www.google.com",
-    hospitalLogo: [],
+    hospitalLogo: null, // null initially
   });
 
   // Handle input change
@@ -24,6 +24,7 @@ export const useAddSociety = (handleClose) => {
 
   // Handle file (image) change from NHUpload
   const handleFileChange = (file) => {
+    // Here we ensure that we are setting a File object, not binary data
     setFormData((prev) => ({ ...prev, hospitalLogo: file }));
   };
 
@@ -31,8 +32,8 @@ export const useAddSociety = (handleClose) => {
     name: 'file',
     showUploadList: false,
     customRequest: ({ file, onError }) => {
-      console.log(file);
-      handleFileChange(file);
+      console.log(file); // Here, check the file object structure
+      handleFileChange(file); // This will set the file object in formData
     },
   };
 
@@ -46,7 +47,7 @@ export const useAddSociety = (handleClose) => {
       formData.zipcode !== "" &&
       formData.emergencyContactNo !== "" &&
       formData.worksiteLink !== "" &&
-      formData.hospitalLogo !== ''
+      formData.hospitalLogo !== null // Ensure it's not null or undefined
     );
   };
 
@@ -81,11 +82,12 @@ export const useAddSociety = (handleClose) => {
         formDataToSend.append(key, value);
       });
 
-      // Append the hospital logo if it exists
+      // Append the hospital logo file if it exists
       if (data.hospitalLogo) {
-        formDataToSend.append("hospitalLogo", data.hospitalLogo);
+        formDataToSend.append("hospitalLogo", data.hospitalLogo); // Send file object
       }
 
+      // Make the API request
       let response = await addHospitals(formDataToSend);
 
       if (response.status === 1) {

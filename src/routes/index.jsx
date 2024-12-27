@@ -19,6 +19,7 @@ import {
   ReportingAnalytics,
   PatientRecordAccess,
   PatientViewDetails,
+  ReceptionDashboard
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -28,6 +29,7 @@ import { createBrowserRouter, NavLink } from "react-router-dom";
 import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
 import { AllBillModel } from "@/pages/Patients/AllBillModal/AllBillModel";
+import { AppointmentSchedular } from "@/components/AppointmentSchedular";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -77,7 +79,7 @@ const NuxHealthRoute = createBrowserRouter(
           children: [
             {
               index: true,
-              element: <AdminDashboard/>,
+              element: <AdminDashboard />,
             },
             {
               path: "doctor-management",
@@ -87,24 +89,11 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <DoctorManagement />,
                 },
                 {
-                  path: "doctor-management",
-                  children: [
-                    {
-                      index: true,
-                      element: <DoctorManagement />,
-                    },
-                    {
-                      path: "create-doctor",
-                      element: <AddNewDoctor />
-                    },
-                    {
-                      path: "edit-doctor",
-                      element: "<DoctorManagement />"
-                    }
-                  ]
+                  path: "create",
+                  element: <AddNewDoctor />
                 },
                 {
-                  path: "edit-doctor",
+                  path: "edit",
                   element: "<DoctorManagement />",
                 },
               ],
@@ -117,11 +106,11 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <PatientManagement />,
                 },
                 {
-                  path: "create-patient",
+                  path: "create",
                   element: "<DoctorManagement />",
                 },
                 {
-                  path: "edit-patient",
+                  path: "edit",
                   element: "<DoctorManagement />",
                 },
               ],
@@ -134,11 +123,11 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <ReceptionManagement />,
                 },
                 {
-                  path: "create-reception",
-                  element: "<DoctorManagement />",
+                  path: "create",
+                  element: <AddNewReceptionist />,
                 },
                 {
-                  path: "edit-reception",
+                  path: "edit",
                   element: "<DoctorManagement />",
                 },
               ],
@@ -200,28 +189,37 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: <AppointmentManagement/>,
+                  element: <AppointmentManagement />,
                 },
                 {
                   path: "patientrecordaccess",
-                  children:[
+                  children: [
                     {
-                      index:true,
-                      element: <PatientRecordAccess/>,
+                      index: true,
+                      element: <PatientRecordAccess />,
                     },
                     {
-                      path:"patientviewdetails",
-                      element:<PatientViewDetails/>
+                      path: "patientviewdetails",
+                      element: <PatientViewDetails />
                     }
                   ]
                 },
                 {
                   path: "create-prescriptionTools",
-                  element: "create-prescriptionTools",
+                  children: [
+                    {
+                      index: true,
+                      element: "create",
+                    },
+                    {
+                      path: "manage",
+                      element: <Manage />
+                    }
+                  ]
                 },
                 {
                   path: "teleconsultation-module",
-                  element: "teleconsultation-module",
+                  element: <Teleconsultation />,
                 },
                 {
                   path: "chat-screen",
@@ -275,11 +273,11 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: "reception",
+                  element: <ReceptionDashboard/>,
                 },
                 {
                   path: "patient-registration",
-                  element: "patient-registration",
+                  element: <Register />,
                 },
                 {
                   path: "personal-health",
@@ -287,7 +285,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "appointment",
-                  element: "appointmenton",
+                  element: <AppointmentSchedular />,
                 },
                 {
                   path: "monitor-billing",

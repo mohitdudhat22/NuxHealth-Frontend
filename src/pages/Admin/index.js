@@ -1,5 +1,5 @@
 export { Dashboard as AdminDashboard } from './Dashboard/';
-
+export { Dashboard as ReceptionDashboard } from './Dashboard/';
 
 // Doctor Management
 export { DoctorManagement } from "./DoctorManagement"
@@ -9,3 +9,4 @@ export { MonitorBilling } from "./MonitorBilling/"
 export { ReportingAnalytics } from "./ReportingAnalytics"
 // Reception Management
 export { ReceptionManagement } from "./ReceptionManagement"
+export { AddNewReceptionist } from "./ReceptionManagement/AddNewReceptionist"

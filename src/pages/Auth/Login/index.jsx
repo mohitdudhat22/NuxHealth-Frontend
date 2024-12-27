@@ -1,6 +1,6 @@
 import { NHButton, NHInput, NHPasswordInput, NHCheckbox } from "@/components";
 import { Link } from "react-router-dom";
-import { useLogin } from "@/hook/Auth/Login";
+import { useLogin } from "@/hook";
 
 export const Login = () => {
   const {

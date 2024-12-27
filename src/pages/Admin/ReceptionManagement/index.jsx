@@ -1,5 +1,5 @@
-import { useReceptionManagement } from '@/hook';
-import { Space, Tag } from 'antd/lib';
+import { useDeleteModal, useReceptionManagement } from '@/hook';
+import { Space } from 'antd/lib';
 import Icons from '@/constants/icons'
 import { DeleteModal, NHButton, NHCard, NHInput, NHTable } from '@/components'
 
@@ -7,10 +7,11 @@ export const ReceptionManagement = () => {
   const {
     data,
     loading,
-    navigation,
-    deleteComplaint,
-    setDeleteComplaint
+    navigate,
+    fetchReception
   } = useReceptionManagement();
+
+  const { deleteData, isDelete, setDelete } = useDeleteModal(fetchReception);
 
   const columns = [
     {
@@ -48,22 +49,19 @@ export const ReceptionManagement = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton variant="primary" icon={Icons.EditIcon} />
-          <NHButton variant="primary" icon={Icons.ViewIcon} />
-          <NHButton variant="primary" icon={Icons.DeleteIcon}
-          onClick={() => setDeleteComplaint(record)}
-          />
+          <NHButton size={"small"} icon={Icons.Edit} className="edit-btn" />
+          <NHButton size={"small"} icon={Icons.View} className="view-btn" />
+          <NHButton size={"small"} icon={Icons.Delete} className="delete-btn" onClick={() => setDelete(record)} />
         </Space>
       ),
     },
   ];
 
-
   return (
     <NHCard title="Reception Management" headerContent={
       <>
         <NHInput prefix={Icons.SearchIcon} placeholder={"Search"} />
-        <NHButton onClick={() => navigation(true)} variant={"primary"}>Add New Doctor</NHButton>
+        <NHButton icon={Icons.PlusSquare} onClick={() => navigate("create")} variant={"primary"}>Add New Reception</NHButton>
       </>
     }>
       <NHTable
@@ -74,11 +72,11 @@ export const ReceptionManagement = () => {
 
       {/* Delete Complaint Modal */}
       <DeleteModal
-        title={"Delete Complaint?"}
-        isModalOpen={deleteComplaint}
-        handleClose={() => setDeleteComplaint(false)}
-        handleOk={() => setDeleteComplaint(false)}
-        onCancel={() => setDeleteComplaint(false)}
+        title={"Delete Receptionist?"}
+        isModalOpen={isDelete}
+        handleClose={() => setDelete(false)}
+        handleOk={() => deleteData("admin/deleteReceptionist", isDelete.key)}
+        onCancel={() => setDelete(false)}
       >
         Are you sure you want to delete this Reception?
       </DeleteModal>

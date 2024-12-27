@@ -1,6 +1,6 @@
 import Icons from "@/constants/Icons";
 import { NHButton, NHInputOtp } from "@/components";
-import { useVerifyOtp } from "@/hook/Auth/VerifyOTP";
+import { useVerifyOtp } from "@/hook/";
 
 export const OTP = () => {
   const { loading, handleInputChange, handleSubmit, otp, isFormValid } = useVerifyOtp();
