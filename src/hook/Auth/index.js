@@ -1,0 +1,6 @@
+export { useAddHospital } from "./AddHospital/"
+export { useForgetPassword } from "./ForgetPassword/"
+export { useLogin } from "./Login/"
+export { useRegister } from "./Register/"
+export { useResetPassword } from "./ResetPassword/"
+export { useVerifyOtp } from "./VerifyOTP/"

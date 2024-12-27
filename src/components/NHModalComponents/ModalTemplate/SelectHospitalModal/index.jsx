@@ -1,4 +1,4 @@
-import { useAddSociety } from "@/hook/Auth/AddSociety";
+import { useAddSociety } from "@/hook/Auth/AddHospital";
 import clsx from "clsx";
 import { NHInput, NHModal, NHUpload } from "@/components/";
 import styles from "./SelectSocietyModal.module.css";

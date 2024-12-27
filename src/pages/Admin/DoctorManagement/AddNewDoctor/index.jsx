@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NHCard, NHInput, NHSelect, NHButton } from '@/components';
 import { Upload, message } from 'antd';
+import { NHProfilePicUploader } from '@/components/FormComponents/NHProfilePicUploader';
 
 export const AddNewDoctor = () => {
   const [formData, setFormData] = useState({
@@ -76,7 +77,7 @@ export const AddNewDoctor = () => {
         <div className="flex gap-7">
           {/* Profile Photo and Signature Section */}
           <div className="w-[17%]">
-            <div className="flex flex-col items-center gap-2 mt-6">
+            {/* <div className="flex flex-col items-center gap-2 mt-6">
               <div className="overflow-hidden bg-gray-100 rounded-full w-[22rem] h-[22rem]">
                 <Upload
                   className="flex items-center justify-center w-full h-full cursor-pointer"
@@ -105,7 +106,8 @@ export const AddNewDoctor = () => {
                 </Upload>
               </div>
               <div className="mt-1 font-medium text-blue-600">Choose Photo</div>
-            </div>
+            </div> */}
+            <NHProfilePicUploader />
             <div className='mt-16 text-xl font-medium text-black ps-3'>Upload Signature</div>
             <div className="flex flex-col items-center gap-2">
               <div className="flex items-center justify-center w-[22rem] h-[22rem] border border-gray-300 border-dashed rounded-lg">

@@ -1,17 +1,19 @@
-import { useDoctorManagement } from '@/hook';
+import { useDeleteModal, useDoctorManagement } from '@/hook';
 import { Space, Tag } from 'antd/lib';
 import Icons from '@/constants/icons'
-import { NHButton, NHCard, NHInput, NHTable, AppointmentCard } from '@/components'
+import { NHButton, NHCard, NHInput, NHTable, AppointmentCard, DeleteModal } from '@/components'
 
 export const DoctorManagement = () => {
   const {
     doctors,
     data,
     loading,
-    isDrawerVisible,
-    openDrawer,
-    closeDrawer,
+    fetchDoctors,
+    navigate
   } = useDoctorManagement();
+
+  const { deleteData, isDelete, setDelete } = useDeleteModal(fetchDoctors);
+
   const columns = [
     {
       title: "Doctor Name",
@@ -68,9 +70,9 @@ export const DoctorManagement = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton type="primary" variant="secondary" size="small" icon={Icons.EditIcon} className="bg-white edit-btn" />
-          <NHButton type="primary" variant="secondary" size="small" icon={Icons.ViewIcon} className="bg-white edit-btn" />
-          <NHButton type="primary" variant="secondary" size="small" icon={Icons.DeleteIcon} className="bg-white edit-btn" />
+          <NHButton size={"small"} icon={Icons.Edit} className="edit-btn" />
+          <NHButton size={"small"} icon={Icons.View} className="edit-btn" />
+          <NHButton size={"small"} icon={Icons.Delete} className="delete-btn" onClick={() => setDelete(record)} />
         </Space>
       ),
     },
@@ -81,12 +83,23 @@ export const DoctorManagement = () => {
     <>
       <NHCard title="Doctor Management" headerContent={
         <>
-          <NHInput suffix={Icons.SerachIcon} placeholder={"Search"} />
-          <NHButton onClick={() => setVisible(true)} variant={"primary"}>Add New Doctor</NHButton>
+          <NHInput prefix={Icons.SearchIcon} placeholder={"Search"} />
+          <NHButton icon={Icons.PlusSquare} onClick={() => navigate("create")} variant={"primary"}>Add New Doctor</NHButton>
         </>
       }>
         <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
-      </NHCard >
+
+        {/* Delete Complaint Modal */}
+        <DeleteModal
+          title={"Delete Doctor?"}
+          isModalOpen={isDelete}
+          handleClose={() => setDelete(false)}
+          handleOk={() => deleteData("admin/deleteDoctor", isDelete.key)}
+          onCancel={() => setDelete(false)}
+        >
+          Are you sure you want to delete this Doctor?
+        </DeleteModal>
+      </NHCard>
 
       <div className="flex flex-wrap mt-5 gap-lg">
         <AppointmentCard
@@ -109,6 +122,5 @@ export const DoctorManagement = () => {
         />
       </div>
     </>
-
   )
 }

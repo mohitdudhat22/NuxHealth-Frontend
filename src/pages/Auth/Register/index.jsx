@@ -7,7 +7,7 @@ import {
   SelectHospitalModal,
   NHSelect,
 } from "@/components";
-import { useRegister } from "@/hook/Auth/Register";
+import { useRegister } from "@/hook/";
 
 export const Register = () => {
   const {

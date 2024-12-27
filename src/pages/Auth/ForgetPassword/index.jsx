@@ -1,7 +1,6 @@
 import { NHInput, NHButton } from "@/components";
 import { useNavigate } from "react-router-dom";
-import { useForgetPassword } from "@/hook/Auth/ForgetPassword";
-
+import { useForgetPassword } from "@/hooks";
 export const ForgetPassword = () => {
   const navigate = useNavigate();
 

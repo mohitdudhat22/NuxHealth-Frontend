@@ -86,24 +86,11 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <DoctorManagement />,
                 },
                 {
-                  path: "doctor-management",
-                  children: [
-                    {
-                      index: true,
-                      element: <DoctorManagement />,
-                    },
-                    {
-                      path: "create-doctor",
-                      element: <AddNewDoctor />
-                    },
-                    {
-                      path: "edit-doctor",
-                      element: "<DoctorManagement />"
-                    }
-                  ]
+                  path: "create",
+                  element: <AddNewDoctor />
                 },
                 {
-                  path: "edit-doctor",
+                  path: "edit",
                   element: "<DoctorManagement />",
                 },
               ],
@@ -116,11 +103,11 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <PatientManagement />,
                 },
                 {
-                  path: "create-patient",
+                  path: "create",
                   element: "<DoctorManagement />",
                 },
                 {
-                  path: "edit-patient",
+                  path: "edit",
                   element: "<DoctorManagement />",
                 },
               ],
@@ -133,11 +120,11 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <ReceptionManagement />,
                 },
                 {
-                  path: "create-reception",
+                  path: "create",
                   element: "<DoctorManagement />",
                 },
                 {
-                  path: "edit-reception",
+                  path: "edit",
                   element: "<DoctorManagement />",
                 },
               ],

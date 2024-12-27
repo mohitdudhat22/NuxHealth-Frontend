@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { NHButton, NHInput, NHBreadCrumb, NHDropDownImg } from "@/components/";
 import Icons from "@/constants/Icons";
-// import UseDecodeToken from "@/hook/UseDecodeToken";
 import styles from "./NHHeader.module.css";
 
 const { Header } = Layout;
@@ -24,6 +23,7 @@ export const NHHeader = () => {
       navigate("/admin/profile");
     }
   };
+
   return (
     <Header
       className={clsx(
@@ -33,7 +33,7 @@ export const NHHeader = () => {
     >
       <div className="flex items-center justify-content-center gap-xl">
         {location.pathname == "/admin" || location.pathname == "/resident" ? (
-          <NHInput placeholder={"Search"} prefix={Icons.SearchIcon} />
+          "Hello"
         ) : (
           <NHBreadCrumb separator=">" admin />
         )}
