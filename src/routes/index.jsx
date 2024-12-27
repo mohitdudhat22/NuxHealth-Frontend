@@ -22,6 +22,7 @@ import {
   Teleconsultation,
   AddNewReceptionist,
   PatientRegistration,
+  ReceptionDashboard
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -30,7 +31,8 @@ import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
-import { Manage } from "@/pages/Doctor/PriscriptionTools/Manage";
+import { AllBillModel } from "@/pages/Patients/AllBillModal/AllBillModel";
+import { AppointmentSchedular } from "@/components/AppointmentSchedular";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -259,7 +261,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: "bills",
+                  element: <AllBillModel />,
                 },
               ],
             },
@@ -274,11 +276,11 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: "reception",
+                  element: <ReceptionDashboard />,
                 },
                 {
                   path: "patient-registration",
-                  element: <PatientRegistration />,
+                  element: <Register />,
                 },
                 {
                   path: "personal-health",
@@ -286,7 +288,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "appointment",
-                  element: "appointmenton",
+                  element: <AppointmentSchedular />,
                 },
                 {
                   path: "monitor-billing",

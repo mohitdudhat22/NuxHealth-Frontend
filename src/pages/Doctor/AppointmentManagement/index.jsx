@@ -1,6 +1,6 @@
-import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components"
-import Icons from "@/constants/icons"
-import { Space, Tag } from "antd"
+import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
+import Icons from "@/constants/icons";
+import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 
@@ -67,7 +67,14 @@ export const AppointmentManagement = () => {
                     <NHButton
                         type="primary"
                         size="small"
-                        icon={Icons.ViewBillIcon}
+                        icon={Icons.RedCalenderIcon}
+                        onClick={() => handleViewBill(record)}
+                        className="view-btn bg-white"
+                    />
+                     <NHButton
+                        type="primary"
+                        size="small"
+                        icon={Icons.BlueCalenderIcon}
                         onClick={() => handleViewBill(record)}
                         className="view-btn bg-white"
                     />
@@ -82,6 +89,7 @@ export const AppointmentManagement = () => {
             patientName: "Marcus Phillips",
             avatar: "https://i.pravatar.cc/300",
             diseaseName: "Viral Infection",
+            patientIssue:"abc test issue",
             doctorName: "Dr. Matthew Best",
             appointmentTime: "4:30 PM",
             appointmentType: "Online",
@@ -125,8 +133,8 @@ export const AppointmentManagement = () => {
                             prefix={Icons.SearchIcon}
                             placeholder="Search Patient"
                         />
-                        <NHButton>Any Date</NHButton>
-                        <NHButton>Apointment Time Slot</NHButton>
+                        <NHButton>{Icons.CalenderIcon}Any Date</NHButton>
+                        <NHButton>{Icons.CalenderIcon}Apointment Time Slot</NHButton>
                         </>
                     }
                 >
@@ -188,6 +196,13 @@ export const AppointmentManagement = () => {
         },
     ];
 
+    const getColumnData = (columnKey) => {
+        return data.map(item => item[columnKey]);
+    };
+
+    console.log(getColumnData("patientName")); // Example usage to get patient names
+    console.log(getColumnData("appointmentType")); // Example usage to get appointment types
+
     return (
         <>
             <NHCard
@@ -215,4 +230,3 @@ export const AppointmentManagement = () => {
         </>
     );
 };
-

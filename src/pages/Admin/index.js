@@ -1,5 +1,5 @@
 export { Dashboard as AdminDashboard } from './Dashboard/';
-
+export { Dashboard as ReceptionDashboard } from './Dashboard/';
 
 // Doctor Management
 export { DoctorManagement } from "./DoctorManagement"

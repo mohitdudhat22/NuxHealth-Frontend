@@ -18,7 +18,7 @@ export { DepartmentCard } from "./DepartmentCard/";
 /* NHCard */
 export { NHCard } from "./NHCards";
 export * from "./NHCards/CardTemplate/"
-
+export * from "./Charts/";
 /* FormComponents */
 export * from "./FormComponents/";
 
