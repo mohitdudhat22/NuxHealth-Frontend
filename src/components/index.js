@@ -25,3 +25,4 @@ export * from "./FormComponents/";
 /* NHModalComponents */
 export * from "./NHModalComponents";
 
+export * from "./Bills"

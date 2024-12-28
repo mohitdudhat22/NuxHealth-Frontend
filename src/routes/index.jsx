@@ -22,7 +22,9 @@ import {
   Teleconsultation,
   AddNewReceptionist,
   PatientRegistration,
-  ReceptionDashboard
+  ReceptionDashboard,
+  Manage,
+  EditDesignInvoice
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -33,6 +35,7 @@ import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
 import { AllBillModel } from "@/pages/Patients/AllBillModal/AllBillModel";
 import { AppointmentSchedular } from "@/components/AppointmentSchedular";
+import { Bill1, Bill2, Bill3 } from "@/components";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -163,6 +166,14 @@ const NuxHealthRoute = createBrowserRouter(
                   path: "create-bill",
                   element: <CreateBillForm />
                 },
+                {
+                  path: "edit-design-invoice",
+                  element: <EditDesignInvoice />
+                },
+                {
+                  path: "bill-view",
+                  element: <Bill3 />
+                }
               ],
             },
             {
