@@ -22,7 +22,8 @@ import {
   Teleconsultation,
   AddNewReceptionist,
   PatientRegistration,
-  ReceptionDashboard
+  ReceptionDashboard,
+  Manage
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
