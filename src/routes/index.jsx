@@ -97,8 +97,8 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <AddNewDoctor />
                 },
                 {
-                  path: "edit",
-                  element: "<DoctorManagement />",
+                  path: "edit/:id",
+                  element: <AddNewDoctor />,
                 },
               ],
             },

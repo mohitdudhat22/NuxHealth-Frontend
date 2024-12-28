@@ -2,6 +2,7 @@ import { useDeleteModal, useReceptionManagement } from '@/hook';
 import { Space } from 'antd/lib';
 import Icons from '@/constants/icons'
 import { DeleteModal, NHButton, NHCard, NHInput, NHTable } from '@/components'
+import { Avatar } from 'antd';
 
 export const ReceptionManagement = () => {
   const {
@@ -18,6 +19,12 @@ export const ReceptionManagement = () => {
       title: "Receptionist Name",
       dataIndex: "receptionistName",
       key: "receptionistName",
+      render: (name, record) => (
+        <Space>
+          <Avatar src={record.avatar} alt={name} size={40} />
+          <span>{name}</span>
+        </Space>
+      ),
     },
     {
       title: "Email",
@@ -49,7 +56,6 @@ export const ReceptionManagement = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton size={"small"} icon={Icons.Edit} className="edit-btn" />
           <NHButton size={"small"} icon={Icons.View} className="view-btn" />
           <NHButton size={"small"} icon={Icons.Delete} className="delete-btn" onClick={() => setDelete(record)} />
         </Space>

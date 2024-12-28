@@ -2,6 +2,7 @@ import { useDeleteModal, useDoctorManagement } from '@/hook';
 import { Space, Tag } from 'antd/lib';
 import Icons from '@/constants/icons'
 import { NHButton, NHCard, NHInput, NHTable, DeleteModal } from '@/components'
+import { Avatar } from 'antd';
 
 export const DoctorManagement = () => {
   const {
@@ -19,6 +20,12 @@ export const DoctorManagement = () => {
       title: "Doctor Name",
       dataIndex: "doctorName",
       key: "doctorName",
+      render: (name, record) => (
+        <Space>
+          <Avatar src={record.avatar} alt={name} size={40} />
+          <span>{name}</span>
+        </Space>
+      ),
     },
     {
       title: "Gender",
@@ -68,16 +75,16 @@ export const DoctorManagement = () => {
     {
       title: "Action",
       key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          <NHButton size={"small"} icon={Icons.Edit} className="edit-btn" />
-          <NHButton size={"small"} icon={Icons.View} className="edit-btn" />
-          <NHButton size={"small"} icon={Icons.Delete} className="delete-btn" onClick={() => setDelete(record)} />
-        </Space>
-      ),
+      render: (_, record) => {
+        return (
+          <Space size="middle">
+            <NHButton size={"small"} icon={Icons.View} className="edit-btn" />
+            <NHButton size={"small"} icon={Icons.Delete} className="delete-btn" onClick={() => setDelete(record)} />
+          </Space>
+        )
+      },
     },
   ];
-
 
   return (
     <>
@@ -100,6 +107,7 @@ export const DoctorManagement = () => {
           Are you sure you want to delete this Doctor?
         </DeleteModal>
       </NHCard>
+
     </>
   )
 }

@@ -38,6 +38,7 @@ export const adminDoctor = () => request("get", "/api/admin/getDoctor");
 export const adminPatient = () => request("get", "/api/admin/getPatient");
 export const adminReceptionist = () => request("get", "/api/admin/getReceptionist");
 export const createDoctor = (data) => request("post", "/api/admin/createDoctor", data);
+export const editDoctor = (id, data) => request("post", `/api/admin/editDoctor/${id}`, data);
 export const createReceptionist = (data) => request("post", "/api/admin/createReceptionist", data);
 
 /* Reception */
@@ -68,8 +69,6 @@ export const ReceptionistSingleBill = (id) =>
 
 
 
-//priyanka
-//admin
 
 export const getbill = () => request("get", "/api/admin/getBill");
 
