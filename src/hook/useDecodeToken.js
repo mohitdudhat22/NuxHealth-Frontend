@@ -8,7 +8,7 @@ export const useDecodeToken = () => {
   useEffect(() => {
     const decodeToken = () => {
       let token;
-      token = sessionStorage.getItem(import.meta.env.VITE_TOKEN_NAME);
+      token = localStorage.getItem(import.meta.env.VITE_TOKEN_NAME);
 
       if (!token) {
         toast.error(
