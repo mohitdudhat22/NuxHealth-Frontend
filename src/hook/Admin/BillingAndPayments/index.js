@@ -1,1 +1,1 @@
-export { useReceptionManagement } from "./ReceptionManagement/"
+export { useBillingAndPayments } from "./MonitorBilling/"

@@ -70,7 +70,7 @@ export const ReceptionistSingleBill = (id) =>
 
 
 
-export const getbill = () => request("get", "/api/admin/getBill");
+export const getbill = () => request("get", "/api/admin/getBillsMonitor");
 
 
 
