@@ -24,12 +24,16 @@ export const useBillingAndPayments = () => {
     fetchBills();
   }, []);
 
-  // Filter bills based on searchQuery
   const filteredBills = bills.filter((bill) =>
     bill.patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     bill.diseaseName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     bill.phoneNumber.includes(searchQuery)
   );
+
+   const onSearch = (query) => {
+    setSearchQuery(query);
+  };
+
 
   const data = filteredBills.map((bill) => ({
     key: bill?._id,
@@ -42,11 +46,7 @@ export const useBillingAndPayments = () => {
     time: bill?.time,
   }));
 
-  // Added onSearch function
-  const onSearch = (query) => {
-    setSearchQuery(query);
-  };
-
+ 
   console.log(data, "data>>>>>>>>>>>>");
 
   return {
