@@ -6,13 +6,14 @@ export const useBillingAndPayments = () => {
   const navigate = useNavigate();
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(''); 
 
   const fetchBills = async () => {
     try {
       setLoading(true);
       const response = await getbill();
-      if (response) { 
-        setBills(response.data); 
+      if (response) {
+        setBills(response.data);
       }
     } finally {
       setLoading(false);
@@ -23,8 +24,15 @@ export const useBillingAndPayments = () => {
     fetchBills();
   }, []);
 
-  const data = bills?.map((bill) => ({
-    key: bill?._id, 
+  // Filter bills based on searchQuery
+  const filteredBills = bills.filter((bill) =>
+    bill.patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    bill.diseaseName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    bill.phoneNumber.includes(searchQuery)
+  );
+
+  const data = filteredBills.map((bill) => ({
+    key: bill?._id,
     billNumber: bill?.billNumber,
     patientName: bill?.patientName,
     diseaseName: bill?.diseaseName,
@@ -34,6 +42,11 @@ export const useBillingAndPayments = () => {
     time: bill?.time,
   }));
 
+  // Added onSearch function
+  const onSearch = (query) => {
+    setSearchQuery(query);
+  };
+
   console.log(data, "data>>>>>>>>>>>>");
 
   return {
@@ -41,6 +54,7 @@ export const useBillingAndPayments = () => {
     loading,
     data,
     fetchBills,
-    navigate
+    navigate,
+    onSearch, 
   };
 };

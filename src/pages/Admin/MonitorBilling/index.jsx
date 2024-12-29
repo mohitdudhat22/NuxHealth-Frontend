@@ -5,11 +5,10 @@ import Icons from '@/constants/icons';
 
 export const MonitorBilling = () => {
   const {
-    bills,
     loading,
     data,
-    fetchBills,
-    navigate
+    navigate,
+    onSearch, 
   } = useBillingAndPayments();
 
   const columns = [
@@ -73,7 +72,11 @@ export const MonitorBilling = () => {
   return (
     <NHCard title="Billing and Payments" headerContent={
       <>
-        <NHInput prefix={Icons.SearchIcon} placeholder="Search" />
+        <NHInput
+          prefix={Icons.SearchIcon}
+          placeholder="Search"
+          onChange={(e) => onSearch(e.target.value)} 
+        />
         <NHButton icon={Icons.PlusSquare} onClick={() => navigate("/create-bill")} variant="primary">
           Add New Bill
         </NHButton>
