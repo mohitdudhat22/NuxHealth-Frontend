@@ -64,7 +64,7 @@ export const Teleconsultation = () => {
                         size="small"
                         icon={Icons.ViewBillIcon}
                         onClick={() => handleViewBill(record)}
-                        className="view-btn bg-white"
+                        className="bg-white view-btn"
                     />
                 </Space>
             ),
@@ -133,11 +133,11 @@ export const Teleconsultation = () => {
                     title="Upcoming Appointment"
                     headerContent={
                         <>
-                        <NHInput
-                            prefix={Icons.SearchIcon}
-                            placeholder="Search Patient"
-                        />
-                        <NHButton variant="default" className="bg-white text-black">{Icons.CalenderIcon}2 March,2022 - 13 March, 2022{Icons.CloseCircle}</NHButton>
+                            <NHInput
+                                prefix={Icons.SearchIcon}
+                                placeholder="Search Patient"
+                            />
+                            <NHButton variant="default" className="text-black bg-white">{Icons.CalenderIcon}2 March,2022 - 13 March, 2022{Icons.CloseCircle}</NHButton>
                         </>
                     }
                 >
