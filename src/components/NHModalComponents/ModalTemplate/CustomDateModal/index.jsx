@@ -8,14 +8,14 @@ export const CustomDateModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    customDate,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
             title={"Custom Date "}
-            open={isModalOpen}
+            open={customDate}
             handleClose={handleClose}
             disabledButton={false}
             confirmLoading={loading}

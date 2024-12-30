@@ -1,6 +1,5 @@
 import React from 'react'
 import { NHButton, NHDatePicker, NHInput, NHModal, } from '@/components'
-import { NHProfilePicUploader } from '@/components/FormComponents/NHProfilePicUploader'
 
 export const AddRecordModal = ({
     handleOk,
@@ -9,14 +8,14 @@ export const AddRecordModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    addRecord,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
             title={"Add Record"}
-            open={isModalOpen}
+            open={addRecord}
             handleClose={handleClose}
             disabledButton={false}
             IsFooter

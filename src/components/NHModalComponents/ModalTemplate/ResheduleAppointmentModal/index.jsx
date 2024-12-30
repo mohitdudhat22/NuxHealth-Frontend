@@ -8,14 +8,14 @@ export const RescheduleAppointmentModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    rescheduleAppo,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
             title={"Reschedule Appointment"}
-            open={isModalOpen}
+            open={rescheduleAppo}
             handleClose={handleClose}
             disabledButton={false}
             confirmLoading={loading}
@@ -39,6 +39,7 @@ export const RescheduleAppointmentModal = ({
                 <div className="btn flex justify-between pt-5">
                     <NHButton
                         className="bg-white text-[#141414] w-[48%]"
+                        onClick={handleClose}
                     >
                         Cancel
                     </NHButton>

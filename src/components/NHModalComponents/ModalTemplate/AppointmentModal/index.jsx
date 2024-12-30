@@ -1,6 +1,5 @@
 import React from 'react'
 import { NHModal } from '../..'
-import Icons from '@/constants/icons'
 
 export const AppointmentModal = ({
     handleOk,

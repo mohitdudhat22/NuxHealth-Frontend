@@ -1,7 +1,5 @@
 import React from 'react'
-import { NHModal } from '../..'
-import { NHInput } from '@/components/FormComponents'
-import { NHButton } from '@/components'
+import { NHModal, NHButton } from '@/components'
 
 export const AppointmentEditDeleteModal = ({
     handleOk,

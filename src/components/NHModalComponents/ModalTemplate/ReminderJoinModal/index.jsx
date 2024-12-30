@@ -1,5 +1,5 @@
 import React from 'react'
-import { NHModal } from '../..'
+import { NHModal } from '@/components'
 
 export const ReminderJoinModal = ({
     handleOk,
@@ -8,14 +8,14 @@ export const ReminderJoinModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    reminderJoin,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
             title={"Reminder"}
-            open={isModalOpen}
+            open={reminderJoin}
             handleClose={handleClose}
             disabledButton={false}
             IsFooter

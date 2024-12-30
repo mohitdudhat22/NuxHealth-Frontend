@@ -8,14 +8,14 @@ export const JoinCallModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    joinCall,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
             title={"Join Call"}
-            open={isModalOpen}
+            open={joinCall}
             handleClose={handleClose}
             disabledButton={false}
             confirmLoading={loading}

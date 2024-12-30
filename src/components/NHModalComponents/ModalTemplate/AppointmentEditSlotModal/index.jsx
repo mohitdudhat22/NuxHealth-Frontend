@@ -1,6 +1,6 @@
 import { NHInput } from '@/components/FormComponents'
 import React from 'react'
-import { NHModal } from '../..'
+import { NHModal } from '@/components'
 
 export const AppointmentEditSlotModal = ({
     handleOk,
@@ -9,14 +9,14 @@ export const AppointmentEditSlotModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    appoEditSlot,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
             title={"Edit Slot"}
-            open={isModalOpen}
+            open={appoEditSlot}
             handleClose={handleClose}
             disabledButton={false}
             handleContent={"Save"}

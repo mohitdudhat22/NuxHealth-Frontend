@@ -1,5 +1,5 @@
 import React from 'react'
-import { NHModal } from '../..'
+import { NHModal } from '@/components'
 import { NHInput } from '@/components/FormComponents'
 
 export const AppointmentNotAvailableModal = ({

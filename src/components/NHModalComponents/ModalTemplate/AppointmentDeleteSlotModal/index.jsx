@@ -1,6 +1,5 @@
-import { NHInput } from '@/components/FormComponents'
 import React from 'react'
-import { NHModal } from '../..'
+import { NHModal } from '@/components'
 
 export const AppointmentDeleteSlotModal = ({
     handleOk,
@@ -9,13 +8,13 @@ export const AppointmentDeleteSlotModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    appoDeleteSlot,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
-            open={isModalOpen}
+            open={appoDeleteSlot}
             handleClose={handleClose}
             disabledButton={false}
             handleContent={"Yes"}

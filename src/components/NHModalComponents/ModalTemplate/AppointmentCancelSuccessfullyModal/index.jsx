@@ -1,6 +1,5 @@
 import React from 'react'
-import { NHModal } from '../..'
-import { NHButton } from '@/components'
+import { NHButton, NHModal } from '@/components'
 
 export const AppointmentCancelSuccessfullyModal = ({
     handleOk,
@@ -9,13 +8,13 @@ export const AppointmentCancelSuccessfullyModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    appoCancelSuccessfully,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
-            open={isModalOpen}
+            open={appoCancelSuccessfully}
             handleClose={handleClose}
             disabledButton={false}
             confirmLoading={loading}

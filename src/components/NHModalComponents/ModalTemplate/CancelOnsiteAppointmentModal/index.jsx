@@ -8,13 +8,13 @@ export const CancelOnsiteAppointmentModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    cancelOnsiteAppo,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
-            open={isModalOpen}
+            open={cancelOnsiteAppo}
             handleClose={handleClose}
             disabledButton={false}
             handleContent={"Yes"}
