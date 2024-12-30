@@ -19,7 +19,6 @@ export const AppointmentModal = ({
             open={isModalOpen}
             handleClose={handleClose}
             disabledButton={false}
-            handleContent={"Pay Now"}
             confirmLoading={loading}
             {...rest}
 
