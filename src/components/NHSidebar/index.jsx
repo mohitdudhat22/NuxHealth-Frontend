@@ -7,12 +7,12 @@ import { useAside } from "@/hook";
 import { AppointmentCard, NHButton } from "..";
 import Icons from "@/constants/Icons";
 import styles from "./NHSidebar.module.css";
+import Cookies from "js-cookie";
 
 const { Sider } = Layout;
 
 export const NHSidebar = ({ collapsed, className, items }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { currentPage } = useAside();
   const [openKeys, setOpenKeys] = useState([]);
 
@@ -22,7 +22,7 @@ export const NHSidebar = ({ collapsed, className, items }) => {
   };
 
   const handleLogout = () => {
-    sessionStorage.clear();
+    Cookies.remove(import.meta.env.VITE_TOKEN_NAME);
     navigate("/login");
   };
 
@@ -36,16 +36,15 @@ export const NHSidebar = ({ collapsed, className, items }) => {
     >
       <div className="flex items-center justify-center leading-normal py-md px-[3rem] flex-[0_0_auto] h-[var(--header-height)]">
         <Link className="d-inline-block h2 font-secondary" to="">
-          <img
-            src={FullLogo}
-            alt="logo"
-            className=""
-          />
+          <img src={FullLogo} alt="logo" className="" />
         </Link>
       </div>
       <Menu
         mode="inline"
-        className={clsx(styles.menu, "border-0 h-screen overflow-auto flex flex-col")}
+        className={clsx(
+          styles.menu,
+          "border-0 h-screen overflow-auto flex flex-col"
+        )}
         defaultSelectedKeys={[currentPage]}
         selectedKeys={[currentPage]}
         defaultOpenKeys={[currentPage]}

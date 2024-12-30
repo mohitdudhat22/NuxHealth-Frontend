@@ -3,6 +3,7 @@ import {
   DoctorPanelData,
   PatientPanelData,
   ReceptionPanelData,
+  StyleGuideAsideMenu,
 } from "@/constants/data";
 import { AuthLayouts, DashboardLayout } from "@/layouts";
 import {
@@ -25,7 +26,9 @@ import {
   ReceptionDashboard,
   Manage,
   Create,
-  EditDesignInvoice
+  EditDesignInvoice,
+  FontFamily,
+  Buttons,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -37,6 +40,7 @@ import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
 import { AllBillModel } from "@/pages/Patients/AllBillModal/AllBillModel";
 import { AppointmentSchedular } from "@/components/AppointmentSchedular";
 import { Bill1, Bill2, Bill3 } from "@/components";
+import ProtectedRoute from "./ProtectedRoute";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -51,7 +55,11 @@ const NuxHealthRoute = createBrowserRouter(
         },
         /* AuthCation */
         {
-          element: <AuthLayouts />,
+          element: (
+            <ProtectedRoute>
+              <AuthLayouts />
+            </ProtectedRoute>
+          ),
           children: [
             {
               path: "login",
@@ -82,7 +90,11 @@ const NuxHealthRoute = createBrowserRouter(
         /* Admin */
         {
           path: "admin",
-          element: <DashboardLayout items={AdminAsideData} />,
+          element: (
+            <ProtectedRoute>
+              <DashboardLayout items={AdminAsideData} />
+            </ProtectedRoute>
+          ),
           children: [
             {
               index: true,
@@ -97,7 +109,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create",
-                  element: <AddNewDoctor />
+                  element: <AddNewDoctor />,
                 },
                 {
                   path: "edit/:id",
@@ -165,16 +177,16 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "create-bill",
-                  element: <CreateBillForm />
+                  element: <CreateBillForm />,
                 },
                 {
                   path: "edit-design-invoice",
-                  element: <EditDesignInvoice />
+                  element: <EditDesignInvoice />,
                 },
                 {
                   path: "bill-view",
-                  element: <Bill3 />
-                }
+                  element: <Bill3 />,
+                },
               ],
             },
             {
@@ -200,7 +212,11 @@ const NuxHealthRoute = createBrowserRouter(
           path: "doctor",
           children: [
             {
-              element: <DashboardLayout items={DoctorPanelData} />,
+              element: (
+                <ProtectedRoute>
+                  <DashboardLayout items={DoctorPanelData} />
+                </ProtectedRoute>
+              ),
               children: [
                 {
                   index: true,
@@ -215,9 +231,9 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "patientviewdetails",
-                      element: <PatientViewDetails />
-                    }
-                  ]
+                      element: <PatientViewDetails />,
+                    },
+                  ],
                 },
                 {
                   path: "create-prescriptionTools",
@@ -229,9 +245,9 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "manage",
-                      element: <Manage />
-                    }
-                  ]
+                      element: <Manage />,
+                    },
+                  ],
                 },
                 {
                   path: "teleconsultation-module",
@@ -250,7 +266,11 @@ const NuxHealthRoute = createBrowserRouter(
           path: "patient",
           children: [
             {
-              element: <DashboardLayout items={PatientPanelData} />,
+              element: (
+                <ProtectedRoute>
+                  <DashboardLayout items={PatientPanelData} />
+                </ProtectedRoute>
+              ),
               children: [
                 {
                   index: true,
@@ -285,7 +305,11 @@ const NuxHealthRoute = createBrowserRouter(
           path: "reception",
           children: [
             {
-              element: <DashboardLayout items={ReceptionPanelData} />,
+              element: (
+                <ProtectedRoute>
+                  <DashboardLayout items={ReceptionPanelData} />
+                </ProtectedRoute>
+              ),
               children: [
                 {
                   index: true,
@@ -308,6 +332,53 @@ const NuxHealthRoute = createBrowserRouter(
                   element: "monitor-billing",
                 },
               ],
+            },
+          ],
+        },
+        /* StyleGuide */
+        {
+          path: "style-guide",
+          element: <DashboardLayout items={StyleGuideAsideMenu} />,
+          children: [
+            {
+              index: true,
+              element: <FontFamily />,
+            },
+            {
+              path: "button",
+              element: <Buttons />,
+            },
+            {
+              path: "input",
+              // element: <Inputs />,
+            },
+            {
+              path: "checkbox",
+              // element: <CheckBox />,
+            },
+            {
+              path: "modal",
+              // element: <Modal />,
+            },
+            {
+              path: "table",
+              // element: "table",
+            },
+            {
+              path: "icons",
+              // element: <DSIcons />,
+            },
+            {
+              path: "tabs",
+              // element: <Tabs />,
+            },
+            {
+              path: "tags",
+              element: "tags",
+            },
+            {
+              path: "cards",
+              // element: <Cards />,
             },
           ],
         },

@@ -1,19 +1,16 @@
-import React from 'react';
-import { StatisticsCard, AppointmentsList, BillingCard, PatientDistributionCard } from '@/components';
-import { LineChart } from '@/components/Charts';
-import Icons from '@/constants/icons';
-import { useDashboard } from '@/hook/Admin/Dashboard';
+import React from "react";
+import {
+  StatisticsCard,
+  AppointmentsList,
+  BillingCard,
+  PatientDistributionCard,
+} from "@/components";
+import { LineChart } from "@/components/Charts";
+import Icons from "@/constants/icons";
+import { useDashboard } from "@/hook/Admin/Dashboard";
 
 export const Dashboard = () => {
-  const {
-    totalPatients,
-    totalDoctors,
-    loading,
-  } = useDashboard();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const { totalPatients, totalDoctors } = useDashboard();
 
   return (
     <div className="space-y-6">

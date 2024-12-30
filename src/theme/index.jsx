@@ -45,7 +45,8 @@ const ThemeConfig = ({ children }) => {
             defaultHoverBorderColor: "var(--clr-primary)",
             defaultHoverColor: "var(--clr-white)",
             defaultActiveBorderColor: "rgba(var(--clr-primary-rgb),0.75)",
-            defaultActiveColor: "rgba(var(--clr-primary-rgb),0.6392156862745098)",
+            defaultActiveColor:
+              "rgba(var(--clr-primary-rgb),0.6392156862745098)",
             borderRadius: 10,
             fontWeight: 600,
             fontSize: 18,
@@ -67,7 +68,8 @@ const ThemeConfig = ({ children }) => {
             colorTextDisabled: "rgb(167,167,167)",
             colorPrimary: "var(--clr-primary)",
             colorPrimaryHover: "rgba(var(--clr-primary-rgb),0.75)",
-            colorPrimaryActive: "rgba(var(--clr-primary-rgb),0.6392156862745098)",
+            colorPrimaryActive:
+              "rgba(var(--clr-primary-rgb),0.6392156862745098)",
           },
           Input: {
             colorBorder: "rgb(211,211,211)",
@@ -125,6 +127,18 @@ const ThemeConfig = ({ children }) => {
             indicatorHeight: 28,
             statusSize: 5,
             fontSize: 14,
+          },
+          Tag: {
+            borderRadiusSM: 33,
+            fontSizeSM: 18,
+            defaultBg: "rgb(246,248,251)",
+            defaultColor: "rgb(113,142,191)",
+            colorBorder: "rgb(246,248,251)",
+            lineHeightSM: 2,
+          },
+          Table: {
+            fontSize: 16,
+            lineHeight: 1.5,
           },
         },
       }}

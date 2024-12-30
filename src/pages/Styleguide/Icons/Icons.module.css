@@ -1,0 +1,8 @@
+.IconsWrapper {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.IconsContent {
+  border: 1px solid rgba(var(--clr-gray-rgb), 0.1);
+  padding: var(--space-md);
+}
