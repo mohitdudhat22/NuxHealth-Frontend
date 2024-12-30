@@ -55,7 +55,7 @@ const CreateBill = () => {
 
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* First Row */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                         <NHInput
                             label="Patient Name"
                             name="patientName"
@@ -92,7 +92,7 @@ const CreateBill = () => {
                     </div>
 
                     {/* Second Row */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                         <NHInput
                             label="Doctor Name"
                             name="doctorName"
@@ -129,7 +129,7 @@ const CreateBill = () => {
                     </div>
 
                     {/* Third Row */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                         <NHInput
                             label="Bill Date"
                             name="billDate"
@@ -161,7 +161,7 @@ const CreateBill = () => {
                     </div>
 
                     {/* Fourth Row */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                         <NHInput
                             label="Tax"
                             name="tax"
@@ -193,7 +193,7 @@ const CreateBill = () => {
                     </div>
 
                     {/* Add Bill Status after Third Row */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                         <NHSelect
                             label="Bill Status"
                             name="billStatus"
@@ -219,7 +219,7 @@ const CreateBill = () => {
                 {/* Insurance Details Section */}
                 {formData.paymentType === 'insurance' && (
                     <NHCard title="Insurance Details" className='p-6'>
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                             <NHSelect
                                 label="Insurance Type"
                                 name="insuranceType"
@@ -260,15 +260,15 @@ const CreateBill = () => {
                                 placeholder="₹ 2,050"
                             />
                         </div>
-                       <div className="flex justify-end mt-6">
-                        <NHButton type="submit" variant="primary">
-                            Send
+                        <div className="flex justify-end mt-6">
+                            <NHButton type="submit" variant="primary">
+                                Send
                             </NHButton>
-                        </div>  
+                        </div>
                     </NHCard>
                 )}
-                
-               
+
+
             </div>
 
         </>

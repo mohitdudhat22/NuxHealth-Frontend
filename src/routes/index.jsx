@@ -37,8 +37,8 @@ import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
-import { AllBillModel } from "@/pages/Patients/AllBillModal/AllBillModel";
 import { AppointmentSchedular } from "@/components/AppointmentSchedular";
+import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
 import { Bill1, Bill2, Bill3 } from "@/components";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -205,6 +205,13 @@ const NuxHealthRoute = createBrowserRouter(
               path: "profile",
               element: <ProfileSetting />,
             },
+
+            // temp all-modal 
+
+            {
+              path: "all-modal",
+              element: <AllModalTemplate />,
+            },
           ],
         },
         /* Doctor */
@@ -294,7 +301,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: <AllBillModel />,
+                  element: "bills",
                 },
               ],
             },
