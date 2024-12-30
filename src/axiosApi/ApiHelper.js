@@ -44,6 +44,7 @@ export const createReceptionist = (data) => request("post", "/api/admin/createRe
 /* Reception */
 
 /* Doctor */
+export const todayAppointment = () => request("get", "/api/doctor/getAppointment?filter=today");
 
 /* Patient */
 
