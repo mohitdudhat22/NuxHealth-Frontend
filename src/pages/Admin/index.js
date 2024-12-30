@@ -5,7 +5,8 @@ export { Dashboard as ReceptionDashboard } from './Dashboard/';
 export { DoctorManagement } from "./DoctorManagement"
 export { AddNewDoctor } from "./DoctorManagement/AddNewDoctor"
 export { CreateBillForm } from "./MonitorBilling/CreateBillForm/"
-export { MonitorBilling } from "./MonitorBilling/"
+export { EditDesignInvoice } from "./MonitorBilling/EditDesignInvoice"
+export { MonitorBilling } from "./MonitorBilling"
 export { ReportingAnalytics } from "./ReportingAnalytics"
 // Reception Management
 export { ReceptionManagement } from "./ReceptionManagement"
