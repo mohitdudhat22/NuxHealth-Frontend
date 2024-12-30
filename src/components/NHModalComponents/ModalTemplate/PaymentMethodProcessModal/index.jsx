@@ -1,5 +1,5 @@
 import React from 'react'
-import { NHModal } from '../..'
+import { NHModal } from '@/components'
 import { NHDatePicker, NHInput } from '@/components/FormComponents'
 
 export const PaymentMethodProcessModal = ({
@@ -9,14 +9,14 @@ export const PaymentMethodProcessModal = ({
   handleClose,
   Title,
   loading = false,
-  isModalOpen,
+  paymentMethodProcess,
   paymentData,
   ...rest
 }) => {
   return (
     <NHModal
       title={"Payment Method"}
-      open={isModalOpen}
+      open={paymentMethodProcess}
       handleClose={handleClose}
       IsFooter
       disabledButton={false}

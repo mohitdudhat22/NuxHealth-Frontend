@@ -10,7 +10,8 @@ export const DoctorManagement = () => {
     data,
     loading,
     fetchDoctors,
-    navigate
+    navigate,
+    onSearch
   } = useDoctorManagement();
 
   const { deleteData, isDelete, setDelete } = useDeleteModal(fetchDoctors);
@@ -90,7 +91,7 @@ export const DoctorManagement = () => {
     <>
       <NHCard title="Doctor Management" headerContent={
         <>
-          <NHInput prefix={Icons.SearchIcon} placeholder={"Search"} />
+          <NHInput prefix={Icons.SearchIcon} placeholder={"Search"} onChange={(e) => onSearch(e.target.value)} />
           <NHButton icon={Icons.PlusSquare} onClick={() => navigate("create")} variant={"primary"}>Add New Doctor</NHButton>
         </>
       }>
