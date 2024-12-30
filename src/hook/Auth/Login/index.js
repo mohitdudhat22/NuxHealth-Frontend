@@ -23,9 +23,8 @@ export const useLogin = () => {
 
       if (rememberMe) {
         localStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
-        sessionStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
       } else {
-        sessionStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
+        localStorage.setItem(import.meta.env.VITE_TOKEN_NAME, token);
       }
 
       const role = response.role;

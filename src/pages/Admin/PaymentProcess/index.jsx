@@ -2,27 +2,19 @@ import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { PaymentProcessModal } from "@/components/NHModalComponents/ModalTemplate/PaymentProcessModal";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { usePaymentProcess } from '@/hook/Admin/BillingAndPayments/PaymentProcess';
 
 export const PaymentProcess = () => {
-  const navigate = useNavigate();
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const onEdit = (record) => {
-    console.log("Edit record:", record);
-  };
-
-  const onViewDetails = (record) => {
-    console.log("View details for:", record);
-  };
-
-  const onPayment = (record) => {
-    console.log("Payment record:", record);
-    setIsModalOpen(true)
-  }
-
+  const {
+    data,
+    loading,
+    isModalOpen,
+    onSearch,
+    onEdit,
+    onViewDetails,
+    onPayment,
+    setIsModalOpen,
+  } = usePaymentProcess();
 
   const columns = [
     {
@@ -95,53 +87,19 @@ export const PaymentProcess = () => {
     },
   ];
 
-  const data = [
-    {
-      key: "1",
-      billNumber: "5654",
-      patientName: "Alfredo Vaccaro",
-      diseaseName: "Colds and Flu",
-      phoneNumber: "89564 25462",
-      status: "Paid",
-      date: "2 Jan, 2024",
-      time: "4:30 PM",
-    },
-    {
-      key: "2",
-      billNumber: "2565",
-      patientName: "Nolan Botosh",
-      diseaseName: "Mononucleosis",
-      phoneNumber: "89564 25462",
-      status: "Unpaid",
-      date: "3 Jan, 2024",
-      time: "5:30 PM",
-    },
-    {
-      key: "3",
-      billNumber: "5845",
-      patientName: "Alfredo Vaccaro",
-      diseaseName: "Diarrhea",
-      phoneNumber: "89564 25462",
-      status: "Paid",
-      date: "4 Jan, 2024",
-      time: "7:30 PM",
-    },
-  ];
-
   return (
     <>
       <NHCard
         title={"Billing Details"}
         headerContent={
-          <>
-            <NHInput
-              prefix={Icons.SearchIcon}
-              placeholder="Search Patient"
-            />
-          </>
+          <NHInput
+            prefix={Icons.SearchIcon}
+            placeholder="Search Patient"
+            onChange={(e) => onSearch(e.target.value)}
+          />
         }
       >
-        <NHTable tableColumn={columns} tableDataSource={data} />
+        <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
       </NHCard>
 
       <PaymentProcessModal
@@ -149,7 +107,6 @@ export const PaymentProcess = () => {
         handleClose={() => setIsModalOpen(false)}
         // paymentData={record}
       />
-
     </>
   );
 };

@@ -7,6 +7,7 @@ export const useDoctorManagement = () => {
   const [doctors, setDoctors] = useState([]);
   const [isDrawerVisible, setDrawerVisible] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(''); 
 
   const fetchDoctors = async () => {
     try {
@@ -14,6 +15,7 @@ export const useDoctorManagement = () => {
       const response = await adminDoctor();
       if (response.status === 1) {
         setDoctors(response.data);
+        console.log('Doctors:', response.data.length);
       }
     } finally {
       setLoading(false);
@@ -24,7 +26,18 @@ export const useDoctorManagement = () => {
     fetchDoctors();
   }, []);
 
-  const data = doctors?.map((doctor) => ({
+  const filteredDoctors = doctors.filter((doctor) =>
+    (doctor?.doctorName?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+     doctor?.specialty?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+     doctor?.gender?.toLowerCase().includes(searchQuery.toLowerCase()))
+  );  
+
+   const onSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+
+  const data = filteredDoctors?.map((doctor) => ({
     key: doctor?._id,
     avatar: doctor?.profilePicture,
     doctorName: doctor?.fullName,
@@ -35,8 +48,6 @@ export const useDoctorManagement = () => {
     patientCheckUpTime: doctor?.metaData?.doctorData?.morningSession + " Hours",
     breakTime: doctor?.metaData?.doctorData?.eveningSession + " Hours",
   }));
-
-  console.log(data)
 
   const openDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);
@@ -49,6 +60,7 @@ export const useDoctorManagement = () => {
     closeDrawer,
     data,
     fetchDoctors,
-    navigate
+    navigate,
+    onSearch
   };
 };

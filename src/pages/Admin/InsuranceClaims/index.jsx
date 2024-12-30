@@ -1,10 +1,18 @@
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useInsuranceClaims } from '@/hook/Admin/BillingAndPayments';
 
 export const InsuranceClaims = () => {
-  const navigate = useNavigate();
+  const {
+    claims,
+    loading,
+    data,
+    fetchClaims,
+    handleSearch,
+    navigate
+  } = useInsuranceClaims();
+
   const columns = [
     {
       title: "Bill Number",
@@ -56,46 +64,12 @@ export const InsuranceClaims = () => {
             variant="secondary"
             size="small"
             icon={Icons.ViewBillIcon}
-            onClick={() => navigate("view-bill")}
+            onClick={() => navigate(`view-bill/${record.key}`)}
             className="edit-btn bg-white"
           />
         </Space>
       ),
     },
-  ];
-
-  const data = [
-    {
-      key: "1",
-      billNumber: "5654",
-      doctorName: "Dr. Marcus Philaips",
-      patientName: "Kadin Saris",
-      diseaseName: "Internal Medicine",
-      insuranceCompany: "HDFC Life Insurance",
-      insurancePlan: "Maternity",
-      billDate: "2 Jun, 2024",
-    },
-    {
-      key: "2",
-      billNumber: "5655",
-      doctorName: "Dr. Haylie Schleifer",
-      patientName: "Jaxson Bergson",
-      diseaseName: "Charlie Rosser",
-      insuranceCompany: "LIC Life Insurance",
-      insurancePlan: "Health",
-      billDate: "3 Jun, 2024",
-    },
-    {
-      key: "3",
-      billNumber: "5660",
-      doctorName: "Dr. Jaxson Levin",
-      patientName: "Emerson Levin",
-      diseaseName: "Justin Dokidis",
-      insuranceCompany: "Aegon Life Insurance",
-      insurancePlan: "Medical",
-      billDate: "4 Jun, 2024",
-    },
-
   ];
 
   return (
@@ -106,10 +80,11 @@ export const InsuranceClaims = () => {
           <NHInput
             prefix={Icons.SearchIcon}
             placeholder="Search Patient"
+            onChange={handleSearch}
           />
         }
       >
-        <NHTable tableColumn={columns} tableDataSource={data} />
+        <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
       </NHCard>
     </>
   );

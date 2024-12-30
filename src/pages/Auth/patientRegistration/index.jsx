@@ -18,7 +18,6 @@ export const PatientRegistration = () => {
     isDisabled,
   } = useRegister();
 
-
   return (
     <>
       <h2>Registration</h2>
