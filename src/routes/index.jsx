@@ -37,6 +37,7 @@ import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
 import { AllBillModel } from "@/pages/Patients/AllBillModal/AllBillModel";
 import { AppointmentSchedular } from "@/components/AppointmentSchedular";
 import { Bill1, Bill2, Bill3 } from "@/components";
+import NotificationBox from "@/components/NotificationBox";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -218,6 +219,10 @@ const NuxHealthRoute = createBrowserRouter(
                       element: <PatientViewDetails />
                     }
                   ]
+                },
+                {
+                  path: "notification-box",
+                  element: <NotificationBox />
                 },
                 {
                   path: "create-prescriptionTools",

@@ -2,41 +2,43 @@ import React from 'react';
 import { StatisticsCard, AppointmentsList, BillingCard, PatientDistributionCard } from '@/components';
 import { LineChart } from '@/components/Charts';
 import Icons from '@/constants/icons';
+import { useDashboardAndReport } from '@/hook/Admin/DashboardAndReport';
 
 export const Dashboard = () => {
+  const { data } = useDashboardAndReport();
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StatisticsCard
           title="Total Patients"
-          count="1500"
+          count={data?.totalPatients}
           icon={Icons.Patient}
         />
         <StatisticsCard
           title="Total Doctors"
-          count="500"
+          count={data?.totalDoctors}
           icon={Icons.Doctor}
         />
         <StatisticsCard
           title="Today's Appointments"
-          count="1080"
+          count={data?.todaysTotalAppointments}
           icon={Icons.Appointment}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         <div className="md:col-span-3">
-          <LineChart />
+          <LineChart data={data?.patientStats}/>
         </div>
         <div className="md:col-span-2">
-          <BillingCard />
+          <BillingCard data={data?.billdata}/>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         <div className="md:col-span-3">
-          <AppointmentsList />
+          <AppointmentsList data={data?.appointments}/>
         </div>
         <div className="md:col-span-2">
-          <PatientDistributionCard />
+          <PatientDistributionCard data={data?.patientSummary} />
         </div>
       </div>
     </div>

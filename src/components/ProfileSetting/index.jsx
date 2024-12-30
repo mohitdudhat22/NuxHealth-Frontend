@@ -191,7 +191,6 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(profileData);
     setIsEditing(false);
   };
 
@@ -479,7 +478,6 @@ const ChangePassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(passwordData);
     setIsEditing(false);
   };
 

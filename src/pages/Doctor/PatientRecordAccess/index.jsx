@@ -1,4 +1,4 @@
-import { NHButton, NHCard, NHInput, NHTable } from "@/components"
+import { NHButton, NHCard, NHInput, NHSelect, NHTable } from "@/components"
 import Icons from "@/constants/icons"
 import { Space, Tag } from "antd"
 import { useState } from "react";
@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 export const PatientRecordAccess = () => {
     const navigate = useNavigate();
-
+    const [filter, setFilter] = useState("month");
+    
+    const handleSelectChange = (value, name) => {
+        setFilter(value);
+    };
     const columns = [
         {
             title: "Patient Name",
@@ -104,7 +108,17 @@ export const PatientRecordAccess = () => {
                         prefix={Icons.SearchIcon}
                         placeholder="Search Patient"
                     />
-                    <NHButton>{Icons.CalenderIcon}Month</NHButton>
+                     <NHSelect
+                            name="filter"
+                            value={filter}
+                            onChange={(value) => handleSelectChange(value, 'filter')}
+                            placeholder="Select Filter"
+                        options={[
+                            { value: 'day', label: 'Day' },
+                            { value: 'month', label: 'Month' },
+                            { value: 'year', label: 'Year' },
+                        ]}
+                        />
                 </div>
             }
         >

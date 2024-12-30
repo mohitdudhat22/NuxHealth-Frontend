@@ -69,7 +69,7 @@ export const ReceptionistSingleBill = (id) =>
 
 
 
-
+export const getDashboardAndReport = () => request("get", "/api/admin/getDashboardDataDemo");
 export const getbill = () => request("get", "/api/admin/getBill");
 
 

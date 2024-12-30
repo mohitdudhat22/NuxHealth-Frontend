@@ -45,7 +45,6 @@ export const useRegister = () => {
 
   // Handle zip code change and fetch societies
   const handleZipCodeChange = (e) => {
-    console.log("code is run")
     setFormData((prev) => ({
       ...prev,
       address: { ...prev.address, zipCode: e.target.value },

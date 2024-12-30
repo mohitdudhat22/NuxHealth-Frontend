@@ -26,7 +26,6 @@ export const useBillingAndPayments = () => {
     fetchBills();
   }, []);
 
-  console.log(bills,"bills >>>>>>>>>>>")
 
   const defaultColumns = [
     {

@@ -40,7 +40,6 @@ export const useCreateDoctor = () => {
 
   useEffect(() => {
     if (isEditing && EditData) {
-      console.log(formData)
       setFormData({
         firstName: EditData?.fullName?.split(" ")[0] || "",
         lastName: EditData?.fullName?.split(" ")[1] || "",

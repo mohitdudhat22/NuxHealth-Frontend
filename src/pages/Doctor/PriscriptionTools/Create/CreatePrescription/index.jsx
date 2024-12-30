@@ -2,7 +2,6 @@ import React from "react";
 import { NHInput, NHTable, NHButton, NHSelect, NHCard } from "@/components";
 
 export const CreatePrescription = ({ appointment }) => {
-    console.log("🚀 ~ CreatePrescription ~ appointment:", appointment);
 
     const columns = [
         { title: "Medicine Name", dataIndex: "medicine", key: "medicine" },

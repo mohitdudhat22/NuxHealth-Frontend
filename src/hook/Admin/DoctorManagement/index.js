@@ -36,8 +36,6 @@ export const useDoctorManagement = () => {
     breakTime: doctor?.metaData?.doctorData?.eveningSession + " Hours",
   }));
 
-  console.log(data)
-
   const openDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);
 

@@ -12,7 +12,6 @@ export const MonitorBilling = () => {
     defaultData,
     navigate
   } = useBillingAndPayments();
-  console.log(bills,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> from billing page")
   return (
     <>
       <NHCard title={"Monitor Billing"} headerContent={

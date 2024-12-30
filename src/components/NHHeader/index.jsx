@@ -25,7 +25,6 @@ export const NHHeader = () => {
     }
   };
 
-  console.log(token?.userData)
 
   return (
     <Header
