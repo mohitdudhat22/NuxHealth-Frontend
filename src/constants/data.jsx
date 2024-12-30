@@ -51,6 +51,15 @@ export const AdminAsideData = [
     icon: Icons.Analytics,
     label: <Link to='/admin/reporting-analytics'>Reporting And Analytics</Link>,
   },
+
+  // temp all-modal
+
+  {
+    key: "all-modal",
+    icon: Icons.Analytics,
+    label: <Link to='/admin/all-modal'>All Modal</Link>,
+  },
+  
 ];
 
 export const DoctorPanelData = [
