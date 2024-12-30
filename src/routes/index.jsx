@@ -56,7 +56,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
             {
               path: "register",
-              element: <Register />,
+              element: <PatientRegistration />,
             },
             {
               path: "forgot-password",
@@ -72,7 +72,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
             {
               path: "admin/register",
-              element: <PatientRegistration />,
+              element: <Register />,
             },
           ],
         },
