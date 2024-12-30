@@ -24,7 +24,7 @@ export const NHCard = ({
           )}
         >
           <h3 className="fw-semibold lh-base">{title}</h3>
-          <div className="flex items-center justify-start gap-lg">{headerContent}</div>
+          <div className="flex items-center">{headerContent}</div>
         </div>
       )}
       <div className={className}>{children}</div>

@@ -23,7 +23,8 @@ import {
   AddNewReceptionist,
   PatientRegistration,
   ReceptionDashboard,
-  Manage
+  Manage,
+  Create
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -213,7 +214,8 @@ const NuxHealthRoute = createBrowserRouter(
                   children: [
                     {
                       index: true,
-                      element: "create",
+                      path: "create",
+                      element: <Create />,
                     },
                     {
                       path: "manage",
