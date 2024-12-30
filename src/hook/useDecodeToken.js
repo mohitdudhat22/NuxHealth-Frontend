@@ -2,17 +2,26 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
 
+// Utility function to get a token from cookies
+const getCookie = (name) => {
+  const cookieMatch = document.cookie.match("(?:^|; )" + name + "=([^;]*)");
+  return cookieMatch ? decodeURIComponent(cookieMatch[1]) : "";
+};
+
 export const useDecodeToken = () => {
   const [decodedToken, setDecodedToken] = useState(null);
 
   useEffect(() => {
     const decodeToken = () => {
-      let token;
-      token = localStorage.getItem(import.meta.env.VITE_TOKEN_NAME);
+      // Try to get token from localStorage, sessionStorage, or cookies
+      let token =
+        localStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
+        sessionStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
+        getCookie(import.meta.env.VITE_TOKEN_NAME);
 
       if (!token) {
         toast.error(
-          "Token not found in cookies, localStorage, or sessionStorage"
+          "Token not found in localStorage, sessionStorage, or cookies"
         );
         return;
       }
@@ -21,7 +30,7 @@ export const useDecodeToken = () => {
         const decoded = jwtDecode(token);
         setDecodedToken(decoded);
       } catch (error) {
-        console.error(`Error decoding token:`, error);
+        console.error("Error decoding token:", error);
         setDecodedToken(null);
       }
     };
@@ -29,6 +38,5 @@ export const useDecodeToken = () => {
     decodeToken();
   }, []);
 
-  const token = decodedToken;
-  return { token };
+  return { token: decodedToken };
 };

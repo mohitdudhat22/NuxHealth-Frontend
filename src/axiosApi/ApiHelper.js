@@ -3,6 +3,7 @@ import { axiosApi } from "@/axiosApi";
 async function request(method, url, data) {
   try {
     const response = await axiosApi[method](`${url}`, data);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return response.data;
   } catch (error) {
     console.error(`Error in ${method.toUpperCase()} request to ${url}:`, error);
@@ -19,27 +20,36 @@ async function request(method, url, data) {
 /* Authentication */
 // export const register = (data) => request("post", "/register", data);
 export const login = (data) => request("post", "/api/auth/login", data);
-export const forgotPassword = (data) => request("post", "/api/auth/forgot-password", data);
-export const verifyOtp = (data) => request("post", "/api/auth/verify-otp", data);
-export const resetPassword = (data) => request("post", "/api/auth/reset-password", data);
+export const forgotPassword = (data) =>
+  request("post", "/api/auth/forgot-password", data);
+export const verifyOtp = (data) =>
+  request("post", "/api/auth/verify-otp", data);
+export const resetPassword = (data) =>
+  request("post", "/api/auth/reset-password", data);
 
 /* Delete Data */
 export const DeleteData = (url) => request("delete", `/api/${url}`);
 
 /* Admin Register Form */
-export const registerAdmin = (data) => request("post", "/api/registerAdmin", data);
+export const registerAdmin = (data) =>
+  request("post", "/api/registerAdmin", data);
 
 /* Hospital Add And Get */
-export const addHospitals = (data) => request("post", "/api/hospital/createHospital", data);
+export const addHospitals = (data) =>
+  request("post", "/api/hospital/createHospital", data);
 export const getHospitals = () => request("get", "/api/hospital/getHospitals");
 
 /* Admin */
 export const adminDoctor = () => request("get", "/api/admin/getDoctor");
 export const adminPatient = () => request("get", "/api/admin/getPatient");
-export const adminReceptionist = () => request("get", "/api/admin/getReceptionist");
-export const createDoctor = (data) => request("post", "/api/admin/createDoctor", data);
-export const editDoctor = (id, data) => request("post", `/api/admin/editDoctor/${id}`, data);
-export const createReceptionist = (data) => request("post", "/api/admin/createReceptionist", data);
+export const adminReceptionist = () =>
+  request("get", "/api/admin/getReceptionist");
+export const createDoctor = (data) =>
+  request("post", "/api/admin/createDoctor", data);
+export const editDoctor = (id, data) =>
+  request("post", `/api/admin/editDoctor/${id}`, data);
+export const createReceptionist = (data) =>
+  request("post", "/api/admin/createReceptionist", data);
 
 /* Reception */
 
@@ -68,11 +78,6 @@ export const ReceptionistGetBill = () =>
 export const ReceptionistSingleBill = (id) =>
   request("get", `/receptionist/singlebill/${id}`);
 
-
-
-
 export const getbill = () => request("get", "/api/admin/getBillsMonitor");
-export const getInsuranceClaimBills = () => request("get", "/api/admin/getBillsMonitor?type=Insurance");
-
-
-
+export const getInsuranceClaimBills = () =>
+  request("get", "/api/admin/getBillsMonitor?type=Insurance");

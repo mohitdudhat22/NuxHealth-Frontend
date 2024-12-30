@@ -1,9 +1,10 @@
-import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components"
-import Icons from "@/constants/icons"
-import { Space, Tag } from "antd"
+import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
+import Icons from "@/constants/icons";
+import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { TodayAppointment } from "./TodayAppointment";
+import { render } from "react-dom";
 
 export const PatientManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +29,7 @@ export const PatientManagement = () => {
           />
           <span>{text}</span>
         </div>
-      )
+      ),
     },
     {
       title: "Disease Name",
@@ -44,15 +45,14 @@ export const PatientManagement = () => {
       title: "Appointment Time",
       dataIndex: "appointmentTime",
       key: "appointmentTime",
+      render: (time) => <Tag>{time}</Tag>,
     },
     {
       title: "Appointment Type",
       dataIndex: "appointmentType",
       key: "appointmentType",
       render: (type) => (
-        <Tag color={type === "Online" ? "blue" : "orange"}>
-          {type}
-        </Tag>
+        <Tag color={type === "Online" ? "blue" : "orange"}>{type}</Tag>
       ),
     },
     {
@@ -86,7 +86,7 @@ export const PatientManagement = () => {
       age: "27",
       gender: "Male",
       issue: "Stomach ache",
-      address: "B-408 Swastik society, Shivaji marg mota varacha rajkot"
+      address: "B-408 Swastik society, Shivaji marg mota varacha rajkot",
     },
     {
       key: "2",
@@ -112,9 +112,7 @@ export const PatientManagement = () => {
     {
       key: "today",
       label: "Today Appointment",
-      children: (
-        <TodayAppointment />
-      )
+      children: <TodayAppointment />,
     },
     {
       key: "upcoming",
@@ -123,15 +121,12 @@ export const PatientManagement = () => {
         <NHCard
           title="Upcoming Appointment"
           headerContent={
-            <NHInput
-              prefix={Icons.SearchIcon}
-              placeholder="Search Patient"
-            />
+            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
           <NHTable columns={columns} dataSource={data} />
         </NHCard>
-      )
+      ),
     },
     {
       key: "previous",
@@ -140,15 +135,12 @@ export const PatientManagement = () => {
         <NHCard
           title="Previous Appointment"
           headerContent={
-            <NHInput
-              prefix={Icons.SearchIcon}
-              placeholder="Search Patient"
-            />
+            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
           <NHTable columns={columns} dataSource={data} />
         </NHCard>
-      )
+      ),
     },
     {
       key: "cancel",
@@ -157,15 +149,12 @@ export const PatientManagement = () => {
         <NHCard
           title="Cancel Appointment"
           headerContent={
-            <NHInput
-              prefix={Icons.SearchIcon}
-              placeholder="Search Patient"
-            />
+            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
           <NHTable columns={columns} dataSource={data} />
         </NHCard>
-      )
+      ),
     },
   ];
 
@@ -173,16 +162,10 @@ export const PatientManagement = () => {
     <>
       <NHCard
         headerContent={
-          <NHInput
-            prefix={Icons.SearchIcon}
-            placeholder="Search Patient"
-          />
+          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
         }
       >
-        <NHTabs
-          items={tabItems}
-          defaultActiveKey="upcoming"
-        />
+        <NHTabs items={tabItems} defaultActiveKey="upcoming" />
       </NHCard>
 
       <PatientDetailModal
