@@ -3,79 +3,54 @@ import Icons from "@/constants/icons";
 
 export const AppointmentCard = ({
   doctorName,
+  headerContent,
   appointmentType,
   hospitalName,
   appointmentDate,
   appointmentCancelDate,
   appointmentTime,
   patientIssue,
+  patientAge,
+  gender,
   diseaseName,
   footerContent,
   className,
   headerBg
 }) => {
+  const renderField = (label, value, valueClass = "text-[#4F4F4F]") => {
+    return (
+      value && (
+        <p>
+          <span className="text-xl text-[#818194]">{label}:</span>
+          <span className={`float-right text-xl font-bold ${valueClass}`}>
+            {value}
+          </span>
+        </p>
+      )
+    );
+  };
+
   return (
     <NHCard
       title={doctorName}
       rootClass={className}
       headerBg={headerBg}
-      headerContent={Icons.ViewBillIcon}
+      headerContent={headerContent}
     >
       {/* Appointment Details */}
-      <p>
-        <span className="text-xl text-[#818194]">Appointment Type:</span>
-        <span className="float-right text-xl font-bold text-[#FFC313]">
-          {appointmentType}
-        </span>
-      </p>
-      <p>
-        <span className="text-xl text-[#818194]">Hospital Name:</span>
-        <span className="float-right text-xl font-bold text-[#4F4F4F]">
-          {hospitalName}
-        </span>
-      </p>
-      <p>
-        <span className="text-xl text-[#818194]">Appointment Date:</span>
-        <span className="float-right text-xl font-bold text-[#4F4F4F]">
-          {appointmentDate}
-        </span>
-      </p>
-      {appointmentCancelDate && (
-        <p>
-          <span className="text-xl text-[#818194]">
-            Appointment Cancel Date:
-          </span>
-          <span className="float-right text-xl font-bold text-[#4F4F4F]">
-            {appointmentCancelDate}
-          </span>
-        </p>
-      )}
-      <p>
-        <span className="text-xl text-[#818194]">Appointment Time:</span>
-        <span className="float-right text-xl font-bold text-[#4F4F4F]">
-          {appointmentTime}
-        </span>
-      </p>
-      <p>
-        <span className="text-xl text-[#818194]">Patient Issue:</span>
-        <span className="float-right text-xl font-bold text-[#4F4F4F]">
-          {patientIssue}
-        </span>
-      </p>
-      {diseaseName && (
-        <p>
-          <span className="text-xl text-[#818194]">Disease Name:</span>
-          <span className="float-right text-xl font-bold text-[#4F4F4F]">
-            {diseaseName}
-          </span>
-        </p>
-      )}
+      {renderField("Appointment Type", appointmentType, "text-[#FFC313]")}
+      {renderField("Hospital Name", hospitalName)}
+      {renderField("Appointment Date", appointmentDate)}
+      {renderField("Appointment Cancel Date", appointmentCancelDate)}
+      {renderField("Appointment Time", appointmentTime)}
+      {renderField("Patient Issue", patientIssue)}
+      {renderField("Patient Age", patientAge)}
+      {renderField("Patient Gendar", gender)}
+      {renderField("Disease Name", diseaseName)}
 
       {/* Footer Section */}
       {footerContent && (
-        <div className="pt-4 mt-4 border-t border-gray-300">
-          {footerContent}
-        </div>
+        <div className="pt-4 mt-4">{footerContent}</div>
       )}
     </NHCard>
   );
