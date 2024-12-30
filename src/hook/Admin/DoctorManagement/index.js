@@ -15,6 +15,7 @@ export const useDoctorManagement = () => {
       const response = await adminDoctor();
       if (response.status === 1) {
         setDoctors(response.data);
+        console.log('Doctors:', response.data.length);
       }
     } finally {
       setLoading(false);
