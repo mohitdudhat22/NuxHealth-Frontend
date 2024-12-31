@@ -5,6 +5,7 @@ import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate
 import { useState } from "react";
 import { TodayAppointment } from "./TodayAppointment";
 import { render } from "react-dom";
+import { UpcomingAppointment } from "./UpcomingAppointment";
 
 export const PatientManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -117,16 +118,7 @@ export const PatientManagement = () => {
     {
       key: "upcoming",
       label: "Upcoming Appointment",
-      children: (
-        <NHCard
-          title="Upcoming Appointment"
-          headerContent={
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-          }
-        >
-          <NHTable columns={columns} dataSource={data} />
-        </NHCard>
-      ),
+      children: <UpcomingAppointment />,
     },
     {
       key: "previous",
