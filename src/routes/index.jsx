@@ -172,8 +172,8 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <EditDesignInvoice />
                 },
                 {
-                  path: "bill-view",
-                  element: <Bill3 />
+                  path: "bill-view/:billId",
+                  element: <Bill1 />
                 }
               ],
             },
