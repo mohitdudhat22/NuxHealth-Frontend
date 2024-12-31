@@ -2,7 +2,7 @@ import React from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
-import { useCancelAppointments } from "@/hook/Admin/PatientManagement/CancelAppontment"; 
+import { useCancelAppointments } from "@/hook/Admin/PatientManagement/CancelAppointment"; 
 
 const columns = [
   {
@@ -60,7 +60,7 @@ const handleViewBill = (record) => {
   console.log("Viewing bill for", record);
 };
 
-export const CancelAppointment = () => {
+export const CancelAppointments = () => {
   const { data, loading, error } = useCancelAppointments();
 
   if (error) return <div>Error: {error.message}</div>;

@@ -45,19 +45,26 @@ const columns = (handleViewPatient) => [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <NHButton
+      <NHButton
           type="primary"
           size="small"
-          icon={Icons.ViewBillIcon}
-          onClick={() => handleViewPatient(record)}
+          icon={Icons.RedCalenderIcon}
+          onClick={() => handleViewBill(record)}
           className="view-btn bg-white"
-        />
-      </Space>
+      />
+       <NHButton
+          type="primary"
+          size="small"
+          icon={Icons.BlueCalenderIcon}
+          onClick={() => handleViewBill(record)}
+          className="view-btn bg-white"
+      />
+  </Space>
     ),
   },
 ];
 
-export const TodayAppointment = () => {
+export const TodayAppointments = () => {
   const { data, loading, error } = useTodayAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
@@ -80,7 +87,11 @@ export const TodayAppointment = () => {
       <NHCard
         title="Today's Appointments"
         headerContent={
+          <>
           <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+          <NHButton>{Icons.CalenderIcon}Any Date</NHButton>
+          <NHButton>{Icons.CalenderIcon}Appointment Time Slot</NHButton>
+          </>
         }
       >
         <NHTable

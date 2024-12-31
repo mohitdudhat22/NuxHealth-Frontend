@@ -7,7 +7,6 @@ import { TodayAppointment } from "./TodayAppointment";
 import { render } from "react-dom";
 import { UpcomingAppointment } from "./UpcomingAppointment";
 import { PreviousAppointment } from "./PreviousAppointment";
-import { CancelAppointment } from "./CancelAppointment";
 
 export const PatientManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

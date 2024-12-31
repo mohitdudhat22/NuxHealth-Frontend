@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
-import { useTodayAppointments } from "@/hook/Admin/PatientManagement/TodaysAppointment"; 
+import { useCancelAppointments } from "@/hook/Admin/PatientManagement/CancelAppointment"; 
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
 const columns = (handleViewPatient) => [
@@ -45,20 +45,27 @@ const columns = (handleViewPatient) => [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <NHButton
+      <NHButton
           type="primary"
           size="small"
-          icon={Icons.ViewBillIcon}
-          onClick={() => handleViewPatient(record)}
+          icon={Icons.RedCalenderIcon}
+          onClick={() => handleViewBill(record)}
           className="view-btn bg-white"
-        />
-      </Space>
+      />
+       <NHButton
+          type="primary"
+          size="small"
+          icon={Icons.BlueCalenderIcon}
+          onClick={() => handleViewBill(record)}
+          className="view-btn bg-white"
+      />
+  </Space>
     ),
   },
 ];
 
-export const TodayAppointment = () => {
-  const { data, loading, error } = useTodayAppointments();
+export const CancelAppointments = () => {
+  const { data, loading, error } = useCancelAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
 
@@ -78,9 +85,13 @@ export const TodayAppointment = () => {
   return (
     <>
       <NHCard
-        title="Today's Appointments"
+        title="Previous Appointments"
         headerContent={
+          <>
           <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+          <NHButton>{Icons.CalenderIcon}Any Date</NHButton>
+          <NHButton>{Icons.CalenderIcon}Appointment Time Slot</NHButton>
+          </>
         }
       >
         <NHTable

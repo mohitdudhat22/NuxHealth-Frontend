@@ -60,7 +60,7 @@ const handleViewBill = (record) => {
   console.log("Viewing bill for", record);
 };
 
-export const PreviousAppointment = () => {
+export const PreviousAppointment= () => {
   const { data, loading, error } = usePreviousAppointments();
 
   if (error) return <div>Error: {error.message}</div>;
