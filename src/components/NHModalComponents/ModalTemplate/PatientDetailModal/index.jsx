@@ -1,6 +1,6 @@
+import { NHModal } from "@/components/";
 import { AppointmentCard, NHButton, NHModal, PrescriptionCard } from "@/components/";
 import Icons from "@/constants/icons";
-import { Tag } from "antd";
 
 export const PatientDetailModal = ({
   handleOk,
@@ -16,7 +16,7 @@ export const PatientDetailModal = ({
   return (
     <NHModal
       title={
-        <div className="flex items-center justify-between">
+        <div className="flex justify-between items-center">
           <h3>{Title}</h3>
           <button
             onClick={onCancel}
