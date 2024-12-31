@@ -25,13 +25,9 @@ export const NHHeader = () => {
     }
   };
 
-
   return (
     <Header
-      className={clsx(
-        styles.header,
-        "flex items-center justify-between"
-      )}
+      className={clsx(styles.header, "flex items-center justify-between")}
     >
       <div className="flex items-center justify-content-center gap-xl">
         {location.pathname == "/admin" || location.pathname == "/resident" ? (

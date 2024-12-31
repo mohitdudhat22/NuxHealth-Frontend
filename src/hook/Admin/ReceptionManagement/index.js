@@ -5,26 +5,34 @@ import { useNavigate } from 'react-router-dom';
 export const useReceptionManagement = () => {
   const navigate = useNavigate();
   const [reception, setReception] = useState([]);
-  const [isDrawerVisible, setDrawerVisible] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  const openDrawer = () => setDrawerVisible(true);
-  const closeDrawer = () => setDrawerVisible(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchReception = async () => {
     setLoading(true);
-    const response = await adminReceptionist();
-    if (response.status === 1) {
-      setReception(response.data);
+    try {
+      const response = await adminReceptionist();
+      if (response.status === 1) {
+        setReception(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching reception data: ", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
-    fetchReception()
+    fetchReception();
   }, []);
 
-  const data = reception?.map((reception) => ({
+   const filteredReception = reception.filter((reception) =>
+    String(reception?.fullName).toLowerCase().includes(String(searchQuery).toLowerCase()) ||
+    String(reception?.email).toLowerCase().includes(String(searchQuery).toLowerCase()) ||
+    String(reception?.phone).toLowerCase().includes(String(searchQuery).toLowerCase())
+  );
+  
+  const data = filteredReception.map((reception) => ({
     key: reception?._id,
     avatar: reception?.profilePicture,
     receptionistName: reception?.fullName,
@@ -35,14 +43,16 @@ export const useReceptionManagement = () => {
     phone: reception?.phone,
   }));
 
+  const onSearch = (query) => {
+    setSearchQuery(query);
+  };
+
   return {
     reception,
-    isDrawerVisible,
     loading,
-    openDrawer,
-    closeDrawer,
     data,
-    navigate,
+    searchQuery,
+    onSearch,
     fetchReception
   };
 };

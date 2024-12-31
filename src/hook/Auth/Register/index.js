@@ -23,8 +23,10 @@ export const useRegister = () => {
       state: "",
       city: "",
       zipCode: "",
-      fullAddress: ""
+      fullAddress: "Kamrej",
     },
+    gender: "Male",
+    age: 10,
     password: "",
     confirmPassword: "",
     termsAccepted: false,
@@ -112,14 +114,34 @@ export const useRegister = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const isFormValid = (data) => {
+    const validateFields = (obj) => {
+      for (let key in obj) {
+        if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+          if (!validateFields(obj[key])) return false;
+        } else if (
+          obj[key] === "" ||
+          obj[key] === null ||
+          (Array.isArray(obj[key]) && obj[key].length === 0)
+        ) {
+          return false;
+        }
+      }
+      return true;
+    };
 
-  // Check if all fields are filled and valid
-  const isDisabled = Object.values(formData).some((value) => value === "");
+    const fieldsValid = validateFields(data);
+    const specificConditions =
+      data.password === data.confirmPassword && data.termsAccepted;
+
+    return fieldsValid && specificConditions;
+  };
+
+  const isDisabled = !isFormValid(formData);
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
 
     setIsLoading(true);
     try {

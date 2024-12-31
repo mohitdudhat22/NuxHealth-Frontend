@@ -1,54 +1,19 @@
-import React  from "react";
-import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import UseDecodeToken from "../hook/useDecodeToken";
-import { NHLoader } from "../components/NHLoader";
+import Cookies from "js-cookie";
+import { use, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
-function ProtectedRoute() {
-  // const { token } = UseDecodeToken();
-  // const [isAuthorized, setIsAuthorized] = useState(false);
-  // const [loading, setLoading] = useState(true);
+function ProtectedRoute({ children }) {
+  const navigate = useNavigate();
 
-  // Define the roles that are allowed to access the route
-  // const requiredRoles = ["Chairman", "resident", "security"];
+  const token = Cookies.get(import.meta.env.VITE_TOKEN_NAME);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     const role = token.role;
-  //     if (requiredRoles.includes(role)) {
-  //       setIsAuthorized(true);
-  //     } else {
-  //       setIsAuthorized(false);
-  //     }
-  //     setLoading(false);
-  //   } else {
-  //     setLoading(false);
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token]);
 
-  // if (loading) {
-  //   return <NHLoader />;
-  // }
-
-  // if (!token) {
-  //   return (
-  //     <>
-  //       <Navigate to="/login" replace />
-  //       <Outlet />
-  //     </>
-  //   );
-  // }
-
-  // if (!isAuthorized) {
-  //   return (
-  //     <>
-  //       <Navigate to="/" replace />;
-  //       <Outlet />
-  //     </>
-  //   );
-  // }
-
-  return <Outlet />;
+  return children;
 }
 
 export default ProtectedRoute;

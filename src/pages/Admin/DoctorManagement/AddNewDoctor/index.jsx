@@ -1,4 +1,5 @@
 import { NHCard, NHInput, NHSelect, NHButton } from '@/components';
+import { NHTimePicker } from '@/components/FormComponents/NHTimePicker';
 import { useCreateDoctor } from '@/hook';
 import { Upload } from 'antd';
 
@@ -149,24 +150,43 @@ export const AddNewDoctor = () => {
                   { value: 'Both', label: 'Both' }
                 ]}
               />
+              <div className="form-item">
+                <label className="block mb-2 text-sm font-medium text-gray-900">
+                  Morning Session
+                </label>
+                <NHTimePicker
+                  isRange
+                  format="HH:mm"
+                  value={formData.morningSession}
+                  onChange={(time, timeString) => {
+                    const demo = timeString?.replace(",", " to ")
+                    handleChange({
+                      target: { name: 'morningSession', value: demo },
+                    })
+                  }
+                  }
+                />
+              </div>
+              <div className="form-item">
+                <label className="block mb-2 text-sm font-medium text-gray-900">
+                  Evening Session
+                </label>
+                <NHTimePicker
+                  isRange
+                  format="HH:mm"
+                  value={formData.eveningSession}
+                  onChange={(time, timeString) =>
+
+                    handleChange({
+                      target: { name: 'eveningSession', value: timeString?.replace(",", " to ") },
+                    })
+                  }
+                />
+              </div>
               <NHInput
-                label="Working Time"
-                name="morningSession"
-                type="time"
-                value={formData.morningSession}
-                onChange={handleChange}
-              />
-              <NHInput
-                label="Check Up Time"
-                name="eveningSession"
-                type="time"
-                value={formData.eveningSession}
-                onChange={handleChange}
-              />
-              <NHInput
-                label="Break Time"
+                label="Break Time(minute)"
                 name="duration"
-                type="time"
+                placeholder="Session Duration"
                 value={formData.duration}
                 onChange={handleChange}
               />

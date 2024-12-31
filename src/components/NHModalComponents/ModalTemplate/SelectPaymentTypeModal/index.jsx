@@ -1,7 +1,5 @@
 import React from 'react'
-import { NHModal } from '../..'
-import { NHInput, NHRadioButton } from '@/components/FormComponents'
-import Icons from '@/constants/icons'
+import { NHModal } from '@/components'
 
 
 export const SelectPaymentTypeModal = ({
@@ -11,14 +9,14 @@ export const SelectPaymentTypeModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    selectPaymentType,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
             title={"Select Payment Type"}
-            open={isModalOpen}
+            open={selectPaymentType}
             handleClose={handleClose}
             IsFooter
             disabledButton={false}

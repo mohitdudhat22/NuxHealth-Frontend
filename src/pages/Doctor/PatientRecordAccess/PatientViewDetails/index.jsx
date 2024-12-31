@@ -16,43 +16,43 @@ export const PatientViewDetails = () => {
           className="w-20 h-20 rounded-full"
         />
 
-        <div className="flex-1 grid grid-cols-3 gap-4">
+        <div className="grid flex-1 grid-cols-3 gap-4">
           <div>
-            <p className="text-gray-500 text-sm">Patient Name</p>
+            <p className="text-sm text-gray-500">Patient Name</p>
             <p className="font-medium">Marcus Phillips</p>
           </div>
           <div>
-            <p className="text-gray-500 text-sm">Patient Number</p>
+            <p className="text-sm text-gray-500">Patient Number</p>
             <p className="font-medium">99130 44537</p>
           </div>
           <div>
-            <p className="text-gray-500 text-sm">Patient Issue</p>
+            <p className="text-sm text-gray-500">Patient Issue</p>
             <p className="font-medium">Feeling tired</p>
           </div>
           <div>
-            <p className="text-gray-500 text-sm">Patient Gender</p>
+            <p className="text-sm text-gray-500">Patient Gender</p>
             <p className="font-medium">Male</p>
           </div>
           <div>
-            <p className="text-gray-500 text-sm">Doctor Name</p>
+            <p className="text-sm text-gray-500">Doctor Name</p>
             <p className="font-medium">Dr. Marcus Phillips</p>
           </div>
           <div>
-            <p className="text-gray-500 text-sm">Patient Age</p>
+            <p className="text-sm text-gray-500">Patient Age</p>
             <p className="font-medium">20 Years</p>
           </div>
           <div>
-            <p className="text-gray-500 text-sm">Patient Address</p>
+            <p className="text-sm text-gray-500">Patient Address</p>
             <p className="font-medium">
               B-408 Swastik society, mota varacha rajkot
             </p>
           </div>
           <div>
-            <p className="text-gray-500 text-sm">Last Appointment Date</p>
+            <p className="text-sm text-gray-500">Last Appointment Date</p>
             <p className="font-medium">4:30 PM</p>
           </div>
           <div>
-            <p className="text-gray-500 text-sm">Last Appointment Time</p>
+            <p className="text-sm text-gray-500">Last Appointment Time</p>
             <p className="font-medium">4:30 PM</p>
           </div>
         </div>
@@ -109,7 +109,7 @@ export const PatientViewDetails = () => {
             size="small"
             icon={Icons.ViewBillIcon}
             onClick={() => navigate("patientrecordaccess")}
-            className="view-btn bg-white"
+            className="bg-white view-btn"
           />
         </Space>
       ),
@@ -151,20 +151,20 @@ export const PatientViewDetails = () => {
       appointmentType: "Online",
     },
   ];
-  
+
 
   return (
     <>
-    <div className="mb-[20px]">
-    <NHCard
-        title="Patient Details"
-        headerContent={<NHButton type="primary">Add Record</NHButton>}
-      >
+      <div className="mb-[20px]">
+        <NHCard
+          title="Patient Details"
+          headerContent={<NHButton type="primary">Add Record</NHButton>}
+        >
           <PatientDetailsSection />
-      </NHCard>
-    </div>
+        </NHCard>
+      </div>
       <NHCard>
-      <NHTable columns={columns} dataSource={data} />
+        <NHTable columns={columns} dataSource={data} />
       </NHCard>
     </>
   );

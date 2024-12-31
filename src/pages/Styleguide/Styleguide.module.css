@@ -1,0 +1,6 @@
+.cardButton {
+  border: 1px solid var(--clr-primary);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  border-radius: var(--space-md);
+}

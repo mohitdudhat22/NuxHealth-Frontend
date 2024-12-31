@@ -10,7 +10,6 @@ const getCookie = (name) => {
   return cookieMatch ? decodeURIComponent(cookieMatch[1]) : "";
 };
 
-
 // Create axios instance with credentials
 const axiosApi = axios.create({
   baseURL: backendUrl,
@@ -20,7 +19,8 @@ const axiosApi = axios.create({
 // Helper function to set Authorization header
 const setAuthHeader = () => {
   const token =
-    localStorage.getItem(import.meta.env.VITE_TOKEN_NAME)
+    getCookie(import.meta.env.VITE_TOKEN_NAME) ||
+    localStorage.getItem(import.meta.env.VITE_TOKEN_NAME);
   if (token) {
     axiosApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {
