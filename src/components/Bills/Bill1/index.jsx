@@ -2,48 +2,24 @@ import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-// Mock function to fetch bill data based on bill ID
-const fetchBillData = (billId) => {
-  // Replace with actual API call or data fetching logic
-  return {
-    doctorName: "Dr. Bharat Patel",
-    doctorDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mattis turpis vitae.",
-    billNumber: billId,
-    date: "2020-06-20",
-    time: "10:45 PM",
-    patient: {
-      firstName: "Ritesh",
-      lastName: "Kumar",
-      gender: "Male",
-      age: "28",
-      address: "B-105 Vijay Banglow Parijatak Mithakhali",
-      phone: "#987 5647 23"
-    },
-    diseaseName: "Stomach Ache",
-    paymentType: "Insurance",
-    description: "Neuromuscular blockers",
-    amount: 1000.00,
-    discount: 5,
-    tax: 120.00,
-    totalAmount: 24668.00
-  };
-};
+import { getbillbyNo } from "@/axiosApi/ApiHelper";
 
 export function Bill1() {
   const { billId } = useParams();
   const [billData, setBillData] = useState(null);
 
+  const fetchBillData = async () => {
+    const response = await getbillbyNo(billId);
+    setBillData(response.data);
+  };  
   useEffect(() => {
-    const data = fetchBillData(billId);
-    console.log("Bill Data >>>>>>>>>>>>>>>>>:---------------------------", data);
-    setBillData(data); 
+    fetchBillData();
   }, [billId]);
 
   if (!billData) {
     return <div>Loading...</div>;
   }
-
+  console.log(billData,"------------------------------------");
   return (
     <NHCard>
       <div className="head flex justify-between pb-5">
@@ -71,16 +47,16 @@ export function Bill1() {
         <div className="invoice__patient bg-gray-100 p-4 rounded-lg flex justify-between">
           <div className="space-y-1">
             <p className="text-sm font-semibold text-[#141414]">
-              Name: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient.firstName} {billData.patient.lastName}</span>
+              Name: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient?.fullName}</span>
             </p>
             <p className="text-sm font-semibold text-[#141414]">
-              Gender: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient.gender}</span>
+              Gender: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient?.gender}</span>
             </p>
             <p className="text-sm font-semibold text-[#141414]">
-              Age: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient.age} Years</span>
+              Age: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient?.age} Years</span>
             </p>
             <p className="text-sm font-semibold text-[#141414]">
-              Address: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient.address}</span>
+              Address: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient?.address}</span>
             </p>
           </div>
           <div className="space-y-1">
@@ -88,11 +64,19 @@ export function Bill1() {
               Disease Name: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.diseaseName}</span>
             </p>
             <p className="text-sm font-semibold text-[#141414]">
-              Phone Number: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient.phone}</span>
+              Phone Number: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.patient?.phone}</span>
             </p>
             <p className="text-sm font-semibold text-[#141414]">
               Payment Type: <span className="text-sm text-[#818194] font-semibold ml-3">{billData.paymentType}</span>
             </p>
+            <p><strong>Patient Email:</strong> {billData.patientId.email}</p>
+            <p><strong>Payment Type:</strong> {billData.paymentType}</p>
+            <p><strong>Amount:</strong> {billData.amount}</p>
+            <p><strong>Discount:</strong> {billData.discount}</p>
+            <p><strong>Tax:</strong> {billData.tax}</p>
+            <p><strong>Total Amount:</strong> {billData.totalAmount}</p>
+            <p><strong>Insurance ID:</strong> {billData.insuranceId ? billData.insuranceId : 'N/A'}</p>
+            <p><strong>Status:</strong> {billData.status ? 'Active' : 'Inactive'}</p>
           </div>
         </div>
         <table className="invoice__table w-full my-3 border-collapse">

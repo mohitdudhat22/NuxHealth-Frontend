@@ -71,7 +71,6 @@ export const ReceptionistSingleBill = (id) =>
 
 
 export const getbill = () => request("get", "/api/admin/getBillsMonitor");
+export const getbillbyNo = (id) => request("get", `/api/admin/getBill?id=${id}`);
 export const getInsuranceClaimBills = () => request("get", "/api/admin/getBillsMonitor?type=Insurance");
-
-
-
+export const todaysAppointment = () => request("get", "/api/admin/getAppointment?filter=today");
