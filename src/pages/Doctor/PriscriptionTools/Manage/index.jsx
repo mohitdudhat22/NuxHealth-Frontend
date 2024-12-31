@@ -69,7 +69,7 @@ export const Manage = () => {
                         size="small"
                         icon={Icons.ViewBillIcon}
                         onClick={() => handleViewBill(record)}
-                        className="view-btn bg-white"
+                        className="bg-white view-btn"
                     />
                 </Space>
             ),
@@ -163,7 +163,7 @@ export const Manage = () => {
                 isModalOpen={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
                 handleClose={() => setIsModalOpen(false)}
-                Title="Patient Details"
+                Title="Prescription"
                 handleOk={() => setIsModalOpen(false)}
                 patientData={selectedPatient}
             />
