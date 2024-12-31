@@ -11,7 +11,6 @@ export const AllBillModel = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const selectPayment = () => {
-        console.log("selectPayment:-");
         setIsModalOpen(true)
     }
 

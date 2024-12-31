@@ -43,7 +43,6 @@ export const useResetPassword = () => {
       };
       const response = await resetPassword(Data);
       localStorage.removeItem("hms_email");
-      console.log(response?.status === 1)
       if (response?.status === 1) {
         toast.success(response?.message || "Password reset successfully!");
         navigate("/login");

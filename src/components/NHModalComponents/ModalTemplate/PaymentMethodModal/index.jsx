@@ -1,5 +1,5 @@
 import React from 'react'
-import { NHModal } from '../..'
+import { NHModal } from '@/components'
 
 export const PaymentMethodModal = ({
     handleOk,
@@ -8,14 +8,14 @@ export const PaymentMethodModal = ({
     handleClose,
     Title,
     loading = false,
-    isModalOpen,
+    paymentMetho,
     paymentData,
     ...rest
 }) => {
     return (
         <NHModal
             title={"Payment Method"}
-            open={isModalOpen}
+            open={paymentMetho}
             handleClose={handleClose}
             IsFooter
             disabledButton={false}

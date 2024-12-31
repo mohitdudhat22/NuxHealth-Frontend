@@ -2,10 +2,18 @@ import { AppointmentCard, NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/c
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
 import { useState } from "react";
-import { CreatePrescription } from "../..";
+import { CreatePrescription, PatientViewDetails } from "../..";
+import { useTodayAppointments } from "@/hook/Doctor";
+
+// import PatientDetails from "./PatientDetails"; // Import your PatientDetails component
 
 export const Create = () => {
     const [selectedAppointment, setSelectedAppointment] = useState(null);
+    const [viewingPatientDetails, setViewingPatientDetails] = useState(null);
+
+    const { appointments, isDrawerVisible, loading, openDrawer, closeDrawer, data, fetchAppointments, navigate, onSearch } = useTodayAppointments();
+    console.log(appointments, isDrawerVisible, loading, openDrawer, closeDrawer, data, fetchAppointments, navigate, onSearch)
+
     const appointmentData = [
         {
             "name": "Jaydon Philips",
@@ -106,56 +114,74 @@ export const Create = () => {
     ]
 
 
+    const handlePatientDetails = (appointment) => {
+        setViewingPatientDetails(appointment);
+    };
+
+    const handleBackToAppointments = () => {
+        setViewingPatientDetails(null);
+    };
 
     return (
         <>
-            <NHCard
-                title="Today Appointment"
-                headerContent={
-                    <>
-                        <div className="me-10">
-                            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-                        </div>
-                        <NHButton variant="default" className="text-black bg-white">
-                            {Icons.CalenderIcon}2 March, 2024
-                        </NHButton>
-                    </>
-                }
-            >  {!selectedAppointment ?
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    {appointmentData.map((appointment, index) => (
-                        <AppointmentCard
-                            key={index}
-                            headerContent={
-                                <>
-                                    <Tag color={appointment.status === "New" ? "blue" : "green"}>
-                                        {appointment.status}
-                                    </Tag>
-                                    {Icons.ViewBillIcon}
-                                </>
-                            }
-                            doctorName={appointment.name}
-                            appointmentType={appointment.appointmentType}
-                            patientAge={appointment.patientAge}
-                            gender={appointment.patientGender}
-                            appointmentTime={appointment.appointmentTime}
-                            footerContent={
-                                <NHButton
-                                    size={"large"}
-                                    className={"w-full"}
-                                    onClick={() => setSelectedAppointment(appointment)}
-                                >
-                                    Create Prescription
-                                </NHButton>
-                            }
-                            className="border border-slate-200"
-                        />
-                    ))}
-                </div>
-                :
-                (<CreatePrescription appointment={selectedAppointment} />)
-                }
-            </NHCard>
+            {!selectedAppointment && !viewingPatientDetails ? (
+                <NHCard
+                    title="Today Appointment"
+                    headerContent={
+                        <>
+                            <div className="me-10">
+                                <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+                            </div>
+                            <NHButton variant="default" className="text-black bg-white">
+                                {Icons.CalenderIcon}2 March, 2024
+                            </NHButton>
+                        </>
+                    }
+                >
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        {appointmentData.map((appointment, index) => (
+                            <AppointmentCard
+                                key={index}
+                                headerContent={
+                                    <>
+                                        <Tag color={appointment.status === "New" ? "blue" : "green"}>
+                                            {appointment.status}
+                                        </Tag>
+                                        <span
+                                            onClick={() => handlePatientDetails(appointment)}
+                                            className="cursor-pointer"
+                                        >
+                                            {Icons.ViewBillIcon}
+                                        </span>
+                                    </>
+                                }
+                                doctorName={appointment.name}
+                                appointmentType={appointment.appointmentType}
+                                patientAge={appointment.patientAge}
+                                gender={appointment.patientGender}
+                                appointmentTime={appointment.appointmentTime}
+                                footerContent={
+                                    <NHButton
+                                        size={"large"}
+                                        className={"w-full"}
+                                        onClick={() => setSelectedAppointment(appointment)}
+                                    >
+                                        Create Prescription
+                                    </NHButton>
+                                }
+                                className="border border-slate-200"
+                            />
+                        ))}
+                    </div>
+                </NHCard>
+            ) : viewingPatientDetails ? (
+                <PatientViewDetails
+                    appointment={viewingPatientDetails}
+                    onBack={handleBackToAppointments}
+                />
+            ) : (
+                <CreatePrescription appointment={selectedAppointment} />
+            )}
         </>
     );
 };

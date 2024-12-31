@@ -182,7 +182,6 @@ export const Register = () => {
           variant="primary"
           block
           type="submit"
-          disabled={isDisabled}
           loading={isLoading}
         >
           Register
@@ -192,7 +191,7 @@ export const Register = () => {
           Already have an account? <Link to="/login">Login</Link>
         </h6>
       </form>
-      
+
       <SelectHospitalModal
         open={isModalOpen}
         handleClose={() => setIsModalOpen(false)}

@@ -1,6 +1,5 @@
 import React from 'react'
 import { NHModal } from '../..'
-import Icons from '@/constants/icons'
 
 export const AppointmentModal = ({
     handleOk,
@@ -19,7 +18,6 @@ export const AppointmentModal = ({
             open={isModalOpen}
             handleClose={handleClose}
             disabledButton={false}
-            handleContent={"Pay Now"}
             confirmLoading={loading}
             {...rest}
 

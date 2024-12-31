@@ -32,7 +32,6 @@ export const useAddHospital = (handleClose) => {
     name: 'file',
     showUploadList: false,
     customRequest: ({ file, onError }) => {
-      console.log(file); // Here, check the file object structure
       handleFileChange(file); // This will set the file object in formData
     },
   };
