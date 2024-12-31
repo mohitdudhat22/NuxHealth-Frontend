@@ -22,9 +22,9 @@ export const useCreateDoctor = () => {
     qualification: '',
     speciality: '',
     workOn: [],
-    morningSession: '6', /* */
-    eveningSession: '4',/* */
-    duration: '1',/* */
+    morningSession: 'null', /* */
+    eveningSession: 'null',/* */
+    duration: '',/* */
     country: [],
     state: [],
     city: [],
@@ -40,7 +40,6 @@ export const useCreateDoctor = () => {
 
   useEffect(() => {
     if (isEditing && EditData) {
-      console.log(formData)
       setFormData({
         firstName: EditData?.fullName?.split(" ")[0] || "",
         lastName: EditData?.fullName?.split(" ")[1] || "",
@@ -110,6 +109,7 @@ export const useCreateDoctor = () => {
     for (let [key, value] of data.entries()) {
       console.log(`${key}:`, value);
     }
+
 
     if (isEditing) {
       const response = await editDoctor(id, data);

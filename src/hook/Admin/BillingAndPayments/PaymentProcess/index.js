@@ -33,7 +33,7 @@ export const usePaymentProcess = () => {
   );
 
   const data = filteredBills.map((bill) => ({
-    key: bill?._id,
+    key: bill?.billNumber,
     billNumber: bill?.billNumber,
     patientName: bill?.patientName,
     diseaseName: bill?.diseaseName,
@@ -49,6 +49,7 @@ export const usePaymentProcess = () => {
 
   const onEdit = (record) => {
     console.log("Edit record:", record);
+    navigate(`/admin/payment-process/edit-bill/${record.key}`);
   };
 
   const onViewDetails = (record) => {

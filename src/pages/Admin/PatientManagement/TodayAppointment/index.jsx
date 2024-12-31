@@ -1,6 +1,7 @@
-import Icons from '@/constants/icons';
-import { NHButton, NHCard, NHInput, NHTable } from '@/components'
+import { NHButton, NHCard, NHInput, NHTable } from '@/components';
 import { Space, Tag } from 'antd';
+import Icons from '@/constants/icons';
+import { useTodayAppointments } from '@/hook/Admin/PatientManagement/TodaysAppointment'; // Import the custom hook
 
 const columns = [
   {
@@ -38,9 +39,7 @@ const columns = [
     dataIndex: "appointmentType",
     key: "appointmentType",
     render: (type) => (
-      <Tag color={type === "Online" ? "blue" : "orange"}>
-        {type}
-      </Tag>
+      <Tag color={type === "Online" ? "blue" : "orange"}>{type}</Tag>
     ),
   },
   {
@@ -52,7 +51,7 @@ const columns = [
           type="primary"
           size="small"
           icon={Icons.ViewBillIcon}
-          onClick={() => handleViewBill(record)}
+          onClick={() => handleViewBill(record)} // You need to implement this function
           className="view-btn bg-white"
         />
       </Space>
@@ -60,47 +59,15 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    patientName: "Marcus Phillips",
-    avatar: "https://i.pravatar.cc/300",
-    diseaseName: "Viral Infection",
-    doctorName: "Dr. Matthew Best",
-    appointmentTime: "4:30 PM",
-    appointmentType: "Online",
-    appointmentDate: "2 Jun, 2022",
-    phoneNumber: "92584 58475",
-    age: "27",
-    gender: "Male",
-    issue: "Stomach ache",
-    address: "B-408 Swastik society, Shivaji marg mota varacha rajkot"
-  },
-  {
-    key: "2",
-    patientName: "Landyn Sheffey",
-    avatar: "https://i.pravatar.cc/300",
-    diseaseName: "Blood Pressure",
-    doctorName: "Dr. Annabella Porter",
-    appointmentTime: "5:00 AM",
-    appointmentType: "Onsite",
-  },
-  {
-    key: "3",
-    patientName: "Leslie Murray",
-    avatar: "https://i.pravatar.cc/300",
-    diseaseName: "Diabetes",
-    doctorName: "Dr. Steven Ralph",
-    appointmentTime: "7:30 PM",
-    appointmentType: "Online",
-  },
-];
-
-
 export const TodayAppointment = () => {
+  const { appointments, loading, error } = useTodayAppointments(); // Use the custom hook
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <NHCard
-      title="Today Appointment"
+      title="Today's Appointments"
       headerContent={
         <NHInput
           prefix={Icons.SearchIcon}
@@ -108,7 +75,7 @@ export const TodayAppointment = () => {
         />
       }
     >
-      <NHTable columns={columns} dataSource={data} />
+      <NHTable columns={columns} dataSource={appointments} />
     </NHCard>
-  )
-}
+  );
+};

@@ -2,18 +2,18 @@ import React from 'react';
 import { NHButton, NHCard, NHTable } from '..';
 import { Space } from 'antd';
 import Icons from '@/constants/icons';
-export const BillingCard = () => {
-  const bills = [
-    { id: '5614', patientName: 'David Watson', condition: 'Colds and Flu', status: 'Paid' },
-    { id: '5614', patientName: 'James George', condition: 'Colds and Flu', status: 'Unpaid' },
-    { id: '5614', patientName: 'Craig Tyrell', condition: 'Allergies', status: 'Paid' },
+export const BillingCard = ({data}) => {
+  const bills = data || [
+    { billsNo: '5614', patientName: 'David Watson', diseaseName: 'Colds and Flu', status: 'Paid' },
+    { billsNo: '5614', patientName: 'James George', diseaseName: 'Colds and Flu', status: 'Unpaid' },
+    { billsNo: '5614', patientName: 'Craig Tyrell', diseaseName: 'Allergies', status: 'Paid' },
   ];
 
   const columns = [
     {
       title: 'Bill ID',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'billsNo',
+      key: 'billsNo',
     },
     {
       title: 'Patient Name',
@@ -22,8 +22,8 @@ export const BillingCard = () => {
     },
     {
       title: 'Condition',
-      dataIndex: 'condition',
-      key: 'condition',
+      dataIndex: 'diseaseName',
+      key: 'diseaseName',
     },
     {
       title: 'Status',
@@ -34,6 +34,8 @@ export const BillingCard = () => {
     {
       title: "Action",
       key: "action",
+      fixed : "right",
+      width: 100,
       render: (_, record) => (
           <Space size="middle">
               <NHButton
@@ -55,7 +57,10 @@ export const BillingCard = () => {
           Pending Bills: <span className="text-red-500">50</span>
         </p>
       </div>
-      <NHTable columns={columns} dataSource={bills} />
+      <NHTable columns={columns} dataSource={bills} scroll={{
+      y: '220px',
+      x : '600px'
+    }}  />
     </NHCard>
   );
 }; 
