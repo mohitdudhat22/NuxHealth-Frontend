@@ -3,7 +3,6 @@ import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
 import { useTodayAppointments } from "@/hook/Admin/PatientManagement/TodaysAppointment"; 
-import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
 const columns = (handleViewPatient) => [
   {
@@ -100,16 +99,6 @@ export const TodayAppointments = () => {
           tableDataSource={data}
         />
       </NHCard>
-
-      {selectedPatient && (
-        <PatientDetailModal
-          isModalOpen={isModalOpen}
-          onCancel={handleCloseModal}
-          handleClose={handleCloseModal}
-          Title="Patient Details"
-          patientData={selectedPatient}
-        />
-      )}
     </>
   );
 };
