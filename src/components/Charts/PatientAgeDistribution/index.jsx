@@ -7,14 +7,6 @@ export const PatientAgeDistribution = ({
   data,
   height = 350 
 }) => {
-  const defaultData = [
-    { age: '0-2 Years', value: 8, color: '#E91E63' },
-    { age: '3-12 Years', value: 12, color: '#3F51B5' },
-    { age: '13-19 Years', value: 20, color: '#03A9F4' },
-    { age: '20-39 Years', value: 18, color: '#FFC107' },
-    { age: '40-59 Years', value: 8, color: '#009688' },
-    { age: '60 And Above', value: 34, color: '#FF9F83' }
-  ]
 
   const chartData = data || defaultData
 

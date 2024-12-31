@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { getReportandAnalytics } from '@/axiosApi/ApiHelper';
+import { data } from 'autoprefixer';
 
 export const useReportandAnalytics = () => {
-  const [dashboardData, setDashboardData] = useState(null);
+  const [data, setData] = useState(null);
 
   const fetchData = async () => {
     const data = await getReportandAnalytics();
     console.log(data);
-    setDashboardData(data);
+    setData(data);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-  const data = {  
-  }
+
   return { data };
 };
