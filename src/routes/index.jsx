@@ -239,7 +239,7 @@ const NuxHealthRoute = createBrowserRouter(
                       element: <PatientRecordAccess />,
                     },
                     {
-                      path: "patientviewdetails",
+                      path: "patientviewdetails/:id",
                       element: <PatientViewDetails />,
                     },
                   ],

@@ -77,7 +77,7 @@ export const ReportingAnalytics = () => {
         <div className="md:col-span-2">
           <DepartmentCard 
             title="Patients Count Department" 
-            departments={patientDepartmentData}
+            departments={data?.patientDepartmentData || patientDepartmentData}
             icon={Icons.Patient}
             type="patient"
           />
@@ -85,7 +85,7 @@ export const ReportingAnalytics = () => {
         <div className="md:col-span-2">
           <DepartmentCard 
             title="Doctor Count Department" 
-            departments={doctorDepartmentData}
+            departments={data?.patientDepartmentData || doctorDepartmentData}
             icon={Icons.Doctor}
             type="doctor"
           />

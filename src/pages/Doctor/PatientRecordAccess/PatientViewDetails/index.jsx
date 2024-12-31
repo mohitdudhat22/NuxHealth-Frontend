@@ -1,157 +1,68 @@
-import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
-import Icons from "@/constants/icons";
+import { NHButton, NHCard, NHTable } from "@/components";
+import { usePatientViewDetails } from "@/hook/Doctor";
 import { Space, Tag } from "antd";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const PatientViewDetails = () => {
-  const navigate = useNavigate();
+  const { data, error, columns, staticData } = usePatientViewDetails();
+  console.log(data)
+  if (error) {
+    return <div className="text-red-500">{error}</div>;
+  }
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
   const PatientDetailsSection = () => (
     <div className="mb-6">
       <div className="flex items-start gap-6">
         <img
-          src="https://i.pravatar.cc/300"
+          src={data?.profilePicture}
           alt="Patient"
           className="w-20 h-20 rounded-full"
         />
-
         <div className="grid flex-1 grid-cols-3 gap-4">
           <div>
-            <p className="text-sm text-gray-500">Patient Name</p>
-            <p className="font-medium">Marcus Phillips</p>
+            <p className="text-sm font-bold text-gray-500">Patient Name</p>
+            <p className="font-medium">{data.fullName}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Patient Number</p>
-            <p className="font-medium">99130 44537</p>
+            <p className="text-sm font-bold text-gray-500">Patient Number</p>
+            <p className="font-medium">{data.phone}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Patient Issue</p>
-            <p className="font-medium">Feeling tired</p>
+            <p className="text-sm font-bold text-gray-500">Patient Gender</p>
+            <p className="font-medium">{data.gender}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Patient Gender</p>
-            <p className="font-medium">Male</p>
+            <p className="text-sm font-bold text-gray-500">Patient Age</p>
+            <p className="font-medium">{data.age} Years</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Doctor Name</p>
-            <p className="font-medium">Dr. Marcus Phillips</p>
+            <p className="text-sm font-bold text-gray-500">Patient Address</p>
+            <p className="font-medium">{data.address}</p>
+          </div>
+
+          <div>
+            <p className="text-sm font-bold text-gray-500">Height</p>
+            <p className="font-medium">{data.height} cm</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Patient Age</p>
-            <p className="font-medium">20 Years</p>
+            <p className="text-sm font-bold text-gray-500">Weight</p>
+            <p className="font-medium">{data.weight} kg</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Patient Address</p>
-            <p className="font-medium">
-              B-408 Swastik society, mota varacha rajkot
-            </p>
+            <p className="text-sm font-bold text text-gray-500">Blood Group</p>
+            <p className="font-medium">{data.bloodGroup}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Last Appointment Date</p>
-            <p className="font-medium">4:30 PM</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Last Appointment Time</p>
-            <p className="font-medium">4:30 PM</p>
+            <p className="text-sm font-bold text-gray-500">Date of Birth</p>
+            <p className="font-medium">{data.dob}</p>
           </div>
         </div>
       </div>
     </div>
   );
-
-  const columns = [
-    {
-      title: "Disease Name",
-      dataIndex: "diseaseName",
-      key: "diseaseName",
-      render: (text, record) => (
-        <div className="flex items-center gap-2">
-          <img
-            src={record.avatar}
-            alt={text}
-            className="w-8 h-8 rounded-full"
-          />
-          <span>{text}</span>
-        </div>
-      ),
-    },
-    {
-      title: "Patient Issue",
-      dataIndex: "patientIssue",
-      key: "patientIssue",
-    },
-    {
-      title: "Appointment Date",
-      dataIndex: "appointmentDate",
-      key: "appointmentDate",
-    },
-    {
-      title: "Appointment Time",
-      dataIndex: "appointmentTime",
-      key: "appointmentTime",
-    },
-    {
-      title: "Appointment Type",
-      dataIndex: "appointmentType",
-      key: "appointmentType",
-      render: (type) => (
-        <Tag color={type === "Online" ? "blue" : "orange"}>{type}</Tag>
-      ),
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() => navigate("patientrecordaccess")}
-            className="bg-white view-btn"
-          />
-        </Space>
-      ),
-    },
-  ];
-
-  const data = [
-    {
-      key: "1",
-      patientName: "Marcus Phillips",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Viral Infection",
-      doctorName: "Dr. Matthew Best",
-      appointmentTime: "4:30 PM",
-      appointmentType: "Online",
-      appointmentDate: "2 Jun, 2022",
-      phoneNumber: "92584 58475",
-      age: "27",
-      gender: "Male",
-      issue: "Stomach ache",
-      address: "B-408 Swastik society, Shivaji marg mota varacha rajkot",
-    },
-    {
-      key: "2",
-      patientName: "Landyn Sheffey",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Blood Pressure",
-      doctorName: "Dr. Annabella Porter",
-      appointmentTime: "5:00 AM",
-      appointmentType: "Onsite",
-    },
-    {
-      key: "3",
-      patientName: "Leslie Murray",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Diabetes",
-      doctorName: "Dr. Steven Ralph",
-      appointmentTime: "7:30 PM",
-      appointmentType: "Online",
-    },
-  ];
-
 
   return (
     <>
@@ -164,7 +75,7 @@ export const PatientViewDetails = () => {
         </NHCard>
       </div>
       <NHCard>
-        <NHTable columns={columns} dataSource={data} />
+        <NHTable columns={columns} dataSource={data?.allAppointments || staticData} />
       </NHCard>
     </>
   );
