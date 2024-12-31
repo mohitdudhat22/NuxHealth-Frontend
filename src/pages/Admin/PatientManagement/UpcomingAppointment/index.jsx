@@ -2,7 +2,7 @@ import React from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
-import { useUpcomingAppointments } from "@/hook/Admin/PatientManagement/UpcomingAppointment"; // Import the custom hook
+import { useUpcomingAppointments } from "@/hook/Admin/PatientManagement/UpcomingAppointment"; 
 
 const columns = [
   {
@@ -57,7 +57,6 @@ const columns = [
 ];
   
 const handleViewBill = (record) => {
-  // Implement your view bill logic here
   console.log("Viewing bill for", record);
 };
 

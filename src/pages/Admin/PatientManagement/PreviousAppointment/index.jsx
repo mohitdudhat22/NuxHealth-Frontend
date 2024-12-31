@@ -57,7 +57,6 @@ const columns = [
 ];
   
 const handleViewBill = (record) => {
-  // Implement your view bill logic here
   console.log("Viewing bill for", record);
 };
 
