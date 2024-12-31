@@ -6,6 +6,8 @@ import { useState } from "react";
 import { TodayAppointment } from "./TodayAppointment";
 import { render } from "react-dom";
 import { UpcomingAppointment } from "./UpcomingAppointment";
+import { PreviousAppointment } from "./PreviousAppointment";
+import { CancelAppointment } from "./CancelAppointment";
 
 export const PatientManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -123,30 +125,12 @@ export const PatientManagement = () => {
     {
       key: "previous",
       label: "Previous Appointment",
-      children: (
-        <NHCard
-          title="Previous Appointment"
-          headerContent={
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-          }
-        >
-          <NHTable columns={columns} dataSource={data} />
-        </NHCard>
-      ),
+      children: <PreviousAppointment />
     },
     {
       key: "cancel",
       label: "Cancel Appointment",
-      children: (
-        <NHCard
-          title="Cancel Appointment"
-          headerContent={
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-          }
-        >
-          <NHTable columns={columns} dataSource={data} />
-        </NHCard>
-      ),
+      children: <CancelAppointment />
     },
   ];
 

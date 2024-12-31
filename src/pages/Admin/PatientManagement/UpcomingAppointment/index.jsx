@@ -68,7 +68,7 @@ export const UpcomingAppointment = () => {
 
   return (
     <NHCard
-      title="Today's Appointments"
+      title="Upcoming Appointments"
       headerContent={
         <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
       }

@@ -86,4 +86,6 @@ export const getbillbyNo = (id) => request("get", `/api/admin/getBill?id=${id}`)
 export const getInsuranceClaimBills = () => request("get", "/api/admin/getBillsMonitor?type=Insurance");
 export const todaysAppointment = () => request("get", "/api/admin/getAppointment?filter=today");
 export const upcomingAppointment = () => request("get", "/api/admin/getAppointment?filter=upcoming");
+export const previousAppointment = () => request("get", "/api/admin/getAppointment?filter=previous");
+export const cancelAppointment = () => request("get", "/api/doctor/getAppointment?filter=cancel");
 
