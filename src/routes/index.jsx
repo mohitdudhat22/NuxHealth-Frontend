@@ -42,6 +42,7 @@ import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
 import { Bill1, Bill2, Bill3 } from "@/components";
 import NotificationBox from "@/components/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
+import { BillView } from "@/pages/Admin/MonitorBilling/BillView";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -185,8 +186,8 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <EditDesignInvoice />,
                 },
                 {
-                  path: "bill-view",
-                  element: <Bill3 />,
+                  path: "bill-view/:billId",
+                  element: <BillView />,
                 },
               ],
             },
