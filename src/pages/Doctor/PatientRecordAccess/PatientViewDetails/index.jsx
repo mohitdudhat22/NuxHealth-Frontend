@@ -24,7 +24,7 @@ export const PatientViewDetails = () => {
         <div className="grid flex-1 grid-cols-3 gap-4">
           <div>
             <p className="text-sm font-bold text-gray-500">Patient Name</p>
-            <p className="font-medium">{data.fullName}</p>
+            <p className="font-medium">{data.patientFullName}</p>
           </div>
           <div>
             <p className="text-sm font-bold text-gray-500">Patient Number</p>
@@ -36,7 +36,7 @@ export const PatientViewDetails = () => {
           </div>
           <div>
             <p className="text-sm font-bold text-gray-500">Patient Age</p>
-            <p className="font-medium">{data.age} Years</p>
+            <p className="font-medium">{data.age}</p>
           </div>
           <div>
             <p className="text-sm font-bold text-gray-500">Patient Address</p>

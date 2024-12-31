@@ -27,7 +27,7 @@ export const usePatientViewDetails = () => {
   const columns = [
     {
       title: "Disease Name",
-      dataIndex: "diseaseName",
+      dataIndex: "dieseasName",
       key: "diseaseName",
 
     },
