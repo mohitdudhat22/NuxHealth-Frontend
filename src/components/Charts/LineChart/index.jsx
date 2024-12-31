@@ -3,11 +3,11 @@ import { Button } from 'antd/lib';
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-export const LineChart = () => {
+export const LineChart = ({ data }) => {
     const [viewMode, setViewMode] = useState('year');
-
-    // Sample data for different view modes
-    const chartData = {
+    
+    // Fallback to static data if 'data' prop is unavailable
+    const fallbackData = {
         year: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             data: [20, 18, 28, 18, 15, 17, 23, 25, 10, 18, 28, 32]
@@ -17,10 +17,12 @@ export const LineChart = () => {
             data: [15, 25, 20, 30]
         },
         week: {
-            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
             data: [22, 19, 25, 28, 24, 15, 20]
         }
     };
+
+    const currentData = data?.[viewMode] || fallbackData[viewMode];
 
     const options = {
         chart: {
@@ -79,7 +81,7 @@ export const LineChart = () => {
             }
         },
         xaxis: {
-            categories: chartData[viewMode].categories,
+            categories: currentData.categories,
             labels: {
                 style: {
                     colors: '#64748B',
@@ -133,7 +135,7 @@ export const LineChart = () => {
 
     const series = [{
         name: 'Patients',
-        data: chartData[viewMode].data
+        data: currentData.data
     }];
 
     return (
@@ -187,4 +189,4 @@ export const LineChart = () => {
             </div>
         </NHCard>
     );
-}; 
+};

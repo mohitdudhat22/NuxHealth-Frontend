@@ -199,10 +199,6 @@ export const AppointmentManagement = () => {
     const getColumnData = (columnKey) => {
         return data.map(item => item[columnKey]);
     };
-
-    console.log(getColumnData("patientName")); // Example usage to get patient names
-    console.log(getColumnData("appointmentType")); // Example usage to get appointment types
-
     return (
         <>
             <NHCard

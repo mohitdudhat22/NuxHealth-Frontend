@@ -78,6 +78,9 @@ export const ReceptionistGetBill = () =>
 export const ReceptionistSingleBill = (id) =>
   request("get", `/receptionist/singlebill/${id}`);
 
+
+
+export const getDashboardAndReport = () => request("get", "/api/admin/getDashboardDataDemo");
 export const getbill = () => request("get", "/api/admin/getBillsMonitor");
 export const getInsuranceClaimBills = () =>
   request("get", "/api/admin/getBillsMonitor?type=Insurance");

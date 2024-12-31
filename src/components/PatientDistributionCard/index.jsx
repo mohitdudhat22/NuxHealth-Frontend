@@ -2,7 +2,7 @@ import React from 'react';
 import { NHCard } from '..';
 import ReactApexChart from 'react-apexcharts';
 
-export const PatientDistributionCard = () => {
+export const  PatientDistributionCard = ({data}) => {
   const chartOptions = {
     chart: {
       type: 'donut',
@@ -39,24 +39,22 @@ export const PatientDistributionCard = () => {
       },
     },
   };
-
-  const series = [35, 65]; // New patients, Old patients
-
+  const series = [data?.totalNewPatients, data?.totalOldPatients]; // New patients, Old patients
   return (
     <NHCard title={"Patients Summary"}>
       <div className="flex items-center justify-between">
         <div className="space-y-2 w-1/2">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 bg-[#F6AD37] rounded-full  mr-2"></span>
-            <span className="text-xl">New Patients: 35</span>
+            <span className="text-xl">New Patients: {data?.totalNewPatients}</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 bg-[#4ADE80] rounded-full mr-2"></span>
-            <span className="text-xl">Old Patients: 65</span>
+            <span className="text-xl">Old Patients: {data?.totalOldPatients}</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 bg-blue-600 rounded-full mr-2"></span>
-            <span className="text-xl">Total Patients: 100</span>
+            <span className="text-xl">Total Patients: {data?.totalPatients}</span>
           </div>
         </div>
         <div className="w-auto">

@@ -1,8 +1,10 @@
 import React from 'react';
 import { StatisticsCard, DepartmentCard, PatientDistributionCard, AppointmentChart, PatientSummaryChart, PatientAgeDistribution } from '@/components';
 import Icons from '@/constants/icons';
+import { useDashboardAndReport } from '@/hook/Admin/DashboardAndReport';
 
 export const ReportingAnalytics = () => {
+  const { data } = useDashboardAndReport();
   const appointmentData = [
     { year: 2020, onlineConsultation: 30, otherAppointment: 40 },
     { year: 2021, onlineConsultation: 45, otherAppointment: 35 },
@@ -41,22 +43,22 @@ export const ReportingAnalytics = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <StatisticsCard
           title="Total Patients"
-          count="1500"
+          count={data?.patientSummary?.totalPatients}
           icon={Icons.Patient}
         />
         <StatisticsCard
           title="Repeat Patients"
-          count="500"
+          count={data?.patientSummary?.totalOldPatients}
           icon={Icons.Doctor}
         />
         <StatisticsCard
           title="Admitted Patient"
-          count="1080"
+          count={data?.patientSummary?.totalNewPatients}
           icon={Icons.AdmittedPatient }
         />
         <StatisticsCard
           title="Total Claim"
-          count="180"
+          count={data?.patientSummary?.totalClaim}
           icon={Icons.TotalClaim}
         />
       </div>

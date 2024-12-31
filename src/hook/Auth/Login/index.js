@@ -10,8 +10,8 @@ import { setAuthHeader } from "@/axiosApi";
 export const useLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("dhairydobaryia@gmail.com");
+  const [password, setPassword] = useState("123456");
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
