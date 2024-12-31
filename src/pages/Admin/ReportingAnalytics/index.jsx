@@ -1,10 +1,10 @@
 import React from 'react';
 import { StatisticsCard, DepartmentCard, PatientDistributionCard, AppointmentChart, PatientSummaryChart, PatientAgeDistribution } from '@/components';
 import Icons from '@/constants/icons';
-import { useDashboardAndReport } from '@/hook/Admin/DashboardAndReport';
+import { useReportandAnalytics } from '@/hook/Admin/ReportAndAnalytics';
 
 export const ReportingAnalytics = () => {
-  const { data } = useDashboardAndReport();
+  const { data } = useReportandAnalytics();
   const appointmentData = [
     { year: 2020, onlineConsultation: 30, otherAppointment: 40 },
     { year: 2021, onlineConsultation: 45, otherAppointment: 35 },

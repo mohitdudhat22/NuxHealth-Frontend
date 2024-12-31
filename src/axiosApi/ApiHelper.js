@@ -84,3 +84,4 @@ export const getDashboardAndReport = () => request("get", "/api/admin/getDashboa
 export const getbill = () => request("get", "/api/admin/getBillsMonitor");
 export const getInsuranceClaimBills = () =>
   request("get", "/api/admin/getBillsMonitor?type=Insurance");
+export const getReportandAnalytics = () => request("get", "/api/admin/reportandanalysis");

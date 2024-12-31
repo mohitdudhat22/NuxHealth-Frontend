@@ -41,6 +41,7 @@ import { AppointmentSchedular } from "@/components/AppointmentSchedular";
 import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
 import { Bill1, Bill2, Bill3 } from "@/components";
 import NotificationBox from "@/components/NotificationBox";
+import ProtectedRoute from "./ProtectedRoute";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
