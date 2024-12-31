@@ -2,14 +2,15 @@ import { useBillingAndPayments } from '@/hook/Admin/BillingAndPayments';
 import { Space, Tag } from 'antd';
 import { NHButton, NHCard, NHInput, NHTable } from '@/components';
 import Icons from '@/constants/icons';
+import { useNavigate } from 'react-router-dom';
 
 export const MonitorBilling = () => {
   const {
     loading,
     data,
-    navigate,
-    onSearch, 
+    onSearch,
   } = useBillingAndPayments();
+  const navigate = useNavigate();
 
   const columns = [
     {
@@ -62,7 +63,7 @@ export const MonitorBilling = () => {
             size="small"
             icon={Icons.View}
             className="bg-white view-btn border-primary"
-            onClick={() => navigate(`/view-bill/${record.key}`)}
+            onClick={() => navigate(`/admin/monitor-billing/bill-view/${record.billNumber}`)}
           />
         </Space>
       ),
@@ -70,18 +71,25 @@ export const MonitorBilling = () => {
   ];
 
   return (
-    <NHCard title="Billing and Payments" headerContent={
-      <>
-        <NHInput
-          prefix={Icons.SearchIcon}
-          placeholder="Search"
-          onChange={(e) => onSearch(e.target.value)} 
-        />
-        <NHButton icon={Icons.PlusSquare} onClick={() => navigate("/create-bill")} variant="primary">
-          Add New Bill
-        </NHButton>
-      </>
-    }>
+    <NHCard
+      title="Billing and Payments"
+      headerContent={
+        <>
+          <NHInput
+            prefix={Icons.SearchIcon}
+            placeholder="Search"
+            onChange={(e) => onSearch(e.target.value)}
+          />
+          <NHButton
+            icon={Icons.PlusSquare}
+            onClick={() => navigate("/admin/monitor-billing/create-bill")}
+            variant="primary"
+          >
+            Create Bill
+          </NHButton>
+        </>
+      }
+    >
       <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
     </NHCard>
   );
