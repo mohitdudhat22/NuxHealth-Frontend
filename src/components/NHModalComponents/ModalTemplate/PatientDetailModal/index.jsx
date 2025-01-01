@@ -1,4 +1,4 @@
-import { NHModal } from "@/components/";
+// import { NHModal } from "@/components/";
 import { AppointmentCard, NHButton, NHModal, PrescriptionCard } from "@/components/";
 import Icons from "@/constants/icons";
 
