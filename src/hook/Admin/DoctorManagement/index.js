@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { adminDoctor } from '@/axiosApi/ApiHelper';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { adminDoctor } from "@/axiosApi/ApiHelper";
+import { useNavigate } from "react-router-dom";
 
 export const useDoctorManagement = () => {
   let navigate = useNavigate();
   const [doctors, setDoctors] = useState([]);
   const [isDrawerVisible, setDrawerVisible] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState(''); 
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchDoctors = async () => {
     try {
@@ -15,7 +15,7 @@ export const useDoctorManagement = () => {
       const response = await adminDoctor();
       if (response.status === 1) {
         setDoctors(response.data);
-        console.log('Doctors:', response.data.length);
+        console.log("Doctors:", response.data.length);
       }
     } finally {
       setLoading(false);
@@ -26,16 +26,16 @@ export const useDoctorManagement = () => {
     fetchDoctors();
   }, []);
 
-  const filteredDoctors = doctors.filter((doctor) =>
-    (doctor?.doctorName?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-     doctor?.specialty?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-     doctor?.gender?.toLowerCase().includes(searchQuery.toLowerCase()))
-  );  
+  const filteredDoctors = doctors.filter(
+    (doctor) =>
+      doctor?.doctorName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doctor?.specialty?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doctor?.gender?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-   const onSearch = (query) => {
+  const onSearch = (query) => {
     setSearchQuery(query);
   };
-
 
   const data = filteredDoctors?.map((doctor) => ({
     key: doctor?._id,
@@ -44,9 +44,9 @@ export const useDoctorManagement = () => {
     gender: doctor?.gender,
     qualification: doctor?.metaData?.doctorData?.qualification,
     specialty: doctor?.metaData?.doctorData?.speciality,
-    workingTime: doctor?.metaData?.doctorData?.duration + " Hours",
-    patientCheckUpTime: doctor?.metaData?.doctorData?.morningSession + " Hours",
-    breakTime: doctor?.metaData?.doctorData?.eveningSession + " Hours",
+    sessionDuration: doctor?.metaData?.doctorData?.duration + " min",
+    morningSession: doctor?.metaData?.doctorData?.morningSession,
+    eveningSession: doctor?.metaData?.doctorData?.eveningSession,
   }));
 
   const openDrawer = () => setDrawerVisible(true);
@@ -61,6 +61,6 @@ export const useDoctorManagement = () => {
     data,
     fetchDoctors,
     navigate,
-    onSearch
+    onSearch,
   };
 };
