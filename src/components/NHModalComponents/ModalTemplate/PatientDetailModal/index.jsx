@@ -1,5 +1,4 @@
 import { AppointmentCard, NHButton, NHModal, PrescriptionCard } from "@/components/";
-import { NHModal } from "@/components/";
 import Icons from "@/constants/icons";
 
 export const PatientDetailModal = ({
