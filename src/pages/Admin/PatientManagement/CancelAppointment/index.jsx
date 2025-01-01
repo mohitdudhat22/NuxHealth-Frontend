@@ -60,7 +60,7 @@ const handleViewBill = (record) => {
   console.log("Viewing bill for", record);
 };
 
-export const CancelAppointments = () => {
+export const CancelAppointment = () => {
   const { data, loading, error } = useCancelAppointments();
 
   if (error) return <div>Error: {error.message}</div>;
