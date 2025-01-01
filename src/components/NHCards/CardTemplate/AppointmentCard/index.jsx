@@ -3,6 +3,7 @@ import Icons from "@/constants/icons";
 
 export const AppointmentCard = ({
   doctorName,
+  title,
   headerContent,
   appointmentType,
   hospitalName,
@@ -20,7 +21,8 @@ export const AppointmentCard = ({
   footerContent,
   className,
   reminder,
-  headerBg
+  headerBg,
+  children
 }) => {
   const renderField = (label, value, valueClass = "text-[#4F4F4F]") => {
     return (
@@ -37,7 +39,7 @@ export const AppointmentCard = ({
 
   return (
     <NHCard
-      title={doctorName}
+      title={doctorName || title}
       rootClass={className}
       headerBg={headerBg}
       headerContent={headerContent}
@@ -59,6 +61,7 @@ export const AppointmentCard = ({
       {renderField("Patient Address", patientAddress)}
 
       {/* Footer Section */}
+      {children && <div className={className}>{children}</div>}
       {footerContent && (
         <div className="pt-4 mt-4">{footerContent}</div>
       )}

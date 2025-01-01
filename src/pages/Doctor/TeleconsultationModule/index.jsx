@@ -179,42 +179,52 @@ export const Teleconsultation = () => {
             key: "today",
             label: "Teleconsultation Module",
             children: (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    {patientData.map((data, index) => {
-                        const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
-                        return (
-                            <AppointmentCard
-                                key={index}
-                                headerBg={true}
-                                doctorName={name}
-                                patientIssue={patientIssue}
-                                diseaseName={diseaseName}
-                                appointmentDate={appointmentDate}
-                                appointmentTime={appointmentTime}
-                                footerContent={
-                                    <div className="flex justify-between gap-4">
-                                        <NHButton
-                                            size={"small"}
-                                            className={"w-full"}
-                                            onClick={() => handleJoinCall(data)}
-                                        >
-                                            Join Call
-                                        </NHButton>
-                                        <NHButton
-                                            size={"small"}
-                                            icon={Icons.CalenderIcon}
-                                            className={"w-full"}
-                                            onClick={() => setSelectedAppointment(data)}
-                                        >
-                                            Reschedule
-                                        </NHButton>
-                                    </div>
-                                }
-                                className="border border-slate-200"
-                            />
-                        );
-                    })}
-                </div>
+                <NHCard
+                    rootClass={"p-0"}
+                    title="Teleconsultation Module"
+                    headerContent={
+                        <>
+                            <NHButton variant="default" className="text-black bg-white">{Icons.CalenderIcon}2 March,2022 - 13 March, 2022{Icons.CloseCircle}</NHButton>
+                        </>
+                    }
+                >
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        {patientData.map((data, index) => {
+                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
+                            return (
+                                <AppointmentCard
+                                    key={index}
+                                    headerBg={true}
+                                    doctorName={name}
+                                    patientIssue={patientIssue}
+                                    diseaseName={diseaseName}
+                                    appointmentDate={appointmentDate}
+                                    appointmentTime={appointmentTime}
+                                    footerContent={
+                                        <div className="flex justify-between gap-4">
+                                            <NHButton
+                                                size={"small"}
+                                                className={"w-full"}
+                                                onClick={() => handleJoinCall(data)}
+                                            >
+                                                Join Call
+                                            </NHButton>
+                                            <NHButton
+                                                size={"small"}
+                                                icon={Icons.CalenderIcon}
+                                                className={"w-full"}
+                                                onClick={() => setSelectedAppointment(data)}
+                                            >
+                                                Reschedule
+                                            </NHButton>
+                                        </div>
+                                    }
+                                    className="border border-slate-200"
+                                />
+                            );
+                        })}
+                    </div>
+                </NHCard>
 
             )
         },
@@ -224,6 +234,7 @@ export const Teleconsultation = () => {
             children: (
                 <NHCard
                     title="Upcoming Appointment"
+                    rootClass={"p-0"}
                     headerContent={
                         <>
                             <NHInput
@@ -244,6 +255,7 @@ export const Teleconsultation = () => {
             children: (
                 <NHCard
                     title="Previous Appointment"
+                    rootClass={"p-0"}
                     headerContent={
                         <NHInput
                             prefix={Icons.SearchIcon}
@@ -261,6 +273,7 @@ export const Teleconsultation = () => {
             children: (
                 <NHCard
                     title="Cancel Appointment"
+                    rootClass={"p-0"}
                     headerContent={
                         <NHInput
                             prefix={Icons.SearchIcon}
