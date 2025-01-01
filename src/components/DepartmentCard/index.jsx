@@ -9,7 +9,7 @@ export const DepartmentCard = ({ title, departments, icon, type="patient" }) => 
           <div key={dept.key} className="flex justify-between items-center">
             <span className="text-gray-700">{dept.name}</span>
             <div className="w-12 h-12 flex items-center justify-center">
-                    {icon}
+                    {icon} {dept.count}
                 </div>
           </div>
         ))}

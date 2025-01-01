@@ -80,6 +80,7 @@ export const MonitorBilling = () => {
             placeholder="Search"
             onChange={(e) => onSearch(e.target.value)}
           />
+                    <NHButton variant="default" className="bg-white border-primary" onClick={() => navigate("edit-design-invoice")}>{Icons.EditBillIcon}Edit Invoice Theme</NHButton>
           <NHButton
             icon={Icons.PlusSquare}
             onClick={() => navigate("/admin/monitor-billing/create-bill")}
