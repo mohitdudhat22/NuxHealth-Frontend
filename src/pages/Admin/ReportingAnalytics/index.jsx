@@ -1,10 +1,10 @@
 import React from 'react';
 import { StatisticsCard, DepartmentCard, PatientDistributionCard, AppointmentChart, PatientSummaryChart, PatientAgeDistribution } from '@/components';
 import Icons from '@/constants/icons';
-import { useDashboardAndReport } from '@/hook/Admin/DashboardAndReport';
+import { useReportandAnalytics } from '@/hook/Admin/ReportAndAnalytics';
 
 export const ReportingAnalytics = () => {
-  const { data } = useDashboardAndReport();
+  const { data } = useReportandAnalytics();
   const appointmentData = [
     { year: 2020, onlineConsultation: 30, otherAppointment: 40 },
     { year: 2021, onlineConsultation: 45, otherAppointment: 35 },
@@ -43,41 +43,41 @@ export const ReportingAnalytics = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <StatisticsCard
           title="Total Patients"
-          count={data?.patientSummary?.totalPatients}
+          count={data?.totalPatients}
           icon={Icons.Patient}
         />
         <StatisticsCard
           title="Repeat Patients"
-          count={data?.patientSummary?.totalOldPatients}
+          count={data?.repeatPatients}
           icon={Icons.Doctor}
         />
         <StatisticsCard
           title="Admitted Patient"
-          count={data?.patientSummary?.totalNewPatients}
+          count={0}
           icon={Icons.AdmittedPatient }
         />
         <StatisticsCard
           title="Total Claim"
-          count={data?.patientSummary?.totalClaim}
+          count={0}
           icon={Icons.TotalClaim}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="md:col-span-2">
           <AppointmentChart 
-            data={appointmentData}
+            data={data?.appointmentData || appointmentData}
             title="Appointment Analytics"
           />
         </div>
         <div className="md:col-span-2">
-          <PatientSummaryChart />
+          <PatientSummaryChart data={data?.patientSummary} />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
         <div className="md:col-span-2">
           <DepartmentCard 
             title="Patients Count Department" 
-            departments={patientDepartmentData}
+            departments={data?.patientDepartmentData || patientDepartmentData}
             icon={Icons.Patient}
             type="patient"
           />
@@ -85,13 +85,13 @@ export const ReportingAnalytics = () => {
         <div className="md:col-span-2">
           <DepartmentCard 
             title="Doctor Count Department" 
-            departments={doctorDepartmentData}
+            departments={data?.patientDepartmentData || doctorDepartmentData}
             icon={Icons.Doctor}
             type="doctor"
           />
         </div>
         <div className="md:col-span-2">
-          <PatientAgeDistribution data={PatientData }/>
+          <PatientAgeDistribution data={data?.PatientAgeDistribution || PatientData }/>
         </div>
       </div>
     </div>

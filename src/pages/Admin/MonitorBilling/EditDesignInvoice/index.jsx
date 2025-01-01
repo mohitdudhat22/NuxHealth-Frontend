@@ -1,11 +1,11 @@
-  import { Bill1, Bill2, Bill3 } from '@/components'
+  import { StaticBill1, StaticBill2, StaticBill3 } from '@/components'
   import React, { useState } from 'react'
 
   export const EditDesignInvoice = () => {
-    const [selectedInvoice, setSelectedInvoice] = useState(null)  // Add state
-
+    const [selectedInvoice, setSelectedInvoice] = useState(localStorage.getItem('selectedBill') || "Bill")  // Add state
     const handleSelectInvoice = (billType) => {
       setSelectedInvoice(billType)
+      localStorage.setItem("selectedBill", billType)
     }
     return (
       <>
@@ -25,7 +25,7 @@
                 }`}
                 onClick={() => handleSelectInvoice("Bill")}
               >
-                <Bill1 />
+                <StaticBill1 />
                 {selectedInvoice === "Bill" && (
                   <div className="absolute inset-0 bg-[#0EABEB] bg-opacity-10 rounded-lg"></div>
                 )}
@@ -38,7 +38,7 @@
                 }`}
                 onClick={() => handleSelectInvoice("Bill3")}
               >
-                <Bill3 />
+                <StaticBill3 />
                 {selectedInvoice === "Bill3" && (
                   <div className="absolute inset-0 bg-[#0EABEB] bg-opacity-10 rounded-lg"></div>
                 )}
@@ -51,7 +51,7 @@
                 }`}
                 onClick={() => handleSelectInvoice("Bill2")}
               >
-                <Bill2 />
+                <StaticBill2 />
                 {selectedInvoice === "Bill2" && (
                   <div className="absolute inset-0 bg-[#0EABEB] bg-opacity-10 rounded-lg"></div>
                 )}
