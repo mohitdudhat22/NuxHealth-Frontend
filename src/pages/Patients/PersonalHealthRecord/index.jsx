@@ -1,38 +1,71 @@
-import { NHCard, NHTable, PatientDetailCard } from '@/components'
-import React from 'react'
+import { NHButton, NHCard, NHInput, NHTable, PatientDetailCard } from '@/components';
+import Icons from '@/constants/icons';
+import { usePatientDashboardData } from '@/hook/Patients';
+import React from 'react';
 
 export const PersonalHealthRecord = () => {
+    const { data, loading, error } = usePatientDashboardData();
+
+    // if (loading) return <p>Loading patient data...</p>;
+    // if (error) return <p>Error fetching data: {error}</p>;
+
+    const patientData = data?.patientProfile;
+    const prescriptions = data?.prescriptions || [];
+
+    const prescriptionHeaders = ['Hospital Name', 'Date', 'Disease Name', 'Action'];
+    const prescriptionRows = prescriptions.map((prescription) => [
+        prescription.hospitalName,
+        new Date(prescription.prescriptionDate).toLocaleDateString(),
+        prescription.DiseaseName,
+        <button key={prescription.prescriptionId} className="text-blue-500 hover:underline">
+            View
+        </button>,
+    ]);
 
     const medicalHistoryData = [
         {
-            title: "Dulce Schleifer",
-            subtitle: "Patient Issue",
-            description:
-                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-            date: "2 Jan, 2022",
+            title: 'Dulce Schleifer',
+            subtitle: 'Patient Issue',
+            description: 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.',
+            date: '2 Jan, 2022',
         },
         {
-            title: "Dulce Workman",
-            subtitle: "Patient Issue",
-            description:
-                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-            date: "2 Jan, 2022",
+            title: 'Dulce Workman',
+            subtitle: 'Patient Issue',
+            description: 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.',
+            date: '2 Jan, 2022',
         },
         {
-            title: "Miracle Septimus",
-            subtitle: "Patient Issue",
-            description:
-                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-            date: "2 Jan, 2022",
+            title: 'Miracle Septimus',
+            subtitle: 'Patient Issue',
+            description: 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.',
+            date: '2 Jan, 2022',
         },
     ];
 
-    const prescriptionHeaders = ["Hospital Name", "Date", "Disease Name", "Action"];
-    const prescriptionRows = [
-        ["Apollo Hospitals", "2 Jan, 2022", "Colds and Flu", <button>View</button>],
-        ["Medanta The Medicity", "2 Jan, 2022", "Allergies", <button>View</button>],
-        ["Manipal Hospitals", "2 Jan, 2022", "Diarrhea", <button>View</button>],
-        ["Narayana Health", "2 Jan, 2022", "Colds and Flu", <button>View</button>],
+    const columns = [
+        {
+            title: "Hospital Name",
+            dataIndex: "hospitalName",
+            key: "hospitalName",
+        },
+        {
+            title: "Date",
+            dataIndex: "date",
+            key: "date",
+        },
+        {
+            title: "Disease Name",
+            dataIndex: "diseaseName",
+            key: "diseaseName",
+        },
+        {
+            title: "Action",
+            key: "action",
+            render: () => (
+                <NHButton size={"small"} icon={Icons.SearchIcon} className="view-btn" />
+            ),
+        },
     ];
 
     const SectionHeader = ({ title, actionText, onActionClick }) => {
@@ -42,7 +75,7 @@ export const PersonalHealthRecord = () => {
                 {actionText && (
                     <button
                         onClick={onActionClick}
-                        className="text-sm text-blue-500 hover:underline"
+                        className="text-sm text-red-600 hover:underline"
                     >
                         {actionText}
                     </button>
@@ -51,67 +84,28 @@ export const PersonalHealthRecord = () => {
         );
     };
 
-    const Table = ({ headers, rows }) => {
-        return (
-            <table className="w-full border border-collapse border-gray-200">
-                <thead>
-                    <tr className="bg-gray-100">
-                        {headers.map((header, index) => (
-                            <th
-                                key={index}
-                                className="p-2 text-sm font-medium text-left border-b"
-                            >
-                                {header}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows.map((row, rowIndex) => (
-                        <tr key={rowIndex} className="hover:bg-gray-50">
-                            {row.map((cell, cellIndex) => (
-                                <td key={cellIndex} className="p-2 text-sm border-b">
-                                    {cell}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        );
-    };
-
-    const Card = ({ title, subtitle, description, date }) => {
-        return (
-            <div className="p-4 bg-white border rounded-lg shadow-sm">
-                <h4 className="text-lg font-medium">{title}</h4>
-                <p className="text-sm text-gray-500">{subtitle}</p>
-                <p className="mt-2 text-sm text-gray-700">{description}</p>
-                <p className="mt-2 text-xs text-gray-500">{date}</p>
-            </div>
-        );
-    };
-
     return (
         <div>
+            {/* Patient Detail Card */}
             <PatientDetailCard
-                patientName="Marcus Philips"
+                // avatar={patientData?.profilePicture}
+                patientName={patientData?.fullName}
                 doctorName="Dr. Marcus Philips"
-                patientNumber="99130 44537"
+                patientNumber={patientData?.phone}
                 patientIssue="Feeling tired"
-                patientGender="Male"
-                patientAge="20 Years"
+                patientGender={patientData?.gender}
+                patientAge={`${patientData?.age} Years`}
                 appointmentType="Online"
-                patientAddress="B-408 Swastik society, mota varacha rajkot."
+                patientAddress={`${patientData?.address.fullAddress}, ${patientData?.address.city}`}
                 lastAppointmentDate="2 Jan, 2022"
                 lastAppointmentTime="4:30 PM"
                 onEditProfile={() => { }}
             />
 
-            <div class="grid grid-cols-[3fr_2fr] mt-8 grid-rows-2 gap-8">
+            <div className="grid grid-cols-[3fr_2fr] mt-8 grid-rows-2 gap-8">
                 {/* Medical History Section */}
                 <section>
-                    {/* <NHSectionHeader title="Medical History" actionText="View All History" /> */}
+                    <SectionHeader title="Medical History" actionText="View All History" />
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                         {medicalHistoryData.map((data, index) => (
                             <NHCard key={index} {...data} />
@@ -121,23 +115,32 @@ export const PersonalHealthRecord = () => {
 
                 {/* Prescriptions Section */}
                 <section>
-                    {/* <NHSectionHeader title="Prescriptions" actionText="View All Prescription" /> */}
-                    <NHTable headers={prescriptionHeaders} rows={prescriptionRows} />
+                    <NHCard
+                        title={<span className='text-[#030229] text-[26px] font-semibold'>Prescriptions</span>}
+                        headerContent={<span className='text-[#5678E9] text-xl'>View All Prescription</span>}>
+
+                        <NHTable
+                            loading={loading}
+                            tableColumn={columns}
+                            tableDataSource={prescriptions}
+                        />
+
+                    </NHCard>
                 </section>
 
                 {/* Test Reports Section */}
                 <section>
-                    {/* <NHSectionHeader title="Test Reports" actionText="View All Reports" /> */}
+                    <SectionHeader title="Test Reports" actionText="View All Reports" />
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <NHCard
                             title="Dr. Marcus Philips"
-                            subtitle="Diseas: Viral Infection"
+                            subtitle="Disease: Viral Infection"
                             description="Pathology Test"
                             date="2 Jan, 2022"
                         />
                         <NHCard
                             title="Dr. Ryan Carder"
-                            subtitle="Diseas: Allergies"
+                            subtitle="Disease: Allergies"
                             description="Pathology Test"
                             date="2 Jan, 2022"
                         />
@@ -146,7 +149,7 @@ export const PersonalHealthRecord = () => {
 
                 {/* Patient Status Section */}
                 <section>
-                    {/* <NHSectionHeader title="Patient Status" /> */}
+                    <SectionHeader title="Patient Status" />
                     <div className="p-4 bg-white border rounded-lg">
                         <p>
                             <strong>Shambhu Hospital</strong> - Dr. Mathew Best - 2 Jan, 2022
@@ -159,5 +162,5 @@ export const PersonalHealthRecord = () => {
                 </section>
             </div>
         </div>
-    )
-}
+    );
+};

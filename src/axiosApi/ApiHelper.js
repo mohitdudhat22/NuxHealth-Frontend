@@ -58,6 +58,7 @@ export const todayAppointment = () =>
   request("get", "/api/doctor/getAppointment?filter=today");
 
 /* Patient */
+export const patientDashboard = () => request("get", "/api/patient/getDashboardData");
 
 /* Reception */
 export const CreateReception = (data) =>
