@@ -1,4 +1,4 @@
-import { AppointmentCard, NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
+import { AppointmentCard, NHButton, NHCard, NHInput, NHTable, NHTabs, PatientDetailCard } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
 import { useState } from "react";
@@ -12,7 +12,6 @@ export const Create = () => {
     const [viewingPatientDetails, setViewingPatientDetails] = useState(null);
 
     const { appointments, isDrawerVisible, loading, openDrawer, closeDrawer, data, fetchAppointments, navigate, onSearch } = useTodayAppointments();
-    console.log(appointments, isDrawerVisible, loading, openDrawer, closeDrawer, data, fetchAppointments, navigate, onSearch)
 
     const appointmentData = [
         {
@@ -175,10 +174,23 @@ export const Create = () => {
                     </div>
                 </NHCard>
             ) : viewingPatientDetails ? (
-                <PatientViewDetails
-                    appointment={viewingPatientDetails}
-                    onBack={handleBackToAppointments}
+                <PatientDetailCard
+                    patientName="Marcus Philips"
+                    doctorName="Dr. Marcus Philips"
+                    patientNumber="99130 44537"
+                    patientIssue="Feeling tired"
+                    patientGender="Male"
+                    patientAge="20 Years"
+                    appointmentType="Online"
+                    patientAddress="B-408 Swastik society, mota varacha rajkot."
+                    lastAppointmentDate="2 Jan, 2022"
+                    lastAppointmentTime="4:30 PM"
+                // onAddRecord={handleAddRecord}
                 />
+                // <PatientViewDetails
+                //     appointment={viewingPatientDetails}
+                //     onBack={handleBackToAppointments}
+                // />
             ) : (
                 <CreatePrescription appointment={selectedAppointment} />
             )}

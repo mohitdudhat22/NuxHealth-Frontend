@@ -1,6 +1,5 @@
-import { NHModal, PrescriptionCard } from "@/components/";
+import { AppointmentCard, NHButton, NHModal, PrescriptionCard } from "@/components/";
 import Icons from "@/constants/icons";
-import { Tag } from "antd";
 
 export const PatientDetailModal = ({
   handleOk,
@@ -12,6 +11,7 @@ export const PatientDetailModal = ({
   patientData,
   ...rest
 }) => {
+
   return (
     <NHModal
       title={
@@ -29,12 +29,32 @@ export const PatientDetailModal = ({
       onCancel={onCancel}
       handleClose={handleClose}
       footer={null}
-      width={700}
+      width={400}
       className="patient-details-modal"
       {...rest}
     >
+      {patientData ? (
+        <AppointmentCard
+          key={patientData.name}
+          appointmentDate={patientData.appointmentDate}
+          patientAddress={patientData.address}
+          patientPhoneNumber={patientData.phoneNumber}
+          patientAge={patientData.age}
+          gender={patientData.gender}
+          patientDoctorName={patientData.doctorName}
+          patientName={patientData.patientName}
+          patientIssue={patientData.issue}
+          diseaseName={patientData.diseaseName}
+          appointmentTime={patientData.appointmentTime}
+          className="p-0"
+          footerContent={
+            <div className="p-10"></div>
+          }
+        />
 
-      <PrescriptionCard />
+      ) :
+        <PrescriptionCard />
+      }
 
     </NHModal>
   );
