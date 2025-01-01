@@ -16,7 +16,7 @@ export const PatientDetailModal = ({
   return (
     <NHModal
       title={
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h3>{Title}</h3>
           <button
             onClick={onCancel}

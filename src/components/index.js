@@ -15,15 +15,21 @@ export { PatientDistributionCard } from "./PatientDistributionCard/";
 export { AppointmentsList } from "./AppointmentsList/";
 export { LineChart } from "./Charts/";
 export { DepartmentCard } from "./DepartmentCard/";
+
 /* NHCard */
 export { NHCard } from "./NHCards";
-export * from "./NHCards/CardTemplate/"
+export * from "./NHCards/CardTemplate/";
 export * from "./Charts/";
+
 /* FormComponents */
 export * from "./FormComponents/";
 
 /* NHModalComponents */
 export * from "./NHModalComponents";
 
-export * from "./Bills"
+/* */
+export * from "./Bills";
 
+/* Chart */
+
+export * from "./Chat/";

@@ -59,7 +59,7 @@ export const AdminAsideData = [
     icon: Icons.Analytics,
     label: <Link to='/admin/all-modal'>All Modal</Link>,
   },
-  
+
 ];
 
 export const DoctorPanelData = [
@@ -172,7 +172,7 @@ export const ReceptionPanelData = [
     ],
   },
 ];
-
+  
 export const StyleGuideAsideMenu = [
   {
     key: "home",
