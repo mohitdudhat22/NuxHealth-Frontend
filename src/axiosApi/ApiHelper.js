@@ -91,5 +91,7 @@ export const upcomingAppointment = () => request("get", "/api/admin/getAppointme
 export const previousAppointment = () => request("get", "/api/admin/getAppointment?filter=previous");
 export const cancelAppointment = () => request("get", "/api/doctor/getAppointment?filter=cancel");
 export const getPatientRecordAccess = () => request("get", "/api/doctor/getPatientRecord");
-export const getSinglePatient = (id)=> request("get",`/api/doctor/getsinglepatientrecord/${id}`)
+export const getSinglePatientForDoctor = (id)=> request("get",`/api/doctor/getsinglepatientrecord/${id}`)
+export const getSinglePatientForAdmin = (id)=> request("get",`/api/admin/getsinglepatientrecord/${id}`)
+
 
