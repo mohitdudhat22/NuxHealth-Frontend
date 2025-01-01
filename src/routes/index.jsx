@@ -43,7 +43,6 @@ import { Bill1, Bill2, Bill3 } from "@/components";
 import NotificationBox from "@/components/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
 import { BillView } from "@/pages/Admin/MonitorBilling/BillView";
-import ProtectedRoute from "./ProtectedRoute";
 import { PersonalHealthRecord } from "@/pages/Patients";
 
 const NuxHealthRoute = createBrowserRouter(
