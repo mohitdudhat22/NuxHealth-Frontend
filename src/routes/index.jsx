@@ -5,7 +5,7 @@ import {
   ReceptionPanelData,
   StyleGuideAsideMenu,
 } from "@/constants/data";
-import { AuthLayouts, DashboardLayout } from "@/layouts";
+import { AuthLayouts, ChatLayout, DashboardLayout } from "@/layouts";
 import {
   DoctorManagement,
   ForgetPassword,
@@ -209,7 +209,7 @@ const NuxHealthRoute = createBrowserRouter(
               element: <ProfileSetting />,
             },
 
-            // temp all-modal 
+            // temp all-modal
 
             {
               path: "all-modal",
@@ -247,7 +247,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "notification-box",
-                  element: <NotificationBox />
+                  element: <NotificationBox />,
                 },
                 {
                   path: "create-prescriptionTools",
@@ -269,7 +269,13 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "chat-screen",
-                  element: "chatScreen",
+                  element: <ChatLayout />,
+                  children: [
+                    {
+                      index: true,
+                      element: " <ChatLayout /",
+                    },
+                  ],
                 },
               ],
             },
