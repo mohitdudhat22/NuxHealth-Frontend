@@ -30,7 +30,7 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
     <>
       <div className="w-full flex flex-col h-full">
         {/* Header */}
-        <div className="flex bg-white items-center gap-xl p-xl border-b">
+        <div className="flex bg-white items-center gap-xl p-xl">
           <Avatar
             size={48}
             src={selectedUser?.avatar}
@@ -46,8 +46,8 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 p-4 my-xl ml-md overflow-auto">
-          <div className="space-y-4">
+        <div className="p-4 my-xl ml-md overflow-auto">
+          <div className="">
             {/* Date Separator */}
             <div className="flex justify-center">
               <span className="flex items-center justify-center mx-auto bg-[#718EBF1A] py-md px-2xl rounded-[var(--space-md)]">
@@ -56,58 +56,60 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
             </div>
 
             {/* Messages */}
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${
-                  message.sender === "user" ? "justify-end" : "justify-start"
-                } items-end gap-2`}
-              >
-                {message.sender === "doctor" && (
-                  <Avatar
-                    size={24}
-                    src={selectedUser.avatar}
-                    alt={`${selectedUser.name} avatar`}
-                    className="rounded-full"
-                  />
-                )}
+            <div className="h-[calc(100vh - 26rem - var(--header-height))]">
+              {messages?.map((message) => (
                 <div
-                  className={`max-w-[70%] ${
-                    message.sender === "user"
-                      ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
-                      : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
-                  } p-3`}
+                  key={message.id}
+                  className={`flex ${
+                    message.sender === "user" ? "justify-end" : "justify-start"
+                  } items-end gap-2`}
                 >
-                  {message.type === "text" && <p>{message.content}</p>}
-                  {message.type === "image" && (
-                    <img
-                      src={message.imageUrl}
-                      alt="Chat image"
-                      className="rounded-lg max-w-full h-auto"
+                  {message.sender === "doctor" && (
+                    <Avatar
+                      size={24}
+                      src={selectedUser.avatar}
+                      alt={`${selectedUser.name} avatar`}
+                      className="rounded-full"
                     />
                   )}
-                  {message.type === "file" &&
-                    message.fileDetails?.type === "pdf" && (
-                      <NHButton
-                        variant="ghost"
-                        className="flex items-center gap-2 w-full hover:bg-opacity-10"
-                        onClick={() =>
-                          handlePdfClick(
-                            message.fileDetails.url,
-                            message.fileDetails.name
-                          )
-                        }
-                      >
-                        <Icons.FileText className="h-5 w-5" />
-                        <span>{message.fileDetails.name}</span>
-                      </NHButton>
+                  <div
+                    className={`max-w-[70%] ${
+                      message.sender === "user"
+                        ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
+                        : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
+                    } p-3`}
+                  >
+                    {message.type === "text" && <p>{message.content}</p>}
+                    {message.type === "image" && (
+                      <img
+                        src={message.imageUrl}
+                        alt="Chat image"
+                        className="rounded-lg max-w-full h-auto"
+                      />
                     )}
-                  <p className="text-xs mt-1 opacity-70">
-                    {formatTime(message.timestamp)}
-                  </p>
+                    {message.type === "file" &&
+                      message.fileDetails?.type === "pdf" && (
+                        <NHButton
+                          variant="ghost"
+                          className="flex items-center gap-2 w-full hover:bg-opacity-10"
+                          onClick={() =>
+                            handlePdfClick(
+                              message.fileDetails.url,
+                              message.fileDetails.name
+                            )
+                          }
+                        >
+                          <Icons.FileText className="h-5 w-5" />
+                          <span>{message.fileDetails.name}</span>
+                        </NHButton>
+                      )}
+                    <p className="text-xs mt-1 opacity-70">
+                      {formatTime(message.timestamp)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
