@@ -79,10 +79,17 @@ export const ReceptionistSingleBill = (id) =>
   request("get", `/receptionist/singlebill/${id}`);
 
 
-
+//priyanka //admin
 export const getDashboardAndReport = () => request("get", "/api/admin/getDashboardDataDemo");
 export const getbill = () => request("get", "/api/admin/getBillsMonitor");
+export const getInsuranceClaimBills = () =>
+  request("get", "/api/admin/getBillsMonitor?type=Insurance");
+export const getReportandAnalytics = () => request("get", "/api/admin/reportandanalysis");
 export const getbillbyNo = (id) => request("get", `/api/admin/getBill?id=${id}`);
-export const getInsuranceClaimBills = () => request("get", "/api/admin/getBillsMonitor?type=Insurance");
 export const todaysAppointment = () => request("get", "/api/admin/getAppointment?filter=today");
+export const upcomingAppointment = () => request("get", "/api/admin/getAppointment?filter=upcoming");
+export const previousAppointment = () => request("get", "/api/admin/getAppointment?filter=previous");
+export const cancelAppointment = () => request("get", "/api/doctor/getAppointment?filter=cancel");
+export const getPatientRecordAccess = () => request("get", "/api/doctor/getPatientRecord");
+export const getSinglePatient = (id)=> request("get",`/api/doctor/getsinglepatientrecord/${id}`)
 

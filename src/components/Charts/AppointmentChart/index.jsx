@@ -1,148 +1,161 @@
-import { useState } from 'react'
-import { Button } from 'antd/lib'
-import ReactApexChart from 'react-apexcharts'
-import { NHButton, NHCard } from '@/components'
+import { useState } from 'react';
+import { Button } from 'antd/lib';
+import ReactApexChart from 'react-apexcharts';
+import { NHButton, NHCard } from '@/components';
 
 export function AppointmentChart({ 
   data, 
   title = 'Appointment',
   height = 350 
 }) {
-  const [viewMode, setViewMode] = useState('year')
+  const [viewMode, setViewMode] = useState('year');
 
   // Transform data based on viewMode
   const getChartData = () => {
     if (viewMode === 'month') {
-      // Sample monthly data - replace with your actual monthly data
+      const monthCategories = Object.keys(data.monthWiseData);
+      const onlineConsultation = monthCategories.map(
+        (key) => data.monthWiseData[key].onlineConsultation || 0
+      );
+      const otherAppointment = monthCategories.map(
+        (key) => data.monthWiseData[key].otherAppointment || 0
+      );
+
       return {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        categories: monthCategories,
         series: [
           {
             name: 'Online Consultation',
-            data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 80, 65, 45]
+            data: onlineConsultation,
           },
           {
             name: 'Other Appointment',
-            data: [20, 35, 40, 45, 55, 45, 65, 85, 95, 75, 55, 40]
-          }
-        ]
-      }
+            data: otherAppointment,
+          },
+        ],
+      };
     }
 
-    // Yearly data from props
+    // Yearly data
     return {
-      categories: data.map(item => item.year.toString()),
+      categories: data?.yearWiseData?.map((item) => item.year.toString()),
       series: [
         {
           name: 'Online Consultation',
-          data: data.map(item => item.onlineConsultation)
+          data: data?.yearWiseData?.map((item) => item.onlineConsultation || 0),
         },
         {
           name: 'Other Appointment',
-          data: data.map(item => item.otherAppointment)
-        }
-      ]
-    }
-  }
+          data: data?.yearWiseData?.map((item) => item.otherAppointment || 0),
+        },
+      ],
+    };
+  };
 
-  const chartData = getChartData()
+  const chartData = getChartData();
 
   const chartOptions = {
     chart: {
       type: 'bar',
       toolbar: {
-        show: false
+        show: false,
       },
       zoom: {
-        enabled: false
-      }
+        enabled: false,
+      },
     },
     colors: ['#0095FF', '#00D1FF'],
     grid: {
       borderColor: '#f1f1f1',
       xaxis: {
         lines: {
-          show: false
-        }
+          show: false,
+        },
       },
       yaxis: {
         lines: {
-          show: true
-        }
-      }
+          show: true,
+        },
+      },
     },
     plotOptions: {
       bar: {
         horizontal: false,
         columnWidth: '55%',
-        borderRadius: 2
+        borderRadius: 2,
       },
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
     stroke: {
       show: true,
       width: 2,
-      colors: ['transparent']
+      colors: ['transparent'],
     },
     xaxis: {
       categories: chartData.categories,
       labels: {
         style: {
           colors: '#6B7280',
-          fontSize: '12px'
-        }
+          fontSize: '12px',
+        },
       },
       axisBorder: {
-        show: false
+        show: false,
       },
       axisTicks: {
-        show: false
-      }
+        show: false,
+      },
     },
     yaxis: {
       labels: {
         style: {
           colors: '#6B7280',
-          fontSize: '12px'
-        }
+          fontSize: '12px',
+        },
       },
       min: 0,
       max: viewMode === 'month' ? 150 : 60,
-      tickAmount: 6
+      tickAmount: 6,
     },
     tooltip: {
       theme: 'light',
       y: {
-        formatter: (val) => `${val}`
-      }
+        formatter: (val) => `${val}`,
+      },
     },
     legend: {
       position: 'bottom',
       horizontalAlign: 'left',
       markers: {
-        radius: 12
-      }
-    }
-  }
+        radius: 12,
+      },
+    },
+  };
 
   return (
-    <NHCard title={title} headerContent={<div className="flex gap-2">  <Button
-        variant={viewMode === 'year' ? 'default' : 'outline'}
-        onClick={() => setViewMode('year')}
-        className="px-6"
-      >
-        Year
-      </Button>
-      <Button
-        variant={viewMode === 'month' ? 'default' : 'outline'}
-        onClick={() => setViewMode('month')}
-        className="px-6"
-      >
-        Month
-        </Button>
-      </div>}>
+    <NHCard
+      title={title}
+      headerContent={
+        <div className="flex gap-2">
+          <Button
+            variant={viewMode === 'year' ? 'default' : 'outline'}
+            onClick={() => setViewMode('year')}
+            className="px-6"
+          >
+            Year
+          </Button>
+          <Button
+            variant={viewMode === 'month' ? 'default' : 'outline'}
+            onClick={() => setViewMode('month')}
+            className="px-6"
+          >
+            Month
+          </Button>
+        </div>
+      }
+    >
       <ReactApexChart
         options={chartOptions}
         series={chartData.series}
@@ -150,6 +163,5 @@ export function AppointmentChart({
         height={height}
       />
     </NHCard>
-  )
+  );
 }
-

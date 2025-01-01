@@ -4,8 +4,8 @@ import React from 'react'
 
 export const PatientView = () => {
   return (
-    <div className='bg-white rounded-xl p-6'>
-      <div className="top flex justify-between items-center py-3">
+    <div className='p-6 bg-white rounded-xl'>
+      <div className="flex items-center justify-between py-3">
         <div className="title">
           <p className='text-[#030229] text-[26px] font-bold'>Patient Details</p>
         </div>
@@ -21,14 +21,14 @@ export const PatientView = () => {
         </div>
       </div>
 
-      <div className="bottom flex flex-1 justify-between items-center pt-9 pb-3">
+      <div className="flex items-center justify-between flex-1 pb-3 bottom pt-9">
         <div className="img w-[22%] pl-3">
           <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB]">
             <img src="https://i.pravatar.cc/300" alt="" className='w-[150px] rounded-full' />
           </div>
         </div>
 
-        <div className="details grid grid-cols-7 gap-y-6">
+        <div className="grid grid-cols-7 details gap-y-6">
           <div className="">
             <span className='text-[#A7A7A7] text-[20px] font-medium	'>Name</span>
             <p className='text-[#141414] text-[18px] font-normal	'>Marcus Philips</p>

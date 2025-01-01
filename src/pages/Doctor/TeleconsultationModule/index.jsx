@@ -1,4 +1,4 @@
-import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components"
+import { AppointmentCard, NHButton, NHCard, NHInput, NHModal, NHTable, NHTabs } from "@/components"
 import Icons from "@/constants/icons"
 import { Space, Tag } from "antd"
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
@@ -6,11 +6,18 @@ import { useState } from "react";
 
 export const Teleconsultation = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSelectedPatientModel, setPatientModel] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState(null);
+    const [selectedPatientData, setSelectedPatientData] = useState(null);
 
     const handleViewBill = (record) => {
         setSelectedPatient(record);
         setIsModalOpen(true);
+    };
+
+    const handleJoinCall = (patient) => {
+        setSelectedPatientData(patient);
+        setPatientModel(true);
     };
 
     const columns = [
@@ -71,6 +78,66 @@ export const Teleconsultation = () => {
         },
     ];
 
+    const patientData = [
+        {
+            "name": "Ryan Vetrov",
+            "patientIssue": "Feeling Tired",
+            "diseaseName": "Viral Infection",
+            "appointmentDate": "2 Jan, 2022",
+            "appointmentTime": "10:10 AM"
+        },
+        {
+            "name": "Marcus Septimus",
+            "patientIssue": "Feeling Tired",
+            "diseaseName": "Viral Infection",
+            "appointmentDate": "2 Jan, 2022",
+            "appointmentTime": "10:10 AM"
+        },
+        {
+            "name": "Alfonso Dokidis",
+            "patientIssue": "Feeling Tired",
+            "diseaseName": "Viral Infection",
+            "appointmentDate": "2 Jan, 2022",
+            "appointmentTime": "10:10 AM"
+        },
+        {
+            "name": "Davis Korsgaard",
+            "patientIssue": "Feeling Tired",
+            "diseaseName": "Viral Infection",
+            "appointmentDate": "2 Jan, 2022",
+            "appointmentTime": "10:10 AM"
+        },
+        {
+            "name": "Ryan Botosh",
+            "patientIssue": "Feeling Tired",
+            "diseaseName": "Viral Infection",
+            "appointmentDate": "2 Jan, 2022",
+            "appointmentTime": "10:10 AM"
+        },
+        {
+            "name": "Nolan Dias",
+            "patientIssue": "Feeling Tired",
+            "diseaseName": "Viral Infection",
+            "appointmentDate": "2 Jan, 2022",
+            "appointmentTime": "10:10 AM"
+        },
+        {
+            "name": "Ahmad Arcand",
+            "patientIssue": "Feeling Tired",
+            "diseaseName": "Viral Infection",
+            "appointmentDate": "2 Jan, 2022",
+            "appointmentTime": "10:10 AM"
+        },
+        {
+            "name": "Wilson Arcand",
+            "patientIssue": "Feeling Tired",
+            "diseaseName": "Viral Infection",
+            "appointmentDate": "2 Jan, 2022",
+            "appointmentTime": "10:10 AM"
+        }
+    ]
+
+
     const data = [
         {
             key: "1",
@@ -110,19 +177,55 @@ export const Teleconsultation = () => {
     const tabItems = [
         {
             key: "today",
-            label: "Today Appointment",
+            label: "Teleconsultation Module",
             children: (
                 <NHCard
-                    title="Today Appointment"
+                    rootClass={"p-0"}
+                    title="Teleconsultation Module"
                     headerContent={
-                        <NHInput
-                            prefix={Icons.SearchIcon}
-                            placeholder="Search Patient"
-                        />
+                        <>
+                            <NHButton variant="default" className="text-black bg-white">{Icons.CalenderIcon}2 March,2022 - 13 March, 2022{Icons.CloseCircle}</NHButton>
+                        </>
                     }
                 >
-                    <NHTable columns={columns} dataSource={data} />
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        {patientData.map((data, index) => {
+                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
+                            return (
+                                <AppointmentCard
+                                    key={index}
+                                    headerBg={true}
+                                    doctorName={name}
+                                    patientIssue={patientIssue}
+                                    diseaseName={diseaseName}
+                                    appointmentDate={appointmentDate}
+                                    appointmentTime={appointmentTime}
+                                    footerContent={
+                                        <div className="flex justify-between gap-4">
+                                            <NHButton
+                                                size={"small"}
+                                                className={"w-full"}
+                                                onClick={() => handleJoinCall(data)}
+                                            >
+                                                Join Call
+                                            </NHButton>
+                                            <NHButton
+                                                size={"small"}
+                                                icon={Icons.CalenderIcon}
+                                                className={"w-full"}
+                                                onClick={() => setSelectedAppointment(data)}
+                                            >
+                                                Reschedule
+                                            </NHButton>
+                                        </div>
+                                    }
+                                    className="border border-slate-200"
+                                />
+                            );
+                        })}
+                    </div>
                 </NHCard>
+
             )
         },
         {
@@ -131,6 +234,7 @@ export const Teleconsultation = () => {
             children: (
                 <NHCard
                     title="Upcoming Appointment"
+                    rootClass={"p-0"}
                     headerContent={
                         <>
                             <NHInput
@@ -151,6 +255,7 @@ export const Teleconsultation = () => {
             children: (
                 <NHCard
                     title="Previous Appointment"
+                    rootClass={"p-0"}
                     headerContent={
                         <NHInput
                             prefix={Icons.SearchIcon}
@@ -168,6 +273,7 @@ export const Teleconsultation = () => {
             children: (
                 <NHCard
                     title="Cancel Appointment"
+                    rootClass={"p-0"}
                     headerContent={
                         <NHInput
                             prefix={Icons.SearchIcon}
@@ -205,6 +311,55 @@ export const Teleconsultation = () => {
                 handleOk={() => setIsModalOpen(false)}
                 patientData={selectedPatient}
             />
+            <NHModal
+                title={
+                    <div className="flex items-center justify-between">
+                        <h3>Reminder</h3>
+                        <button
+                            onClick={() => setPatientModel(false)}
+                            className="hover:opacity-80"
+                        >
+                            {Icons.CloseCircle}
+                        </button>
+                    </div>
+                }
+                open={isSelectedPatientModel}
+                onCancel={() => setPatientModel(false)}
+                footer={null}
+                width={350}
+                className="patient-details-modal"
+            >
+                {selectedPatientData && (
+                    <AppointmentCard
+                        key={selectedPatientData.name}
+                        patientName={selectedPatientData.name}
+                        patientIssue={selectedPatientData.patientIssue}
+                        diseaseName={selectedPatientData.diseaseName}
+                        appointmentTime={selectedPatientData.appointmentTime}
+                        reminder={"You have a meeting with him in 15 minutes"}
+                        footerContent={
+                            <div className="flex justify-between gap-4">
+                                <NHButton
+                                    size={"small"}
+                                    className={"w-full"}
+                                    onClick={() => setPatientModel(false)}
+                                >
+                                    Cancel
+                                </NHButton>
+                                <NHButton
+                                    size={"small"}
+                                    className={"w-full"}
+                                    onClick={() => setSelectedAppointment(data)}
+                                >
+                                    Join
+                                </NHButton>
+                            </div>
+                        }
+                        className="p-0 "
+                    />
+
+                )}
+            </NHModal>
         </>
     );
 };

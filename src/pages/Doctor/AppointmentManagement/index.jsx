@@ -3,6 +3,10 @@ import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
+import { TodayAppointments } from "./TodaysAppointment";
+import { PreviousAppointments } from "./PreviousAppointment";
+import { UpcomingAppointments } from "./UpcomingAppointment";
+import { CancelAppointments } from "./CancelAppointment";
 
 export const AppointmentManagement = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -124,75 +128,22 @@ export const AppointmentManagement = () => {
         {
             key: "today",
             label: "Today Appointment",
-            children: (
-                <NHCard
-                    title="Today Appointment"
-                    headerContent={
-                        <>
-                        <NHInput
-                            prefix={Icons.SearchIcon}
-                            placeholder="Search Patient"
-                        />
-                        <NHButton>{Icons.CalenderIcon}Any Date</NHButton>
-                        <NHButton>{Icons.CalenderIcon}Apointment Time Slot</NHButton>
-                        </>
-                    }
-                >
-                    <NHTable columns={columns} dataSource={data} />
-                </NHCard>
-               
-            )
+            children: <TodayAppointments />
         },
         {
             key: "upcoming",
             label: "Upcoming Appointment",
-            children: (
-                <NHCard
-                    title="Upcoming Appointment"
-                    headerContent={
-                        <NHInput
-                            prefix={Icons.SearchIcon}
-                            placeholder="Search Patient"
-                        />
-                    }
-                >
-                    <NHTable columns={columns} dataSource={data} />
-                </NHCard>
-            )
+            children: <UpcomingAppointments />
         },
         {
             key: "previous",
             label: "Previous Appointment",
-            children: (
-                <NHCard
-                    title="Previous Appointment"
-                    headerContent={
-                        <NHInput
-                            prefix={Icons.SearchIcon}
-                            placeholder="Search Patient"
-                        />
-                    }
-                >
-                    <NHTable columns={columns} dataSource={data} />
-                </NHCard>
-            )
+            children: <PreviousAppointments />
         },
         {
             key: "cancel",
             label: "Cancel Appointment",
-            children: (
-                <NHCard
-                    title="Cancel Appointment"
-                    headerContent={
-                        <NHInput
-                            prefix={Icons.SearchIcon}
-                            placeholder="Search Patient"
-                        />
-                    }
-                >
-                    <NHTable columns={columns} dataSource={data} />
-                </NHCard>
-            )
+            children: <CancelAppointments />
         },
     ];
 

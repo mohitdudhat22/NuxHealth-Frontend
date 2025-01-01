@@ -1,26 +1,40 @@
-import { useState, useEffect } from 'react';
-import { todaysAppointment } from '@/axiosApi/ApiHelper'; // Assuming this is your API function
+import { useState, useEffect } from "react";
+import { todaysAppointment } from "@/axiosApi/ApiHelper";
+import {user} from "@/assets/images";
 
 export const useTodayAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  const fetchAppointments = async () => {
+    try {
+      const response = await todaysAppointment();
+      console.log("API Response:", response);
+
+      if (response && response?.data) {
+        setAppointments(response?.data?.appointments);
+        console.log(response.data.appointments);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const data = appointments?.map((appointment) => ({
+    key: appointment?._id,
+    avatar: appointment?.profilePicture || user,
+    diseaseName: appointment?.dieseas_name,
+    patientName: appointment?.patientId?.fullName || "N/A",
+    doctorName: appointment?.doctorId?.fullName || "N/A",
+    appointmentTime: appointment?.appointmentTime,
+    appointmentType: appointment?.type,
+  }));
+
+  console.log(data)
 
   useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const data = await todaysAppointment();  // API call to fetch today's appointments
-        setAppointments(data);  // Assuming the response is an array of appointment data
-      } catch (error) {
-        setError(error);
-        console.error("Error fetching appointments:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchAppointments();
   }, []);
 
-  return { appointments, loading, error };
+  return { data, loading };
 };

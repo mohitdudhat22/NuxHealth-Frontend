@@ -1,28 +1,28 @@
-import { FullLogo } from '@/assets/images';
-import { NHCard } from '@/components';
-import React from 'react';
+import { FullLogo } from "@/assets/images";
+import { NHCard } from "@/components";
+import { useGetSingleBill } from "@/hook";
 
 export function Bill2() {
+  const {data} = useGetSingleBill();
   const staticData = {
-    doctorName: "Dr. Bharat Patel",
+    doctorName: data?.doctorId?.fullName || "Dr. Bharat Patel",
     doctorDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mattis turpis vitae.",
-    billNumber: "1234",
-    date: "2020-06-20",
-    time: "10:45 PM",
+    billNumber: data?.billNumber|| "1234",
+    date: data?.date || "2020-06-20",
+    time: data?.time || "10:45 PM",
     patient: {
-      firstName: "Ritesh",
-      lastName: "Kumar",
-      gender: "Male",
-      age: "28",
-      address: "B-105 Vijay Banglow Parijatak Mithakhali",
-      phone: "#987 5647 23"
+      fullName: data?.patientId?.fullName || "Ritesh Kumar",
+      gender: data?.patientId?.gender ||  "Male",
+      age: data?.patientId?.age || "28",
+      address: data?.formattedAddress ||"B-105 Vijay Banglow Parijatak Mithakhali",
+      phone: data?.patientId?.phone || "#987 5647 23"
     },
-    diseaseName: "Stomach Ach",
-    paymentType: "Insurance",
-    amount: 1000.00,
-    discount: 5,
-    tax: 120.00,
-    totalAmount: 24668.00
+    diseaseName: data?.appointmentId?.dieseas_name || "Stomach Ach",
+    paymentType: data?.paymentType || "Insurance",
+    amount: data?.totalAmount || 1000.00,
+    discount: data?.discount || 5,
+    tax: data?.discount || 120.00,
+    totalAmount: data?.totalAmount || 24668.00
   };
 
   return (
@@ -36,7 +36,7 @@ export function Bill2() {
           <div className="billing-info flex justify-between mb-5 p-4">
             <div className="info w-3/5">
               <h3 className="text-lg font-bold text-gray-900">
-                {staticData.doctorName}
+               {staticData.doctorName}
               </h3>
               <span className="text-base text-gray-500">
                 {staticData.doctorDescription}
