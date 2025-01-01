@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { previousAppointment } from "@/axiosApi/ApiHelper";
+import { cancelAppointments } from "@/axiosApi/ApiHelper";
 import {user} from "@/assets/images";
 
 export const useCancelAppointments = () => {
@@ -8,7 +8,7 @@ export const useCancelAppointments = () => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await cancelAppointment();
+      const response = await cancelAppointments();
       console.log("API Response:", response);
 
       if (response && response?.data) {

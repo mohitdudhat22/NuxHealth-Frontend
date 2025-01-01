@@ -7,3 +7,5 @@ export { NHSelect } from "./NHSelect";
 export { NHCheckbox } from "./NHCheckbox";
 export { NHRadioButton } from "./NHRadioButton";
 export { NHUpload } from "./NHUpload/";
+export { NHNumberInput } from "./NHInput/";
+export { NHTextArea } from "./NHInput/";
