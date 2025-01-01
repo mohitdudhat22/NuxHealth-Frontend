@@ -89,9 +89,13 @@ export const getbillbyNo = (id) => request("get", `/api/admin/getBill?id=${id}`)
 export const todaysAppointment = () => request("get", "/api/admin/getAppointment?filter=today");
 export const upcomingAppointment = () => request("get", "/api/admin/getAppointment?filter=upcoming");
 export const previousAppointment = () => request("get", "/api/admin/getAppointment?filter=previous");
-export const cancelAppointment = () => request("get", "/api/doctor/getAppointment?filter=cancel");
+export const cancelAppointment = () => request("get", "/api/admin/getAppointment?filter=cancel");
 export const getPatientRecordAccess = () => request("get", "/api/doctor/getPatientRecord");
 export const getSinglePatientForDoctor = (id)=> request("get",`/api/doctor/getsinglepatientrecord/${id}`)
 export const getSinglePatientForAdmin = (id)=> request("get",`/api/admin/getsinglepatientrecord/${id}`)
+export const todaysAppointments = () => request("get", "/api/doctor/getAppointment?filter=today");
+export const upcomingAppointments = () => request("get", "/api/doctor/getAppointment?filter=upcoming");
+export const previousAppointments = () => request("get", "/api/doctor/getAppointment?filter=previous");
+export const cancelAppointments = () => request("get", "/api/doctor/getAppointment?filter=cancel");
 
 

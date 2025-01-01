@@ -2,6 +2,7 @@ import React from 'react'
 import { NHModal } from '@/components'
 
 export const CancelOnlineAppointmentModal = ({
+    isModalOpen,
     handleOk,
     onCancel,
     children,
@@ -14,7 +15,7 @@ export const CancelOnlineAppointmentModal = ({
 }) => {
     return (
         <NHModal
-            open={cancelOnlineAppo}
+            open={isModalOpen}
             handleClose={handleClose}
             disabledButton={false}
             handleContent={"Payment Return"}
