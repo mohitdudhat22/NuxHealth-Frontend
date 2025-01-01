@@ -1,8 +1,8 @@
-import { AppointmentCard, NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
+import { AppointmentCard, NHButton, NHCard, NHInput } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
 import { useState } from "react";
-import { CreatePrescription, PatientViewDetails } from "../..";
+import { CreatePrescription, PatientDetails } from "../..";
 import { useTodayAppointments } from "@/hook/Doctor";
 
 // import PatientDetails from "./PatientDetails"; // Import your PatientDetails component
@@ -12,7 +12,6 @@ export const Create = () => {
     const [viewingPatientDetails, setViewingPatientDetails] = useState(null);
 
     const { appointments, isDrawerVisible, loading, openDrawer, closeDrawer, data, fetchAppointments, navigate, onSearch } = useTodayAppointments();
-    console.log(appointments, isDrawerVisible, loading, openDrawer, closeDrawer, data, fetchAppointments, navigate, onSearch)
 
     const appointmentData = [
         {
@@ -175,10 +174,7 @@ export const Create = () => {
                     </div>
                 </NHCard>
             ) : viewingPatientDetails ? (
-                <PatientViewDetails
-                    appointment={viewingPatientDetails}
-                    onBack={handleBackToAppointments}
-                />
+                <PatientDetails />
             ) : (
                 <CreatePrescription appointment={selectedAppointment} />
             )}

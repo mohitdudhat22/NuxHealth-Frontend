@@ -43,6 +43,7 @@ import { Bill1, Bill2, Bill3 } from "@/components";
 import NotificationBox from "@/components/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
 import { BillView } from "@/pages/Admin/MonitorBilling/BillView";
+import { PersonalHealthRecord } from "@/pages/Patients";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -287,7 +288,7 @@ const NuxHealthRoute = createBrowserRouter(
               children: [
                 {
                   index: true,
-                  element: "patient",
+                  element: <PersonalHealthRecord />,
                 },
                 {
                   path: "appointment",
