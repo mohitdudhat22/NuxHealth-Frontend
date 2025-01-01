@@ -1,6 +1,7 @@
 import { Input } from "antd";
 import clsx from "clsx";
 import styles from "./NHInput.module.css";
+import Icons from "@/constants/icons";
 
 export const NHInput = ({
   id,
@@ -24,7 +25,7 @@ export const NHInput = ({
   ...rest
 }) => {
   return (
-    <div className={clsx(parentClassName, "position-relative")}>
+    <div className={clsx(parentClassName, "position-relative flex")}>
       {label && (
         <label
           htmlFor={id}
@@ -42,7 +43,7 @@ export const NHInput = ({
         disabled={disabled}
         onChange={onChange}
         placeholder={placeholder}
-        className={clsx(styles.inputWrap, rootClassName)}
+        className={clsx(styles.inputWrap, rootClassName, "focus:shadow-none")}
         status={isInvalid && "error"}
         prefix={prefix}
         suffix={suffix}
@@ -75,11 +76,8 @@ export const NHPasswordInput = ({
   require,
   ...rest
 }) => {
-  const finalClassName = {
-    input: clsx(styles.input, className),
-  };
   return (
-    <div className={clsx(parentClassName, "position-relative")}>
+    <div className={clsx(parentClassName, "position-relative flex")}>
       {label && (
         <label
           htmlFor={id}
@@ -95,7 +93,7 @@ export const NHPasswordInput = ({
         disabled={disabled}
         onChange={onChange}
         placeholder={placeholder}
-        classNames={finalClassName}
+        className={clsx(styles.inputWrap, rootClassName, "focus:shadow-none")}
         status={isInvalid && "error"}
         prefix={prefix}
         suffix={suffix}
@@ -136,6 +134,112 @@ export const NHInputOtp = ({
         placeholder={placeholder}
         status={isInvalid && "error"}
         mask={mask}
+        {...rest}
+      />
+      {errorMessage && (
+        <div className={clsx(styles.errorMessage)}>{errorMessage}</div>
+      )}
+    </div>
+  );
+};
+
+export const NHNumberInput = ({
+  id,
+  min,
+  max,
+  size = "large",
+  label,
+  value,
+  suffix,
+  prefix,
+  parser,
+  disabled,
+  onChange,
+  formatter,
+  isInvalid,
+  className,
+  allowClear,
+  placeholder,
+  errorMessage,
+  defaultValue,
+  parentClassName,
+  ...rest
+}) => {
+  return (
+    <div className={clsx(parentClassName, "flex")}>
+      {label && (
+        <label htmlFor={id} className={clsx(styles.label)}>
+          {label}
+        </label>
+      )}
+      <InputNumber
+        id={id}
+        size={size}
+        value={value}
+        type="number"
+        defaultValue={defaultValue}
+        prefix={prefix}
+        suffix={suffix}
+        parser={parser}
+        disabled={disabled}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={clsx(styles.inputWrap, rootClassName, "focus:shadow-none")}
+        formatter={formatter}
+        status={isInvalid && "error"}
+        // allowClear={
+        //   allowClear && {
+        //     clearIcon: <span className="clr-black"> {Icons.CloseCircle} </span>,
+        //   }
+        // }
+        {...rest}
+      />
+      {errorMessage && (
+        <div className={clsx(styles.errorMessage)}>{errorMessage}</div>
+      )}
+    </div>
+  );
+};
+
+const { TextArea } = Input;
+
+export const NHTextArea = ({
+  id,
+  label,
+  value,
+  suffix,
+  prefix,
+  autoSize,
+  onChange,
+  disabled,
+  isInvalid,
+  className,
+  allowClear = true,
+  placeholder,
+  errorMessage,
+  parentClassName,
+  labelClassName,
+  ...rest
+}) => {
+  return (
+    <div className={clsx(parentClassName, "flex")}>
+      {label && (
+        <label htmlFor={id} className={clsx(styles.label, labelClassName)}>
+          {label}
+        </label>
+      )}
+      <TextArea
+        placeholder={placeholder}
+        id={id}
+        value={value}
+        disabled={disabled}
+        onChange={onChange}
+        className={clsx(styles.inputWrap, className, "focus:shadow-none")}
+        status={isInvalid && "error"}
+        prefix={prefix}
+        suffix={suffix}
+        autoSize={autoSize}
+        minLength={3}
         {...rest}
       />
       {errorMessage && (

@@ -9,6 +9,7 @@ export const NHCard = ({
   rootClass,
   className,
   headerBg,
+  footerContent,
 }) => {
   return headerBg ? (
     <Card title={title} extra={headerContent} className={clsx(rootClass)}>
@@ -28,6 +29,9 @@ export const NHCard = ({
         </div>
       )}
       <div className={className}>{children}</div>
+      {footerContent && (
+        <div className="pt-4 mt-4">{footerContent}</div>
+      )}
     </div>
   );
 };

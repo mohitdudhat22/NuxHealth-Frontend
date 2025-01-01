@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NHModal } from '@/components'
 
 export const PaymentMethodModal = ({
-    handleOk,
     onCancel,
     children,
     handleClose,
@@ -10,14 +9,27 @@ export const PaymentMethodModal = ({
     loading = false,
     paymentMetho,
     paymentData,
+    cardOption,
+    setCardOption,
     ...rest
 }) => {
+      const [paymentType, setPaymentType] = useState();
+    
+      const handleOk = () => {
+        if (paymentType === 'master') {
+            setCardOption(true);
+          console.log('online should open', cardOption);
+        } else {
+            setCardOption(false);
+        }
+      };
     return (
         <NHModal
             title={"Payment Method"}
             open={paymentMetho}
             handleClose={handleClose}
             IsFooter
+            handleOk={handleOk}
             disabledButton={false}
             handleContent={"Pay Now"}
             confirmLoading={loading}
@@ -38,7 +50,8 @@ export const PaymentMethodModal = ({
                                 </div>
                             </div>
                             <div className="right flex">
-                                <input type="radio" className='h-[18px] w-[18px]' />
+                                <input type="radio" className='h-[18px] w-[18px]'onChange={() => setPaymentType('master')}
+                  checked={paymentType === 'master'} />
                             </div>
                         </div>
                     </div>
@@ -56,7 +69,8 @@ export const PaymentMethodModal = ({
                                 </div>
                             </div>
                             <div className="right flex">
-                                <input type="radio" className='h-[18px] w-[18px]' />
+                                <input type="radio" className='h-[18px] w-[18px]' onChange={() => setPaymentType('visa')}
+                  checked={paymentType === 'visa'} />
                             </div>
                         </div>
                     </div>
