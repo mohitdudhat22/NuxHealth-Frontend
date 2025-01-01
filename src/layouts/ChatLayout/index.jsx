@@ -1,50 +1,136 @@
-import { NHButton } from "@/components";
-import { ChatSidebar } from "@/components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ChatMessageBar, ChatSidebar } from "@/components";
 
 export const ChatLayout = () => {
-  const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const initialUsers = [
+    {
+      _id: "1",
+      name: "Dr. John Doe",
+      avatar: "/placeholder.svg?height=48&width=48",
+      status: "online",
+      lastMessage: "How are you feeling today?",
+      lastMessageTime: "10:30 AM",
+      unreadCount: 0,
+    },
+    {
+      _id: "2",
+      name: "Dr. Jane Smith",
+      avatar: "/placeholder.svg?height=48&width=48",
+      status: "offline",
+      lastMessage: "Your test results are ready.",
+      lastMessageTime: "Yesterday",
+      unreadCount: 1,
+    },
+  ];
 
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
-    if (!inputMessage.trim()) return;
+  const initialChats = [
+    {
+      _id: "1",
+      participants: [initialUsers[0]],
+      messages: [
+        {
+          id: "1",
+          content: "Hello! How can I help you today?",
+          sender: "doctor",
+          timestamp: "2024-01-02T10:00:00Z",
+          type: "text",
+        },
+        {
+          id: "2",
+          content: "I've been having a headache for the past few days.",
+          sender: "user",
+          timestamp: "2024-01-02T10:05:00Z",
+          type: "text",
+        },
+      ],
+    },
+    {
+      _id: "2",
+      participants: [initialUsers[1]],
+      messages: [
+        {
+          id: "1",
+          content:
+            "Your blood test results are ready. Would you like to schedule a follow-up appointment?",
+          sender: "doctor",
+          timestamp: "2024-01-01T14:00:00Z",
+          type: "text",
+        },
+      ],
+    },
+  ];
 
-    setIsLoading(true);
-    try {
-      const userMessage = {
-        id: Date.now().toString(),
-        content: inputMessage,
-        sender: "user",
-        timestamp: new Date().toISOString(),
-      };
-      setMessages((prev) => [...prev, userMessage]);
-      setInputMessage("");
+  const [users, setUsers] = useState(initialUsers);
+  const [chats, setChats] = useState(initialChats);
+  const [selectedUserId, setSelectedUserId] = useState();
+  const [currentChat, setCurrentChat] = useState();
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const botMessage = {
-        id: (Date.now() + 1).toString(),
-        content:
-          "This is a simulated response. Replace with actual API integration.",
-        sender: "bot",
-        timestamp: new Date().toISOString(),
-      };
-      setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
-      console.error("Error sending message:", error);
-    } finally {
-      setIsLoading(false);
+  useEffect(() => {
+    if (selectedUserId) {
+      const chat = chats.find((c) =>
+        c.participants.some((p) => p._id === selectedUserId)
+      );
+      setCurrentChat(chat || null);
+    } else {
+      setCurrentChat(null);
     }
+  }, [selectedUserId, chats]);
+
+  const handleSelectUser = (userId) => {
+    setSelectedUserId(userId);
+  };
+
+  const handleSendMessage = (content) => {
+    if (!selectedUserId || !currentChat) return;
+
+    const newMessage = {
+      id: Date.now().toString(),
+      content,
+      sender: "user",
+      timestamp: new Date().toISOString(),
+      type: "text",
+    };
+
+    setChats((prevChats) =>
+      prevChats.map((chat) =>
+        chat._id === currentChat._id
+          ? { ...chat, messages: [...chat.messages, newMessage] }
+          : chat
+      )
+    );
+
+    // Update last message in users list
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user._id === selectedUserId
+          ? { ...user, lastMessage: content, lastMessageTime: "Just now" }
+          : user
+      )
+    );
   };
 
   return (
     <div className="grid grid-cols-[334px,1fr] h-full max-h-[calc(100vh-var(--header-height))]">
       {/* Sidebar */}
-      <ChatSidebar />
+      <ChatSidebar
+        users={users}
+        onSelectUser={handleSelectUser}
+        activeUserId={selectedUserId}
+        initialChats={initialUsers}
+      />
 
       {/* Main Chat Area */}
-
+      {currentChat ? (
+        <ChatMessageBar
+          selectedUser={currentChat.participants[0]}
+          messages={currentChat.messages}
+          onSendMessage={handleSendMessage}
+        />
+      ) : (
+        <div className="flex items-center justify-center h-full text-gray-500">
+          Select a chat to start messaging
+        </div>
+      )}
     </div>
   );
 };
