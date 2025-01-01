@@ -30,7 +30,7 @@ export const PatientDetailModal = ({
       onCancel={onCancel}
       handleClose={handleClose}
       footer={null}
-      width={400}
+      width={patientData ? 400 : 800}
       className="patient-details-modal"
       {...rest}
     >

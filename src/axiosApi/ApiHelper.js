@@ -57,6 +57,7 @@ export const createReceptionist = (data) =>
 export const todayAppointment = () => request("get", "/api/doctor/getAppointment?filter=today");
 
 /* Patient */
+export const patientDashboard = () => request("get", "/api/patient/getDashboardData");
 
 /* Reception */
 export const CreateReception = (data) =>
@@ -91,5 +92,5 @@ export const upcomingAppointment = () => request("get", "/api/admin/getAppointme
 export const previousAppointment = () => request("get", "/api/admin/getAppointment?filter=previous");
 export const cancelAppointment = () => request("get", "/api/doctor/getAppointment?filter=cancel");
 export const getPatientRecordAccess = () => request("get", "/api/doctor/getPatientRecord");
-export const getSinglePatient = (id)=> request("get",`/api/doctor/getsinglepatientrecord/${id}`)
+export const getSinglePatient = (id) => request("get", `/api/doctor/getsinglepatientrecord/${id}`)
 

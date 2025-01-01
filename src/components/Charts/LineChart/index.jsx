@@ -5,7 +5,7 @@ import ReactApexChart from 'react-apexcharts';
 
 export const LineChart = ({ data }) => {
     const [viewMode, setViewMode] = useState('year');
-    
+
     // Fallback to static data if 'data' prop is unavailable
     const fallbackData = {
         year: {
@@ -119,10 +119,10 @@ export const LineChart = ({ data }) => {
             }
         },
         tooltip: {
-            custom: function({ series, seriesIndex, dataPointIndex, w }) {
+            custom: function ({ series, seriesIndex, dataPointIndex, w }) {
                 const value = series[seriesIndex][dataPointIndex];
                 return `
-                    <div class="custom-tooltip" style="padding: 8px 12px; background: #1E293B; border-radius: 4px;">
+                    <div className="custom-tooltip" style="padding: 8px 12px; background: #1E293B; border-radius: 4px;">
                         <div style="color: white; font-size: 12px;">
                             <span style="font-weight: 500;">Patients: </span>
                             <span style="font-weight: 600;">${value.toLocaleString()}</span>
@@ -139,40 +139,37 @@ export const LineChart = ({ data }) => {
     }];
 
     return (
-        <NHCard 
-            title="Patients Statistics" 
+        <NHCard
+            title="Patients Statistics"
             headerContent={
                 <div className="flex gap-1 bg-gray-100 p-1 rounded-lg">
                     <Button
                         type={viewMode === 'year' ? 'primary' : 'text'}
                         onClick={() => setViewMode('year')}
-                        className={`px-4 min-w-[60px] rounded-md ${
-                            viewMode === 'year' 
-                                ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90' 
+                        className={`px-4 min-w-[60px] rounded-md ${viewMode === 'year'
+                                ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90'
                                 : 'text-gray-500 hover:text-gray-700'
-                        }`}
+                            }`}
                     >
                         Year
                     </Button>
                     <Button
                         type={viewMode === 'month' ? 'primary' : 'text'}
                         onClick={() => setViewMode('month')}
-                        className={`px-4 min-w-[60px] rounded-md ${
-                            viewMode === 'month' 
-                                ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90' 
+                        className={`px-4 min-w-[60px] rounded-md ${viewMode === 'month'
+                                ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90'
                                 : 'text-gray-500 hover:text-gray-700'
-                        }`}
+                            }`}
                     >
                         Month
                     </Button>
                     <Button
                         type={viewMode === 'week' ? 'primary' : 'text'}
                         onClick={() => setViewMode('week')}
-                        className={`px-4 min-w-[60px] rounded-md ${
-                            viewMode === 'week' 
-                                ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90' 
+                        className={`px-4 min-w-[60px] rounded-md ${viewMode === 'week'
+                                ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90'
                                 : 'text-gray-500 hover:text-gray-700'
-                        }`}
+                            }`}
                     >
                         Week
                     </Button>
