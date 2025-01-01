@@ -1,4 +1,5 @@
 import { NHModal } from "@/components/";
+import { AppointmentCard, NHButton, NHModal, PrescriptionCard } from "@/components/";
 import Icons from "@/constants/icons";
 
 export const PatientDetailModal = ({
@@ -11,6 +12,7 @@ export const PatientDetailModal = ({
   patientData,
   ...rest
 }) => {
+
   return (
     <NHModal
       title={
@@ -32,52 +34,29 @@ export const PatientDetailModal = ({
       className="patient-details-modal"
       {...rest}
     >
-      <div className="px-5 py-3 space-y-3">
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Appointment Type</span>
-          <span className="text-[#F5A623] text-md">{patientData?.appointmentType}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Appointment Date</span>
-          <span className="text-[#111111] text-md">{patientData?.appointmentDate}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Appointment Time</span>
-          <span className="text-[#111111] text-md">{patientData?.appointmentTime}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Patient Name</span>
-          <span className="text-[#111111] text-md">{patientData?.patientName}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Patient Phone Number</span>
-          <span className="text-[#111111] text-md">{patientData?.phoneNumber}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Patient Age</span>
-          <span className="text-[#111111] text-md">{patientData?.age} Years</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Patient Gender</span>
-          <span className="text-[#111111] text-md">{patientData?.gender}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Patient Issue</span>
-          <span className="text-[#111111] text-md">{patientData?.issue}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Disease Name</span>
-          <span className="text-[#111111] text-md">{patientData?.diseaseName}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-[#666666] text-md">Doctor Name</span>
-          <span className="text-[#111111] text-md">{patientData?.doctorName}</span>
-        </div>
-        <div className="flex justify-between items-start">
-          <span className="text-[#666666] text-md">Patient Address</span>
-          <span className="text-[#111111] text-md text-right max-w-[60%]">{patientData?.address}</span>
-        </div>
-      </div>
+      {patientData ? (
+        <AppointmentCard
+          key={patientData.name}
+          appointmentDate={patientData.appointmentDate}
+          patientAddress={patientData.address}
+          patientPhoneNumber={patientData.phoneNumber}
+          patientAge={patientData.age}
+          gender={patientData.gender}
+          patientDoctorName={patientData.doctorName}
+          patientName={patientData.patientName}
+          patientIssue={patientData.issue}
+          diseaseName={patientData.diseaseName}
+          appointmentTime={patientData.appointmentTime}
+          className="p-0"
+          footerContent={
+            <div className="p-10"></div>
+          }
+        />
+
+      ) :
+        <PrescriptionCard />
+      }
+
     </NHModal>
   );
 };
