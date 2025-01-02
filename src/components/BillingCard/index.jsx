@@ -57,7 +57,7 @@ export const BillingCard = ({data}) => {
           Pending Bills: <span className="text-red-500">50</span>
         </p>
       </div>
-      <NHTable columns={columns} dataSource={bills} scroll={{
+      <NHTable columns={columns} dataSource={bills} route="/admin" scroll={{
       y: '220px',
       x : '600px'
     }}  />

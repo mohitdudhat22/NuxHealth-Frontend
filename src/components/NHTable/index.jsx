@@ -1,6 +1,7 @@
 import { Table, Skeleton, Empty } from "antd";
 import clsx from "clsx";
 import styles from "./NHTable.module.css";
+import CustomEmpty from "../CustomEmpty/CustomEmpty";
 
 export const NHTable = ({
   id,
@@ -20,6 +21,7 @@ export const NHTable = ({
   showPagination,
   showSizeChanger,
   defaultPageSize = 10,
+  route,
   ...rest
 }) => {
   return (
@@ -85,7 +87,7 @@ export const NHTable = ({
               );
             })
           ) : (
-            <Empty />
+            <CustomEmpty route={route} />
           ),
         }}
         filters={filters}

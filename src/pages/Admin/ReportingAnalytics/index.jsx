@@ -2,6 +2,8 @@ import React from 'react';
 import { StatisticsCard, DepartmentCard, PatientDistributionCard, AppointmentChart, PatientSummaryChart, PatientAgeDistribution } from '@/components';
 import Icons from '@/constants/icons';
 import { useReportandAnalytics } from '@/hook/Admin/ReportAndAnalytics';
+import NoPatientFound from '../../../assets/images/cover/no-patient-found.png'
+import NoDoctorCountFound from '../../../assets/images/cover/no-doctor-count-found.png'
 
 export const ReportingAnalytics = () => {
   const { data } = useReportandAnalytics();
@@ -80,6 +82,8 @@ export const ReportingAnalytics = () => {
             departments={data?.patientDepartmentData || patientDepartmentData}
             icon={Icons.Patient}
             type="patient"
+            image={NoPatientFound}
+            discrition="No Patient Found Yet"
           />
         </div>
         <div className="md:col-span-2">
@@ -88,6 +92,8 @@ export const ReportingAnalytics = () => {
             departments={data?.patientDepartmentData || doctorDepartmentData}
             icon={Icons.Doctor}
             type="doctor"
+            image={NoDoctorCountFound}
+            discrition="No Doctor Found Yet"
           />
         </div>
         <div className="md:col-span-2">
