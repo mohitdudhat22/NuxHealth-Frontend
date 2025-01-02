@@ -124,3 +124,4 @@ export const cancelAppointmentForDoctor = () => request("get", "/api/doctor/getA
 export const editAdminProfile = () => request("post", "/api/admin/editAdmin");
 export const editAdminProfileChangePassword = (data) => request("post", "/api/admin/changePassword", data);
 export const editDoctorrofileChangePassword = (data) => request("post", "/api/doctor/changePassword", data);
+//
