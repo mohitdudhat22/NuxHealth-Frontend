@@ -11,6 +11,7 @@ export const PersonalHealthRecord = () => {
 
     const patientData = data?.patientProfile;
     const prescriptions = data?.prescriptions || [];
+    console.log(data)
 
     const prescriptionHeaders = ['Hospital Name', 'Date', 'Disease Name', 'Action'];
     const prescriptionRows = prescriptions.map((prescription) => [

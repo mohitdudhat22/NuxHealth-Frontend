@@ -66,7 +66,7 @@ export const CancelAppointment = () => {
             size="small"
             icon={Icons.ViewBillIcon}
             onClick={() => handleViewBill(record)}
-            className="view-btn bg-white"
+            className="bg-white view-btn"
           />
         </Space>
       ),

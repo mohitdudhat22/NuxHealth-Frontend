@@ -114,3 +114,9 @@ export const getPaidBills = () =>
   request("get", "/api/patient/getBillsforPatient?status=paid");
 export const getUnpaidBills = () =>
   request("get", "/api/patient/getBillsforPatient?status=unpaid");
+
+
+export const todaysAppointments = () => request("get", "/api/doctor/getAppointment?filter=today");
+export const upcomingAppointments = () => request("get", "/api/doctor/getAppointment?filter=upcoming");
+export const previousAppointments = () => request("get", "/api/doctor/getAppointment?filter=previous");
+export const cancelAppointments = () => request("get", "/api/doctor/getAppointment?filter=cancel");
