@@ -3,10 +3,16 @@ import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
+import { useTodayManagePriscription } from "@/hook/Doctor/PriscriptionTools/Manage/TodayPriscription";
+import { useOlderManagePrescription } from "@/hook/Doctor/PriscriptionTools/Manage/OlderPriscription";
+
 
 export const Manage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState(null);
+    const { data:today } = useTodayManagePriscription(selectedPatient?.id);
+    const { data:older } = useOlderManagePrescription(selectedPatient?.id);
+
 
     //hook -> data
     const handleViewBill = (record) => {
@@ -77,35 +83,6 @@ export const Manage = () => {
         },
     ];
 
-    const data = [
-        {
-            key: "1",
-            patientName: "Marcus Phillips",
-            avatar: "https://i.pravatar.cc/300",
-            patientNumber: "92584 58475",
-            appointmentType: "Online",
-            appointmentTime: "4:30 PM",
-            age: "27",
-        },
-        {
-            key: "2",
-            patientName: "Landyn Sheffey",
-            avatar: "https://i.pravatar.cc/300",
-            patientNumber: "91827 12345",
-            appointmentType: "Onsite",
-            appointmentTime: "5:00 AM",
-            age: "34",
-        },
-        {
-            key: "3",
-            patientName: "Leslie Murray",
-            avatar: "https://i.pravatar.cc/300",
-            patientNumber: "92746 76358",
-            appointmentType: "Online",
-            appointmentTime: "7:30 PM",
-            age: "29",
-        },
-    ];
 
     const tabItems = [
         {
@@ -121,7 +98,7 @@ export const Manage = () => {
                         />
                     }
                 >
-                    <NHTable columns={columns} dataSource={data} />
+                    <NHTable columns={columns} dataSource={today} />
                 </NHCard>
             )
         },
@@ -138,12 +115,12 @@ export const Manage = () => {
                         />
                     }
                 >
-                    <NHTable columns={columns} dataSource={data} />
+                    <NHTable columns={columns} dataSource={older} />
                 </NHCard>
             )
         }
     ];
-    console.log(selectedPatient); //id -> hook ma ppass
+    console.log(selectedPatient,"<<<<<<<<<<<<<<<<<<<<<<<<<"); //id -> hook ma ppass
     
     return (
         <>
