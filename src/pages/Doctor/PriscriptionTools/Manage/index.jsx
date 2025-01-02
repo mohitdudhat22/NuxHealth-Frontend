@@ -1,4 +1,4 @@
-import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
+import { NHButton, NHCard, NHInput, NHTable, NHTabs, PrescriptionCard } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
@@ -8,6 +8,7 @@ export const Manage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState(null);
 
+    //hook -> data
     const handleViewBill = (record) => {
         setSelectedPatient(record);
         setIsModalOpen(true);
@@ -142,7 +143,8 @@ export const Manage = () => {
             )
         }
     ];
-
+    console.log(selectedPatient); //id -> hook ma ppass
+    
     return (
         <>
             <NHCard
@@ -159,7 +161,7 @@ export const Manage = () => {
                 />
             </NHCard>
 
-            <PatientDetailModal
+            <PrescriptionCard 
                 isModalOpen={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
                 handleClose={() => setIsModalOpen(false)}

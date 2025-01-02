@@ -7,7 +7,7 @@ export const CustomDateModal = ({
     handleClose,
     Title,
     loading = false,
-    customDate,
+    isReshceduleModal,
     fromDate,
     toDate,
     setFromDate,
@@ -17,7 +17,7 @@ export const CustomDateModal = ({
     return (
         <NHModal
             title={"Custom Date "}
-            open={customDate}
+            open={isReshceduleModal}
             handleClose={handleClose}
             disabledButton={false}
             confirmLoading={loading}
