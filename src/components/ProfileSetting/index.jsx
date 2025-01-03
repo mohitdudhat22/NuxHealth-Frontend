@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./EditProfile.module.css";
-import { Avatar, Col, Row } from "antd";
-import { NHButton, NHCard, NHInput, NHPasswordInput, NHSelect } from "..";
+import { NHButton, NHCard, NHInput, NHSelect } from "..";
 import { useDecodeToken } from "@/hook";
-import { useChangePassword } from "@/hook/Admin/AdminEditProfile/ChangePassword"; // Import the custom hook
+import user from "@/assets/images/user/user.png";
 
 export const ProfileSetting = () => {
   const { token } = useDecodeToken();
@@ -84,18 +83,15 @@ export const ProfileSetting = () => {
         <div className={styles.profileCard}>
           <div className={styles.profile}>
             <form action="" onSubmit={handleSubmitData}>
-              <h3 className="mb-10 text-white text-5xl">Profile Setting</h3>
+              <h3 className="mb-10 text-5xl text-white">Profile Setting</h3>
 
-              <NHCard className="bg-white p-0">
+              <NHCard className="p-0 bg-white">
                 <div className="flex">
                   <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
-                    <div className="flex flex-col items-center py-8 px-4">
-                      <Avatar
-                        src={token?.userdetail?.profilePicture}
-                        alt="Profile"
-                        className="w-[70%] rounded-full mb-6 border-4 border-white shadow-lg"
-                      />
-
+                    <div className="flex flex-col items-center px-4 py-8">
+                      <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB]">
+                        <img src={token?.userdetail?.profilePicture || "https://i.pravatar.cc/300"} alt={"Profile picture"} className='w-[150px] rounded-full' />
+                      </div>
                       <h2 className="text-xl font-semibold">
                         {userdetail.firstName || "Lincoln"}{" "}
                         {userdetail.lastName || "Phillips"}
@@ -103,7 +99,7 @@ export const ProfileSetting = () => {
                     </div>
 
                     <div className="px-4">
-                      <nav className="bg-gray-100 rounded-lg p-2">
+                      <nav className="p-2 bg-gray-100 rounded-lg">
                         <ul className="space-y-1">
                           <li>
                             <button
@@ -198,7 +194,7 @@ const Profile = () => {
 
   return (
     <NHCard>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold">Edit Profile</h2>
         <div className="space-x-4">
           {isEditing && (

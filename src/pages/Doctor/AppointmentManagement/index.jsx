@@ -73,14 +73,14 @@ export const AppointmentManagement = () => {
                         size="small"
                         icon={Icons.RedCalenderIcon}
                         onClick={() => handleViewBill(record)}
-                        className="view-btn bg-white"
+                        className="bg-white view-btn"
                     />
-                     <NHButton
+                    <NHButton
                         type="primary"
                         size="small"
                         icon={Icons.BlueCalenderIcon}
                         onClick={() => handleViewBill(record)}
-                        className="view-btn bg-white"
+                        className="bg-white view-btn"
                     />
                 </Space>
             ),
@@ -93,7 +93,7 @@ export const AppointmentManagement = () => {
             patientName: "Marcus Phillips",
             avatar: "https://i.pravatar.cc/300",
             diseaseName: "Viral Infection",
-            patientIssue:"abc test issue",
+            patientIssue: "abc test issue",
             doctorName: "Dr. Matthew Best",
             appointmentTime: "4:30 PM",
             appointmentType: "Online",
