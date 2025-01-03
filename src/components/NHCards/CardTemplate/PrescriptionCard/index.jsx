@@ -3,47 +3,45 @@ import { NHInput, NHTable, NHButton, NHSelect, NHCard } from "@/components";
 import Logo from "@/assets/images/logo/logo.png";
 
 export const PrescriptionCard = ({
-  hospitalName = "Medical Center",
+  hospitalName,
   doctorName = "Dr. Bharat Patel",
-  doctorSpecialty = "Obstetrics and Gynecology",
+  doctorspecialty = "Obstetrics and Gynecology",
   prescriptionDate = "2 Jan, 2022",
-  patient = {
-    name: "Altabrao Bhajirao",
-    age: "36 Years",
-    gender: "Male",
-    address: "B-105 Viral Bungalows PunaGam Motavaracha Jamnagar.",
-  },
-  medicines = [
+  patientName = "Altabrao Bhajirao",
+  age = "36 Years",
+  gender = "Male",
+  address= "B-105 Viral Bungalows PunaGam Motavaracha Jamnagar.",
+  medications = [
     {
-      medicine: "Calcium carbonate",
+      medicineName: "Calcium carbonate",
       strength: "100 Mg",
       dose: "1-0-1",
       duration: "2 Day",
       whenToTake: "Before Food",
     },
     {
-      medicine: "Cyclobenzaprine",
+      medicineName: "Cyclobenzaprine",
       strength: "200 Mg",
       dose: "1-1-1",
       duration: "4 Day",
       whenToTake: "With Food",
     },
     {
-      medicine: "Fluticasone Almeterol",
+      medicineName: "Fluticasone Almeterol",
       strength: "150 Mg",
       dose: "0-1-0",
       duration: "5 Day",
       whenToTake: "Before Food",
     },
     {
-      medicine: "Hydrochlorothiazide",
+      medicineName: "Hydrochlorothiazide",
       strength: "250 Mg",
       dose: "0-0-1",
       duration: "2 Day",
       whenToTake: "After Food",
     },
     {
-      medicine: "Flonase Allergy Relief",
+      medicineName: "Flonase Allergy Relief",
       strength: "100 Mg",
       dose: "1-0-0",
       duration: "1 Day",
@@ -55,7 +53,7 @@ export const PrescriptionCard = ({
 }) => {
   // Medicine Table Columns
   const columns = [
-    { title: "Medicine Name", dataIndex: "medicine", key: "medicine" },
+    { title: "Medicine Name", dataIndex: "medicineName", key: "medicineName" },
     { title: "Strength", dataIndex: "strength", key: "strength" },
     { title: "Dose", dataIndex: "dose", key: "dose" },
     { title: "Duration", dataIndex: "duration", key: "duration" },
@@ -73,9 +71,12 @@ export const PrescriptionCard = ({
           </div>
           <div className="text-right">
             <h2 className="text-lg font-semibold">
-              {patientData.doctorName || doctorName}
+              {(patientData && patientData.DoctorName) || doctorName}
             </h2>
-            <p className="text-sm text-gray-500">{doctorSpecialty}</p>
+            <p className="text-sm text-gray-500">
+              {" "}
+              {(patientData && patientData.doctorspecialty) || doctorspecialty}
+            </p>
           </div>
         </div>
 
@@ -85,25 +86,25 @@ export const PrescriptionCard = ({
             <p>
               <span className="text-xl text-[#818194]">Hospital Name:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {hospitalName}
+                {(patientData && patientData.hospitalName) || hospitalName}
               </span>
             </p>
             <p>
               <span className="text-xl text-[#818194]">Patient Name:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patient.name}
+                {(patientData && patientData.patientName) || patientName}
               </span>
             </p>
             <p>
               <span className="text-xl text-[#818194]">Gender:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patient.gender}
+                {(patientData && patientData.gender) || gender}
               </span>
             </p>
             <p>
               <span className="text-xl text-[#818194]">Address:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patient.address}
+                {(patientData && patientData.address) || address}
               </span>
             </p>
           </div>
@@ -111,13 +112,15 @@ export const PrescriptionCard = ({
             <p>
               <span className="text-xl text-[#818194]">Prescription Date:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {prescriptionDate}
+                {(patientData && patientData.prescriptionDate) ||
+                  prescriptionDate}
               </span>
             </p>
             <p>
               <span className="text-xl text-[#818194]">Age:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patient.age}
+                {(patientData && patientData.age) || age}
+                {/* {patient.age} */}
               </span>
             </p>
           </div>
@@ -126,10 +129,13 @@ export const PrescriptionCard = ({
       {/* Medicine Table */}
       <NHTable
         columns={columns}
-        dataSource={medicines.map((medicine, index) => ({
-          key: index.toString(),
-          ...medicine,
-        }))}
+        dataSource={
+          (patientData && patientData.medications) || // Use medicines from patientData
+          medications.map((medications, index) => ({
+            key: index.toString(),
+            ...medications,
+          }))
+        }
         pagination={false}
         className="mb-4"
       />
@@ -137,7 +143,8 @@ export const PrescriptionCard = ({
       {/* Additional Note Section */}
       <div className="mb-4">
         <h3 className="text-sm font-medium text-gray-600">Additional Note</h3>
-        <p className="text-sm text-gray-500">{additionalNote}</p>
+        <p className="text-sm text-gray-500">{(patientData && patientData.additionalNote) ||
+                  additionalNote}</p>
       </div>
 
       {/* Footer Section */}
