@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
-import { useTodayAppointments } from "@/hook/Admin/PatientManagement/TodaysAppointment"; 
+import { useTodaysAppointment } from "@/hook/Admin/PatientManagement/TodaysAppointment"; 
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
 const columns = (handleViewPatient) => [
@@ -58,7 +58,7 @@ const columns = (handleViewPatient) => [
 ];
 
 export const TodayAppointment = () => {
-  const { data, loading, error } = useTodayAppointments();
+  const { data, loading, error } = useTodaysAppointment();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
 

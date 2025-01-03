@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { todaysAppointmentForAdmin } from "@/axiosApi/ApiHelper";
+import { previousAppointmentForDoctor } from "@/axiosApi/ApiHelper";
 import {user} from "@/assets/images";
 
-export const useTodaysAppointment= () => {
+export const usePreviousAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchAppointments = async () => {
     try {
-      const response = await todaysAppointmentForAdmin();
+      const response = await previousAppointmentForDoctor();
       console.log("API Response:", response);
 
       if (response && response?.data) {
