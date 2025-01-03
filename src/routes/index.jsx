@@ -43,7 +43,7 @@ import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
 import NotificationBox from "@/components/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
 import { BillView } from "@/pages/Admin/MonitorBilling/BillView";
-import { AppointmentBooking, PersonalHealthRecord, TeleconsultationModule } from "@/pages/Patients";
+import { AppointmentBooking } from "@/pages/Patients";
 import { PatientBills } from "@/pages/Patients/PatientsBills";
 
 const NuxHealthRoute = createBrowserRouter(
