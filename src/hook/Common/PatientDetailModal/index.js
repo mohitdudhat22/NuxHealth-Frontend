@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// APi is not creted yet
 // import { getSinglePatientForAdmin } from '@/axiosApi/ApiHelper';
 
 export const usePatientDetails = (patientId, isModalOpen) => {

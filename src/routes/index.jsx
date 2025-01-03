@@ -29,6 +29,7 @@ import {
   EditDesignInvoice,
   FontFamily,
   Buttons,
+  AppoinmentManagement, AppointmentSchedularPage, PersonalHealthRecord, TeleconsultationModule
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -37,7 +38,7 @@ import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
-import { AppointmentSchedular } from "@/components/AppointmentSchedular";
+
 import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
 import NotificationBox from "@/components/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
@@ -299,6 +300,16 @@ const NuxHealthRoute = createBrowserRouter(
                 {
                   path: "appointment",
                   element: <AppointmentBooking />,
+                  children: [
+                    {
+                      index: true,
+                      element: <AppoinmentManagement />,
+                    },
+                    { 
+                      path: "scheduler",
+                      element: <AppointmentSchedularPage />,
+                    },
+                  ]
                 },
                 {
                   path: "prescription-access",
@@ -345,7 +356,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "appointment",
-                  element: <AppointmentSchedular />,
+                  element: <AppointmentSchedularPage />,
                 },
                 {
                   path: "monitor-billing",

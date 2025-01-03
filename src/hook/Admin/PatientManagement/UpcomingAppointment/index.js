@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { upcomingAppointment } from "@/axiosApi/ApiHelper";
-import { user } from "@/assets/images";
+import {upcomingAppointmentForAdmin } from "@/axiosApi/ApiHelper";
+import {user} from "@/assets/images";
 
 export const useUpcomingAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -8,7 +8,7 @@ export const useUpcomingAppointments = () => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await upcomingAppointment();
+      const response = await upcomingAppointmentForAdmin();
       console.log("API Response:", response);
 
       if (response && response?.data) {

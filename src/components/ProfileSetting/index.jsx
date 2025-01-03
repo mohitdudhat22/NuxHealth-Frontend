@@ -286,198 +286,30 @@ const Terms = () => (
   <div className="space-y-6 ">
     <h3 className="fw-semibold lh-base text-[26px] pl-5">Terms & Conditions</h3>
     <div className="prose max-w-none bg-white p-6 rounded-lg overflow-y-auto h-[calc(100vh-400px)] gap-4 grid">
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Fusce quis ante nisl. Sed dictum felis vitae tellus
-        sagittis, at varius massa pulvinar. Aenean ut massa id nulla tincidunt
-        convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla adipiscing elit. Fusce quis ante nisl. Sed
-        dictum felis vitae tellus sagittis, at varius massa pulvinar. Aenean ut
-        massa id nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Fusce quis ante nisl.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum feliar. Aenean ut massa id nulla tincidunt
-        convallis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-        quis ante nisl. Sed dictum felis vitae tellus sagittis, at varius massa
-        pulvinar. Aenean ut massa id nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Fusce quis ante nisl. Sed dictum felis vitae tellus
-        sagittis, at varius massa pulvinar. Aenean ut massa id nulla tincidunt
-        convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Fusce quis ante nisl. Sed dictum felis vitae tellus sagittis, at varius
-        massa pulvinar. Aenean ut massa id nulla tincidunt convallis.Lorem ipsum
-        dolor sit amet, consectetur adipiscing elit. Fusce quis ante nisl. Sed
-        dictum felis vitae tellus sagittis, at varius massa pulvinar. Aenean ut
-        massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis.
-        Fusce quis ante nisl. Sed dictum felis vitae tellus sagittis, at varius
-        massa pulvinar. Aenean ut massa id nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Fusce quis ante nisl. Sed dictum felis vitae tellus
-        sagittis, at varius massa pulvinar. Aenean ut massa id nulla tincidunt
-        convallis.
+      <p className="text-base">
+        The terms and conditions outline the rules and regulations for using
+        the website and the services provided. By accessing this website, we
+        assume you accept these terms and conditions.
       </p>
     </div>
   </div>
 );
 
 const Privacy = () => (
-  <div className="space-y-6">
+  <div className="space-y-6 ">
     <h3 className="fw-semibold lh-base text-[26px] pl-5">Privacy Policy</h3>
     <div className="prose max-w-none bg-white p-6 rounded-lg overflow-y-auto h-[calc(100vh-400px)] gap-4 grid">
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Fusce quis ante nisl. Sed dictum felis vitae tellus
-        sagittis, at varius massa pulvinar. Aenean ut massa id nulla tincidunt
-        convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla adipiscing elit. Fusce quis ante nisl. Sed
-        dictum felis vitae tellus sagittis, at varius massa pulvinar. Aenean ut
-        massa id nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Fusce quis ante nisl.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum feliar. Aenean ut massa id nulla tincidunt
-        convallis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-        quis ante nisl. Sed dictum felis vitae tellus sagittis, at varius massa
-        pulvinar. Aenean ut massa id nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Fusce quis ante nisl. Sed dictum felis vitae tellus
-        sagittis, at varius massa pulvinar. Aenean ut massa id nulla tincidunt
-        convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Fusce quis ante nisl. Sed dictum felis vitae tellus sagittis, at varius
-        massa pulvinar. Aenean ut massa id nulla tincidunt convallis.Lorem ipsum
-        dolor sit amet, consectetur adipiscing elit. Fusce quis ante nisl. Sed
-        dictum felis vitae tellus sagittis, at varius massa pulvinar. Aenean ut
-        massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis.
-        Fusce quis ante nisl. Sed dictum felis vitae tellus sagittis, at varius
-        massa pulvinar. Aenean ut massa id nulla tincidunt convallis.
-      </p>
-      <p className="text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis ante
-        nisl. Sed dictum felis vitae tellus sagittis, at varius massa pulvinar.
-        Aenean ut massa id nulla tincidunt convallis.Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Fusce quis ante nisl. Sed dictum felis
-        vitae tellus sagittis, at varius massa pulvinar. Aenean ut massa id
-        nulla tincidunt convallis.Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Fusce quis ante nisl. Sed dictum felis vitae tellus
-        sagittis, at varius massa pulvinar. Aenean ut massa id nulla tincidunt
-        convallis.
+      <p className="text-base">
+        We value your privacy. The policy explains how we collect, use, and
+        protect your personal data when using our services. By using this site,
+        you consent to the processing of your data as described in this policy.
       </p>
     </div>
   </div>
 );
 
 const ChangePassword = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [passwordData, setPasswordData] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
-
-  const handlePasswordChange = (e) => {
-    const { name, value } = e.target;
-    setPasswordData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsEditing(false);
-  };
+  const { currentPassword, newPassword, confirmPassword, loading, handleInputChange, handleSubmit, isFormValid } = useChangePassword();
 
   return (
     <NHCard
@@ -485,43 +317,38 @@ const ChangePassword = () => {
       headerContent={
         <>
           <NHButton
-            variant={isEditing ? "primary" : "default"}
-            onClick={() => (isEditing ? handleSubmit() : setIsEditing(true))}
+            variant="primary"
+            onClick={handleSubmit}
+            disabled={loading || !isFormValid}  
           >
-            {isEditing ? "Save Changes" : "Change Password"}
+            {loading ? "Saving..." : "Save"}
           </NHButton>
         </>
       }
     >
-      <form
-        onSubmit={handleSubmit}
-        className="grid grid-cols-1 gap-x-8 gap-y-6"
-      >
-        <NHInput
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <NHPasswordInput
           label="Current Password"
           name="currentPassword"
           type="password"
-          value={passwordData.currentPassword}
-          onChange={handlePasswordChange}
-          disabled={!isEditing}
+          value={currentPassword}
+          onChange={handleInputChange}
           required
         />
-        <NHInput
+        <NHPasswordInput
           label="New Password"
           name="newPassword"
           type="password"
-          value={passwordData.newPassword}
-          onChange={handlePasswordChange}
-          disabled={!isEditing}
+          value={newPassword}
+          onChange={handleInputChange}
           required
         />
-        <NHInput
-          label="Confirm Password"
+        <NHPasswordInput
+          label="Confirm New Password"
           name="confirmPassword"
           type="password"
-          value={passwordData.confirmPassword}
-          onChange={handlePasswordChange}
-          disabled={!isEditing}
+          value={confirmPassword}
+          onChange={handleInputChange}
           required
         />
       </form>
