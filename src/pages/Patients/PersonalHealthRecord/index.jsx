@@ -132,6 +132,7 @@ export const PersonalHealthRecord = () => {
 
                                     <NHTable
                                         loading={loading}
+                                        showPagination={true}
                                         tableColumn={columns}
                                         tableDataSource={prescriptions}
                                     />

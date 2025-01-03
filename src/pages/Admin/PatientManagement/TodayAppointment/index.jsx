@@ -85,6 +85,7 @@ export const TodayAppointment = () => {
       >
         <NHTable
           loading={loading}
+          showPagination={true}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={data}
         />

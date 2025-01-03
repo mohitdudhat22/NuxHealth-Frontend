@@ -140,6 +140,7 @@ export const PreviousAppointments = () => {
         }
       >
         <NHTable
+          showPagination={true}
           loading={loading}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={filteredAppointments} 

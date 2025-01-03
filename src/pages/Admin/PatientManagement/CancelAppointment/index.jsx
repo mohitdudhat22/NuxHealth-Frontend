@@ -83,7 +83,7 @@ export const CancelAppointment = () => {
           <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
         }
       >
-        <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
+        <NHTable loading={loading} showPagination={true} tableColumn={columns} tableDataSource={data} />
       </NHCard>
 
       {selectedPatient && (

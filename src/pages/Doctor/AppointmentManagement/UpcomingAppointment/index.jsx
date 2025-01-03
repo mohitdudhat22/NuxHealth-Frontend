@@ -139,6 +139,7 @@ export const UpcomingAppointments = () => {
       >
         <NHTable
           loading={loading}
+          showPagination={true}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={filteredAppointments}
           route="/doctor"

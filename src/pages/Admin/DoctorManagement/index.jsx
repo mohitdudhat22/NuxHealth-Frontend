@@ -97,6 +97,7 @@ export const DoctorManagement = () => {
       >
         <NHTable
           loading={loading}
+          showPagination={true}
           tableColumn={columns}
           tableDataSource={data}
           route="/admin/doctor-management"
