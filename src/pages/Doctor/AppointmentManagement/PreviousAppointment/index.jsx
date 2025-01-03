@@ -143,6 +143,7 @@ export const PreviousAppointments = () => {
           loading={loading}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={filteredAppointments} 
+          route="/doctor"
         />
       </NHCard>
 

@@ -114,6 +114,7 @@ export const CancelAppointments = () => {
           loading={loading}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={data} // Directly bind data here
+          route="/doctor"
         />
       </NHCard>
 
