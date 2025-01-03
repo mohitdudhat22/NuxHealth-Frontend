@@ -120,7 +120,7 @@ export const todayManagePriscription = () =>
 export const olderManagePriscription = () =>
   request("get", "/api/doctor/getPrescription?dateFilter=older");
 
-
+export const searchDoctorforappointment = (data) => request("post", "/api/patient/searchAppointment", data);
 export const getSinglePatientForAdmin = (id) => request("get", `/api/admin/getSinglepatients?${id}`);
 export const getSinglePatientForDoctor = (id) => request("get", `/api/doctor/getSinglepatients?${id}`);
 export const todaysAppointmentForDoctor = () => request("get", "/api/doctor/getAppointment?filter=today");
