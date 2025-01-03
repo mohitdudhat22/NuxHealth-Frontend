@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getSinglePatientForAdmin } from '@/axiosApi/ApiHelper';
+// import { getSinglePatientForAdmin } from '@/axiosApi/ApiHelper';
 
 export const usePatientDetails = (patientId, isModalOpen) => {
   const [patientData, setPatientData] = useState(null);
@@ -11,7 +11,7 @@ export const usePatientDetails = (patientId, isModalOpen) => {
       const fetchPatientDetails = async () => {
         setLoading(true);
         try {
-          const response = await getSinglePatientForAdmin(patientId);
+          // const response = await getSinglePatientForAdmin(patientId);
           setPatientData(response.data);
         } catch (err) {
           setError(err);

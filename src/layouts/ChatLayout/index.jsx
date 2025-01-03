@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ChatMessageBar, ChatSidebar } from "@/components";
+import ChatStartImage from "../../assets/images/cover/chat-starting-image.png";
 
 export const ChatLayout = () => {
   const initialUsers = [
@@ -127,8 +128,9 @@ export const ChatLayout = () => {
           onSendMessage={handleSendMessage}
         />
       ) : (
-        <div className="flex items-center justify-center h-full text-gray-500">
-          Select a chat to start messaging
+        <div className="flex flex-col items-center justify-center h-full text-gray-500">
+          <img src={ChatStartImage} alt="chatstaring" className="w-1/2 h-1/2" />
+         <p className="text-[#A7A7A7] font-medium text-[26px] mt-10">No chat with someone</p>
         </div>
       )}
     </div>
