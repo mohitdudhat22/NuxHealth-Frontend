@@ -29,7 +29,7 @@ export const NHInput = ({
       {label && (
         <label
           htmlFor={id}
-          className={clsx(styles.label, "mb-2", labelClassName)}
+          className={clsx(styles.label, "mb-xl", labelClassName)}
         >
           {label} {required && <span className="d-block text-danger">*</span>}
         </label>
@@ -77,7 +77,7 @@ export const NHPasswordInput = ({
   ...rest
 }) => {
   return (
-    <div className={clsx(parentClassName, "position-relative flex  flex-col")}>
+    <div className={clsx(parentClassName, "position-relative flex flex-col")}>
       {label && (
         <label
           htmlFor={id}
@@ -166,9 +166,9 @@ export const NHNumberInput = ({
   ...rest
 }) => {
   return (
-    <div className={clsx(parentClassName, "flex")}>
+    <div className={clsx(parentClassName, "flex flex-col")}>
       {label && (
-        <label htmlFor={id} className={clsx(styles.label)}>
+        <label htmlFor={id} className={clsx(styles.label, mb-2)}>
           {label}
         </label>
       )}
