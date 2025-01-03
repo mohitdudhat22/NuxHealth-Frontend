@@ -2,7 +2,8 @@ import { NHButton, NHCard, NHInput, NHTable, PatientDetailCard } from '@/compone
 import Icons from '@/constants/icons';
 import { usePatientDashboardData } from '@/hook/Patients';
 import React, { useState } from 'react';
-import { MedicalHistory, Prescriptions, TestReports } from '..';
+import { Prescriptions } from './Prescriptions';
+import { MedicalHistory } from './MedicalHistory';
 
 export const PersonalHealthRecord = () => {
 

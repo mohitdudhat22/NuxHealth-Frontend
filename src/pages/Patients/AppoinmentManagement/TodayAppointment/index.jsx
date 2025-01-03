@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
-import { useTodayAppointments } from "@/hook/Admin/PatientManagement/TodaysAppointment"; 
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useNavigate } from "react-router-dom";
+import { useTodayAppointments } from "@/hook/Doctor";
 
 const columns = (handleViewPatient) => [
   {
