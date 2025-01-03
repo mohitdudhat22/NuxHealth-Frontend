@@ -62,10 +62,10 @@ const NuxHealthRoute = createBrowserRouter(
         /*temp*/
         {
           path: "tempDoctor",
-          element: <ChatempComponentforPateint/>,
+          element: <ChattempComponentforDoctor/>,
         },{
           path: "tempPatient",
-          element: <ChattempComponentforDoctor/>,
+          element: <ChatempComponentforPateint/>,
         },
         /* AuthCation */
         {
