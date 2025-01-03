@@ -1,9 +1,13 @@
 import { NHButton, NHCard, NHInput, NHTable, PatientDetailCard } from '@/components';
 import Icons from '@/constants/icons';
 import { usePatientDashboardData } from '@/hook/Patients';
-import React from 'react';
+import React, { useState } from 'react';
+import { MedicalHistory, Prescriptions, TestReports } from '..';
 
 export const PersonalHealthRecord = () => {
+
+    const [currentView, setCurrentView] = useState("dashboard");
+
     const { data, loading, error } = usePatientDashboardData();
 
     // if (loading) return <p>Loading patient data...</p>;
@@ -11,6 +15,7 @@ export const PersonalHealthRecord = () => {
 
     const patientData = data?.patientProfile;
     const prescriptions = data?.prescriptions || [];
+    console.log(data)
 
     const prescriptionHeaders = ['Hospital Name', 'Date', 'Disease Name', 'Action'];
     const prescriptionRows = prescriptions.map((prescription) => [
@@ -84,83 +89,96 @@ export const PersonalHealthRecord = () => {
         );
     };
 
-    return (
-        <div>
-            {/* Patient Detail Card */}
-            <PatientDetailCard
-                // avatar={patientData?.profilePicture}
-                patientName={patientData?.fullName}
-                doctorName="Dr. Marcus Philips"
-                patientNumber={patientData?.phone}
-                patientIssue="Feeling tired"
-                patientGender={patientData?.gender}
-                patientAge={`${patientData?.age} Years`}
-                appointmentType="Online"
-                patientAddress={`${patientData?.address.fullAddress}, ${patientData?.address.city}`}
-                lastAppointmentDate="2 Jan, 2022"
-                lastAppointmentTime="4:30 PM"
-                onEditProfile={() => { }}
-            />
-
-            <div className="grid grid-cols-[3fr_2fr] mt-8 grid-rows-2 gap-8">
-                {/* Medical History Section */}
-                <section>
-                    <SectionHeader title="Medical History" actionText="View All History" />
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                        {medicalHistoryData.map((data, index) => (
-                            <NHCard key={index} {...data} />
-                        ))}
-                    </div>
-                </section>
-
-                {/* Prescriptions Section */}
-                <section>
-                    <NHCard
-                        title={<span className='text-[#030229] text-[26px] font-semibold'>Prescriptions</span>}
-                        headerContent={<span className='text-[#5678E9] text-xl'>View All Prescription</span>}>
-
-                        <NHTable
-                            loading={loading}
-                            tableColumn={columns}
-                            tableDataSource={prescriptions}
+    const renderView = () => {
+        switch (currentView) {
+            case "dashboard":
+                return (
+                    <>
+                        <PatientDetailCard
+                            patientName={patientData?.fullName}
+                            doctorName="Dr. Marcus Philips"
+                            patientNumber={patientData?.phone}
+                            patientIssue="Feeling tired"
+                            patientGender={patientData?.gender}
+                            patientAge={`${patientData?.age} Years`}
+                            appointmentType="Online"
+                            patientAddress={`${patientData?.address.fullAddress}, ${patientData?.address.city}`}
+                            lastAppointmentDate="2 Jan, 2022"
+                            lastAppointmentTime="4:30 PM"
+                            onEditProfile={() => { }}
                         />
 
-                    </NHCard>
-                </section>
+                        <div className="grid grid-cols-[3fr_2fr] mt-8 grid-rows-2 gap-8">
+                            {/* Medical History Section */}
+                            <section>
+                                <SectionHeader
+                                    title="Medical History"
+                                    actionText="View All History"
+                                    onActionClick={() => setCurrentView("medical-history")}
+                                />
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                                    {medicalHistoryData.map((data, index) => (
+                                        <NHCard key={index} {...data} />
+                                    ))}
+                                </div>
+                            </section>
 
-                {/* Test Reports Section */}
-                <section>
-                    <SectionHeader title="Test Reports" actionText="View All Reports" />
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                        <NHCard
-                            title="Dr. Marcus Philips"
-                            subtitle="Disease: Viral Infection"
-                            description="Pathology Test"
-                            date="2 Jan, 2022"
-                        />
-                        <NHCard
-                            title="Dr. Ryan Carder"
-                            subtitle="Disease: Allergies"
-                            description="Pathology Test"
-                            date="2 Jan, 2022"
-                        />
-                    </div>
-                </section>
+                            {/* Prescriptions Section */}
+                            <section>
+                                <NHCard
+                                    title={<span className='text-[#030229] text-[26px] font-semibold'>Prescriptions</span>}
+                                    headerContent={<span className='text-[#5678E9] text-xl' onClick={() => setCurrentView("prescriptions")}>View All Prescription</span>}>
 
-                {/* Patient Status Section */}
-                <section>
-                    <SectionHeader title="Patient Status" />
-                    <div className="p-4 bg-white border rounded-lg">
-                        <p>
-                            <strong>Shambhu Hospital</strong> - Dr. Mathew Best - 2 Jan, 2022
-                        </p>
-                        <p className="mt-2 text-sm text-gray-600">
-                            It is a long established fact that a reader will be distracted by
-                            the readable content of a page when looking at its layout.
-                        </p>
-                    </div>
-                </section>
-            </div>
-        </div>
-    );
+                                    <NHTable
+                                        loading={loading}
+                                        tableColumn={columns}
+                                        tableDataSource={prescriptions}
+                                    />
+
+                                </NHCard>
+                            </section>
+
+                            {/* Test Reports Section */}
+                            <section>
+                                <SectionHeader
+                                    title="Test Reports"
+                                    actionText="View All Reports"
+                                    onActionClick={() => setCurrentView("test-reports")}
+                                />
+                                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                    <NHCard
+                                        title="Dr. Marcus Philips"
+                                        subtitle="Disease: Viral Infection"
+                                        description="Pathology Test"
+                                        date="2 Jan, 2022"
+                                    />
+                                    <NHCard
+                                        title="Dr. Ryan Carder"
+                                        subtitle="Disease: Allergies"
+                                        description="Pathology Test"
+                                        date="2 Jan, 2022"
+                                    />
+                                </div>
+                            </section>
+                        </div>
+                    </>
+                );
+            case "medical-history":
+                return (
+                    <MedicalHistory />
+                );
+            case "prescriptions":
+                return (
+                    <Prescriptions />
+                );
+            case "test-reports":
+                return (
+                    <TestReports />
+                );
+            default:
+                return null;
+        }
+    };
+
+    return <div>{renderView()}</div>;
 };

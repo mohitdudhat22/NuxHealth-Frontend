@@ -1,4 +1,5 @@
-import { getSinglePatientForDoctor } from "@/axiosApi/ApiHelper";
+// Api is not available so I have used static data for now.
+// import { getSinglePatientForDoctor } from "@/axiosApi/ApiHelper";
 import { NHButton } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
@@ -13,7 +14,7 @@ export const usePatientViewDetails = () => {
 
   const fetchData = async () => {
     try {
-      const response = await getSinglePatientForDoctor(id);
+      // const response = await getSinglePatientForDoctor(id);
       setData(response);
     } catch (err) {
       setError("Failed to fetch patient data.");
