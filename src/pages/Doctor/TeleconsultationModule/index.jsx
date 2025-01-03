@@ -357,7 +357,6 @@ export const Teleconsultation = () => {
                         }
                         className="p-0 "
                     />
-
                 )}
             </NHModal>
         </>

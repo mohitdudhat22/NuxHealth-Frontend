@@ -1,8 +1,9 @@
-import { useBillingAndPayments } from '@/hook/Admin/BillingAndPayments';
+import { useBillingAndPayments, usePendingBills } from '@/hook/Admin/BillingAndPayments';
 import { Space, Tag } from 'antd';
-import { NHButton, NHCard, NHInput, NHTable } from '@/components';
+import { AppointmentCard, NHButton, NHCard, NHInput, NHTable } from '@/components';
 import Icons from '@/constants/icons';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export const MonitorBilling = () => {
   const {
@@ -80,7 +81,7 @@ export const MonitorBilling = () => {
             placeholder="Search"
             onChange={(e) => onSearch(e.target.value)}
           />
-                    <NHButton variant="default" className="bg-white border-primary" onClick={() => navigate("edit-design-invoice")}>{Icons.EditBillIcon}Edit Invoice Theme</NHButton>
+          <NHButton variant="default" className="bg-white border-primary" onClick={() => navigate("edit-design-invoice")}>{Icons.EditBillIcon}Edit Invoice Theme</NHButton>
           <NHButton
             icon={Icons.PlusSquare}
             onClick={() => navigate("/admin/monitor-billing/create-bill")}
@@ -95,3 +96,55 @@ export const MonitorBilling = () => {
     </NHCard>
   );
 };
+
+// export const MonitorBilling = () => {
+//   const [selectedAppointment, setSelectedAppointment] = useState(null);
+//   const [viewingPatientDetails, setViewingPatientDetails] = useState(null);
+
+//   const { bills, loading, error } = usePendingBills();
+
+//   const pendingBills = bills || [];
+
+
+//   const handlePatientDetails = (bill) => {
+//     setViewingPatientDetails(bill);
+//   };
+
+//   const handleBackToAppointments = () => {
+//     setViewingPatientDetails(null);
+//   };
+
+//   return (
+//     <NHCard
+//       title="Pending Bills (50)">
+//       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+//         {pendingBills.map((bill, index) => (
+//           <AppointmentCard
+//             headerBg={true}
+//             key={index}
+//             title={
+//               <>
+//                 Bill No:{bill.billNumber}
+//               </>
+//             }
+//             headerContent={
+//               <>
+//                 <span
+//                   onClick={() => handlePatientDetails(bill)}
+//                   className="cursor-pointer"
+//                 >
+//                   {Icons.ViewBillIcon}
+//                 </span>
+//               </>
+//             }
+//             billNo={bill.billNo}
+//             billDate={bill.billDate}
+//             patientName={bill.patientName}
+//             patientPhoneNumber={bill.phoneNumber}
+//             className="border border-slate-200"
+//           />
+//         ))}
+//       </div>
+//     </NHCard>
+//   );
+// };

@@ -10,7 +10,7 @@ export const usePatientDashboardData = () => {
         const fetchDashboardData = async () => {
             try {
                 setLoading(true);
-                // const response = await patientDashboard();
+                const response = await patientDashboard();
                 if (response.status === "success") {
                     setData(response.data);
                 } else {

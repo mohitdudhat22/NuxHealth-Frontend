@@ -42,7 +42,7 @@ import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
 import NotificationBox from "@/components/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
 import { BillView } from "@/pages/Admin/MonitorBilling/BillView";
-import { PersonalHealthRecord, TeleconsultationModule } from "@/pages/Patients";
+import { AppointmentBooking, PersonalHealthRecord, TeleconsultationModule } from "@/pages/Patients";
 import { PatientBills } from "@/pages/Patients/PatientsBills";
 
 const NuxHealthRoute = createBrowserRouter(
@@ -298,7 +298,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "appointment",
-                  element: "appointment",
+                  element: <AppointmentBooking />,
                 },
                 {
                   path: "prescription-access",
@@ -306,7 +306,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "teleconsultation",
-                  element: <TeleconsultationModule/>,
+                  element: <TeleconsultationModule />,
                 },
                 {
                   path: "chat-screen",
@@ -314,7 +314,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element:<PatientBills/>,
+                  element: <PatientBills />,
                 },
               ],
             },
