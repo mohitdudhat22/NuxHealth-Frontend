@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
-import { useTodayAppointments } from "@/hook/Admin/PatientManagement/TodaysAppointment";
+import { useTodayAppointment } from "@/hook/Doctor/AppointmentManagement/TodaysAppointment";
 import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
 import { CancelOnsiteAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnsiteAppointmentModal";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal"; 
@@ -68,7 +68,7 @@ const columns = (handleViewPatient) => [
 ];
 
 export const TodayAppointments = () => {
-  const { data, loading, error } = useTodayAppointments();
+  const { data, loading, error } = useTodayAppointment();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
@@ -136,6 +136,7 @@ export const TodayAppointments = () => {
           loading={loading}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={filteredAppointments} 
+          route="/doctor"
         />
       </NHCard>
 

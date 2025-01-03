@@ -29,7 +29,7 @@ export const PatientRecordAccess = () => {
                 </div>
             }
         >
-            <NHTable columns={columns} dataSource={data || staticData} />
+            <NHTable columns={columns} dataSource={data || staticData} route={"/doctor/patientrecordaccess"} />
         </NHCard>
     );
 };
