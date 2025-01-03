@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NHButton, NHCard, NHTable } from '..';
 import { Space } from 'antd';
 import Icons from '@/constants/icons';
 export const BillingCard = ({data}) => {
+  const [loading, setLoading] = useState(true);
+
   const bills = data || [
     { billsNo: '5614', patientName: 'David Watson', diseaseName: 'Colds and Flu', status: 'Paid' },
     { billsNo: '5614', patientName: 'James George', diseaseName: 'Colds and Flu', status: 'Unpaid' },
