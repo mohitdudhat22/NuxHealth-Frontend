@@ -58,7 +58,8 @@ export const todayAppointment = () =>
   request("get", "/api/doctor/getAppointment?filter=today");
 
 /* Patient */
-export const patientDashboard = () => request("get", "/api/patient/getDashboardData");
+export const patientDashboard = () =>
+  request("get", "/api/patient/getDashboardData");
 
 /* Reception */
 export const CreateReception = (data) =>
@@ -114,6 +115,11 @@ export const getPaidBills = () =>
   request("get", "/api/patient/getBillsforPatient?status=paid");
 export const getUnpaidBills = () =>
   request("get", "/api/patient/getBillsforPatient?status=unpaid");
+export const todayManagePriscription = () =>
+  request("get", "/api/doctor/getPrescription?dateFilter=today");
+export const olderManagePriscription = () =>
+  request("get", "/api/doctor/getPrescription?dateFilter=older");
+
 
 export const getSinglePatientForAdmin = (id) => request("get", `/api/admin/getSinglepatients?${id}`);
 export const getSinglePatientForDoctor = (id) => request("get", `/api/doctor/getSinglepatients?${id}`);
