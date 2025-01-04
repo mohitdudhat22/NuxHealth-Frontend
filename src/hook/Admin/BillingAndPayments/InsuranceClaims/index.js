@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { getInsuranceClaimBills } from '@/axiosApi/ApiHelper';
 import { useNavigate } from 'react-router-dom';
+import { filterByQuery } from '@/utils/FilterSearch';
 
 export const useInsuranceClaims = () => {
   const navigate = useNavigate();
   const [claims, setClaims] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [query, setSearchQuery] = useState('');
+  console.log(claims)
 
   const fetchClaims = async () => {
     try {
@@ -24,9 +26,19 @@ export const useInsuranceClaims = () => {
     fetchClaims();
   }, []);
 
-  const filteredClaims = claims.filter((claim) =>
-    claim.patientName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredClaims = filterByQuery(claims, query, [
+    "patientName",
+    "billNumber",
+    "diseaseName",
+    "doctorName",
+    "insuranceCompany",
+    "insurancePlan",
+    "billDate"
+  ]);
+
+  const onSearch = (query) => {
+    setSearchQuery(query);
+  };
 
   const data = filteredClaims.map((claim) => ({
     key: claim._id,
@@ -39,16 +51,13 @@ export const useInsuranceClaims = () => {
     billDate: new Date(claim.billDate).toLocaleDateString(),
   }));
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
 
   return {
     claims,
     loading,
     data,
     fetchClaims,
-    handleSearch,
+    onSearch,
     navigate,
   };
 };

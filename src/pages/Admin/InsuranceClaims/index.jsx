@@ -9,7 +9,7 @@ export const InsuranceClaims = () => {
     loading,
     data,
     fetchClaims,
-    handleSearch,
+    onSearch,
     navigate
   } = useInsuranceClaims();
 
@@ -80,7 +80,7 @@ export const InsuranceClaims = () => {
           <NHInput
             prefix={Icons.SearchIcon}
             placeholder="Search Patient"
-            onChange={handleSearch}
+            onChange={(e) => onSearch(e.target.value)}
           />
         }
       >

@@ -6,7 +6,7 @@ import { useCancelAppointments } from "@/hook/Admin/PatientManagement/CancelAppo
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
 export const CancelAppointment = () => {
-  const { data, loading, error } = useCancelAppointments();
+  const { data, loading, error ,onSearch } = useCancelAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
 
@@ -80,7 +80,7 @@ export const CancelAppointment = () => {
       <NHCard
         title="Cancel Appointments"
         headerContent={
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" onChange={(e) => onSearch(e.target.value)} />
         }
       >
         <NHTable loading={loading} showPagination={true} tableColumn={columns} tableDataSource={data} />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { adminDoctor } from "@/axiosApi/ApiHelper";
 import { useNavigate } from "react-router-dom";
+import { filterByQuery } from "@/utils/FilterSearch";
 
 export const useDoctorManagement = () => {
   let navigate = useNavigate();
@@ -15,7 +16,6 @@ export const useDoctorManagement = () => {
       const response = await adminDoctor();
       if (response.status === 1) {
         setDoctors(response.data);
-        console.log("Doctors:", response.data.length);
       }
     } finally {
       setLoading(false);
@@ -26,16 +26,16 @@ export const useDoctorManagement = () => {
     fetchDoctors();
   }, []);
 
-  const filteredDoctors = doctors.filter(
-    (doctor) =>
-      doctor?.doctorName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      doctor?.specialty?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      doctor?.gender?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   const onSearch = (query) => {
     setSearchQuery(query);
   };
+
+  const filteredDoctors = filterByQuery(doctors, searchQuery, [
+    "fullName",
+    "gender",
+    "metaData.doctorData.speciality",
+    "metaData.doctorData.qualification"
+  ]);
 
   const data = filteredDoctors?.map((doctor) => ({
     key: doctor?._id,
@@ -62,5 +62,7 @@ export const useDoctorManagement = () => {
     fetchDoctors,
     navigate,
     onSearch,
+    searchQuery,
   };
 };
+

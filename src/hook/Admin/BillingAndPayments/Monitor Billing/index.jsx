@@ -4,11 +4,13 @@ import Icons from "@/constants/icons"
 import { Space, Tag } from "antd"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { filterByQuery } from "@/utils/FilterSearch";
 
 export const useBillingAndPayments = () => {
   const navigate = useNavigate();
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchBills = async () => {
     try {
@@ -26,6 +28,19 @@ export const useBillingAndPayments = () => {
     fetchBills();
   }, []);
 
+  const filteredBills = filterByQuery(bills, searchQuery, [
+    "billNumber",
+    "patientName",
+    "diseaseName",
+    "phoneNumber",
+    "status",
+    "date",
+    "time"
+  ]);
+
+  const onSearch = (value) => {
+    setSearchQuery(value);
+  };
 
   const defaultColumns = [
     {
@@ -117,6 +132,7 @@ export const useBillingAndPayments = () => {
     loading,
     defaultColumns,
     defaultData,
-    navigate
+    navigate,
+    onSearch
   }
 }

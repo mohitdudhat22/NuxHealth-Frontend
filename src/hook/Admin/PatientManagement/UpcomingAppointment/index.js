@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { upcomingAppointmentForAdmin } from "@/axiosApi/ApiHelper";
 import { user } from "@/assets/images";
+import { filterByQuery } from "@/utils/FilterSearch";
 
 export const useUpcomingAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -29,13 +30,12 @@ export const useUpcomingAppointments = () => {
     appointmentType: appointment?.type,
   }));
 
-  const filteredAppointments = mappedAppointments.filter(
-    (appointment) =>
-      appointment?.diseaseName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      appointment?.patientName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      appointment?.doctorName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      appointment?.appointmentType?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredAppointments = filterByQuery(mappedAppointments, searchQuery, [
+    "diseaseName",
+    "patientName",
+    "doctorName",
+    "appointmentType"
+  ]);
 
   const onSearch = (query) => {
     setSearchQuery(query);
