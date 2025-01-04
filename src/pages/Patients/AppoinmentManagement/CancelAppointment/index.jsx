@@ -88,7 +88,7 @@ export const CancelAppointment = () => {
         </>
         }
       >
-        <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
+        <NHTable loading={loading} tableColumn={columns} tableDataSource={data} showPagination={true}/>
       </NHCard>
 
       {selectedPatient && (

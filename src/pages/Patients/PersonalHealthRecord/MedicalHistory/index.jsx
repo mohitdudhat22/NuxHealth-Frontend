@@ -87,7 +87,7 @@ export const MedicalHistory = () => {
                                 </>
                             }
                             headerBg={true}
-                            title={medical.patientName}
+                            title={<span className="font-semibold text-[18px]">{medical.patientName}</span>}āṣ
                             date={medical.date}
                             patientIssue={medical.patientIssue}
                             className="border border-slate-200"

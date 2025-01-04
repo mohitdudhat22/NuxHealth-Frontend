@@ -4,9 +4,10 @@ import { usePatientPrescriptionData } from '@/hook/Patients';
 import { Tag } from 'antd';
 import React, { useEffect, useState } from 'react'
 
-export const Prescriptions = () => {
+export const PrescriptionAccess = () => {
 
     const { loading, data, error } = usePatientPrescriptionData();
+    console.log("🚀 ~ PrescriptionAccess ~ data:", data)
     const [prescriptionData, setPrescriptionData] = useState([]);
 
     useEffect(() => {
@@ -29,22 +30,39 @@ export const Prescriptions = () => {
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                     {prescriptionData.map((prescriptions, index) => (
                         <AppointmentCard
-                            key={prescriptions.prescriptionId}
+                            key={index}
                             headerContent={
                                 <>
-                                    <span
-                                        onClick={() => handlePatientDetails()}
-                                        className="cursor-pointer"
-                                    >
-                                        {Icons.ViewBillIcon}
-                                    </span>
+                                    <div className="flex gap-x-3">
+                                        <span
+                                            onClick={() => handlePatientDetails()}
+                                            className="cursor-pointer"
+                                        >
+                                            {Icons.download}
+                                        </span>
+
+                                        <span
+                                            onClick={() => handlePatientDetails()}
+                                            className="cursor-pointer"
+                                        >
+                                            {Icons.ViewBillIcon}
+                                        </span>
+                                    </div>
+                                </>
+                            }
+                            footerContent={
+                                <>
+                                    <NHInput
+                                        type='file'
+                                    />
                                 </>
                             }
                             headerBg={true}
-                            title={<span className="font-semibold text-[18px]">{prescriptions.DoctorName}</span>}
+                            title={prescriptions.DoctorName}
                             hospitalName={prescriptions.hospitalName}
                             diseaseName={prescriptions.DiseaseName}
                             date={prescriptions.prescriptionDate}
+                            appointmentTime={prescriptions.time}
                             className="border border-slate-200"
                         />
                     ))}

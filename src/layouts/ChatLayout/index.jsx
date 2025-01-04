@@ -119,7 +119,6 @@ export const ChatLayout = () => {
         activeUserId={selectedUserId}
         initialChats={initialUsers}
       />
-
       {/* Main Chat Area */}
       {currentChat ? (
         <ChatMessageBar

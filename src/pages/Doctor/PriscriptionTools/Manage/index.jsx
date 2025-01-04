@@ -98,7 +98,7 @@ export const Manage = () => {
                         />
                     }
                 >
-                    <NHTable columns={columns} dataSource={today} />
+                    <NHTable columns={columns} dataSource={today} loading={loading} showPagination={true} />
                 </NHCard>
             )
         },
@@ -115,7 +115,7 @@ export const Manage = () => {
                         />
                     }
                 >
-                    <NHTable columns={columns} dataSource={older} />
+                    <NHTable columns={columns} dataSource={older} loading={loading} showPagination={true} />
                 </NHCard>
             )
         }
