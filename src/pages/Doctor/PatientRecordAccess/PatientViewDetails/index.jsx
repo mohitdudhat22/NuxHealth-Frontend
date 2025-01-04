@@ -75,7 +75,7 @@ export const PatientViewDetails = () => {
         </NHCard>
       </div>
       <NHCard>
-        <NHTable columns={columns} dataSource={data?.allAppointments || staticData} />
+        <NHTable loading={loading} showPagination={true} columns={columns} dataSource={data?.allAppointments || staticData} />
       </NHCard>
     </>
   );

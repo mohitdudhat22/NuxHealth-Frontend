@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
-import {upcomingAppointmentForAdmin } from "@/axiosApi/ApiHelper";
-import {user} from "@/assets/images";
+import { upcomingAppointmentForAdmin } from "@/axiosApi/ApiHelper";
+import { user } from "@/assets/images";
+import { filterByQuery } from "@/utils/FilterSearch";
 
 export const useUpcomingAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchAppointments = async () => {
     try {
+      setLoading(true);
       const response = await upcomingAppointmentForAdmin();
-      console.log("API Response:", response);
-
       if (response && response?.data) {
         setAppointments(response?.data?.appointments);
-        console.log(response.data.appointments);
       }
     } finally {
       setLoading(false);
     }
   };
 
-  const data = appointments?.map((appointment) => ({
+  const mappedAppointments = appointments?.map((appointment) => ({
     key: appointment?._id,
     avatar: appointment?.profilePicture || user,
     diseaseName: appointment?.dieseas_name,
@@ -30,11 +30,20 @@ export const useUpcomingAppointments = () => {
     appointmentType: appointment?.type,
   }));
 
-  console.log(data)
+  const filteredAppointments = filterByQuery(mappedAppointments, searchQuery, [
+    "diseaseName",
+    "patientName",
+    "doctorName",
+    "appointmentType"
+  ]);
+
+  const onSearch = (query) => {
+    setSearchQuery(query);
+  };
 
   useEffect(() => {
     fetchAppointments();
   }, []);
 
-  return { data, loading };
+  return { data: filteredAppointments, loading, onSearch };
 };

@@ -6,7 +6,7 @@ import { useUpcomingAppointments } from "@/hook/Admin/PatientManagement/Upcoming
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
 export const UpcomingAppointment = () => {
-  const { data, loading, error } = useUpcomingAppointments();
+  const { data, loading, error, onSearch } = useUpcomingAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
 
@@ -80,10 +80,14 @@ export const UpcomingAppointment = () => {
       <NHCard
         title="Upcoming Appointments"
         headerContent={
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+          <NHInput
+            prefix={Icons.SearchIcon}
+            placeholder="Search Patient"
+            onChange={(e) => onSearch(e.target.value)} // trigger onSearch on input change
+          />
         }
       >
-        <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
+        <NHTable loading={loading} showPagination={true} tableColumn={columns} tableDataSource={data} />
       </NHCard>
 
       {selectedPatient && (

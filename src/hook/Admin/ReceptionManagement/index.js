@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { adminReceptionist, DeleteData } from '@/axiosApi/ApiHelper';
 import { useNavigate } from 'react-router-dom';
+import { filterByQuery } from '@/utils/FilterSearch';
 
 export const useReceptionManagement = () => {
   const navigate = useNavigate();
@@ -26,12 +27,19 @@ export const useReceptionManagement = () => {
     fetchReception();
   }, []);
 
-   const filteredReception = reception.filter((reception) =>
-    String(reception?.fullName).toLowerCase().includes(String(searchQuery).toLowerCase()) ||
-    String(reception?.email).toLowerCase().includes(String(searchQuery).toLowerCase()) ||
-    String(reception?.phone).toLowerCase().includes(String(searchQuery).toLowerCase())
-  );
-  
+  const filteredReception = filterByQuery(reception, searchQuery, [
+    "fullName",
+    "gender",
+    "metaData.receptionistData.qualification",
+    "age",
+    "email",
+    "phone"
+  ]);
+
+  const onSearch = (query) => {
+    setSearchQuery(query);
+  }
+
   const data = filteredReception.map((reception) => ({
     key: reception?._id,
     avatar: reception?.profilePicture,
@@ -42,10 +50,6 @@ export const useReceptionManagement = () => {
     email: reception?.email,
     phone: reception?.phone,
   }));
-
-  const onSearch = (query) => {
-    setSearchQuery(query);
-  };
 
   return {
     reception,

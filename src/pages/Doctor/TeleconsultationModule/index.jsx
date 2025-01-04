@@ -271,7 +271,7 @@ export const Teleconsultation = () => {
             </>
           }
         >
-          <NHTable columns={columns} dataSource={data} />
+          <NHTable columns={columns} dataSource={data} loading={loading} showPagination={true} />
         </NHCard>
       ),
     },
@@ -286,7 +286,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={data} />
+          <NHTable columns={columns} dataSource={data} loading={loading} showPagination={true}/>
         </NHCard>
       ),
     },
@@ -301,7 +301,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={data} />
+          <NHTable columns={columns} dataSource={data} loading={loading} showPagination={true}/>
         </NHCard>
       ),
     },

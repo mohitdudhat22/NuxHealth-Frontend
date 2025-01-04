@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { todaysAppointmentForAdmin } from "@/axiosApi/ApiHelper";
 import {user} from "@/assets/images";
+import { filterByQuery } from "@/utils/FilterSearch";
 
 export const useTodaysAppointment= () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchAppointments = async () => {
     try {
@@ -20,7 +22,18 @@ export const useTodaysAppointment= () => {
     }
   };
 
-  const data = appointments?.map((appointment) => ({
+  const filteredAppointments = filterByQuery(appointments, searchQuery, [
+    "patientId.fullName",
+    "dieseas_name",
+    "doctorId.fullName",
+    "type"
+  ]);
+
+  const onSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const data = filteredAppointments?.map((appointment) => ({
     key: appointment?._id,
     avatar: appointment?.profilePicture || user,
     diseaseName: appointment?.dieseas_name,
@@ -36,5 +49,5 @@ export const useTodaysAppointment= () => {
     fetchAppointments();
   }, []);
 
-  return { data, loading };
+  return { data, loading ,onSearch};
 };

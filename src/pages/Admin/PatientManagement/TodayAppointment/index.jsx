@@ -58,7 +58,7 @@ const columns = (handleViewPatient) => [
 ];
 
 export const TodayAppointment = () => {
-  const { data, loading, error } = useTodaysAppointment();
+  const { data, loading, error,onSearch } = useTodaysAppointment();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
 
@@ -80,11 +80,12 @@ export const TodayAppointment = () => {
       <NHCard
         title="Today's Appointments"
         headerContent={
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" onChange={(e) => onSearch(e.target.value)} />
         }
       >
         <NHTable
           loading={loading}
+          showPagination={true}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={data}
         />

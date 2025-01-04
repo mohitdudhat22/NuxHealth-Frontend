@@ -80,6 +80,7 @@ export const ReceptionManagement = () => {
     }>
       <NHTable
         loading={loading}
+        showPagination={true}
         tableColumn={columns}
         tableDataSource={data}
       />
