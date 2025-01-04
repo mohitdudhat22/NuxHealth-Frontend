@@ -12,6 +12,7 @@ import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
+import { useTeleconsultation } from "@/hook/Doctor";
 
 export const Teleconsultation = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,6 +20,8 @@ export const Teleconsultation = () => {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
+
+  const { appointments, loading, error } = useTeleconsultation();
 
   const handleViewBill = (record) => {
     setSelectedPatient(record);
@@ -91,66 +94,9 @@ export const Teleconsultation = () => {
     },
   ];
 
-  const patientData = [
-    {
-      name: "Ryan Vetrov",
-      patientIssue: "Feeling Tired",
-      diseaseName: "Viral Infection",
-      appointmentDate: "2 Jan, 2022",
-      appointmentTime: "10:10 AM",
-    },
-    {
-      name: "Marcus Septimus",
-      patientIssue: "Feeling Tired",
-      diseaseName: "Viral Infection",
-      appointmentDate: "2 Jan, 2022",
-      appointmentTime: "10:10 AM",
-    },
-    {
-      name: "Alfonso Dokidis",
-      patientIssue: "Feeling Tired",
-      diseaseName: "Viral Infection",
-      appointmentDate: "2 Jan, 2022",
-      appointmentTime: "10:10 AM",
-    },
-    {
-      name: "Davis Korsgaard",
-      patientIssue: "Feeling Tired",
-      diseaseName: "Viral Infection",
-      appointmentDate: "2 Jan, 2022",
-      appointmentTime: "10:10 AM",
-    },
-    {
-      name: "Ryan Botosh",
-      patientIssue: "Feeling Tired",
-      diseaseName: "Viral Infection",
-      appointmentDate: "2 Jan, 2022",
-      appointmentTime: "10:10 AM",
-    },
-    {
-      name: "Nolan Dias",
-      patientIssue: "Feeling Tired",
-      diseaseName: "Viral Infection",
-      appointmentDate: "2 Jan, 2022",
-      appointmentTime: "10:10 AM",
-    },
-    {
-      name: "Ahmad Arcand",
-      patientIssue: "Feeling Tired",
-      diseaseName: "Viral Infection",
-      appointmentDate: "2 Jan, 2022",
-      appointmentTime: "10:10 AM",
-    },
-    {
-      name: "Wilson Arcand",
-      patientIssue: "Feeling Tired",
-      diseaseName: "Viral Infection",
-      appointmentDate: "2 Jan, 2022",
-      appointmentTime: "10:10 AM",
-    },
-  ];
+  const patientData = appointments.appointments || [];
 
-  const data = [
+  const appoinmentData = [
     {
       key: "1",
       patientName: "Marcus Phillips",
@@ -208,19 +154,24 @@ export const Teleconsultation = () => {
               {patientData.map((data, index) => {
                 const {
                   name,
-                  patientIssue,
-                  diseaseName,
+                  patient_issue,
+                  dieseas_name,
                   appointmentDate,
                   appointmentTime,
+                  date,
+                  doctorId,
+                  hospitalId,
+                  patientId
+
                 } = data;
                 return (
                   <AppointmentCard
                     key={index}
                     headerBg={true}
-                    doctorName={name}
-                    patientIssue={patientIssue}
-                    diseaseName={diseaseName}
-                    appointmentDate={appointmentDate}
+                    title={<span className="font-semibold text-[18px]">{patientId.fullName}</span>}
+                    patientIssue={patient_issue}
+                    diseaseName={dieseas_name}
+                    appointmentDate={appointmentDate || date}
                     appointmentTime={appointmentTime}
                     footerContent={
                       <div className="flex justify-between gap-4">
@@ -271,7 +222,7 @@ export const Teleconsultation = () => {
             </>
           }
         >
-          <NHTable columns={columns} dataSource={data} />
+          <NHTable columns={columns} dataSource={appoinmentData} />
         </NHCard>
       ),
     },
@@ -286,7 +237,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={data} />
+          <NHTable columns={columns} dataSource={appoinmentData} />
         </NHCard>
       ),
     },
@@ -301,7 +252,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={data} />
+          <NHTable columns={columns} dataSource={appoinmentData} />
         </NHCard>
       ),
     },

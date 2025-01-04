@@ -4,6 +4,7 @@ import { usePatientDashboardData } from '@/hook/Patients';
 import React, { useState } from 'react';
 import { Prescriptions } from './Prescriptions';
 import { MedicalHistory } from './MedicalHistory';
+import { TestReports } from './TestReports';
 
 export const PersonalHealthRecord = () => {
 

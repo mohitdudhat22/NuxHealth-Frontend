@@ -97,6 +97,8 @@ export const MonitorBilling = () => {
   );
 };
 
+// PLEASE DONT DELETE THIS CODE AS IT WILL BE USED IN FUTURE FOR REFERENCE PURPOSE
+
 // export const MonitorBilling = () => {
 //   const [selectedAppointment, setSelectedAppointment] = useState(null);
 //   const [viewingPatientDetails, setViewingPatientDetails] = useState(null);
