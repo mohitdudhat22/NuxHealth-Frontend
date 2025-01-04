@@ -32,6 +32,7 @@ export const PatientDetails = () => {
             <div className="flex items-center justify-center h-40">
               <Empty
                 image={NoPatientDetailsFound}
+                imageStyle={{ height: "100%" }}
                 description="No Documents Found"
                 className="h-full"
               />
@@ -72,6 +73,7 @@ export const PatientDetails = () => {
             <div className="flex items-center justify-center h-40">
               <Empty
                 image={NoPatientDetailsFound}
+                imageStyle={{ height: "100%" }}
                 description="No Prescriptions Found"
                 className="h-full"
               />
@@ -112,6 +114,7 @@ export const PatientDetails = () => {
             <div className="flex items-center justify-center h-40">
               <Empty
                 image={NoPatientDetailsFound}
+                imageStyle={{ height: "100%" }}
                 description="No Descriptions Found"
                 className="h-full"
               />

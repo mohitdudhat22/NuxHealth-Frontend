@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Badge, Button, Popover, List } from "antd";
+import { Badge, Button, Popover, List, Empty } from "antd";
 import { NotificationOutlined, CloseOutlined } from "@ant-design/icons";
-
+import NoNotificationFound from "../../assets/images/cover/no-notification-found.png";
 const NotificationBox = () => {
   const [open, setOpen] = useState(false);
 
@@ -105,41 +105,52 @@ const NotificationBox = () => {
         content={
           <div className="w-[400px] max-h-[600px] overflow-y-auto">
             <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-lg font-semibold">Notification</h2>
+              <h2 className="text-lg font-semibold text-gray-800">Notification</h2>
               <Button 
                 type="text" 
                 icon={<CloseOutlined />} 
                 onClick={() => setOpen(false)}
-                className="text-red-500"
+                className="text-gray-500"
               />
             </div>
 
-            <List
-              dataSource={notifications}
-              renderItem={(item) => (
-                <List.Item className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b">
-                  <div className="flex gap-3">
-                    {getNotificationIcon(item.type)}
-                    <div className="flex-1">
-                      <div className="flex justify-between items-start">
-                        <h3 className="text-sm font-medium">{item.title}</h3>
-                        <span className="text-xs text-gray-400">{item.time}</span>
+            {notifications.length > 0 ? (
+              <List
+                dataSource={notifications}
+                renderItem={(item) => (
+                  <List.Item className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b w-full">
+                    <div className="flex items-center gap-3 w-full">
+                      {getNotificationIcon(item.type)}
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center">
+                          <h3 className="text-base font-medium text-[#030229]">{item.title}</h3>
+                          <span className="text-sm text-[#A7A7A7]">{item.time}</span>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {item.description.split(item.highlightText).map((part, index, array) => (
+                            <>
+                              {part}
+                              {index < array.length - 1 && (
+                                <span className="text-blue-500 font-medium">{item.highlightText}</span>
+                              )}
+                            </>
+                          ))}
+                        </p>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {item.description.split(item.highlightText).map((part, index, array) => (
-                          <>
-                            {part}
-                            {index < array.length - 1 && (
-                              <span className="text-blue-500">{item.highlightText}</span>
-                            )}
-                          </>
-                        ))}
-                      </p>
                     </div>
-                  </div>
-                </List.Item>
-              )}
-            />
+                  </List.Item>
+                )}
+              />
+            ) : (
+              <Empty
+                image={NoNotificationFound}
+                imageStyle={{ height: "100%" }}
+                description={
+                  <span className="text-[#4F4F4F] font-medium text-lg">No notification yet!</span>
+                }
+                className="p-4"
+              />
+            )}
           </div>
         }
       >

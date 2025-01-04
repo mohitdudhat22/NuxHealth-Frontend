@@ -1,8 +1,7 @@
-import { user } from "@/assets/images";
+import { useState, useEffect } from "react";
+import { Avatar } from "antd";
 import { NHButton, NHTextArea } from "@/components";
 import Icons from "@/constants/icons";
-import { Avatar } from "antd";
-import { useState } from "react";
 
 export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
   const [inputMessage, setInputMessage] = useState("");
@@ -22,6 +21,7 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (!inputMessage.trim()) return;
+
     onSendMessage(inputMessage);
     setInputMessage("");
   };

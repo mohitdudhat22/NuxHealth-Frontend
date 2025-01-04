@@ -4,6 +4,7 @@ import { NHInput } from "@/components/FormComponents";
 import Icons from "@/constants/icons";
 import { Avatar, List } from "antd";
 import clsx from "clsx";
+import socket, { updateOnlineUsers, checkOnlineStatus } from "../../../services/socketService";
 
 export const Sidebar = ({
   users,
@@ -13,6 +14,7 @@ export const Sidebar = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredChats, setFilteredChats] = useState(initialChats);
+  const [onlineUsers, setOnlineUsers] = useState({});
 
   useEffect(() => {
     const filtered = users.filter((user) =>
@@ -21,9 +23,25 @@ export const Sidebar = ({
     setFilteredChats(filtered);
   }, [searchQuery, users]);
 
+  useEffect(() => {
+    const userId = "doctorId"; // Replace with actual doctor ID
+    checkOnlineStatus(userId);
+
+    updateOnlineUsers((data) => {
+      const { onlineUsers } = data;
+      setOnlineUsers(onlineUsers);
+    });
+
+    return () => {
+      // Clean up the event listener
+      socket.off('update-online-users');
+    };
+  }, []);
+
   const onSearch = (e) => {
     setSearchQuery(e.target.value);
   };
+
   return (
     <div className="bg-white p-6 rounded-l-3xl flex flex-col h-full">
       <div className="flex flex-col gap-4 mb-8">
@@ -34,7 +52,7 @@ export const Sidebar = ({
           onChange={onSearch}
         />
       </div>
-      <div className="overflow-auto flex-grow h-[calc(100vh-18.3rem-var(--header-height)-2rem)] overflow-auto">
+      <div className="overflow-auto flex-grow h-[calc(100vh-18.3rem-var(--header-height)-2rem)]">
         <List
           className="chat-list gap-xl flex flex-col"
           dataSource={filteredChats}

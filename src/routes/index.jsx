@@ -49,6 +49,8 @@ import { PatientBills } from "@/pages/Patients/PatientsBills";
 import { AppointmentBooking } from "@/pages/Patients/AppointmentBooking";
 import ChattempComponentforDoctor from "@/components/chatTempComponentforDoctor";
 import ChatempComponentforPateint from "@/components/chatTempComponentforPatient";
+import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
+import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
 
 
 const NuxHealthRoute = createBrowserRouter(
@@ -69,6 +71,10 @@ const NuxHealthRoute = createBrowserRouter(
         },{
           path: "tempPatient",
           element: <ChatempComponentforPateint/>,
+        },
+        {
+          path: "notification-box",
+          element: <NotificationBox/>,
         },
         /* AuthCation */
         {
@@ -259,10 +265,10 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                   ],
                 },
-                {
-                  path: "notification-box",
-                  element: <NotificationBox />,
-                },
+                // {
+                //   path: "notification-box",
+                //   element: <NotificationBox />,
+                // },
                 {
                   path: "create-prescriptionTools",
                   children: [
@@ -282,12 +288,16 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <Teleconsultation />,
                 },
                 {
+                  path: "chat-doctor",
+                  element: <ChatLayoutForDoctor />,
+                },
+                {
                   path: "chat-screen",
                   element: <ChatLayout />,
                   children: [
                     {
                       index: true,
-                      element: " <ChatLayout /",
+                      element: <Login/>,
                     },
                   ],
                 },
@@ -331,6 +341,10 @@ const NuxHealthRoute = createBrowserRouter(
                 {
                   path: "teleconsultation",
                   element: <TeleconsultationAccess />,
+                },
+                {
+                  path: "chat-patient",
+                  element: <ChatLayoutForPatient />,
                 },
                 {
                   path: "chat-screen",
