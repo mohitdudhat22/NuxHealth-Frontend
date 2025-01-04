@@ -54,8 +54,6 @@ const useAppointmentFilters = () => {
     }));
   };
 
-
- 
   useEffect(() => {
     const fetchData = async () => {
       const queryString = new URLSearchParams(filters).toString();
