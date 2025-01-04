@@ -15,35 +15,11 @@ export const Create = () => {
 
     const appointmentData = [
         {
-            "name": "Jaydon Philips",
+            "name": "Dr.Jaydon Philips",
             "appointmentType": "Onsite",
             "patientAge": "25 Years",
             "patientGender": "Male",
             "appointmentTime": "10:00 AM",
-            "status": "New"
-        },
-        {
-            "name": "Charlie Herwitz",
-            "appointmentType": "Onsite",
-            "patientAge": "25 Years",
-            "patientGender": "Female",
-            "appointmentTime": "10:00 AM",
-            "status": "New"
-        },
-        {
-            "name": "Talan Lipshutz",
-            "appointmentType": "Onsite",
-            "patientAge": "32 Years",
-            "patientGender": "Male",
-            "appointmentTime": "10:10 AM",
-            "status": "New"
-        },
-        {
-            "name": "Abram Septimus",
-            "appointmentType": "Onsite",
-            "patientAge": "45 Years",
-            "patientGender": "Male",
-            "appointmentTime": "10:10 AM",
             "status": "New"
         },
         {
@@ -69,46 +45,6 @@ export const Create = () => {
             "patientGender": "Male",
             "appointmentTime": "10:10 AM",
             "status": "New"
-        },
-        {
-            "name": "Wilson Botosh",
-            "appointmentType": "Onsite",
-            "patientAge": "18 Years",
-            "patientGender": "Male",
-            "appointmentTime": "10:10 AM",
-            "status": "New"
-        },
-        {
-            "name": "Cristofer Saris",
-            "appointmentType": "Onsite",
-            "patientAge": "46 Years",
-            "patientGender": "Male",
-            "appointmentTime": "10:10 AM",
-            "status": "Old"
-        },
-        {
-            "name": "James Bothman",
-            "appointmentType": "Onsite",
-            "patientAge": "15 Years",
-            "patientGender": "Male",
-            "appointmentTime": "10:10 AM",
-            "status": "New"
-        },
-        {
-            "name": "Ryan Bator",
-            "appointmentType": "Onsite",
-            "patientAge": "42 Years",
-            "patientGender": "Female",
-            "appointmentTime": "10:10 AM",
-            "status": "Old"
-        },
-        {
-            "name": "Jakob Saris",
-            "appointmentType": "Onsite",
-            "patientAge": "27 Years",
-            "patientGender": "Female",
-            "appointmentTime": "10:10 AM",
-            "status": "Old"
         }
     ]
 
@@ -142,7 +78,7 @@ export const Create = () => {
                             <AppointmentCard
                                 key={index}
                                 headerContent={
-                                    <>
+                                    <div className="flex items-center justify-between">
                                         <Tag color={appointment.status === "New" ? "blue" : "green"}>
                                             {appointment.status}
                                         </Tag>
@@ -150,14 +86,15 @@ export const Create = () => {
                                             onClick={() => handlePatientDetails(appointment)}
                                             className="cursor-pointer"
                                         >
-                                            {Icons.ViewBillIcon}
+                                            {Icons.View}
                                         </span>
-                                    </>
+                                    </div>
                                 }
-                                doctorName={appointment.name}
+                                headerBg={true}
+                                title={<span className="font-semibold text-[18px]">{appointment.name}</span>}
                                 appointmentType={appointment.appointmentType}
                                 patientAge={appointment.patientAge}
-                                gender={appointment.patientGender}
+                                PatientGender={appointment.patientGender}
                                 appointmentTime={appointment.appointmentTime}
                                 footerContent={
                                     <NHButton
