@@ -55,11 +55,12 @@ export const createReceptionist = (data) =>
 
 /* Doctor */
 export const todayAppointment = () => request("get", "/api/doctor/getAppointment?filter=today");
-export const getTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=today");
+export const getTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=previous&type=online");
 
 /* Patient */
 export const patientDashboard = () =>
   request("get", "/api/patient/getDashboardData");
+export const patientPrescriptionData = () => request("get", "/api/patient/getPrescription");
 
 /* Reception */
 export const CreateReception = (data) =>
@@ -103,14 +104,14 @@ export const getPatientRecordAccess = () =>
   request("get", "/api/doctor/getPatientRecord");
 export const getSinglePatient = (id) =>
   request("get", `/api/doctor/getsinglepatientrecord/${id}`);
-export const todaysAppointmentForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=today");
-export const upcomingAppointmentForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=upcoming");
-export const previousAppointmentForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=previous");
-export const cancelAppointmentForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=cancel");
+export const todaysTeleconsultationAccessForPatient = () =>
+  request("get", "/api/patient/getAppointmentsTeleconcsultation?filter=today&type=online");
+export const upcomingTeleconsultationAccessForPatient = () =>
+  request("get", "/api/patient/getAppointmentsTeleconcsultation?filter=upcoming&type=online");
+export const previousTeleconsultationAccessForPatient = () =>
+  request("get", "/api/patient/getAppointmentsTeleconcsultation?filter=previous&type=online");
+export const cancelTeleconsultationAccessForPatient = () =>
+  request("get", "/api/patient/getAppointmentsTeleconcsultation?filter=cancel&type=online");
 export const getPaidBills = () =>
   request("get", "/api/patient/getBillsforPatient?status=paid");
 export const getUnpaidBills = () =>
@@ -136,8 +137,6 @@ export const olderManagePriscription = () =>
   request("get", "/api/doctor/getPrescription?dateFilter=older");
 
 export const searchDoctorforappointment = (data) => request("post", "/api/patient/searchAppointment", data);
-// export const getSinglePatientForAdmin = (id) => request("get", `/api/admin/getSinglepatients?${id}`);
-// export const getSinglePatientForDoctor = (id) => request("get", `/api/doctor/getSinglepatients?${id}`);
 export const todaysAppointmentForDoctor = () => request("get", "/api/doctor/getAppointment?filter=today");
 export const upcomingAppointmentForDoctor = () => request("get", "/api/doctor/getAppointment?filter=upcoming");
 export const previousAppointmentForDoctor = () => request("get", "/api/doctor/getAppointment?filter=previous");

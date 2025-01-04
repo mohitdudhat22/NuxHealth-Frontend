@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { cancelAppointmentForAdmin } from "@/axiosApi/ApiHelper";
 import {user} from "@/assets/images";
+import { filterByQuery } from "@/utils/FilterSearch";
 
 export const useCancelAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchAppointments = async () => {
     try {
@@ -20,7 +22,20 @@ export const useCancelAppointments = () => {
     }
   };
 
-  const data = appointments?.map((appointment) => ({
+  const filteredAppointments = filterByQuery(appointments, searchQuery, [
+    "patientId.fullName",
+    "dieseas_name",
+    "doctorId.fullName",
+    "type"
+  ]);
+  console.log("Filtered Appointments", filteredAppointments);
+
+  const onSearch = (query) => {
+    setSearchQuery(query);
+  }
+
+
+  const data = filteredAppointments?.map((appointment) => ({
     key: appointment?._id,
     avatar: appointment?.profilePicture || user,
     diseaseName: appointment?.dieseas_name,
@@ -30,11 +45,9 @@ export const useCancelAppointments = () => {
     appointmentType: appointment?.type,
   }));
 
-  console.log(data)
-
   useEffect(() => {
     fetchAppointments();
   }, []);
 
-  return { data, loading };
+  return { data, loading, onSearch };
 };

@@ -29,7 +29,9 @@ import {
   EditDesignInvoice,
   FontFamily,
   Buttons,
-  AppoinmentManagement, AppointmentSchedularPage, PersonalHealthRecord, TeleconsultationModule
+  AppoinmentManagement, AppointmentSchedularPage, PersonalHealthRecord,
+  TeleconsultationAccess,
+  PrescriptionAccess
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -47,6 +49,7 @@ import { PatientBills } from "@/pages/Patients/PatientsBills";
 import { AppointmentBooking } from "@/pages/Patients/AppointmentBooking";
 import ChattempComponentforDoctor from "@/components/chatTempComponentforDoctor";
 import ChatempComponentforPateint from "@/components/chatTempComponentforPatient";
+
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -315,7 +318,7 @@ const NuxHealthRoute = createBrowserRouter(
                       index: true,
                       element: <AppoinmentManagement />,
                     },
-                    { 
+                    {
                       path: "scheduler",
                       element: <AppointmentSchedularPage />,
                     },
@@ -323,11 +326,11 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "prescription-access",
-                  element: "prescription-access",
+                  element: <PrescriptionAccess />,
                 },
                 {
                   path: "teleconsultation",
-                  element: <TeleconsultationModule />,
+                  element: <TeleconsultationAccess />,
                 },
                 {
                   path: "chat-screen",

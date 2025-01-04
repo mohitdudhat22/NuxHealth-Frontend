@@ -92,10 +92,12 @@ export const MonitorBilling = () => {
         </>
       }
     >
-      <NHTable loading={loading} tableColumn={columns} tableDataSource={data} />
+      <NHTable loading={loading} tableColumn={columns} tableDataSource={data} showPagination={true} />
     </NHCard>
   );
 };
+
+// PLEASE DONT DELETE THIS CODE AS IT WILL BE USED IN FUTURE FOR REFERENCE PURPOSE
 
 // export const MonitorBilling = () => {
 //   const [selectedAppointment, setSelectedAppointment] = useState(null);

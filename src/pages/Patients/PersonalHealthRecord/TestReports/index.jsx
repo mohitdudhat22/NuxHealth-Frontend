@@ -100,7 +100,7 @@ export const TestReports = () => {
                                 </>
                             }
                             headerBg={true}
-                            title={TestReports.doctorName}
+                            title={<span className="font-semibold text-[18px]">{TestReports.doctorName}</span>}
                             diseaseName={TestReports.diseaseName}
                             testReportName={TestReports.testReportName}
                             reportDate={TestReports.date}

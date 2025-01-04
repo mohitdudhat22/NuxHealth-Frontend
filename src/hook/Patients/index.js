@@ -1,1 +1,3 @@
-export { usePatientDashboardData } from './PatientDashboard/index';
+
+export { usePatientDashboardData } from './PatientDashboard/';
+export { usePatientPrescriptionData } from './Prescriptions/';

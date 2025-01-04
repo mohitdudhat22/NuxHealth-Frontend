@@ -112,6 +112,7 @@ export const CancelAppointments = () => {
       >
         <NHTable
           loading={loading}
+          showPagination={true}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={data} // Directly bind data here
           route="/doctor"

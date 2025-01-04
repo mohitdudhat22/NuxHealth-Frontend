@@ -3,8 +3,6 @@ import Icons from '@/constants/icons';
 import React, { useState } from 'react'
 
 export const AppointmentBooking = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedPatient, setSelectedPatient] = useState(null);
 
     const tabItems = [
         {
