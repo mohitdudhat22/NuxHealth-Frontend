@@ -12,14 +12,13 @@ export const ChatempComponentforPateint = () => {
   const [message, setMessage] = useState('');
   const [onlineUsers, setOnlineUsers] = useState({});
   const [isDoctorOnline, setIsDoctorOnline] = useState(false);
-
+  const doctorId = '6770443dceabc6c708235256'; // Replace with actual doctor ID
+  const patientId = '677047f308067157dc712f80';
   const handleMessageReceive = (data) => {
     setMessages((prevMessages) => [...prevMessages, data]);
   };
 
   const fetchOldMessages = async () => {
-    const doctorId = '6770443dceabc6c708235256'; // Replace with actual doctor ID
-    const patientId = '677047f308067157dc712f80'; // Replace with actual patient ID
     const response = await getOldMessages(patientId, doctorId);
     setMessages(response.data);
   };
@@ -31,8 +30,10 @@ export const ChatempComponentforPateint = () => {
 
     receiveMessage(handleMessageReceive);
 
-    updateOnlineUsers((users) => {
-      setOnlineUsers(users);
+    updateOnlineUsers((data) => {
+        const {onlineUsers, checkonline} = data;
+        setOnlineUsers(onlineUsers);
+        (checkonline?.doctorId) ? setIsDoctorOnline(true) : setIsDoctorOnline(false);
     });
 
     checkOnlineStatus((userId) => {
