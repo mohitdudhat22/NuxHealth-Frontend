@@ -10,6 +10,7 @@ export const DepartmentCard = ({ title, departments, icon, image, discrition, ty
           <Empty
             image={image}
             className='h-full'
+            imageStyle={{ height: "100%" }}
             description={discrition}
           />
         </div>

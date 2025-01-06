@@ -44,7 +44,7 @@ export const NHHeader = () => {
       >
         <NHButton
           icon={Icons.NotificationBall}
-          onClick={() => navigate("/notifications")}
+          onClick={() => navigate("/notification-box")}
           className={styles.NotificationBallBtn}
         />
         <NHDropDownImg

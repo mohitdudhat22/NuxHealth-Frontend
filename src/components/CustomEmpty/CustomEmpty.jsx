@@ -21,7 +21,7 @@ const CustomEmpty = ({ route }) => {
   };
 
   return (
-    <Empty image={getImage()} description="No Data Found" className="h-full" />
+    <Empty image={getImage()} description="No Data Found" imageStyle={{ height: "100%" }} className="h-full" />
   );
 };
 
