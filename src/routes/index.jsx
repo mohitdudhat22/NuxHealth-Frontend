@@ -29,10 +29,12 @@ import {
   EditDesignInvoice,
   FontFamily,
   Buttons,
-  AppoinmentManagement, AppointmentSchedularPage, PersonalHealthRecord,
+  AppoinmentManagement,
+  AppointmentSchedularPage,
+  PersonalHealthRecord,
   TeleconsultationAccess,
   DoctorMeetingConference,
-  PrescriptionAccess
+  PrescriptionAccess,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -70,15 +72,11 @@ const NuxHealthRoute = createBrowserRouter(
         {
           path: "tempDoctor",
           element: <ChattempComponentforDoctor />,
-        }, {
+        },
+        {
           path: "tempPatient",
           element: <ChatempComponentforPateint />,
         },
-        {
-          path: "notification-box",
-          element: <NotificationBox />,
-        },
-
         /* AuthCation */
         {
           element: (
@@ -270,10 +268,6 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                   ],
                 },
-                // {
-                //   path: "notification-box",
-                //   element: <NotificationBox />,
-                // },
                 {
                   path: "create-prescriptionTools",
                   children: [
@@ -290,7 +284,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "teleconsultation-module",
-                  children:[
+                  children: [
                     {
                       index: true,
                       element: <Teleconsultation />,
@@ -299,7 +293,7 @@ const NuxHealthRoute = createBrowserRouter(
                       path: "videoCall",
                       element: <DoctorMeetingConference />,
                     },
-                  ]
+                  ],
                 },
                 {
                   path: "chat-doctor",
@@ -347,7 +341,7 @@ const NuxHealthRoute = createBrowserRouter(
                       path: "scheduler",
                       element: <AppointmentSchedularPage />,
                     },
-                  ]
+                  ],
                 },
                 {
                   path: "prescription-access",
@@ -355,7 +349,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "teleconsultation",
-                  children:[
+                  children: [
                     {
                       index: true,
                       element: <TeleconsultationAccess />,
@@ -364,7 +358,7 @@ const NuxHealthRoute = createBrowserRouter(
                       path: "videoCall",
                       element: <PatientMettingConference />,
                     },
-                  ]
+                  ],
                 },
                 {
                   path: "chat-patient",
@@ -466,7 +460,6 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
-
       ],
     },
     {

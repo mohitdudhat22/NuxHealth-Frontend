@@ -15,7 +15,7 @@ export const NHHead = ({
 }) => {
   return (
     <Helmet>
-      <title>{title}</title>
+      <title>{title || "HMS"}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
 
@@ -47,6 +47,7 @@ export const NHHead = ({
       {/* Additional useful meta tags */}
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="robots" content="index, follow" />
+      <meta name="author" content="SwiftRut Technologies" />
     </Helmet>
   );
 };
