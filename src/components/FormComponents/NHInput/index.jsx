@@ -168,7 +168,7 @@ export const NHNumberInput = ({
   return (
     <div className={clsx(parentClassName, "flex flex-col")}>
       {label && (
-        <label htmlFor={id} className={clsx(styles.label, mb - 2)}>
+        <label htmlFor={id} className={clsx(styles.label, "mb-2")}>
           {label}
         </label>
       )}
