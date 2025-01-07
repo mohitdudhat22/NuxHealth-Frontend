@@ -55,7 +55,10 @@ export const createReceptionist = (data) =>
 
 /* Doctor */
 export const todayAppointment = () => request("get", "/api/doctor/getAppointment?filter=today");
-export const getTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=previous&type=online");
+export const getPrivousTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=previous&type=online");
+export const getTodayTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=today&type=online");
+export const getUpComingTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=upcoming&type=online");
+export const getCancleTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=cancel&type=online");
 
 /* Patient */
 export const patientDashboard = () =>
@@ -142,10 +145,11 @@ export const cancelAppointmentForDoctor = () => request("get", "/api/doctor/getA
 export const editAdminProfile = () => request("post", "/api/admin/editAdmin");
 export const editAdminProfileChangePassword = (data) => request("post", "/api/admin/changePassword", data);
 export const editDoctorrofileChangePassword = (data) => request("post", "/api/doctor/changePassword", data);
-export const getOldMessages = (doctorId, patientId) => request("get", `/chat/messages?from=${doctorId}&to=${patientId}`);
 
 //review
 export const GetUserNotifications = (userId) => request("get", `/api/notification/user/${userId}`);
 export const MarkNotificationAsRead = (notificationId) => request("put", `api/notification/mark-read/${notificationId}`);
 
 //reception 
+export const editDoctorProfileChangePassword = (data) => request("post", "/api/doctor/changePassword", data);
+export const getOldMessages = (doctorId, patientId) => request("get", `/chat/messages?from=${doctorId}&to=${patientId}`);

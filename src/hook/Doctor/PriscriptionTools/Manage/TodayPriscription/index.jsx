@@ -10,7 +10,6 @@ export const useTodayManagePriscription = (id) => {
     const fetchData = async () => {
       try {
         const response = await todayManagePriscription();
-        console.log("API Response:", response);
 
         if (response && response.data) {
           setData(response.data);
