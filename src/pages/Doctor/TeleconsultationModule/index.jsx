@@ -13,6 +13,7 @@ import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate
 import { useState } from "react";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import { useTeleconsultation } from "@/hook/Doctor";
+import { useCancelAppointments, usePreviousAppointments, useUpcomingAppointments } from "@/hook/Doctor/AppointmentManagement";
 
 export const Teleconsultation = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +22,11 @@ export const Teleconsultation = () => {
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
 
-  const { appointments, loading, error } = useTeleconsultation();
+
+  // const { data: privousTeleconsultation, loading: privousLoader, error } = useTeleconsultation();
+  // const { data: upcomingAppoinment, loading: upcomingLoader } = useUpcomingAppointments()
+  // const { data: privousAppoinment, loading: privousLoader } = usePreviousAppointments()
+  // const { data: cancleAppoinment, loading: cancleLoader } = useCancelAppointments()
 
   const handleViewBill = (record) => {
     setSelectedPatient(record);
@@ -94,43 +99,7 @@ export const Teleconsultation = () => {
     },
   ];
 
-  const patientData = appointments.appointments || [];
-
-  const appoinmentData = [
-    {
-      key: "1",
-      patientName: "Marcus Phillips",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Viral Infection",
-      doctorName: "Dr. Matthew Best",
-      appointmentTime: "4:30 PM",
-      appointmentType: "Online",
-      appointmentDate: "2 Jun, 2022",
-      phoneNumber: "92584 58475",
-      age: "27",
-      gender: "Male",
-      issue: "Stomach ache",
-      address: "B-408 Swastik society, Shivaji marg mota varacha rajkot",
-    },
-    {
-      key: "2",
-      patientName: "Landyn Sheffey",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Blood Pressure",
-      doctorName: "Dr. Annabella Porter",
-      appointmentTime: "5:00 AM",
-      appointmentType: "Onsite",
-    },
-    {
-      key: "3",
-      patientName: "Leslie Murray",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Diabetes",
-      doctorName: "Dr. Steven Ralph",
-      appointmentTime: "7:30 PM",
-      appointmentType: "Online",
-    },
-  ];
+  // const patientData = appointments.appointments || [];
 
   const tabItems = [
     {
@@ -150,7 +119,7 @@ export const Teleconsultation = () => {
               </>
             }
           >
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {patientData.map((data, index) => {
                 const {
                   name,
@@ -196,7 +165,7 @@ export const Teleconsultation = () => {
                   />
                 );
               })}
-            </div>
+            </div> */}
           </NHCard>
           <CustomDateModal
             open={isReshceduleModal}
@@ -222,7 +191,7 @@ export const Teleconsultation = () => {
             </>
           }
         >
-          <NHTable columns={columns} dataSource={data} loading={loading} showPagination={true} />
+          {/* <NHTable columns={columns} dataSource={upcomingAppoinment} loading={upcomingLoader} showPagination={true} /> */}
         </NHCard>
       ),
     },
@@ -237,7 +206,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={data} loading={loading} showPagination={true} />
+          {/* <NHTable columns={columns} dataSource={privousTeleconsultation} loading={privousLoader} showPagination={true} /> */}
         </NHCard>
       ),
     },
@@ -252,7 +221,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={data} loading={loading} showPagination={true} />
+          {/* <NHTable columns={columns} dataSource={cancleAppoinment} loading={cancleLoader} showPagination={true} /> */}
         </NHCard>
       ),
     },

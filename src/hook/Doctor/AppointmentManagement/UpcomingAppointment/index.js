@@ -30,7 +30,6 @@ export const useUpcomingAppointments = () => {
     appointmentType: appointment?.type,
   }));
 
-  console.log(data)
 
   useEffect(() => {
     fetchAppointments();

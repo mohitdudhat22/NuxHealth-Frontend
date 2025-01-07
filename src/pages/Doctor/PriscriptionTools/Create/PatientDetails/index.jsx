@@ -126,11 +126,11 @@ export const PatientDetails = () => {
                     title="Description Date"
                     headerContent={createdDate}
                     children={
-                      <ul>
-                        <li>Coffee</li>
-                        <li>Tea</li>
-                        <li>Milk</li>
-                      </ul>
+                      <>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                      </>
                     }
                     className="border rounded-lg border-slate-200"
                   />
@@ -156,7 +156,7 @@ export const PatientDetails = () => {
         patientAddress="B-408 Swastik society, mota varacha rajkot."
         lastAppointmentDate="2 Jan, 2022"
         lastAppointmentTime="4:30 PM"
-        // onAddRecord={handleAddRecord}
+      // onAddRecord={handleAddRecord}
       />
       <div className="mt-8">
         <NHCard

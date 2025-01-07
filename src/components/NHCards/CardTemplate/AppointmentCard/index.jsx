@@ -21,7 +21,7 @@ export const AppointmentCard = ({
         .replace(/^./, (str) => str.toUpperCase()); // Capitalize the first letter
 
       return (
-        <p key={key} className="mb-2">
+        <p key={key} className="mb-3">
           <span className="text-xl text-[#818194]">{label}</span>
           <span className="float-right text-xl font-bold text-[#4F4F4F]">
             {value}

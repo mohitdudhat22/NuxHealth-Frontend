@@ -21,7 +21,7 @@ export const NHHeader = () => {
 
   const handleMenuClick = (key) => {
     if (key === "1") {
-      navigate("/admin/profile");
+      navigate("/doctor/profile");
     }
   };
 
