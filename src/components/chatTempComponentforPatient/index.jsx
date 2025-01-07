@@ -31,9 +31,11 @@ export const ChatempComponentforPateint = () => {
     receiveMessage(handleMessageReceive);
 
     updateOnlineUsers((data) => {
-        const {onlineUsers, checkonline} = data;
+      console.log('Received data:', data); // Log to inspect the structure of data
+        const {onlineUsers, checkonline, isOnline} = data;
         setOnlineUsers(onlineUsers);
-        (checkonline?.doctorId) ? setIsDoctorOnline(true) : setIsDoctorOnline(false);
+        console.log('isOnline', isOnline);
+        setIsDoctorOnline(isOnline);
     });
 
     checkOnlineStatus((userId) => {

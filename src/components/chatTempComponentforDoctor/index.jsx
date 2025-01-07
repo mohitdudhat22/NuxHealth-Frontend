@@ -30,11 +30,19 @@ export const ChattempComponentforDoctor = () => {
     receiveMessage(handleMessageReceive);
     
     updateOnlineUsers((data) => {
-        const {onlineUsers, checkonline} = data;
-        setOnlineUsers(onlineUsers);
-        console.log(checkonline);
-        (checkonline?.patientId) ? setIsPatientOnline(true) : setIsPatientOnline(false);
-    });
+      console.log('Received data:', data); // Log to inspect the structure of data
+      if (!data) {
+          console.error('Error: data is undefined or null');
+          return;
+      }
+      
+      const { onlineUsers, checkonline } = data;
+      if (onlineUsers !== undefined) {
+          setOnlineUsers(onlineUsers);
+      }
+      setIsPatientOnline(!checkonline?.doctorId);
+  });
+  
 
     checkOnlineStatus(userId);
 
