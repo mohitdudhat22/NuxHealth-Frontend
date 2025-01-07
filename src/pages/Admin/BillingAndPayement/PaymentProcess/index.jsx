@@ -1,8 +1,8 @@
-import { NHButton, NHCard, NHInput, NHTable } from "@/components";
+import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import { PaymentProcessModal } from "@/components/NHModalComponents/ModalTemplate/PaymentProcessModal";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
-import { usePaymentProcess } from '@/hook/Admin/BillingAndPayments/PaymentProcess';
+import { usePaymentProcess } from "@/hook/Admin/BillingAndPayments/PaymentProcess";
 
 export const PaymentProcess = () => {
   const {
@@ -89,6 +89,7 @@ export const PaymentProcess = () => {
 
   return (
     <>
+      <NHHead title="Payment Process" />
       <NHCard
         title={"Billing Details"}
         headerContent={
@@ -99,13 +100,18 @@ export const PaymentProcess = () => {
           />
         }
       >
-        <NHTable loading={loading} showPagination={true} tableColumn={columns} tableDataSource={data} />
+        <NHTable
+          loading={loading}
+          showPagination={true}
+          tableColumn={columns}
+          tableDataSource={data}
+        />
       </NHCard>
 
       <PaymentProcessModal
         open={isModalOpen}
         handleClose={() => setIsModalOpen(false)}
-      // paymentData={record}
+        // paymentData={record}
       />
     </>
   );

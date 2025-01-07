@@ -14,7 +14,7 @@ export const Dashboard = () => {
   const { data } = useDashboardAndReport();
   return (
     <>
-      <NHHead />
+      <NHHead title="Dashboard" />
       <div className="space-y-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
           <div className="md:col-span-3">

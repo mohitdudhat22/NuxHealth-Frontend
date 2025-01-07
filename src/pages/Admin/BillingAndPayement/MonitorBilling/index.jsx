@@ -1,16 +1,22 @@
-import { useBillingAndPayments, usePendingBills } from '@/hook/Admin/BillingAndPayments';
-import { Space, Tag } from 'antd';
-import { AppointmentCard, NHButton, NHCard, NHInput, NHTable } from '@/components';
-import Icons from '@/constants/icons';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import {
+  useBillingAndPayments,
+  usePendingBills,
+} from "@/hook/Admin/BillingAndPayments";
+import { Space, Tag } from "antd";
+import {
+  AppointmentCard,
+  NHButton,
+  NHCard,
+  NHHead,
+  NHInput,
+  NHTable,
+} from "@/components";
+import Icons from "@/constants/icons";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const MonitorBilling = () => {
-  const {
-    loading,
-    data,
-    onSearch,
-  } = useBillingAndPayments();
+  const { loading, data, onSearch } = useBillingAndPayments();
   const navigate = useNavigate();
 
   const columns = [
@@ -39,9 +45,7 @@ export const MonitorBilling = () => {
       dataIndex: "status",
       key: "status",
       render: (status) => (
-        <Tag color={status === "Paid" ? "green" : "red"}>
-          {status}
-        </Tag>
+        <Tag color={status === "Paid" ? "green" : "red"}>{status}</Tag>
       ),
     },
     {
@@ -64,7 +68,9 @@ export const MonitorBilling = () => {
             size="small"
             icon={Icons.View}
             className="bg-white view-btn border-primary"
-            onClick={() => navigate(`/admin/monitor-billing/bill-view/${record.billNumber}`)}
+            onClick={() =>
+              navigate(`/admin/monitor-billing/bill-view/${record.billNumber}`)
+            }
           />
         </Space>
       ),
@@ -72,28 +78,42 @@ export const MonitorBilling = () => {
   ];
 
   return (
-    <NHCard
-      title="Billing and Payments"
-      headerContent={
-        <>
-          <NHInput
-            prefix={Icons.SearchIcon}
-            placeholder="Search"
-            onChange={(e) => onSearch(e.target.value)}
-          />
-          <NHButton variant="default" className="bg-white border-primary" onClick={() => navigate("edit-design-invoice")}>{Icons.EditBillIcon}Edit Invoice Theme</NHButton>
-          <NHButton
-            icon={Icons.PlusSquare}
-            onClick={() => navigate("/admin/monitor-billing/create-bill")}
-            variant="primary"
-          >
-            Create Bill
-          </NHButton>
-        </>
-      }
-    >
-      <NHTable loading={loading} tableColumn={columns} tableDataSource={data} showPagination={true} />
-    </NHCard>
+    <>
+      <NHHead />
+      <NHCard
+        title="Billing and Payments"
+        headerContent={
+          <>
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search"
+              onChange={(e) => onSearch(e.target.value)}
+            />
+            <NHButton
+              variant="default"
+              className="bg-white border-primary"
+              onClick={() => navigate("edit-design-invoice")}
+            >
+              {Icons.EditBillIcon}Edit Invoice Theme
+            </NHButton>
+            <NHButton
+              icon={Icons.PlusSquare}
+              onClick={() => navigate("/admin/monitor-billing/create-bill")}
+              variant="primary"
+            >
+              Create Bill
+            </NHButton>
+          </>
+        }
+      >
+        <NHTable
+          loading={loading}
+          tableColumn={columns}
+          tableDataSource={data}
+          showPagination={true}
+        />
+      </NHCard>
+    </>
   );
 };
 
@@ -106,7 +126,6 @@ export const MonitorBilling = () => {
 //   const { bills, loading, error } = usePendingBills();
 
 //   const pendingBills = bills || [];
-
 
 //   const handlePatientDetails = (bill) => {
 //     setViewingPatientDetails(bill);
