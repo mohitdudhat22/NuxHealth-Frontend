@@ -3,6 +3,7 @@ import { Badge, Button, Popover, List, Empty } from "antd";
 import { NotificationOutlined, CloseOutlined } from "@ant-design/icons";
 import NoNotificationFound from "../../assets/images/cover/no-notification-found.png";
 import socket from "@/services/socketService";
+import { GetUserNotifications, MarkNotificationAsRead } from "@/axiosApi/ApiHelper";
 
 // Static data matching the image
 const staticNotifications = [
@@ -87,8 +88,8 @@ const getNotificationIcon = (type) => {
   }
 };
 
-const NotificationBox = () => {
-  const [open, setOpen] = useState(false);
+const NotificationBox = ({ visible, onClose }) => {
+  // const [open, setOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -100,7 +101,7 @@ const NotificationBox = () => {
 
       setLoading(true);
       try {
-        const response = await apiService.GetUserNotifications(userData.id);
+        const response = await GetUserNotifications(userData.id);
         setNotifications(response.data);
         const unreadCount = response.data.filter((n) => !n.isRead).length;
         setUnreadCount(unreadCount);
@@ -112,7 +113,7 @@ const NotificationBox = () => {
     };
 
     loadNotifications();
-  }, [userData]);
+  }, []);
 
   useEffect(() => {
     if (!userData?.id) return;
@@ -134,7 +135,7 @@ const NotificationBox = () => {
     return () => {
       socket.disconnect();
     };
-  }, [userData]);
+  }, []);
 
   // const markAllAsRead = async () => {
   //   try {
@@ -151,7 +152,7 @@ const NotificationBox = () => {
   const handleNotificationClick = async (notification) => {
     if (!notification.isRead) {
       try {
-        await apiService.MarkNotificationAsRead(notification._id);
+        await MarkNotificationAsRead(notification._id);
         setNotifications((prev) =>
           prev.map((n) =>
             n._id === notification._id ? { ...n, isRead: true } : n,
@@ -198,17 +199,11 @@ const NotificationBox = () => {
 
   return (
     <div>
-      <Badge count={unreadCount}>
-        <Button
-          type="text"
-          icon={<NotificationOutlined />}
-          onClick={() => setOpen(true)}
-        />
-      </Badge>
-
       <Popover
-        open={open}
-        onOpenChange={(visible) => setOpen(visible)}
+        open={visible}
+        className="notification-box"
+        onOpenChange={onClose}
+        overlayClassName="lg:!top-[62px] lg:!left-[1420px]"
         trigger="click"
         content={
           <div className="w-[400px] max-h-[600px] overflow-y-auto">
@@ -217,7 +212,7 @@ const NotificationBox = () => {
               <Button
                 type="text"
                 icon={<CloseOutlined />}
-                onClick={() => setOpen(false)}
+                onClick={onClose}
                 className="text-gray-500"
               />
             </div>

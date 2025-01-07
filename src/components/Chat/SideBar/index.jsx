@@ -24,7 +24,7 @@ export const Sidebar = ({
   }, [searchQuery, users]);
 
   useEffect(() => {
-    const userId = "doctorId"; // Replace with actual doctor ID
+    const userId = "6770443dceabc6c708235256"; // Replace with actual doctor ID
     checkOnlineStatus(userId);
 
     updateOnlineUsers((data) => {

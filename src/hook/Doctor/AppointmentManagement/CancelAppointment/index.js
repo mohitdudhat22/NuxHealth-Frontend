@@ -30,8 +30,6 @@ export const useCancelAppointments = () => {
     appointmentType: appointment?.type,
   }));
 
-  console.log(data)
-
   useEffect(() => {
     fetchAppointments();
   }, []);
