@@ -13,6 +13,7 @@ import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate
 import { useState } from "react";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import { useTeleconsultation } from "@/hook/Doctor";
+import { useNavigate } from "react-router-dom";
 
 export const Teleconsultation = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +22,7 @@ export const Teleconsultation = () => {
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const { appointments, loading, error } = useTeleconsultation();
-
+  const navigate = useNavigate()
   const handleViewBill = (record) => {
     setSelectedPatient(record);
     setIsModalOpen(true);
@@ -221,7 +222,7 @@ export const Teleconsultation = () => {
             </>
           }
         >
-          <NHTable columns={columns} dataSource={data} loading={loading} showPagination={true} />
+          <NHTable columns={columns} dataSource={patientData} loading={loading} showPagination={true} />
         </NHCard>
       ),
     },
@@ -236,7 +237,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={data} loading={loading} showPagination={true} />
+          <NHTable columns={columns} dataSource={patientData} loading={loading} showPagination={true} />
         </NHCard>
       ),
     },
@@ -251,7 +252,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={data} loading={loading} showPagination={true} />
+          <NHTable columns={columns} dataSource={patientData} loading={loading} showPagination={true} />
         </NHCard>
       ),
     },
@@ -313,9 +314,10 @@ export const Teleconsultation = () => {
                 <NHButton
                   size={"small"}
                   className={"w-full"}
-                  onClick={() => setSelectedAppointment(data)}
+                  onClick={() => navigate('videoCall?room='+selectedPatientData._id)}
                 >
                   Join
+                  {console.log(selectedPatientData._id)}
                 </NHButton>
               </div>
             }

@@ -81,7 +81,7 @@ export const UpcomingAppointments = () => {
     if (data) {
       setFilteredAppointments(data);
     }
-  }, [data]);
+  }, []);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);

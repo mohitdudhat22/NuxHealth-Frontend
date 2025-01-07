@@ -4,7 +4,6 @@ import { Space, Tag } from "antd";
 
 export const PatientViewDetails = () => {
   const { data, error, columns, staticData } = usePatientViewDetails();
-  console.log(data)
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
