@@ -50,7 +50,6 @@ export const useUpcomingTeleconsultation = () => {
         status: appointment?.status,
     }));
 
-    console.log("🚀 ~ data ~ data:44444444444", data)
     const openDrawer = () => setDrawerVisible(true);
     const closeDrawer = () => setDrawerVisible(false);
 
