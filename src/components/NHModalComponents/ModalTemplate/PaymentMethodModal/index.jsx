@@ -13,16 +13,16 @@ export const PaymentMethodModal = ({
     setCardOption,
     ...rest
 }) => {
-      const [paymentType, setPaymentType] = useState();
-    
-      const handleOk = () => {
+    const [paymentType, setPaymentType] = useState();
+
+    const handleOk = () => {
         if (paymentType === 'master') {
             setCardOption(true);
-          console.log('online should open', cardOption);
+            console.log('online should open', cardOption);
         } else {
             setCardOption(false);
         }
-      };
+    };
     return (
         <NHModal
             title={"Payment Method"}
@@ -50,8 +50,8 @@ export const PaymentMethodModal = ({
                                 </div>
                             </div>
                             <div className="right flex">
-                                <input type="radio" className='h-[18px] w-[18px]'onChange={() => setPaymentType('master')}
-                  checked={paymentType === 'master'} />
+                                <input type="radio" className='h-[18px] w-[18px]' onChange={() => setPaymentType('master')}
+                                    checked={paymentType === 'master'} />
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ export const PaymentMethodModal = ({
                             </div>
                             <div className="right flex">
                                 <input type="radio" className='h-[18px] w-[18px]' onChange={() => setPaymentType('visa')}
-                  checked={paymentType === 'visa'} />
+                                    checked={paymentType === 'visa'} />
                             </div>
                         </div>
                     </div>

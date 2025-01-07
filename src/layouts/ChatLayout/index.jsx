@@ -129,7 +129,7 @@ export const ChatLayout = () => {
       ) : (
         <div className="flex flex-col items-center justify-center h-full text-gray-500">
           <img src={ChatStartImage} alt="chatstaring" className="w-1/2 h-1/2" />
-         <p className="text-[#A7A7A7] font-medium text-[26px] mt-10">No chat with someone</p>
+          <p className="text-[#A7A7A7] font-medium text-[26px] mt-10">No chat with someone</p>
         </div>
       )}
     </div>

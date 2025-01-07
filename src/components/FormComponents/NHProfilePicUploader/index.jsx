@@ -1,4 +1,3 @@
-
 import Icons from "@/constants/icons";
 import styles from "./NCHProfilePicUploader.module.css";
 

@@ -5,10 +5,9 @@ import moment from 'moment'
 import events from './events';
 import { NHCard } from '..';
 
-
-export const AppointmentSchedular= () => {
+export const AppointmentSchedular = () => {
   const [eventsData, setEventsData] = useState(events);
-const localizer = momentLocalizer(moment)
+  const localizer = momentLocalizer(moment)
   return (
     <NHCard>
       {/* <Calendar
@@ -19,6 +18,6 @@ const localizer = momentLocalizer(moment)
         events={eventsData}
         style={{ height: "100vh" }}
       /> */}
-  </NHCard>
+    </NHCard>
   )
 }

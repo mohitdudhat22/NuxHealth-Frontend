@@ -137,7 +137,6 @@ export const AllModalTemplate = () => {
         setPaymentMethodProcess(true)
     }
 
-
     return (
         <>
 
@@ -472,11 +471,6 @@ export const AllModalTemplate = () => {
                 open={selectPaymentType}
                 handleClose={() => setSelectPaymentType(false)}
             />
-
-
-
-
-
         </>
     )
 }

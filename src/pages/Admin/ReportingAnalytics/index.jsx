@@ -56,7 +56,7 @@ export const ReportingAnalytics = () => {
         <StatisticsCard
           title="Admitted Patient"
           count={0}
-          icon={Icons.AdmittedPatient }
+          icon={Icons.AdmittedPatient}
         />
         <StatisticsCard
           title="Total Claim"
@@ -66,7 +66,7 @@ export const ReportingAnalytics = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="md:col-span-2">
-          <AppointmentChart 
+          <AppointmentChart
             data={data?.appointmentData || appointmentData}
             title="Appointment Analytics"
           />
@@ -77,8 +77,8 @@ export const ReportingAnalytics = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
         <div className="md:col-span-2">
-          <DepartmentCard 
-            title="Patients Count Department" 
+          <DepartmentCard
+            title="Patients Count Department"
             departments={data?.patientDepartmentData || patientDepartmentData}
             icon={Icons.Patient}
             type="patient"
@@ -87,8 +87,8 @@ export const ReportingAnalytics = () => {
           />
         </div>
         <div className="md:col-span-2">
-          <DepartmentCard 
-            title="Doctor Count Department" 
+          <DepartmentCard
+            title="Doctor Count Department"
             departments={data?.patientDepartmentData || doctorDepartmentData}
             icon={Icons.Doctor}
             type="doctor"
@@ -97,7 +97,7 @@ export const ReportingAnalytics = () => {
           />
         </div>
         <div className="md:col-span-2">
-          <PatientAgeDistribution data={data?.PatientAgeDistribution || PatientData }/>
+          <PatientAgeDistribution data={data?.PatientAgeDistribution || PatientData} />
         </div>
       </div>
     </div>

@@ -15,5 +15,5 @@ export const usePatientPaidBills = () => {
     useEffect(() => {
         fetchData();
     }, []);
-  return { data };
+    return { data };
 };

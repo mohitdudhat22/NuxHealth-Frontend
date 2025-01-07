@@ -12,7 +12,6 @@ export function PatientSummaryChart({
   const [viewMode, setViewMode] = useState('week');
   const [activeSeries, setActiveSeries] = useState(['New Patient', 'Old Patient']);
 
-
   const getChartData = () => {
     const weekData = {
       categories: data.week?.categories || ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],

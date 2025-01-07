@@ -4,7 +4,6 @@ import { Tag } from 'antd';
 
 export const TestReports = () => {
 
-
     const TestReportsData = [
         {
             "doctorName": "Dr. Ryan Vetrovs",
@@ -112,4 +111,3 @@ export const TestReports = () => {
         </>
     );
 }
-

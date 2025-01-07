@@ -6,7 +6,7 @@ export const useBillingAndPayments = () => {
   const navigate = useNavigate();
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState(''); 
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchBills = async () => {
     try {
@@ -30,10 +30,9 @@ export const useBillingAndPayments = () => {
     bill.phoneNumber.includes(searchQuery)
   );
 
-   const onSearch = (query) => {
+  const onSearch = (query) => {
     setSearchQuery(query);
   };
-
 
   const data = filteredBills.map((bill) => ({
     key: bill?._id,
@@ -46,7 +45,6 @@ export const useBillingAndPayments = () => {
     time: bill?.time,
   }));
 
- 
   console.log(data, "data>>>>>>>>>>>>");
 
   return {
@@ -55,6 +53,6 @@ export const useBillingAndPayments = () => {
     data,
     fetchBills,
     navigate,
-    onSearch, 
+    onSearch,
   };
 };

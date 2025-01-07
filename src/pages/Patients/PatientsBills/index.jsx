@@ -133,7 +133,6 @@ export const PatientBills = () => {
           handleClose={() => setSelectPaymentType(false)}
           payType={payType}
           setPayType={setPayType}
-          
         />
         <PaymentMethodModal
           open={payType}
@@ -141,10 +140,10 @@ export const PatientBills = () => {
           cardOption={cardOption}
           setCardOption={setCardOption}
         />
-           <PaymentMethodProcessModal
-                        open={cardOption}
-                        handleClose={() => setCardOption(false)}
-                    />
+        <PaymentMethodProcessModal
+          open={cardOption}
+          handleClose={() => setCardOption(false)}
+        />
       </NHCard>
     </>
   );

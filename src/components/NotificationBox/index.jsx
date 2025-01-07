@@ -93,7 +93,7 @@ const NotificationBox = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   // const { user: userData } = useAuth();
-  const userData = { id:"set here user id"}
+  const userData = { id: "set here user id" }
   useEffect(() => {
     const loadNotifications = async () => {
       if (!userData?.id) return;
@@ -199,9 +199,9 @@ const NotificationBox = () => {
   return (
     <div>
       <Badge count={unreadCount}>
-        <Button 
-          type="text" 
-          icon={<NotificationOutlined />} 
+        <Button
+          type="text"
+          icon={<NotificationOutlined />}
           onClick={() => setOpen(true)}
         />
       </Badge>
@@ -214,9 +214,9 @@ const NotificationBox = () => {
           <div className="w-[400px] max-h-[600px] overflow-y-auto">
             <div className="flex justify-between items-center p-4 border-b">
               <h2 className="text-lg font-semibold text-gray-800">Notification</h2>
-              <Button 
-                type="text" 
-                icon={<CloseOutlined />} 
+              <Button
+                type="text"
+                icon={<CloseOutlined />}
                 onClick={() => setOpen(false)}
                 className="text-gray-500"
               />
@@ -226,7 +226,7 @@ const NotificationBox = () => {
               <List
                 dataSource={notifications}
                 renderItem={(item) => (
-                  <List.Item 
+                  <List.Item
                     className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b w-full"
                     onClick={() => handleNotificationClick(item)}
                   >

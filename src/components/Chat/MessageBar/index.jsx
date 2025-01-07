@@ -60,9 +60,8 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
               {messages?.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex ${
-                    message.sender === "user" ? "justify-end" : "justify-start"
-                  } items-end gap-2`}
+                  className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"
+                    } items-end gap-2`}
                 >
                   {message.sender === "doctor" && (
                     <Avatar
@@ -73,11 +72,10 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
                     />
                   )}
                   <div
-                    className={`max-w-[70%] ${
-                      message.sender === "user"
-                        ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
-                        : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
-                    } p-3`}
+                    className={`max-w-[70%] ${message.sender === "user"
+                      ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
+                      : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
+                      } p-3`}
                   >
                     {message.type === "text" && <p>{message.content}</p>}
                     {message.type === "image" && (

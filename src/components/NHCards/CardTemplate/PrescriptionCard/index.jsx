@@ -59,7 +59,6 @@ export const PrescriptionCard = ({
     { title: "Duration", dataIndex: "duration", key: "duration" },
     { title: "When to take", dataIndex: "whenToTake", key: "whenToTake" },
   ];
-  console.log(patientData, "<<<<<<<<<<<<<<<<<<<<<<<<<");
 
   return (
     <NHCard className="min-h-full">
@@ -128,7 +127,7 @@ export const PrescriptionCard = ({
       </div>
       {/* Medicine Table */}
       <NHTable
-        showPagination={true}
+        loading={loading} showPagination={true}
         columns={columns}
         dataSource={
           (patientData && patientData.medications) || // Use medicines from patientData

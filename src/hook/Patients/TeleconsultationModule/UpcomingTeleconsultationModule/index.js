@@ -17,7 +17,6 @@ export const useUpcomingTeleconsultationModule = () => {
       } catch (error) {
         console.log(error);
       }
-
     };
 
     fetchData();

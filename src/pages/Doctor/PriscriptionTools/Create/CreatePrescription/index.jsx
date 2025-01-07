@@ -9,8 +9,6 @@ export const CreatePrescription = ({
     status,
 }) => {
 
-
-
     // Destructure with defaults to handle missing appointment data
     const {
         name = "Marcus Philips",

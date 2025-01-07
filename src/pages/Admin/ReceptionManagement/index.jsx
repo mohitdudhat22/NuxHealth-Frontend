@@ -67,11 +67,11 @@ export const ReceptionManagement = () => {
   return (
     <NHCard title="Reception Management" headerContent={
       <>
-        <NHInput 
-          prefix={Icons.SearchIcon} 
-          placeholder={"Search by Name, Email or Phone"} 
+        <NHInput
+          prefix={Icons.SearchIcon}
+          placeholder={"Search by Name, Email or Phone"}
           value={searchQuery}
-          onChange={(e) => onSearch(e.target.value)} 
+          onChange={(e) => onSearch(e.target.value)}
         />
         <NHButton icon={Icons.PlusSquare} onClick={() => navigate("create")} variant={"primary"}>
           Add New Reception
