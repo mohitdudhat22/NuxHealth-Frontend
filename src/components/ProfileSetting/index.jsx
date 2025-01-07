@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./EditProfile.module.css";
-import { NHButton, NHCard, NHInput, NHSelect } from "..";
+import { NHButton, NHCard, NHInput, NHPasswordInput, NHSelect } from "..";
 import { useDecodeToken } from "@/hook";
 import user from "@/assets/images/user/user.png";
+import { useChangePassword } from "@/hook/Doctor/DoctorEditProfile/ChangePassword";
 
 export const ProfileSetting = () => {
   const { token } = useDecodeToken();

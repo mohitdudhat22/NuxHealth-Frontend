@@ -95,7 +95,7 @@ export const Manage = () => {
                         />
                     }
                 >
-                    <NHTable columns={columns} dataSource={today} loading={loading} showPagination={true} />
+                    <NHTable columns={columns} dataSource={today} showPagination={true} />
                 </NHCard>
             )
         },
@@ -112,12 +112,11 @@ export const Manage = () => {
                         />
                     }
                 >
-                    <NHTable columns={columns} dataSource={older} loading={loading} showPagination={true} />
+                    <NHTable columns={columns} dataSource={older} showPagination={true} />
                 </NHCard>
             )
         }
     ];
-    console.log(selectedPatient, "<<<<<<<<<<<<<<<<<<<<<<<<<"); //id -> hook ma ppass
 
     return (
         <>

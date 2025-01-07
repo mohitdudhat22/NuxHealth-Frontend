@@ -31,7 +31,7 @@ export const NHDropDownImg = ({
           <h5 className={"block fw-bold leading-normal mb-xs"}>
             {name}
           </h5>
-          <p className={clsx(styles.dropDwnSubTitle, "text-start  leading-normal")}>
+          <p className={clsx(styles.dropDwnSubTitle, "text-start leading-normal")}>
             {position}
           </p>
         </div>

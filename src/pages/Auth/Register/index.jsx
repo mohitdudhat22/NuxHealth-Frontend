@@ -28,8 +28,8 @@ export const Register = () => {
   return (
     <NHCard>
       <h2>Registration</h2>
-      <form onSubmit={handleSubmit} className="gap-xl mt-xl flex flex-col">
-        <div className="grid grid-cols-2 d-grid flex-col gap-y-2 gap-x-5">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-xl mt-xl">
+        <div className="grid flex-col grid-cols-2 d-grid gap-y-2 gap-x-5">
           <NHInput
             label="First Name"
             name="firstName"
