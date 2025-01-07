@@ -14,7 +14,7 @@ export const usePrivousTeleconsultation = () => {
             setLoading(true);
             const response = await getPrivousTeleconsultation();
             if (response.status === 1) {
-                setAppointments(response.data);
+                setAppointments(response.data.appointments);
                 console.log('Today’s Appointments:', response.data.length);
             }
         } finally {
@@ -38,14 +38,19 @@ export const usePrivousTeleconsultation = () => {
 
     const data = appointments?.map((appointment) => ({
         key: appointment?._id,
-        patientName: appointment?.patientName,
+        patientName: appointment?.patientId?.fullName,
         appointmentType: appointment?.appointmentType,
-        patientAge: appointment?.patientAge,
-        patientGender: appointment?.patientGender,
+        appointmentDate: appointment?.date,
+        patientAge: appointment?.patientAge || '28',
+        patientGender: appointment?.gender,
+        patientIssue: appointment?.patient_issue,
+        diseaseName: appointment?.dieseas_name,
+        doctorName: appointment?.doctorId?.fullName,
         appointmentTime: appointment?.appointmentTime,
         status: appointment?.status,
     }));
 
+    console.log("🚀 ~ data ~ data11111111111111:", data)
     const openDrawer = () => setDrawerVisible(true);
     const closeDrawer = () => setDrawerVisible(false);
 

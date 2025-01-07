@@ -118,15 +118,16 @@ export const Teleconsultation = () => {
               </>
             }
           >
-            {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {patientData.map((data, index) => {
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {privousTeleconsultation.map((data, index) => {
                 const {
                   name,
-                  patient_issue,
-                  dieseas_name,
+                  patientIssue,
+                  diseaseName,
                   appointmentDate,
                   appointmentTime,
                   date,
+                  patientName,
                   doctorId,
                   hospitalId,
                   patientId
@@ -136,9 +137,9 @@ export const Teleconsultation = () => {
                   <AppointmentCard
                     key={index}
                     headerBg={true}
-                    title={<span className="font-semibold text-[18px]">{patientId.fullName}</span>}
-                    patientIssue={patient_issue}
-                    diseaseName={dieseas_name}
+                    title={<span className="font-semibold text-[18px]">{patientName}</span>}
+                    patientIssue={patientIssue}
+                    diseaseName={diseaseName}
                     appointmentDate={appointmentDate || date}
                     appointmentTime={appointmentTime}
                     footerContent={
@@ -164,7 +165,7 @@ export const Teleconsultation = () => {
                   />
                 );
               })}
-            </div> */}
+            </div>
           </NHCard>
           <CustomDateModal
             open={isReshceduleModal}
