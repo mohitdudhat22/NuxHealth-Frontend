@@ -12,8 +12,7 @@ import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
-import { useTeleconsultation } from "@/hook/Doctor";
-import { useCancelAppointments, usePreviousAppointments, useUpcomingAppointments } from "@/hook/Doctor/AppointmentManagement";
+import { useCancleTeleconsultation, usePrivousTeleconsultation, useTodayTeleconsultation, useUpcomingTeleconsultation } from "@/hook/Doctor";
 
 export const Teleconsultation = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,10 +22,10 @@ export const Teleconsultation = () => {
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
 
 
-  // const { data: privousTeleconsultation, loading: privousLoader, error } = useTeleconsultation();
-  // const { data: upcomingAppoinment, loading: upcomingLoader } = useUpcomingAppointments()
-  // const { data: privousAppoinment, loading: privousLoader } = usePreviousAppointments()
-  // const { data: cancleAppoinment, loading: cancleLoader } = useCancelAppointments()
+  const { data: privousTeleconsultation, loading: privousLoader } = usePrivousTeleconsultation();
+  const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
+  const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
+  const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
 
   const handleViewBill = (record) => {
     setSelectedPatient(record);
@@ -191,7 +190,7 @@ export const Teleconsultation = () => {
             </>
           }
         >
-          {/* <NHTable columns={columns} dataSource={upcomingAppoinment} loading={upcomingLoader} showPagination={true} /> */}
+          <NHTable columns={columns} dataSource={upcomingTeleconsultation} loading={upcomingLoader} showPagination={true} />
         </NHCard>
       ),
     },
@@ -206,7 +205,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          {/* <NHTable columns={columns} dataSource={privousTeleconsultation} loading={privousLoader} showPagination={true} /> */}
+          <NHTable columns={columns} dataSource={privousTeleconsultation} loading={privousLoader} showPagination={true} />
         </NHCard>
       ),
     },
@@ -221,7 +220,7 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          {/* <NHTable columns={columns} dataSource={cancleAppoinment} loading={cancleLoader} showPagination={true} /> */}
+          <NHTable columns={columns} dataSource={cancleTeleconsultation} loading={cancleLoader} showPagination={true} />
         </NHCard>
       ),
     },
