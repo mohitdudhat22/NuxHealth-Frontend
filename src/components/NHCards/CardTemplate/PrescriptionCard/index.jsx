@@ -127,7 +127,7 @@ export const PrescriptionCard = ({
       </div>
       {/* Medicine Table */}
       <NHTable
-        loading={loading} showPagination={true}
+        showPagination={true}
         columns={columns}
         dataSource={
           (patientData && patientData.medications) || // Use medicines from patientData

@@ -54,7 +54,7 @@ export const createReceptionist = (data) =>
 /* Reception */
 
 /* Doctor */
-export const todayAppointment = () => request("get", "/api/doctor/getAppointment?filter=today");
+export const todayAppointment = () => request("get", "/api/doctor/getappointmentforprescription");
 export const getPrivousTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=previous&type=online");
 export const getTodayTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=today&type=online");
 export const getUpComingTeleconsultation = () => request("get", "/api/doctor/getAppointmentsTeleconcsultation?filter=upcoming&type=online");
