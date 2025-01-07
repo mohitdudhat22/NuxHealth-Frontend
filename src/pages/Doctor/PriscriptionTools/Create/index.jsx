@@ -48,7 +48,6 @@ export const Create = () => {
         }
     ]
 
-
     const handlePatientDetails = (appointment) => {
         setViewingPatientDetails(appointment);
     };

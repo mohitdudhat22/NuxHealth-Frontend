@@ -1,7 +1,6 @@
 import { cancelTeleconsultationAccessForPatient } from "@/axiosApi/ApiHelper";
 import { useState, useEffect } from "react";
 
-
 export const useCancelTeleconsultationModule = () => {
 
   const [data, setData] = useState([]);

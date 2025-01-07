@@ -4,5 +4,4 @@ import { useNavigate } from 'react-router-dom';
 
 export const usePatientRecordAccess = () => {
   let navigate = useNavigate();
- 
 };

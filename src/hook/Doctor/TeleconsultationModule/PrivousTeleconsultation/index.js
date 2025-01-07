@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { getTeleconsultation } from '@/axiosApi/ApiHelper';
+import { getPrivousTeleconsultation } from '@/axiosApi/ApiHelper';
 import { useNavigate } from 'react-router-dom';
 
-export const useTeleconsultation = () => {
+export const usePrivousTeleconsultation = () => {
     let navigate = useNavigate();
     const [appointments, setAppointments] = useState([]);
     const [isDrawerVisible, setDrawerVisible] = useState(false);
@@ -12,9 +12,9 @@ export const useTeleconsultation = () => {
     const fetchAppointments = async () => {
         try {
             setLoading(true);
-            const response = await getTeleconsultation();
+            const response = await getPrivousTeleconsultation();
             if (response.status === 1) {
-                setAppointments(response.data);
+                setAppointments(response.data.appointments);
                 console.log('Today’s Appointments:', response.data.length);
             }
         } finally {
@@ -36,15 +36,19 @@ export const useTeleconsultation = () => {
         setSearchQuery(query);
     };
 
-    // const data = filteredAppointments?.map((appointment) => ({
-    //     key: appointment?._id,
-    //     patientName: appointment?.patientName,
-    //     appointmentType: appointment?.appointmentType,
-    //     patientAge: appointment?.patientAge,
-    //     patientGender: appointment?.patientGender,
-    //     appointmentTime: appointment?.appointmentTime,
-    //     status: appointment?.status,
-    // }));
+    const data = appointments?.map((appointment) => ({
+        key: appointment?._id,
+        patientName: appointment?.patientId?.fullName,
+        appointmentType: appointment?.appointmentType,
+        appointmentDate: appointment?.date,
+        patientAge: appointment?.patientAge || '28',
+        patientGender: appointment?.gender,
+        patientIssue: appointment?.patient_issue,
+        diseaseName: appointment?.dieseas_name,
+        doctorName: appointment?.doctorId?.fullName,
+        appointmentTime: appointment?.appointmentTime,
+        status: appointment?.status,
+    }));
 
     const openDrawer = () => setDrawerVisible(true);
     const closeDrawer = () => setDrawerVisible(false);
@@ -55,7 +59,7 @@ export const useTeleconsultation = () => {
         loading,
         openDrawer,
         closeDrawer,
-        // data,
+        data,
         fetchAppointments,
         navigate,
         onSearch,

@@ -1,7 +1,6 @@
 import { todaysTeleconsultationAccessForPatient } from "@/axiosApi/ApiHelper";
 import { useState, useEffect } from "react";
 
-
 export const useTodaysTeleconsultationModule = () => {
 
   const [data, setData] = useState([]);

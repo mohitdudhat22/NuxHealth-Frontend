@@ -218,7 +218,6 @@ export const AppointmentBooking = () => {
         },
     ];
 
-
     return (
         <>
             <NHCard

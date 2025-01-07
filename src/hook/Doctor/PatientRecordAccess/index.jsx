@@ -10,7 +10,6 @@ export const usePatientRecordAccess = () => {
     const navigate = useNavigate();
     const fetchData = async () => {
         const data = await getPatientRecordAccess();
-        console.log(data);
         setData(data);
     };
 
@@ -75,7 +74,7 @@ export const usePatientRecordAccess = () => {
                         type="primary"
                         size="small"
                         icon={Icons.ViewBillIcon}
-                        onClick={() => navigate("patientviewdetails/"+record.patientId)}
+                        onClick={() => navigate("patientviewdetails/" + record.patientId)}
                         className="view-btn bg-white"
                     />
                 </Space>
@@ -108,7 +107,6 @@ export const usePatientRecordAccess = () => {
         },
         // Add more patient records here
     ];
-
 
     return { data, staticData, columns, handleSelectChange, filter }
 };

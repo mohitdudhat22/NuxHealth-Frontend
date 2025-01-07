@@ -6,7 +6,6 @@ export const useReportandAnalytics = () => {
 
   const fetchData = async () => {
     const data = await getReportandAnalytics();
-    console.log(data);
     setData(data);
   };
 

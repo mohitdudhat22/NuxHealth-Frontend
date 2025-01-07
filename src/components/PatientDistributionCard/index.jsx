@@ -2,12 +2,12 @@ import React from 'react';
 import { NHCard } from '..';
 import ReactApexChart from 'react-apexcharts';
 
-export const  PatientDistributionCard = ({data}) => {
+export const PatientDistributionCard = ({ data }) => {
   const chartOptions = {
     chart: {
       type: 'donut',
       height: 350,
-      offsetY: 0,  
+      offsetY: 0,
       padding: {
         top: 20,
         bottom: 20

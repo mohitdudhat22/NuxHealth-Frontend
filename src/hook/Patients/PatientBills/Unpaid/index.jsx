@@ -16,5 +16,5 @@ export const usePatientUnpaidBills = () => {
     useEffect(() => {
         fetchData();
     }, []);
-  return { data };
+    return { data };
 };

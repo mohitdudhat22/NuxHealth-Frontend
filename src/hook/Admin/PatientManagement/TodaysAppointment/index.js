@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { todaysAppointmentForAdmin } from "@/axiosApi/ApiHelper";
-import {user} from "@/assets/images";
+import { user } from "@/assets/images";
 import { filterByQuery } from "@/utils/FilterSearch";
 
-export const useTodaysAppointment= () => {
+export const useTodaysAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,11 +43,9 @@ export const useTodaysAppointment= () => {
     appointmentType: appointment?.type,
   }));
 
-  console.log(data)
-
   useEffect(() => {
     fetchAppointments();
   }, []);
 
-  return { data, loading ,onSearch};
+  return { data, loading, onSearch };
 };

@@ -6,7 +6,7 @@ import { usePreviousAppointments } from "@/hook/Admin/PatientManagement/Previous
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
 export const PreviousAppointment = () => {
-  const { data, loading, onSearch } = usePreviousAppointments();  
+  const { data, loading, onSearch } = usePreviousAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
 
@@ -81,7 +81,7 @@ export const PreviousAppointment = () => {
           <NHInput
             prefix={Icons.SearchIcon}
             placeholder="Search Patient"
-            onChange={(e) => onSearch(e.target.value)} 
+            onChange={(e) => onSearch(e.target.value)}
           />
         }
       >

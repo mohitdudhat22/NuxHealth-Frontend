@@ -45,7 +45,7 @@ export const TeleconsultationAccess = () => {
                 >
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         {todaysAppointments.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
+                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime, _id } = data;
                             return (
                                 <AppointmentCard
                                     key={"1"}
@@ -77,7 +77,7 @@ export const TeleconsultationAccess = () => {
                                             <NHButton
                                                 size={"small"}
                                                 className={"w-full"}
-                                                onClick={() => handleJoinCall(data)}
+                                                onClick={() => navigate('videoCall?room='+_id)}
                                             >
                                                 cancel
                                             </NHButton>
@@ -249,7 +249,6 @@ export const TeleconsultationAccess = () => {
             )
         },
     ];
-
 
     return (
         <>

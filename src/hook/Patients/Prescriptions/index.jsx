@@ -28,5 +28,3 @@ export const usePatientPrescriptionData = () => {
 
     return { loading, error, data };
 };
-
-

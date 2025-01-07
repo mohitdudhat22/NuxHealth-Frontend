@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import {upcomingAppointmentForDoctor } from "@/axiosApi/ApiHelper";
-import {user} from "@/assets/images";
+import { upcomingAppointmentForDoctor } from "@/axiosApi/ApiHelper";
+import { user } from "@/assets/images";
 
 export const useUpcomingAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -30,7 +30,6 @@ export const useUpcomingAppointments = () => {
     appointmentType: appointment?.type,
   }));
 
-  console.log(data)
 
   useEffect(() => {
     fetchAppointments();

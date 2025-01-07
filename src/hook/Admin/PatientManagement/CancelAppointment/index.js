@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { cancelAppointmentForAdmin } from "@/axiosApi/ApiHelper";
-import {user} from "@/assets/images";
+import { user } from "@/assets/images";
 import { filterByQuery } from "@/utils/FilterSearch";
 
 export const useCancelAppointments = () => {
@@ -33,7 +33,6 @@ export const useCancelAppointments = () => {
   const onSearch = (query) => {
     setSearchQuery(query);
   }
-
 
   const data = filteredAppointments?.map((appointment) => ({
     key: appointment?._id,

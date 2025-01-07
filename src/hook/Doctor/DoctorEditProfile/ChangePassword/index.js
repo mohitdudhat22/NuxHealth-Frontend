@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { editDoctorProfileChangePassword } from "@/axiosApi/ApiHelper"; 
+import { editDoctorProfileChangePassword } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 
 export const useChangePassword = () => {

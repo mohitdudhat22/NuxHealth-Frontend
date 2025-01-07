@@ -4,7 +4,6 @@ export const FontFamily = () => {
       <div>
         <h3>Font Family : Poppins</h3>
         <h3>Font Family : Nunito Sans 10pt Expanded</h3>
-
         <h1>Font Size : h1/5rem</h1>
         <h2>Font Size : h2/3.4rem</h2>
         <h3>Font Size : h3/20px</h3>

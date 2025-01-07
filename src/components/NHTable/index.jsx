@@ -34,16 +34,16 @@ export const NHTable = ({
           ...column,
           render: loading
             ? () => (
-                <Skeleton
-                  key={column.dataIndex}
-                  title={true}
-                  paragraph={false}
-                  active
-                />
-              )
+              <Skeleton
+                key={column.dataIndex}
+                title={true}
+                paragraph={false}
+                active
+              />
+            )
             : column.render
-            ? column.render
-            : (text) => text,
+              ? column.render
+              : (text) => text,
         }))}
         dataSource={tableDataSource}
         className={clsx(tableClassName, styles.table)}
@@ -55,13 +55,13 @@ export const NHTable = ({
         pagination={
           showPagination
             ? {
-                defaultPageSize: defaultPageSize,
-                position: ["bottomRight"],
-                pageSizeOptions: [5, 10, 15, 20, 25, 30, 50],
-                showSizeChanger: showSizeChanger,
-                responsive: true,
-                locale: { items_per_page: "" },
-              }
+              defaultPageSize: defaultPageSize,
+              position: ["bottomRight"],
+              pageSizeOptions: [5, 10, 15, 20, 25, 30, 50],
+              showSizeChanger: showSizeChanger,
+              responsive: true,
+              locale: { items_per_page: "" },
+            }
             : false
         }
         locale={{

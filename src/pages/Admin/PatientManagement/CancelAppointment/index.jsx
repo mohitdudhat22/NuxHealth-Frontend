@@ -6,7 +6,7 @@ import { useCancelAppointments } from "@/hook/Admin/PatientManagement/CancelAppo
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
 export const CancelAppointment = () => {
-  const { data, loading, error ,onSearch } = useCancelAppointments();
+  const { data, loading, error, onSearch } = useCancelAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
 

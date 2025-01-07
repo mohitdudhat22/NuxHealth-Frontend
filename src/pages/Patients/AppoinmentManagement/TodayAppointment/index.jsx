@@ -83,10 +83,10 @@ export const TodayAppointment = () => {
         title="Today's Appointments"
         headerContent={
           <>
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-          <NHButton>{Icons.CalenderIcon} Any Date</NHButton>
-          <NHButton onClick={()=> navigate('scheduler')}>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
-        </>
+            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHButton>{Icons.CalenderIcon} Any Date</NHButton>
+            <NHButton onClick={() => navigate('scheduler')}>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
+          </>
         }
       >
         <NHTable

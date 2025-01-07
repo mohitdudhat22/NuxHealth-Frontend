@@ -267,13 +267,9 @@ const CreateBill = () => {
                         </div>
                     </NHCard>
                 )}
-
-
             </div>
-
         </>
     )
 }
 
 export default CreateBill
-

@@ -5,6 +5,8 @@ import { NHButton, NHBreadCrumb, NHDropDownImg } from "@/components/";
 import Icons from "@/constants/Icons";
 import styles from "./NHHeader.module.css";
 import { useDecodeToken } from "@/hook";
+import { useState } from "react";
+import NotificationBox from "../NotificationBox";
 
 const { Header } = Layout;
 
@@ -12,6 +14,7 @@ export const NHHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { token } = useDecodeToken();
+  const [notificationVisible, setNotificationVisible] = useState(false);
   const dropdownItems = [
     {
       key: "1",
@@ -21,7 +24,7 @@ export const NHHeader = () => {
 
   const handleMenuClick = (key) => {
     if (key === "1") {
-      navigate("/admin/profile");
+      navigate("/doctor/profile");
     }
   };
 
@@ -44,8 +47,12 @@ export const NHHeader = () => {
       >
         <NHButton
           icon={Icons.NotificationBall}
-          onClick={() => navigate("/notifications")}
+          onClick={() => setNotificationVisible(!notificationVisible)}
           className={styles.NotificationBallBtn}
+        />
+        <NotificationBox
+          visible={notificationVisible}
+          onClose={() => setNotificationVisible(false)}
         />
         <NHDropDownImg
           items={dropdownItems}

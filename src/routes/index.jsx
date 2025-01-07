@@ -31,6 +31,7 @@ import {
   Buttons,
   AppoinmentManagement, AppointmentSchedularPage, PersonalHealthRecord,
   TeleconsultationAccess,
+  DoctorMeetingConference,
   PrescriptionAccess
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
@@ -49,7 +50,9 @@ import { PatientBills } from "@/pages/Patients/PatientsBills";
 import { AppointmentBooking } from "@/pages/Patients/AppointmentBooking";
 import ChattempComponentforDoctor from "@/components/chatTempComponentforDoctor";
 import ChatempComponentforPateint from "@/components/chatTempComponentforPatient";
-
+import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
+import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
+import { PatientMettingConference } from "@/pages/Patients";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -62,14 +65,20 @@ const NuxHealthRoute = createBrowserRouter(
           index: true,
           element: <NavLink to={"/login"}>Login</NavLink>,
         },
+
         /*temp*/
         {
           path: "tempDoctor",
-          element: <ChattempComponentforDoctor/>,
-        },{
+          element: <ChattempComponentforDoctor />,
+        }, {
           path: "tempPatient",
-          element: <ChatempComponentforPateint/>,
+          element: <ChatempComponentforPateint />,
         },
+        {
+          path: "notification-box",
+          element: <NotificationBox />,
+        },
+
         /* AuthCation */
         {
           element: (
@@ -104,6 +113,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* Admin */
         {
           path: "admin",
@@ -231,6 +241,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* Doctor */
         {
           path: "doctor",
@@ -259,10 +270,10 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                   ],
                 },
-                {
-                  path: "notification-box",
-                  element: <NotificationBox />,
-                },
+                // {
+                //   path: "notification-box",
+                //   element: <NotificationBox />,
+                // },
                 {
                   path: "create-prescriptionTools",
                   children: [
@@ -279,7 +290,20 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "teleconsultation-module",
-                  element: <Teleconsultation />,
+                  children:[
+                    {
+                      index: true,
+                      element: <Teleconsultation />,
+                    },
+                    {
+                      path: "videoCall",
+                      element: <DoctorMeetingConference />,
+                    },
+                  ]
+                },
+                {
+                  path: "chat-doctor",
+                  element: <ChatLayoutForDoctor />,
                 },
                 {
                   path: "chat-screen",
@@ -287,7 +311,7 @@ const NuxHealthRoute = createBrowserRouter(
                   children: [
                     {
                       index: true,
-                      element: " <ChatLayout /",
+                      element: <Login />,
                     },
                   ],
                 },
@@ -295,6 +319,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* Patient */
         {
           path: "patient",
@@ -330,7 +355,20 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "teleconsultation",
-                  element: <TeleconsultationAccess />,
+                  children:[
+                    {
+                      index: true,
+                      element: <TeleconsultationAccess />,
+                    },
+                    {
+                      path: "videoCall",
+                      element: <PatientMettingConference />,
+                    },
+                  ]
+                },
+                {
+                  path: "chat-patient",
+                  element: <ChatLayoutForPatient />,
                 },
                 {
                   path: "chat-screen",
@@ -344,6 +382,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* Reception */
         {
           path: "reception",
@@ -379,6 +418,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* StyleGuide */
         {
           path: "style-guide",
@@ -426,6 +466,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
       ],
     },
     {

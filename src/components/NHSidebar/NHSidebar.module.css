@@ -17,10 +17,7 @@
   width: 100%;
 }
 
-.menu
-  :global
-  .ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-selected
-  .ant-menu-submenu-title,
+.menu :global .ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-selected .ant-menu-submenu-title,
 .menu :global .ant-menu-item-selected,
 .menu :global .ant-menu-submenu-open .ant-menu-submenu-title,
 .menu :global .ant-menu-item:hover {

@@ -13,6 +13,7 @@
   width: 22px;
   height: 22px;
 }
+
 .select .clearIcon {
   display: flex;
   align-items: center;
@@ -21,6 +22,7 @@
 .parent :global .ant-select-selection-item {
   padding-inline-end: 28px;
 }
+
 .parent :global .ant-select-arrow {
   transform: translateY(-50%);
   margin: 0;

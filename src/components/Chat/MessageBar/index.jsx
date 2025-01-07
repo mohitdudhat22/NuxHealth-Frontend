@@ -1,8 +1,8 @@
-import { user } from "@/assets/images";
+import { useState, useEffect } from "react";
+import { Avatar } from "antd";
 import { NHButton, NHTextArea } from "@/components";
 import Icons from "@/constants/icons";
-import { Avatar } from "antd";
-import { useState } from "react";
+import { PDFViewerModal } from "@/components/PDFViewerModal";
 
 export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
   const [inputMessage, setInputMessage] = useState("");
@@ -22,8 +22,31 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (!inputMessage.trim()) return;
-    onSendMessage(inputMessage);
+
+    onSendMessage({
+      type: "text",
+      content: inputMessage,
+    });
     setInputMessage("");
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const fileUrl = URL.createObjectURL(file);
+      const fileType = file.type.startsWith("image") ? "image" : "file";
+
+      console.log("File uploaded:", fileUrl);
+      // Send the file via socket
+      onSendMessage({
+        type: fileType,
+        fileDetails: {
+          type: file.type,
+          url: fileUrl,
+          name: file.name,
+        },
+      });
+    }
   };
 
   return (
@@ -57,58 +80,59 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
 
             {/* Messages */}
             <div className="h-[calc(100vh - 26rem - var(--header-height))]">
-              {messages?.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${
-                    message.sender === "user" ? "justify-end" : "justify-start"
-                  } items-end gap-2`}
-                >
-                  {message.sender === "doctor" && (
-                    <Avatar
-                      size={24}
-                      src={selectedUser.avatar}
-                      alt={`${selectedUser.name} avatar`}
-                      className="rounded-full"
-                    />
-                  )}
+              {messages?.map((message) => {
+                if (!message) return null; // Skip invalid messages
+                const { id, sender, type, fileDetails, content, timestamp } =
+                  message;
+                return (
                   <div
-                    className={`max-w-[70%] ${
-                      message.sender === "user"
-                        ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
-                        : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
-                    } p-3`}
+                    key={id}
+                    className={`flex ${
+                      sender === "user" ? "justify-end" : "justify-start"
+                    } items-end gap-2`}
                   >
-                    {message.type === "text" && <p>{message.content}</p>}
-                    {message.type === "image" && (
-                      <img
-                        src={message.imageUrl}
-                        alt="Chat image"
-                        className="rounded-lg max-w-full h-auto"
+                    {sender === "doctor" && (
+                      <Avatar
+                        size={24}
+                        src={selectedUser.avatar}
+                        alt={`${selectedUser.name} avatar`}
+                        className="rounded-full"
                       />
                     )}
-                    {message.type === "file" &&
-                      message.fileDetails?.type === "pdf" && (
+                    <div
+                      className={`max-w-[70%] ${
+                        sender === "user"
+                          ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
+                          : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
+                      } p-3`}
+                    >
+                      {type === "text" && <p>{content}</p>}
+                      {type === "image" && fileDetails?.url && (
+                        <img
+                          src={fileDetails.url}
+                          alt="Chat image"
+                          className="rounded-lg max-w-full h-[300px]"
+                        />
+                      )}
+                      {type === "file" && type === "application/pdf" && (
                         <NHButton
                           variant="ghost"
                           className="flex items-center gap-2 w-full hover:bg-opacity-10"
                           onClick={() =>
-                            handlePdfClick(
-                              message.fileDetails.url,
-                              message.fileDetails.name
-                            )
+                            handlePdfClick(fileDetails.url, fileDetails.name)
                           }
                         >
                           <Icons.FileText className="h-5 w-5" />
-                          <span>{message.fileDetails.name}</span>
+                          <span>{fileDetails.name}</span>
                         </NHButton>
                       )}
-                    <p className="text-xs mt-1 opacity-70">
-                      {formatTime(message.timestamp)}
-                    </p>
+                      <p className="text-xs mt-1 opacity-70">
+                        {formatTime(timestamp)}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
@@ -118,6 +142,17 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
           onSubmit={handleSendMessage}
           className="ml-md flex items-center gap-md p-4 border-t"
         >
+          <button
+            type="button"
+            className="bg-transparent relative overflow-hidden me-3"
+          >
+            {Icons.Upload}
+            <input
+              type="file"
+              onChange={handleFileUpload}
+              className="absolute top-0 right-0 min-w-full min-h-full text-[100px] text-right opacity-0 outline-none cursor-pointer block"
+            />
+          </button>
           <NHTextArea
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}

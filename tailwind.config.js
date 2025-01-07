@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -24,7 +21,7 @@ export default {
         primary: "var(--font-primary)",
       },
       spacing: {
-        '2xl': "var(--space-2xl)",
+        "2xl": "var(--space-2xl)",
         xl: "var(--space-xl)",
         lg: "var(--space-lg)",
         md: "var(--space-md)",
@@ -32,15 +29,23 @@ export default {
         xs: "var(--space-xs)",
       },
       fontSize: {
-        '5xl': "var(--text-5xl)",
-        '4xl': "var(--text-4xl)",
-        '3xl': "var(--text-3xl)",
-        '2xl': "var(--text-2xl)",
+        "5xl": "var(--text-5xl)",
+        "4xl": "var(--text-4xl)",
+        "3xl": "var(--text-3xl)",
+        "2xl": "var(--text-2xl)",
         xl: "var(--text-xl)",
         lg: "var(--text-lg)",
         sm: "var(--text-sm)",
       },
+      screens: {
+        xs: "0px",
+        sm: "576px",
+        md: "768px",
+        lg: "992px",
+        xl: "1200px",
+        xxl: "1400px",
+      },
     },
   },
   plugins: [],
-}
+};

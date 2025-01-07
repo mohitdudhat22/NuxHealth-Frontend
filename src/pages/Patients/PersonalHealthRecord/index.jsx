@@ -9,7 +9,6 @@ import { TestReports } from './TestReports';
 export const PersonalHealthRecord = () => {
 
     const [currentView, setCurrentView] = useState("dashboard");
-
     const { data, loading, error } = usePatientDashboardData();
 
     // if (loading) return <p>Loading patient data...</p>;
@@ -17,7 +16,6 @@ export const PersonalHealthRecord = () => {
 
     const patientData = data?.patientProfile;
     const prescriptions = data?.prescriptions || [];
-    console.log(data)
 
     const prescriptionHeaders = ['Hospital Name', 'Date', 'Disease Name', 'Action'];
     const prescriptionRows = prescriptions.map((prescription) => [

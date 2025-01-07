@@ -137,7 +137,6 @@ export const TeleconsultationModule = () => {
         }
     ]
 
-
     const data = [
         {
             key: "1",
@@ -384,7 +383,6 @@ export const TeleconsultationModule = () => {
                         })}
                     </div>
                 </NHCard>
-
             )
         },
     ];
@@ -459,7 +457,6 @@ export const TeleconsultationModule = () => {
                         }
                         className="p-0 "
                     />
-
                 )}
             </NHModal>
         </>

@@ -2,7 +2,7 @@ import React from 'react'
 import { NHCard } from '..'
 import { Empty } from 'antd'
 
-export const DepartmentCard = ({ title, departments, icon, image, discrition, type="patient" }) => {
+export const DepartmentCard = ({ title, departments, icon, image, discrition, type = "patient" }) => {
   return (
     <NHCard title={title}>
       {departments.length === 0 ? ( // Check if departments array is empty
@@ -10,6 +10,7 @@ export const DepartmentCard = ({ title, departments, icon, image, discrition, ty
           <Empty
             image={image}
             className='h-full'
+            imageStyle={{ height: "100%" }}
             description={discrition}
           />
         </div>
