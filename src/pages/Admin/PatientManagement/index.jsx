@@ -1,4 +1,11 @@
-import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
+import {
+  NHButton,
+  NHCard,
+  NHHead,
+  NHInput,
+  NHTable,
+  NHTabs,
+} from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
@@ -75,42 +82,6 @@ export const PatientManagement = () => {
     },
   ];
 
-  const data = [
-    {
-      key: "1",
-      patientName: "Marcus Phillips",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Viral Infection",
-      doctorName: "Dr. Matthew Best",
-      appointmentTime: "4:30 PM",
-      appointmentType: "Online",
-      appointmentDate: "2 Jun, 2022",
-      phoneNumber: "92584 58475",
-      age: "27",
-      gender: "Male",
-      issue: "Stomach ache",
-      address: "B-408 Swastik society, Shivaji marg mota varacha rajkot",
-    },
-    {
-      key: "2",
-      patientName: "Landyn Sheffey",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Blood Pressure",
-      doctorName: "Dr. Annabella Porter",
-      appointmentTime: "5:00 AM",
-      appointmentType: "Onsite",
-    },
-    {
-      key: "3",
-      patientName: "Leslie Murray",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Diabetes",
-      doctorName: "Dr. Steven Ralph",
-      appointmentTime: "7:30 PM",
-      appointmentType: "Online",
-    },
-  ];
-
   const tabItems = [
     {
       key: "today",
@@ -125,17 +96,18 @@ export const PatientManagement = () => {
     {
       key: "previous",
       label: "Previous Appointment",
-      children: <PreviousAppointment />
+      children: <PreviousAppointment />,
     },
     {
       key: "cancel",
       label: "Cancel Appointment",
-      children: <CancelAppointment />
+      children: <CancelAppointment />,
     },
   ];
 
   return (
     <>
+      <NHHead />
       <NHCard
         headerContent={
           <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />

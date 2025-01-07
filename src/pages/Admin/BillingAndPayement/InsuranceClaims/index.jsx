@@ -1,4 +1,4 @@
-import { NHButton, NHCard, NHInput, NHTable } from "@/components";
+import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
 import { useInsuranceClaims } from '@/hook/Admin/BillingAndPayments';
@@ -74,6 +74,7 @@ export const InsuranceClaims = () => {
 
   return (
     <>
+      <NHHead title="Insurance Claims" />
       <NHCard
         title={"Insurance Claims"}
         headerContent={

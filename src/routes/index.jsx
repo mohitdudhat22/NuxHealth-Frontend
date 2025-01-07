@@ -36,10 +36,10 @@ import {
   DoctorMeetingConference,
   PrescriptionAccess,
 } from "@/pages";
-import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
+import { MonitorBilling } from "@/pages/Admin/BillingAndPayement/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
-import { InsuranceClaims } from "@/pages/Admin/InsuranceClaims";
-import { PaymentProcess } from "@/pages/Admin/PaymentProcess";
+import { InsuranceClaims } from "@/pages/Admin/BillingAndPayement/InsuranceClaims";
+import { PaymentProcess } from "@/pages/Admin/BillingAndPayement/PaymentProcess";
 import { createBrowserRouter, NavLink } from "react-router-dom";
 import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
@@ -47,7 +47,7 @@ import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
 import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
 import NotificationBox from "@/components/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
-import { BillView } from "@/pages/Admin/MonitorBilling/BillView";
+import { BillView } from "@/pages/Admin/BillingAndPayement/MonitorBilling/BillView";
 import { PatientBills } from "@/pages/Patients/PatientsBills";
 import { AppointmentBooking } from "@/pages/Patients/AppointmentBooking";
 import ChattempComponentforDoctor from "@/components/chatTempComponentforDoctor";

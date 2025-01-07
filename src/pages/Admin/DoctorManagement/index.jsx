@@ -1,7 +1,7 @@
 import { useDeleteModal, useDoctorManagement } from "@/hook";
 import { Space, Tag } from "antd/lib";
 import Icons from "@/constants/icons";
-import { NHButton, NHCard, NHInput, NHTable, DeleteModal } from "@/components";
+import { NHButton, NHCard, NHInput, NHTable, DeleteModal, NHHead } from "@/components";
 import { Avatar } from "antd";
 
 export const DoctorManagement = () => {
@@ -76,6 +76,7 @@ export const DoctorManagement = () => {
 
   return (
     <>
+      <NHHead />
       <NHCard
         title="Doctor Management"
         headerContent={

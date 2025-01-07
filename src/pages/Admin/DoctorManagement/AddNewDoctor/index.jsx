@@ -1,4 +1,4 @@
-import { NHCard, NHInput, NHSelect, NHButton } from '@/components';
+import { NHCard, NHInput, NHSelect, NHButton, NHHead } from '@/components';
 import { NHTimePicker } from '@/components/FormComponents/NHTimePicker';
 import { useCreateDoctor } from '@/hook';
 import { Upload } from 'antd';
@@ -14,6 +14,8 @@ export const AddNewDoctor = () => {
   } = useCreateDoctor();
 
   return (
+    <>
+    <NHHead title="Add New Doctor" />
     <NHCard title={isEditing ? "Edit Doctor" : "Add New Doctor"} className="p-6">
       <form
         onSubmit={handleSubmit}
@@ -322,5 +324,6 @@ export const AddNewDoctor = () => {
         </div>
       </form>
     </NHCard>
+  </>
   );
 };
