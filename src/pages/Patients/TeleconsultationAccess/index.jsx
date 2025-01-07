@@ -250,7 +250,6 @@ export const TeleconsultationAccess = () => {
         },
     ];
 
-
     return (
         <>
             <NHCard

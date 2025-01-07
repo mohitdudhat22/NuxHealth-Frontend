@@ -13,8 +13,6 @@ export const AppoinmentManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
 
- 
-
   const tabItems = [
     {
       key: "today",
@@ -43,11 +41,11 @@ export const AppoinmentManagement = () => {
       <NHCard
         headerContent={
           <>
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-          <NHButton type="submit" variant="primary">
-          Add Receptionist
-        </NHButton>
-        </>
+            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHButton type="submit" variant="primary">
+              Add Receptionist
+            </NHButton>
+          </>
         }
       >
         <NHTabs items={tabItems} defaultActiveKey="today" />

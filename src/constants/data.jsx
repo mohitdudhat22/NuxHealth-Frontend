@@ -172,7 +172,7 @@ export const ReceptionPanelData = [
     ],
   },
 ];
-  
+
 export const StyleGuideAsideMenu = [
   {
     key: "home",

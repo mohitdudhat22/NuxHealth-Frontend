@@ -1,6 +1,6 @@
 import React from 'react';
 import { NHCard } from '@/components';
-export const StatisticsCard = ({ title, count, icon}) => {
+export const StatisticsCard = ({ title, count, icon }) => {
     return (
         <NHCard className="h-full align-middle">
             <div className="flex items-center">

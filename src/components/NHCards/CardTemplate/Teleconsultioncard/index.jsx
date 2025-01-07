@@ -27,23 +27,23 @@ export const TeleconsultationCard = ({
             }
             footerContent={
                 <div className="flex justify-between gap-4">
-                  <NHButton
-                    size={"small"}
-                    className={"w-full bg-[#39973d] text-white"}
-                    icon={Icons.call}
-                  >
-                    Join call
-                  </NHButton>
-                  <NHButton
-                    size={"small"}
-                    className={"w-full bg-primary text-white"}
-                    icon={Icons.whiteCalendar}
-                  >
-                    Reschedule
-                  </NHButton>
+                    <NHButton
+                        size={"small"}
+                        className={"w-full bg-[#39973d] text-white"}
+                        icon={Icons.call}
+                    >
+                        Join call
+                    </NHButton>
+                    <NHButton
+                        size={"small"}
+                        className={"w-full bg-primary text-white"}
+                        icon={Icons.whiteCalendar}
+                    >
+                        Reschedule
+                    </NHButton>
                 </div>
-              }
-           
+            }
+
         >
             {/* Bill Details */}
             <div className="text-sm text-gray-700">

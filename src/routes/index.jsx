@@ -52,7 +52,6 @@ import ChatempComponentforPateint from "@/components/chatTempComponentforPatient
 import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
 import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
 
-
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
   [
@@ -64,18 +63,20 @@ const NuxHealthRoute = createBrowserRouter(
           index: true,
           element: <NavLink to={"/login"}>Login</NavLink>,
         },
+
         /*temp*/
         {
           path: "tempDoctor",
-          element: <ChattempComponentforDoctor/>,
-        },{
+          element: <ChattempComponentforDoctor />,
+        }, {
           path: "tempPatient",
-          element: <ChatempComponentforPateint/>,
+          element: <ChatempComponentforPateint />,
         },
         {
           path: "notification-box",
-          element: <NotificationBox/>,
+          element: <NotificationBox />,
         },
+
         /* AuthCation */
         {
           element: (
@@ -110,6 +111,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* Admin */
         {
           path: "admin",
@@ -237,6 +239,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* Doctor */
         {
           path: "doctor",
@@ -297,7 +300,7 @@ const NuxHealthRoute = createBrowserRouter(
                   children: [
                     {
                       index: true,
-                      element: <Login/>,
+                      element: <Login />,
                     },
                   ],
                 },
@@ -305,6 +308,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* Patient */
         {
           path: "patient",
@@ -358,6 +362,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* Reception */
         {
           path: "reception",
@@ -393,6 +398,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
         /* StyleGuide */
         {
           path: "style-guide",
@@ -440,6 +446,7 @@ const NuxHealthRoute = createBrowserRouter(
             },
           ],
         },
+
       ],
     },
     {

@@ -61,9 +61,6 @@ export const AllBillModel = () => {
                 handleClose={() => setIsModalOpen(false)}
             /> */}
 
-
-
-
         </>
     )
 }

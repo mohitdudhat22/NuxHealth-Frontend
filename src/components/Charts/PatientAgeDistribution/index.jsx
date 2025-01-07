@@ -2,10 +2,10 @@ import React from 'react'
 import ReactApexChart from 'react-apexcharts'
 import { NHCard } from '@/components'
 
-export const PatientAgeDistribution = ({ 
+export const PatientAgeDistribution = ({
   title = 'Patients Age',
   data,
-  height = 350 
+  height = 350
 }) => {
 
   const chartData = data || defaultData
@@ -59,11 +59,10 @@ export const PatientAgeDistribution = ({
         height: 8,
         radius: 12
       },
-      formatter: function(seriesName, opts) {
+      formatter: function (seriesName, opts) {
         return [
           seriesName,
-          `<span style="margin-left: 10px; color: ${
-            chartData[opts.seriesIndex].color
+          `<span style="margin-left: 10px; color: ${chartData[opts.seriesIndex].color
           }; font-weight: bold">
             ${chartData[opts.seriesIndex].value}%
           </span>`

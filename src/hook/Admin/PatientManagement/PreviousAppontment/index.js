@@ -40,12 +40,12 @@ export const usePreviousAppointments = () => {
   ]);
 
   const onSearch = (query) => {
-    setSearchQuery(query);  
+    setSearchQuery(query);
   };
 
   useEffect(() => {
     fetchAppointments();
   }, []);
 
-  return { data: filteredAppointments, loading, onSearch };  
+  return { data: filteredAppointments, loading, onSearch };
 };

@@ -45,16 +45,19 @@
     stroke-dasharray: 1, 200;
     stroke-dashoffset: 0;
   }
+
   50% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -35px;
     stroke: var(--clr-secondary);
   }
+
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -124px;
   }
 }
+
 @keyframes rotate {
   to {
     transform: rotate(1turn);

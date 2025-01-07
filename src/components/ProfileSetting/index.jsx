@@ -319,7 +319,7 @@ const ChangePassword = () => {
           <NHButton
             variant="primary"
             onClick={handleSubmit}
-            disabled={loading || !isFormValid}  
+            disabled={loading || !isFormValid}
           >
             {loading ? "Saving..." : "Save"}
           </NHButton>

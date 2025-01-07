@@ -65,18 +65,18 @@ export const ChatLayoutForPatient = () => {
         prevChats.map((chat) =>
           chat.participants.some((p) => p._id === from)
             ? {
-                ...chat,
-                messages: [
-                  ...chat.messages,
-                  {
-                    id: Date.now().toString(),
-                    content: message,
-                    sender: "user",
-                    timestamp,
-                    type: "text",
-                  },
-                ],
-              }
+              ...chat,
+              messages: [
+                ...chat.messages,
+                {
+                  id: Date.now().toString(),
+                  content: message,
+                  sender: "user",
+                  timestamp,
+                  type: "text",
+                },
+              ],
+            }
             : chat
         )
       );

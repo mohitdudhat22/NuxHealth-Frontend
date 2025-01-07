@@ -105,7 +105,7 @@ export const PaymentProcess = () => {
       <PaymentProcessModal
         open={isModalOpen}
         handleClose={() => setIsModalOpen(false)}
-        // paymentData={record}
+      // paymentData={record}
       />
     </>
   );
