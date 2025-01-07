@@ -44,7 +44,8 @@ export const NHHeader = () => {
         {BreadCrumb ? (
           <div className="flex flex-col items-start">
             <h3 className="font-bold capitalize">
-              Good Morning! {isDoctor && "Dr."}{firstName}
+              Good Morning! {isDoctor && "Dr."}
+              {firstName}
             </h3>
             <p className="mt-1 h6 text-silver font-semibold">
               Hope you have a good day
