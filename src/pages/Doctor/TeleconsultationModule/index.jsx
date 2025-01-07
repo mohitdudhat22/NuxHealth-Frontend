@@ -20,7 +20,6 @@ export const Teleconsultation = () => {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
-
   const { appointments, loading, error } = useTeleconsultation();
 
   const handleViewBill = (record) => {

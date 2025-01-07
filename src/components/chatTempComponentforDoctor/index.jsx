@@ -12,7 +12,7 @@ export const ChattempComponentforDoctor = () => {
   const [message, setMessage] = useState('');
   const [onlineUsers, setOnlineUsers] = useState({});
   const [isPatientOnline, setIsPatientOnline] = useState(false);
-  const doctorId = '6770443dceabc6c708235256'; 
+  const doctorId = '6770443dceabc6c708235256';
   const patientId = '677047f308067157dc712f80';
   const fetchOldMessages = async () => {
     const response = await getOldMessages(doctorId, patientId);
@@ -28,12 +28,12 @@ export const ChattempComponentforDoctor = () => {
     registerUser(userId);
     joinChat('room1'); // Replace with actual room ID
     receiveMessage(handleMessageReceive);
-    
+
     updateOnlineUsers((data) => {
-        const {onlineUsers, checkonline} = data;
-        setOnlineUsers(onlineUsers);
-        console.log(checkonline);
-        (checkonline?.patientId) ? setIsPatientOnline(true) : setIsPatientOnline(false);
+      const { onlineUsers, checkonline } = data;
+      setOnlineUsers(onlineUsers);
+      console.log(checkonline);
+      (checkonline?.patientId) ? setIsPatientOnline(true) : setIsPatientOnline(false);
     });
 
     checkOnlineStatus(userId);

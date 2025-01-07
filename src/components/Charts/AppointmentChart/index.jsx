@@ -3,10 +3,10 @@ import { Button } from 'antd/lib';
 import ReactApexChart from 'react-apexcharts';
 import { NHButton, NHCard } from '@/components';
 
-export function AppointmentChart({ 
-  data, 
+export function AppointmentChart({
+  data,
   title = 'Appointment',
-  height = 350 
+  height = 350
 }) {
   const [viewMode, setViewMode] = useState('year');
 

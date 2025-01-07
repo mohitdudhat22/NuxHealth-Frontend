@@ -6,13 +6,11 @@ import { useState } from "react";
 import { useTodayManagePriscription } from "@/hook/Doctor/PriscriptionTools/Manage/TodayPriscription";
 import { useOlderManagePrescription } from "@/hook/Doctor/PriscriptionTools/Manage/OlderPriscription";
 
-
 export const Manage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedPatient, setSelectedPatient] = useState(null);
-    const { data:today } = useTodayManagePriscription(selectedPatient?.id);
-    const { data:older } = useOlderManagePrescription(selectedPatient?.id);
-
+    const { data: today } = useTodayManagePriscription(selectedPatient?.id);
+    const { data: older } = useOlderManagePrescription(selectedPatient?.id);
 
     //hook -> data
     const handleViewBill = (record) => {
@@ -83,7 +81,6 @@ export const Manage = () => {
         },
     ];
 
-
     const tabItems = [
         {
             key: "today",
@@ -120,8 +117,8 @@ export const Manage = () => {
             )
         }
     ];
-    console.log(selectedPatient,"<<<<<<<<<<<<<<<<<<<<<<<<<"); //id -> hook ma ppass
-    
+    console.log(selectedPatient, "<<<<<<<<<<<<<<<<<<<<<<<<<"); //id -> hook ma ppass
+
     return (
         <>
             <NHCard
@@ -138,7 +135,7 @@ export const Manage = () => {
                 />
             </NHCard>
 
-            <PrescriptionCard 
+            <PrescriptionCard
                 isModalOpen={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
                 handleClose={() => setIsModalOpen(false)}

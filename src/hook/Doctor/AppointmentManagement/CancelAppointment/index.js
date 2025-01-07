@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { cancelAppointmentForDoctor } from "@/axiosApi/ApiHelper";
-import {user} from "@/assets/images";
+import { user } from "@/assets/images";
 
 export const useCancelAppointments = () => {
   const [appointments, setAppointments] = useState([]);

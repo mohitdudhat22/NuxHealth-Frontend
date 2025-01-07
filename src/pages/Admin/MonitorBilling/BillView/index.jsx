@@ -3,14 +3,14 @@ import React, { useState } from 'react'
 
 export const BillView = () => {
   const selectedInvoice = (localStorage.getItem('selectedBill') || "Bill")
-  switch(selectedInvoice){
+  switch (selectedInvoice) {
     case "Bill":
-        return <Bill1/>
+      return <Bill1 />
     case "Bill2":
-        return <Bill2/>
-        case "Bill3":
-        return <Bill3/>
+      return <Bill2 />
+    case "Bill3":
+      return <Bill3 />
     default:
-        return <Bill1/>
+      return <Bill1 />
   }
 }

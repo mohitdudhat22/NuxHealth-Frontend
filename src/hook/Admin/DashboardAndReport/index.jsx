@@ -18,20 +18,20 @@ export const useDashboardAndReport = () => {
     totalDoctors: dashboardData?.totalDoctors,
     pendingBills: dashboardData?.UnpaindBills,
     todaysTotalAppointments: dashboardData?.todayAppointments,
-    patientSummary:{
-        totalPatients:dashboardData?.patientSummary?.totalPatients,
-        totalOldPatients:dashboardData?.patientSummary?.oldPatients,
-        totalNewPatients:dashboardData?.patientSummary?.newPatients,
+    patientSummary: {
+      totalPatients: dashboardData?.patientSummary?.totalPatients,
+      totalOldPatients: dashboardData?.patientSummary?.oldPatients,
+      totalNewPatients: dashboardData?.patientSummary?.newPatients,
     },
-    patientStats:dashboardData?.patientStats,
+    patientStats: dashboardData?.patientStats,
     appointments: dashboardData?.appointments.map(appointment => ({
       patientName: appointment.patientId.fullName,
       doctorName: appointment.doctorId.fullName,
       appointmentTime: appointment.appointmentTime,
       type: appointment.type,
       diseaseName: appointment.dieseas_name
-  })),
-  billdata: dashboardData?.billdata
+    })),
+    billdata: dashboardData?.billdata
   }
   return { data };
 };

@@ -9,7 +9,6 @@ import { TestReports } from './TestReports';
 export const PersonalHealthRecord = () => {
 
     const [currentView, setCurrentView] = useState("dashboard");
-
     const { data, loading, error } = usePatientDashboardData();
 
     // if (loading) return <p>Loading patient data...</p>;

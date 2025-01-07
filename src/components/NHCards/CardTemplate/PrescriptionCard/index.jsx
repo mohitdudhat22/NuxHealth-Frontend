@@ -10,7 +10,7 @@ export const PrescriptionCard = ({
   patientName = "Altabrao Bhajirao",
   age = "36 Years",
   gender = "Male",
-  address= "B-105 Viral Bungalows PunaGam Motavaracha Jamnagar.",
+  address = "B-105 Viral Bungalows PunaGam Motavaracha Jamnagar.",
   medications = [
     {
       medicineName: "Calcium carbonate",
@@ -59,7 +59,6 @@ export const PrescriptionCard = ({
     { title: "Duration", dataIndex: "duration", key: "duration" },
     { title: "When to take", dataIndex: "whenToTake", key: "whenToTake" },
   ];
-  console.log(patientData, "<<<<<<<<<<<<<<<<<<<<<<<<<");
 
   return (
     <NHCard className="min-h-full">
@@ -128,7 +127,7 @@ export const PrescriptionCard = ({
       </div>
       {/* Medicine Table */}
       <NHTable
-      loading={loading} showPagination={true}
+        loading={loading} showPagination={true}
         columns={columns}
         dataSource={
           (patientData && patientData.medications) || // Use medicines from patientData
@@ -145,7 +144,7 @@ export const PrescriptionCard = ({
       <div className="mb-4">
         <h3 className="text-sm font-medium text-gray-600">Additional Note</h3>
         <p className="text-sm text-gray-500">{(patientData && patientData.additionalNote) ||
-                  additionalNote}</p>
+          additionalNote}</p>
       </div>
 
       {/* Footer Section */}

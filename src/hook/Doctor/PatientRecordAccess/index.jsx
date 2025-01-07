@@ -75,7 +75,7 @@ export const usePatientRecordAccess = () => {
                         type="primary"
                         size="small"
                         icon={Icons.ViewBillIcon}
-                        onClick={() => navigate("patientviewdetails/"+record.patientId)}
+                        onClick={() => navigate("patientviewdetails/" + record.patientId)}
                         className="view-btn bg-white"
                     />
                 </Space>
@@ -108,7 +108,6 @@ export const usePatientRecordAccess = () => {
         },
         // Add more patient records here
     ];
-
 
     return { data, staticData, columns, handleSelectChange, filter }
 };

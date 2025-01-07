@@ -159,7 +159,7 @@ export const PatientDetails = () => {
         patientAddress="B-408 Swastik society, mota varacha rajkot."
         lastAppointmentDate="2 Jan, 2022"
         lastAppointmentTime="4:30 PM"
-        // onAddRecord={handleAddRecord}
+      // onAddRecord={handleAddRecord}
       />
       <div className="mt-8">
         <NHCard

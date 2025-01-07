@@ -147,8 +147,8 @@ export const LineChart = ({ data }) => {
                         type={viewMode === 'year' ? 'primary' : 'text'}
                         onClick={() => setViewMode('year')}
                         className={`px-4 min-w-[60px] rounded-md ${viewMode === 'year'
-                                ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90'
-                                : 'text-gray-500 hover:text-gray-700'
+                            ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90'
+                            : 'text-gray-500 hover:text-gray-700'
                             }`}
                     >
                         Year
@@ -157,8 +157,8 @@ export const LineChart = ({ data }) => {
                         type={viewMode === 'month' ? 'primary' : 'text'}
                         onClick={() => setViewMode('month')}
                         className={`px-4 min-w-[60px] rounded-md ${viewMode === 'month'
-                                ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90'
-                                : 'text-gray-500 hover:text-gray-700'
+                            ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90'
+                            : 'text-gray-500 hover:text-gray-700'
                             }`}
                     >
                         Month
@@ -167,8 +167,8 @@ export const LineChart = ({ data }) => {
                         type={viewMode === 'week' ? 'primary' : 'text'}
                         onClick={() => setViewMode('week')}
                         className={`px-4 min-w-[60px] rounded-md ${viewMode === 'week'
-                                ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90'
-                                : 'text-gray-500 hover:text-gray-700'
+                            ? 'bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90'
+                            : 'text-gray-500 hover:text-gray-700'
                             }`}
                     >
                         Week

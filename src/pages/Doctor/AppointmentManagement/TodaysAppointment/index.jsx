@@ -5,7 +5,7 @@ import Icons from "@/constants/icons";
 import { useTodayAppointment } from "@/hook/Doctor/AppointmentManagement/TodaysAppointment";
 import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
 import { CancelOnsiteAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnsiteAppointmentModal";
-import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal"; 
+import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import moment from "moment";
 
 const columns = (handleViewPatient) => [
@@ -72,10 +72,10 @@ export const TodayAppointments = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
-  const [isDateModalOpen, setIsDateModalOpen] = useState(false); 
-  const [filteredAppointments, setFilteredAppointments] = useState(data); 
-  const [fromDate, setFromDate] = useState(null); 
-  const [toDate, setToDate] = useState(null); 
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
+  const [filteredAppointments, setFilteredAppointments] = useState(data);
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
@@ -96,7 +96,7 @@ export const TodayAppointments = () => {
   };
 
   const handleOpenDateModal = () => {
-    setIsDateModalOpen(true); 
+    setIsDateModalOpen(true);
   };
 
   const handleCloseDateModal = () => {
@@ -112,8 +112,8 @@ export const TodayAppointments = () => {
       );
     });
 
-    setFilteredAppointments(filtered); 
-    setIsDateModalOpen(false); 
+    setFilteredAppointments(filtered);
+    setIsDateModalOpen(false);
   };
 
   if (error) return <div>Error: {error.message}</div>;
@@ -136,7 +136,7 @@ export const TodayAppointments = () => {
           loading={loading}
           showPagination={true}
           tableColumn={columns(handleViewPatient)}
-          tableDataSource={filteredAppointments} 
+          tableDataSource={filteredAppointments}
           route="/doctor"
         />
       </NHCard>
@@ -162,7 +162,7 @@ export const TodayAppointments = () => {
       )}
 
       <CustomDateModal
-        handleOk={handleApplyDateFilter} 
+        handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}
         customDate={isDateModalOpen}
@@ -170,7 +170,7 @@ export const TodayAppointments = () => {
         loading={false}
         fromDate={fromDate}
         toDate={toDate}
-        setFromDate={setFromDate} 
+        setFromDate={setFromDate}
         setToDate={setToDate}
       />
     </>

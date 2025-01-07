@@ -67,7 +67,6 @@ export const useCreateReceptionist = () => {
     if (response.status === 1) {
       navigate('/admin/reception-management')
     }
-
   };
 
   return {

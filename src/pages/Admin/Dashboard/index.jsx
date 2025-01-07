@@ -27,15 +27,15 @@ export const Dashboard = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         <div className="md:col-span-3">
-          <LineChart data={data?.patientStats}/>
+          <LineChart data={data?.patientStats} />
         </div>
         <div className="md:col-span-2">
-          <BillingCard data={data?.billdata}/>
+          <BillingCard data={data?.billdata} />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         <div className="md:col-span-3">
-          <AppointmentsList data={data?.appointments}/>
+          <AppointmentsList data={data?.appointments} />
         </div>
         <div className="md:col-span-2">
           <PatientDistributionCard data={data?.patientSummary} />
