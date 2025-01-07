@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Layout } from "antd";
 import clsx from "clsx";
 import { useDecodeToken } from "@/hook";
 import Icons from "@/constants/Icons";
 import { NHButton, NHBreadCrumb, NHDropDownImg } from "@/components/";
+import NotificationBox from "../NotificationBox";
 
 const { Header } = Layout;
 
@@ -11,7 +13,7 @@ export const NHHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { token } = useDecodeToken();
-
+  const [notificationVisible, setNotificationVisible] = useState(false);
   const dropdownItems = [
     {
       key: "1",
@@ -55,7 +57,11 @@ export const NHHeader = () => {
       <div className={clsx("flex items-center justify-content-center gap-xl")}>
         <NHButton
           icon={Icons.NotificationBall}
-          onClick={() => navigate("/notification-box")}
+          onClick={() => setNotificationVisible(!notificationVisible)}
+        />
+        <NotificationBox
+          visible={notificationVisible}
+          onClose={() => setNotificationVisible(false)}
         />
         <NHDropDownImg
           items={dropdownItems}

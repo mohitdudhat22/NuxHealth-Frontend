@@ -10,7 +10,6 @@ export const usePatientRecordAccess = () => {
     const navigate = useNavigate();
     const fetchData = async () => {
         const data = await getPatientRecordAccess();
-        console.log(data);
         setData(data);
     };
 

@@ -33,7 +33,8 @@ import {
   AppointmentSchedularPage,
   PersonalHealthRecord,
   TeleconsultationAccess,
-  PrescriptionAccess,
+  DoctorMeetingConference,
+  PrescriptionAccess
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -53,6 +54,7 @@ import ChattempComponentforDoctor from "@/components/chatTempComponentforDoctor"
 import ChatempComponentforPateint from "@/components/chatTempComponentforPatient";
 import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
 import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
+import { PatientMettingConference } from "@/pages/Patients";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -291,7 +293,16 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "teleconsultation-module",
-                  element: <Teleconsultation />,
+                  children:[
+                    {
+                      index: true,
+                      element: <Teleconsultation />,
+                    },
+                    {
+                      path: "videoCall",
+                      element: <DoctorMeetingConference />,
+                    },
+                  ]
                 },
                 {
                   path: "chat-doctor",
@@ -347,7 +358,16 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "teleconsultation",
-                  element: <TeleconsultationAccess />,
+                  children:[
+                    {
+                      index: true,
+                      element: <TeleconsultationAccess />,
+                    },
+                    {
+                      path: "videoCall",
+                      element: <PatientMettingConference />,
+                    },
+                  ]
                 },
                 {
                   path: "chat-patient",
