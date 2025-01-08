@@ -1,6 +1,7 @@
 import React from "react";
 import { Breadcrumb } from "antd";
 import { useLocation, Link } from "react-router-dom";
+import Icons from "@/constants/icons";
 
 // Convert URL segments into a readable format
 const formatTitle = (segment) => {
@@ -24,7 +25,7 @@ export const NHBreadCrumb = () => {
   // Generate breadcrumb items dynamically
   const breadcrumbData = [
     {
-      title: "Home",
+      title: Icons.Home,
       href: "/",
     },
     ...filteredSnippets.map((snippet, index) => {
@@ -39,15 +40,15 @@ export const NHBreadCrumb = () => {
 
   return (
     <Breadcrumb
-      separator=">"
-      items={breadcrumbData.map((item, index) => ({
+      separator="/"
+      items={breadcrumbData?.map((item, index) => ({
         key: index,
         title: item.disabled ? (
-          <span>{item.title}</span> // Display the middle breadcrumb as plain text if disabled
+          <span className="d-flex">{item?.title}</span>
         ) : item.href ? (
-          <Link to={item.href}>{item.title}</Link>
+          <Link to={item?.href}>{item?.title}</Link>
         ) : (
-          item.title
+          item?.title
         ),
       }))}
     />

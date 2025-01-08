@@ -1,36 +1,30 @@
-import React, { useState } from 'react';
-import { NHButton, NHCard, NHTable } from '..';
-import { Space } from 'antd';
-import Icons from '@/constants/icons';
+import React, { useState } from "react";
+import { NHButton, NHCard, NHTable } from "..";
+import { Space } from "antd";
+import Icons from "@/constants/icons";
 export const BillingCard = ({ data }) => {
   const [loading, setLoading] = useState(true);
 
-  const bills = data || [
-    { billsNo: '5614', patientName: 'David Watson', diseaseName: 'Colds and Flu', status: 'Paid' },
-    { billsNo: '5614', patientName: 'James George', diseaseName: 'Colds and Flu', status: 'Unpaid' },
-    { billsNo: '5614', patientName: 'Craig Tyrell', diseaseName: 'Allergies', status: 'Paid' },
-  ];
-
   const columns = [
     {
-      title: 'Bill ID',
-      dataIndex: 'billsNo',
-      key: 'billsNo',
+      title: "Bill ID",
+      dataIndex: "billsNo",
+      key: "billsNo",
     },
     {
-      title: 'Patient Name',
-      dataIndex: 'patientName',
-      key: 'patientName',
+      title: "Patient Name",
+      dataIndex: "patientName",
+      key: "patientName",
     },
     {
-      title: 'Condition',
-      dataIndex: 'diseaseName',
-      key: 'diseaseName',
+      title: "Condition",
+      dataIndex: "diseaseName",
+      key: "diseaseName",
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
     },
 
     {
@@ -53,16 +47,27 @@ export const BillingCard = ({ data }) => {
   ];
 
   return (
-    <NHCard title={'Billing & Payments'} headerContent={<NHButton>Create Bill</NHButton>}>
+    <NHCard
+      title={"Billing & Payments"}
+      headerContent={<NHButton>Create Bill</NHButton>}
+    >
       <div className="mb-4">
         <p className="text-xl text-gray-500">
           Pending Bills: <span className="text-red-500">50</span>
         </p>
       </div>
-      <NHTable loading={loading} showPagination={true} columns={columns} dataSource={bills} route="/admin" scroll={{
-        y: '220px',
-        x: '600px'
-      }} />
+      <NHTable
+        loading={loading}
+        showPagination={true}
+        columns={columns}
+        dataSource={data}
+        route="/admin"
+        defaultPageSize="5"
+        scroll={{
+          y: "220px",
+          // x: "600px",
+        }}
+      />
     </NHCard>
   );
-}; 
+};
