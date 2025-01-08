@@ -187,6 +187,7 @@ export const ChatLayoutForPatient = () => {
           selectedUser={currentChat.participants[0]}
           messages={currentChat.messages}
           onSendMessage={handleSendMessage}
+          userId={userId}
         />
       ) : (
         <div className="flex flex-col items-center justify-center h-full text-gray-500">
