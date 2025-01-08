@@ -161,15 +161,9 @@ export const ReceptionPanelData = [
     label: <Link to="/reception/appointment">Appointment Booking</Link>,
   },
   {
-    key: "BillingPayments",
+    key: "bills",
     icon: Icons.Analytics,
-    label: "Billing and Payments",
-    children: [
-      {
-        key: "/monitorBilling",
-        label: <Link to="/reception/monitor-billing">Monitor Billing</Link>,
-      },
-    ],
+    label: <Link to="/reception/bills">Bills</Link>,
   },
 ];
 
