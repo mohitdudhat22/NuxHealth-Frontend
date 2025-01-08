@@ -82,7 +82,7 @@ const useBillForm = () => {
             );
 
             const formattedAppointments = filtered.map(item => ({
-                value: item._id,
+                value: item.id,
                 label: `${new Date(item.date).toLocaleDateString()} - ${item.appointmentTime}`
             }));
             setFilteredAppointments(formattedAppointments);
