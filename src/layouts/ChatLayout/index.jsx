@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
 import { ChatMessageBar, ChatSidebar } from "@/components";
 import ChatStartImage from "../../assets/images/cover/chat-starting-image.png";
+import socket, {
+  registerUser,
+  joinChat,
+  sendMessage as sendSocketMessage,
+  receiveMessage,
+} from "../../services/socketService";
+import { getOldMessages } from "@/axiosApi/ApiHelper";
 
-export const ChatLayout = () => {
+export const ChatLayout = ({ userType, userId, roomId }) => {
   const initialUsers = [
     {
-      _id: "1",
+      _id: "677047f308067157dc712f80",
       name: "Dr. John Doe",
       avatar: "/placeholder.svg?height=48&width=48",
       status: "online",
@@ -14,7 +21,7 @@ export const ChatLayout = () => {
       unreadCount: 0,
     },
     {
-      _id: "2",
+      _id: "6770443dceabc6c708235256",
       name: "Dr. Jane Smith",
       avatar: "/placeholder.svg?height=48&width=48",
       status: "offline",
@@ -24,72 +31,107 @@ export const ChatLayout = () => {
     },
   ];
 
-  const initialChats = [
-    {
-      _id: "1",
-      participants: [initialUsers[0]],
-      messages: [
-        {
-          id: "1",
-          content: "Hello! How can I help you today?",
-          sender: "doctor",
-          timestamp: "2024-01-02T10:00:00Z",
-          type: "text",
-        },
-        {
-          id: "2",
-          content: "I've been having a headache for the past few days.",
-          sender: "user",
-          timestamp: "2024-01-02T10:05:00Z",
-          type: "text",
-        },
-      ],
-    },
-    {
-      _id: "2",
-      participants: [initialUsers[1]],
-      messages: [
-        {
-          id: "1",
-          content:
-            "Your blood test results are ready. Would you like to schedule a follow-up appointment?",
-          sender: "doctor",
-          timestamp: "2024-01-01T14:00:00Z",
-          type: "text",
-        },
-      ],
-    },
-  ];
-
   const [users, setUsers] = useState(initialUsers);
-  const [chats, setChats] = useState(initialChats);
-  const [selectedUserId, setSelectedUserId] = useState();
-  const [currentChat, setCurrentChat] = useState();
+  const [chats, setChats] = useState(
+    initialUsers.map((user) => ({
+      _id: user._id,
+      participants: [user],
+      messages: [],
+    }))
+  );
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState({});
+
+  useEffect(() => {
+    registerUser(userId);
+    joinChat(roomId);
+
+    receiveMessage(({ from, message, timestamp }) => {
+     console.log("message received", from, message, timestamp);
+      setChats((prevChats) =>
+        prevChats.map((chat) =>
+          chat.participants.some((p) => p._id === from)
+            ? {
+                ...chat,
+                messages: [
+                  ...chat.messages,
+                  {
+                    id: Date.now().toString(),
+                    content: message,
+                    sender: userType === "doctor" ? "user" : "doctor",
+                    timestamp,
+                  },
+                ],
+              }
+            : chat
+        )
+      );
+
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user._id === from
+            ? {
+                ...user,
+                lastMessage: message,
+                lastMessageTime: "Just now",
+                unreadCount: user.unreadCount + 1,
+              }
+            : user
+        )
+      );
+    });
+
+
+
+    return () => {
+      socket.off("receive-message");
+    };
+  }, [userId, roomId, userType]);
 
   useEffect(() => {
     if (selectedUserId) {
-      const chat = chats.find((c) =>
-        c.participants.some((p) => p._id === selectedUserId)
-      );
-      setCurrentChat(chat || null);
-    } else {
-      setCurrentChat(null);
+      const fetchMessages = async () => {
+        try {
+          const response = await getOldMessages(userId, selectedUserId);
+          const oldMessages = response.data.map((msg) => ({
+            id: msg._id,
+            content: msg.message,
+            sender: msg.from === userId ? userType : userType === "doctor" ? "user" : "doctor",
+            timestamp: msg.timestamp,
+          }));
+
+          setChats((prevChats) =>
+            prevChats.map((chat) =>
+              chat.participants.some((p) => p._id === selectedUserId)
+                ? { ...chat, messages: oldMessages }
+                : chat
+            )
+          );
+        } catch (error) {
+          console.error("Failed to fetch old messages:", error);
+        }
+      };
+
+      fetchMessages();
     }
+  }, [selectedUserId, userId, userType]);
+
+  useEffect(() => {
+    const chat = chats.find((c) =>
+      c.participants.some((p) => p._id === selectedUserId)
+    );
+    setCurrentChat(chat || null);
   }, [selectedUserId, chats]);
 
-  const handleSelectUser = (userId) => {
-    setSelectedUserId(userId);
-  };
-
-  const handleSendMessage = (content) => {
+  const handleSendMessage = (message) => {
     if (!selectedUserId || !currentChat) return;
 
     const newMessage = {
       id: Date.now().toString(),
-      content,
-      sender: "user",
+      ...message,
+      sender: userType,
       timestamp: new Date().toISOString(),
-      type: "text",
     };
 
     setChats((prevChats) =>
@@ -100,11 +142,21 @@ export const ChatLayout = () => {
       )
     );
 
-    // Update last message in users list
+    sendSocketMessage({
+      to: selectedUserId,
+      from: userId,
+      message: message.content || message.fileDetails,
+      roomId,
+    });
+
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
         user._id === selectedUserId
-          ? { ...user, lastMessage: content, lastMessageTime: "Just now" }
+          ? {
+              ...user,
+              lastMessage: message.content || "File sent",
+              lastMessageTime: "Just now",
+            }
           : user
       )
     );
@@ -112,14 +164,11 @@ export const ChatLayout = () => {
 
   return (
     <div className="grid grid-cols-[334px,1fr] h-full max-h-[calc(100vh-var(--header-height))]">
-      {/* Sidebar */}
       <ChatSidebar
         users={users}
-        onSelectUser={handleSelectUser}
+        onSelectUser={setSelectedUserId}
         activeUserId={selectedUserId}
-        initialChats={initialUsers}
       />
-      {/* Main Chat Area */}
       {currentChat ? (
         <ChatMessageBar
           selectedUser={currentChat.participants[0]}
@@ -129,7 +178,9 @@ export const ChatLayout = () => {
       ) : (
         <div className="flex flex-col items-center justify-center h-full text-gray-500">
           <img src={ChatStartImage} alt="chatstaring" className="w-1/2 h-1/2" />
-          <p className="text-[#A7A7A7] font-medium text-[26px] mt-10">No chat with someone</p>
+          <p className="text-[#A7A7A7] font-medium text-[26px] mt-10">
+            No chat with someone
+          </p>
         </div>
       )}
     </div>

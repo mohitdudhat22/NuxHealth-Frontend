@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Avatar } from "antd";
-import { NHButton, NHTextArea } from "@/components";
+import { NHButton, NHInput, NHTextArea } from "@/components";
 import Icons from "@/constants/icons";
 import { PDFViewerModal } from "@/components/PDFViewerModal";
 
@@ -153,7 +153,7 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage }) => {
               className="absolute top-0 right-0 min-w-full min-h-full text-[100px] text-right opacity-0 outline-none cursor-pointer block"
             />
           </button>
-          <NHTextArea
+          <NHInput
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             placeholder="Type a message..."

@@ -6,8 +6,7 @@ import socket, {
   joinChat,
   sendMessage as sendSocketMessage,
   receiveMessage,
-  updateOnlineUsers,
-  checkOnlineStatus,
+
 } from "../../services/socketService";
 import { getOldMessages } from "@/axiosApi/ApiHelper";
 
@@ -33,32 +32,18 @@ export const ChatLayoutForPatient = () => {
     },
   ];
 
-  const initialChats = [
-    {
-      _id: "677047f308067157dc712f80",
-      participants: [initialUsers[0]],
-      messages: [],
-    },
-    {
-      _id: "6770443dceabc6c708235256",
-      participants: [initialUsers[1]],
-      messages: [],
-    },
-  ];
 
   const [users, setUsers] = useState(initialUsers);
-  const [chats, setChats] = useState(initialChats);
-  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [chats, setChats] = useState();
+  const [selectedUserId, setSelectedUserId] = useState('6770443dceabc6c708235256');
   const [currentChat, setCurrentChat] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState({});
 
-  // Register user and set up socket listeners
   useEffect(() => {
-    const userId = "6770443dceabc6c708235256"; // Replace with the actual doctor ID
+    const userId = "677047f308067157dc712f80";
     registerUser(userId);
-    joinChat("room1"); // Replace with the actual room ID
+    joinChat("room1"); 
 
-    // Listen for incoming messages
     receiveMessage((data) => {
       const { from, message, timestamp } = data;
       setChats((prevChats) =>
@@ -81,7 +66,6 @@ export const ChatLayoutForPatient = () => {
         )
       );
 
-      // Update the last message in the users list
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === from
@@ -96,36 +80,17 @@ export const ChatLayoutForPatient = () => {
       );
     });
 
-    // Listen for online user updates
-    updateOnlineUsers((data) => {
-      const { onlineUsers } = data;
-      setOnlineUsers(onlineUsers);
-
-      // Update user status in the users list
-      setUsers((prevUsers) =>
-        prevUsers.map((user) => ({
-          ...user,
-          status: onlineUsers[user._id] ? "online" : "offline",
-        }))
-      );
-    });
-
-    // Check online status
-    checkOnlineStatus(userId);
-
-    // Cleanup socket listeners
     return () => {
       socket.off("receive-message");
-      socket.off("update-online-users");
     };
   }, []);
 
-  // Fetch old messages when a user is selected
   useEffect(() => {
     if (selectedUserId) {
       const fetchMessages = async () => {
         try {
-          const response = await getOldMessages("6770443dceabc6c708235256", selectedUserId);
+          console.log(selectedUserId)
+          const response = await getOldMessages("677047f308067157dc712f80", selectedUserId);
           const oldMessages = response.data.map((msg) => ({
             id: msg._id,
             content: msg.message,
@@ -134,7 +99,6 @@ export const ChatLayoutForPatient = () => {
             type: "text",
           }));
 
-          // Update the chats state with the old messages
           setChats((prevChats) =>
             prevChats.map((chat) =>
               chat.participants.some((p) => p._id === selectedUserId)
@@ -151,7 +115,6 @@ export const ChatLayoutForPatient = () => {
     }
   }, [selectedUserId]);
 
-  // Update current chat when a user is selected
   useEffect(() => {
     if (selectedUserId) {
       const chat = chats.find((c) =>
@@ -163,12 +126,10 @@ export const ChatLayoutForPatient = () => {
     }
   }, [selectedUserId, chats]);
 
-  // Handle user selection
   const handleSelectUser = (userId) => {
     setSelectedUserId(userId);
   };
 
-  // Handle sending a message
   const handleSendMessage = (message) => {
     if (!selectedUserId || !currentChat) return;
   
@@ -179,7 +140,6 @@ export const ChatLayoutForPatient = () => {
       timestamp: new Date().toISOString(),
     };
   
-    // Update local state
     setChats((prevChats) =>
       prevChats.map((chat) =>
         chat._id === currentChat._id
@@ -188,15 +148,13 @@ export const ChatLayoutForPatient = () => {
       )
     );
   
-    // Send message via socket
     sendSocketMessage({
       to: selectedUserId,
-      from: "6770443dceabc6c708235256", // Replace with the actual doctor ID
-      message: message.content || message.fileDetails, // Send either text or file details
-      roomId: "room1", // Replace with the actual room ID
+      from: userId,
+      message: message.content || message.fileDetails, 
+      roomId: "room1", 
     });
   
-    // Update last message in users list
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
         user._id === selectedUserId

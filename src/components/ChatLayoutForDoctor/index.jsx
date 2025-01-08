@@ -6,8 +6,6 @@ import socket, {
   joinChat,
   sendMessage as sendSocketMessage,
   receiveMessage,
-  updateOnlineUsers,
-  checkOnlineStatus,
 } from "../../services/socketService";
 import { getOldMessages } from "@/axiosApi/ApiHelper";
 
@@ -33,33 +31,20 @@ export const ChatLayoutForDoctor = () => {
     },
   ];
 
-  const initialChats = [
-    {
-      _id: "677047f308067157dc712f80",
-      participants: [initialUsers[0]],
-      messages: [],
-    },
-    {
-      _id: "6770443dceabc6c708235256",
-      participants: [initialUsers[1]],
-      messages: [],
-    },
-  ];
-
   const [users, setUsers] = useState(initialUsers);
-  const [chats, setChats] = useState(initialChats);
-  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [chats, setChats] = useState();
+  const [selectedUserId, setSelectedUserId] = useState('677047f308067157dc712f80');
   const [currentChat, setCurrentChat] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState({});
 
-  // Register user and set up socket listeners
-  useEffect(() => {
-    const userId = "6770443dceabc6c708235256"; // Replace with the actual doctor ID
-    registerUser(userId);
-    joinChat("room1"); // Replace with the actual room ID
 
-    // Listen for incoming messages
+  useEffect(() => {
+    const userId = "6770443dceabc6c708235256"; 
+    registerUser(userId);
+    joinChat("room1"); 
+
     receiveMessage((data) => {
+      console.log(data,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
       const { from, message, timestamp } = data;
       setChats((prevChats) =>
         prevChats.map((chat) =>
@@ -81,7 +66,6 @@ export const ChatLayoutForDoctor = () => {
         )
       );
 
-      // Update the last message in the users list
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === from
@@ -96,27 +80,8 @@ export const ChatLayoutForDoctor = () => {
       );
     });
 
-    // Listen for online user updates
-    updateOnlineUsers((data) => {
-      const { onlineUsers } = data;
-      setOnlineUsers(onlineUsers);
-
-      // Update user status in the users list
-      setUsers((prevUsers) =>
-        prevUsers.map((user) => ({
-          ...user,
-          status: onlineUsers[user._id] ? "online" : "offline",
-        }))
-      );
-    });
-
-    // Check online status
-    checkOnlineStatus(userId);
-
-    // Cleanup socket listeners
     return () => {
       socket.off("receive-message");
-      socket.off("update-online-users");
     };
   }, []);
 

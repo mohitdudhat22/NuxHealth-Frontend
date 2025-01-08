@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import socket, { registerUser, joinChat, sendMessage, receiveMessage, updateOnlineUsers, checkOnlineStatus } from '../../services/socketService';
+import socket, { registerUser, joinChat, sendMessage, receiveMessage, } from '../../services/socketService';
 import { Input, Button, List, Typography, Card, Avatar } from 'antd';
 import { getOldMessages } from '@/axiosApi/ApiHelper';
 import 'tailwindcss/tailwind.css';
@@ -11,9 +11,11 @@ export const ChatempComponentforPateint = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [onlineUsers, setOnlineUsers] = useState({});
-  const [isDoctorOnline, setIsDoctorOnline] = useState(false);
+  const [isPatientOnline, setIsPatientOnline] = useState(false);
+  const [isDoctorOnline, setIsDoctorOnline] = useState(false); // New state for doctor status
   const doctorId = '6770443dceabc6c708235256'; // Replace with actual doctor ID
   const patientId = '677047f308067157dc712f80';
+
   const handleMessageReceive = (data) => {
     setMessages((prevMessages) => [...prevMessages, data]);
   };
@@ -24,33 +26,15 @@ export const ChatempComponentforPateint = () => {
   };
 
   useEffect(() => {
-    const userId = '677047f308067157dc712f80'; // Replace with actual patient ID
+    const userId = patientId; // Replace with actual patient ID
     registerUser(userId);
     joinChat('room1'); // Replace with actual room ID
 
     receiveMessage(handleMessageReceive);
 
-    updateOnlineUsers((data) => {
-      console.log('Received data:', data); // Log to inspect the structure of data
-        const {onlineUsers, checkonline, isOnline} = data;
-        setOnlineUsers(onlineUsers);
-        console.log('isOnline', isOnline);
-        setIsDoctorOnline(isOnline);
-    });
-
-    checkOnlineStatus((userId) => {
-      if (userId === '6770443dceabc6c708235256') { // Replace with actual doctor ID
-        setIsDoctorOnline(true);
-      } else {
-        setIsDoctorOnline(false);
-      }
-    });
-
-    // Fetch old messages
     fetchOldMessages();
 
     return () => {
-      // Clean up the event listener
       socket.off('receive-message', handleMessageReceive);
       socket.off('check-online');
     };
@@ -58,10 +42,10 @@ export const ChatempComponentforPateint = () => {
 
   const handleSendMessage = () => {
     const messageData = {
-      to: '6770443dceabc6c708235256', // Replace with actual doctor ID
-      from: '677047f308067157dc712f80', // Replace with actual patient ID
+      to: doctorId,
+      from: patientId,
       message,
-      roomId: 'room1', // Replace with actual room ID
+      roomId: 'room1',
     };
     sendMessage(messageData);
     setMessages((prevMessages) => [...prevMessages, messageData]);
@@ -75,8 +59,8 @@ export const ChatempComponentforPateint = () => {
           <List
             dataSource={messages}
             renderItem={(msg) => (
-              <List.Item className={`flex items-center mb-4 ${msg.from === '677047f308067157dc712f80' ? 'justify-end' : 'justify-start'}`}>
-                <Avatar className="mr-2">{msg.from === '677047f308067157dc712f80' ? 'P' : 'D'}</Avatar>
+              <List.Item className={`flex items-center mb-4 ${msg.from === patientId ? 'justify-end' : 'justify-start'}`}>
+                <Avatar className="mr-2">{msg.from === patientId ? 'P' : 'D'}</Avatar>
                 <Typography.Text className="bg-blue-100 p-2 rounded">{msg.message}</Typography.Text>
               </List.Item>
             )}
@@ -104,7 +88,6 @@ export const ChatempComponentforPateint = () => {
             </List.Item>
           )}
         />
-        <Title level={4} className="mt-4">Doctor Status: {isDoctorOnline ? 'Online' : 'Offline'}</Title>
       </Card>
     </div>
   );
