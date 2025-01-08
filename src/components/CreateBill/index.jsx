@@ -173,29 +173,45 @@ const CreateBill = () => {
     
         const payload = {
             appointmentId: formData.selectAppointment,
+            patientDetails: {
+                name: formData.patientName,
+                phoneNumber: formData.phoneNumber,
+                gender: formData.gender,
+                age: formData.age,
+                address: formData.address,
+            },
+            doctorDetails: {
+                name: formData.doctorName,
+            },
+            diseaseName: formData.diseaseName,
+            description: formData.description,
             discount: Number(formData.discount),
             tax: Number(formData.tax),
-            paymentType: formData.paymentType,
-            description: formData.description,
-            insuranceDetails: {
+            paymentDetails: {
+                paymentType: formData.paymentType,
+                amount: Number(formData.amount),
+                totalAmount: Number(formData.totalAmount),
+            },
+            insuranceDetails: formData.paymentType === 'insurance' ? {
                 insuranceCompany: formData.insuranceCompany,
                 insurancePlan: formData.insurancePlan,
                 claimAmount: Number(formData.claimAmount),
-                claimedAmount: Number(formData.claimedAmount)
-            },
+                claimedAmount: Number(formData.claimedAmount),
+                insuranceType: formData.insuranceType,
+            } : null,
+            billStatus: formData.billStatus,
             notes: formData.notes,
             status: true,
-            ...formData,
         };
     
         try {
-            const response = await axios.post('/api/admin/createBill', payload);
+            const response = await createBillForAdmin(payload); 
             console.log('Bill created successfully:', response.data);
         } catch (error) {
             console.error('Error creating bill:', error);
         }
     };
-    console.log('formData:', formData);
+    
     return (
         <>
             <div className='mb-9'>
@@ -266,6 +282,13 @@ const CreateBill = () => {
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+                    <NHInput
+                            label="Address"
+                            name="address"
+                            value={formData.address}
+                            onChange={handleChange}
+                            placeholder="350 Riverside Avenue"
+                        />
                         <NHInput
                             label="Doctor Name"
                             name="doctorName"
@@ -279,13 +302,6 @@ const CreateBill = () => {
                             value={formData.diseaseName}
                             onChange={handleChange}
                             placeholder="Meningococcal Disease"
-                        />
-                        <NHInput
-                            label="Description"
-                            name="description"
-                            value={formData.description}
-                            onChange={handleChange}
-                            placeholder="Lorem ipsum dolor sit amet, consectetur"
                         />
                         <NHSelect
                             label="Payment Type"
@@ -329,17 +345,6 @@ const CreateBill = () => {
                             value={formData.totalAmount}
                             onChange={handleChange}
                             placeholder="₹ 2,500"
-                        />
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                       
-                        <NHInput
-                            label="Address"
-                            name="address"
-                            value={formData.address}
-                            onChange={handleChange}
-                            placeholder="350 Riverside Avenue"
                         />
                     </div>
 
