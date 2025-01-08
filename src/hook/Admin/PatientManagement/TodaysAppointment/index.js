@@ -43,8 +43,6 @@ export const useTodaysAppointment = () => {
     appointmentType: appointment?.type,
   }));
 
-  console.log(data)
-
   useEffect(() => {
     fetchAppointments();
   }, []);

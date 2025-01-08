@@ -283,9 +283,10 @@ export const Teleconsultation = () => {
                 <NHButton
                   size={"small"}
                   className={"w-full"}
-                  onClick={() => setSelectedAppointment(data)}
+                  onClick={() => navigate('videoCall?room='+selectedPatientData._id)}
                 >
                   Join
+                  {console.log(selectedPatientData._id)}
                 </NHButton>
               </div>
             }

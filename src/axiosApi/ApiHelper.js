@@ -144,5 +144,12 @@ export const previousAppointmentForDoctor = () => request("get", "/api/doctor/ge
 export const cancelAppointmentForDoctor = () => request("get", "/api/doctor/getAppointment?filter=cancel");
 export const editAdminProfile = () => request("post", "/api/admin/editAdmin");
 export const editAdminProfileChangePassword = (data) => request("post", "/api/admin/changePassword", data);
+export const editDoctorrofileChangePassword = (data) => request("post", "/api/doctor/changePassword", data);
+
+//review
+export const GetUserNotifications = (userId) => request("get", `/api/notification/user/${userId}`);
+export const MarkNotificationAsRead = (notificationId) => request("put", `api/notification/mark-read/${notificationId}`);
+
+//reception 
 export const editDoctorProfileChangePassword = (data) => request("post", "/api/doctor/changePassword", data);
 export const getOldMessages = (doctorId, patientId) => request("get", `/chat/messages?from=${doctorId}&to=${patientId}`);

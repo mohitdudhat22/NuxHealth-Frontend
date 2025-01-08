@@ -4,3 +4,5 @@ export { AppointmentSchedularPage } from './AppointmentSchedularPage';
 export { TeleconsultationAccess } from './TeleconsultationAccess';
 export { PrescriptionAccess } from './PrescriptionAccess';
 export { AppointmentTimeSlot } from './AppointmentTimeSlot';
+// export { onFileUpload } from "./TeleconsultationAccess/onFileUpload"
+export { PatientMettingConference } from "./TeleconsultationAccess/PatientMeetingConference"

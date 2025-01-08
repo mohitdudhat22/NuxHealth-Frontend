@@ -14,6 +14,7 @@ const ThemeConfig = ({ children }) => {
           colorWarning: "#ffc313",
           colorError: "#e74c3c",
           fontSize: "var(--text-xl)",
+          lineHeight: "1.5",
         },
         components: {
           Layout: {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { NHCard } from '@/components';
+import React from "react";
+import { NHCard } from "@/components";
 export const StatisticsCard = ({ title, count, icon }) => {
     return (
         <NHCard className="h-full align-middle">
@@ -14,4 +14,4 @@ export const StatisticsCard = ({ title, count, icon }) => {
             </div>
         </NHCard>
     );
-}; 
+};

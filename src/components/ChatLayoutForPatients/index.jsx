@@ -65,19 +65,33 @@ export const ChatLayoutForPatient = () => {
         prevChats.map((chat) =>
           chat.participants.some((p) => p._id === from)
             ? {
-              ...chat,
-              messages: [
-                ...chat.messages,
-                {
-                  id: Date.now().toString(),
-                  content: message,
-                  sender: "user",
-                  timestamp,
-                  type: "text",
-                },
-              ],
-            }
+                ...chat,
+                messages: [
+                  ...chat.messages,
+                  {
+                    id: Date.now().toString(),
+                    content: message,
+                    sender: "user",
+                    timestamp,
+                    type: "text",
+                  },
+                ],
+              }
             : chat
+        )
+      );
+
+      // Update the last message in the users list
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user._id === from
+            ? {
+                ...user,
+                lastMessage: message,
+                lastMessageTime: "Just now",
+                unreadCount: user.unreadCount + 1,
+              }
+            : user
         )
       );
     });
@@ -155,17 +169,16 @@ export const ChatLayoutForPatient = () => {
   };
 
   // Handle sending a message
-  const handleSendMessage = (content) => {
+  const handleSendMessage = (message) => {
     if (!selectedUserId || !currentChat) return;
-
+  
     const newMessage = {
       id: Date.now().toString(),
-      content,
+      ...message,
       sender: "doctor",
       timestamp: new Date().toISOString(),
-      type: "text",
     };
-
+  
     // Update local state
     setChats((prevChats) =>
       prevChats.map((chat) =>
@@ -174,20 +187,24 @@ export const ChatLayoutForPatient = () => {
           : chat
       )
     );
-
+  
     // Send message via socket
     sendSocketMessage({
       to: selectedUserId,
       from: "6770443dceabc6c708235256", // Replace with the actual doctor ID
-      message: content,
+      message: message.content || message.fileDetails, // Send either text or file details
       roomId: "room1", // Replace with the actual room ID
     });
-
+  
     // Update last message in users list
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
         user._id === selectedUserId
-          ? { ...user, lastMessage: content, lastMessageTime: "Just now" }
+          ? {
+              ...user,
+              lastMessage: message.content || "File sent",
+              lastMessageTime: "Just now",
+            }
           : user
       )
     );
