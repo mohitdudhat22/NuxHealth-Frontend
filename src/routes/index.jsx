@@ -402,11 +402,11 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "appointment",
-                  element: <AppointmentSchedularPage />,
+                  element: "appointment-booking"
                 },
                 {
-                  path: "monitor-billing",
-                  element: "monitor-billing",
+                  path: "bills",
+                  element: "bills"
                 },
               ],
             },
