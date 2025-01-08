@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import { AppointmentSchedular, NHCard, NHSelect } from '@/components';
+// import "react-big-calendar/lib/css/react-big-calendar.css";
+import { NHCard, NHSelect } from '@/components';
 
 const useAppointmentFilters = () => {
   const [filters, setFilters] = useState({});
@@ -160,9 +160,8 @@ export const AppointmentSchedularPage = () => {
               {['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM'].map((time) => (
                 <button
                   key={time}
-                  className={`p-2 border rounded hover:bg-gray-100 ${
-                    selectedTime === time ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
-                  }`}
+                  className={`p-2 border rounded hover:bg-gray-100 ${selectedTime === time ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                    }`}
                   onClick={() => handleTimeSelect(time)}
                 >
                   {time}
@@ -176,9 +175,8 @@ export const AppointmentSchedularPage = () => {
               {['5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM'].map((time) => (
                 <button
                   key={time}
-                  className={`p-2 border rounded hover:bg-gray-100 ${
-                    selectedTime === time ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
-                  }`}
+                  className={`p-2 border rounded hover:bg-gray-100 ${selectedTime === time ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                    }`}
                   onClick={() => handleTimeSelect(time)}
                 >
                   {time}
@@ -194,10 +192,6 @@ export const AppointmentSchedularPage = () => {
         >
           Book Appointment
         </button>
-      </NHCard>
-
-      <NHCard className="p-6 mt-4">
-        <AppointmentSchedular />
       </NHCard>
     </>
   );

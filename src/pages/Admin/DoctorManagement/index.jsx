@@ -76,7 +76,7 @@ export const DoctorManagement = () => {
 
   return (
     <>
-      <NHHead  />
+      <NHHead />
       <NHCard
         title="Doctor Management"
         headerContent={
