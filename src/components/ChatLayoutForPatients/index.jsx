@@ -11,7 +11,7 @@ import { getOldMessages } from "@/axiosApi/ApiHelper";
 
 export const ChatLayoutForPatient = () => {
   const userId = "677047f308067157dc712f80"; // Patient's user ID
-
+  const doctorId = "6770443dceabc6c708235256"
   const initialUsers = [
     {
       _id: "6770443dceabc6c708235256",

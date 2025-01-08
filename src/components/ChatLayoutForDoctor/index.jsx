@@ -11,7 +11,7 @@ import { getOldMessages } from "@/axiosApi/ApiHelper";
 
 export const ChatLayoutForDoctor = () => {
   const userId = "6770443dceabc6c708235256";
-
+  const patientId = '677047f308067157dc712f80';
   const initialUsers = [
     {
       _id: "677047f308067157dc712f80",
@@ -41,7 +41,7 @@ export const ChatLayoutForDoctor = () => {
       messages: [],
     }))
   );
-  const [selectedUserId, setSelectedUserId] = useState(initialUsers[0]._id);
+  const [selectedUserId, setSelectedUserId] = useState(patientId);
   const [currentChat, setCurrentChat] = useState(null);
 
   useEffect(() => {
@@ -97,7 +97,7 @@ export const ChatLayoutForDoctor = () => {
     if (selectedUserId) {
       const fetchMessages = async () => {
         try {
-          const response = await getOldMessages("6770443dceabc6c708235256", selectedUserId);
+          const response = await getOldMessages(userId, patientId);
           const oldMessages = response.data?.map((msg) => ({
             id: msg._id,
             content: msg.message,

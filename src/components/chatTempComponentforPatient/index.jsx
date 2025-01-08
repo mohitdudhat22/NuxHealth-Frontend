@@ -11,24 +11,21 @@ export const ChatempComponentforPateint = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [onlineUsers, setOnlineUsers] = useState({});
-  const [isPatientOnline, setIsPatientOnline] = useState(false);
-  const [isDoctorOnline, setIsDoctorOnline] = useState(false); // New state for doctor status
-  const doctorId = '6770443dceabc6c708235256'; // Replace with actual doctor ID
+  const doctorId = '6770443dceabc6c708235256'; 
   const patientId = '677047f308067157dc712f80';
-
+  const userId = patientId;
   const handleMessageReceive = (data) => {
     setMessages((prevMessages) => [...prevMessages, data]);
   };
 
   const fetchOldMessages = async () => {
-    const response = await getOldMessages(patientId, doctorId);
+    const response = await getOldMessages(userId, doctorId);
     setMessages(response.data);
   };
 
   useEffect(() => {
-    const userId = patientId; // Replace with actual patient ID
     registerUser(userId);
-    joinChat('room1'); // Replace with actual room ID
+    joinChat('room1');
 
     receiveMessage(handleMessageReceive);
 
@@ -81,7 +78,6 @@ export const ChatempComponentforPateint = () => {
         <Title level={4} className="mt-4">Online Users</Title>
         <List
           bordered
-          dataSource={Object.values(onlineUsers)}
           renderItem={(user) => (
             <List.Item>
               <Typography.Text>{user.userId}</Typography.Text>
