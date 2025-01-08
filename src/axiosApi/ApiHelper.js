@@ -27,8 +27,9 @@ export const verifyOtp = (data) =>
 export const resetPassword = (data) =>
   request("post", "/api/auth/reset-password", data);
 
-/* Delete Data */
+/* Global Data */
 export const DeleteData = (url) => request("delete", `/api/${url}`);
+export const SearchHeader = () => request("get", `/api/`);
 
 /* Admin Register Form */
 export const registerAdmin = (data) =>
@@ -150,6 +151,6 @@ export const editDoctorrofileChangePassword = (data) => request("post", "/api/do
 export const GetUserNotifications = (userId) => request("get", `/api/notification/user/${userId}`);
 export const MarkNotificationAsRead = (notificationId) => request("put", `api/notification/mark-read/${notificationId}`);
 
-//reception 
+//reception
 export const editDoctorProfileChangePassword = (data) => request("post", "/api/doctor/changePassword", data);
 export const getOldMessages = (doctorId, patientId) => request("get", `/chat/messages?from=${doctorId}&to=${patientId}`);

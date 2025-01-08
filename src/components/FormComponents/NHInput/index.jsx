@@ -1,7 +1,6 @@
 import { Input } from "antd";
 import clsx from "clsx";
 import styles from "./NHInput.module.css";
-import Icons from "@/constants/icons";
 
 export const NHInput = ({
   id,
