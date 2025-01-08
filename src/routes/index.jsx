@@ -36,6 +36,7 @@ import {
   AppointmentTimeSlot,
   DoctorMeetingConference,
   PrescriptionAccess,
+  ReceptionBills
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/BillingAndPayement/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -210,7 +211,7 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <EditDesignInvoice />,
                 },
                 {
-                  path: "bill-view/:billId",
+                  path: "bill-view/:id",
                   element: <BillView />,
                 },
               ],
@@ -412,7 +413,11 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: "bills"
+                  element: <ReceptionBills />,
+                },
+                {
+                  path: "bill-view/:id",
+                  element: <BillView />,
                 },
               ],
             },

@@ -57,9 +57,8 @@ export const AdminAsideData = [
   {
     key: "all-modal",
     icon: Icons.Analytics,
-    label: <Link to='/admin/all-modal'>All Modal</Link>,
+    label: <Link to="/admin/all-modal">All Modal</Link>,
   },
-
 ];
 
 export const DoctorPanelData = [
@@ -211,4 +210,12 @@ export const AuthSliderData = [
     id: 2,
     title: "Your Space, Your Place: Society Management Made Simple",
   },
+];
+
+// Header Search Select Options
+export const headerOption = [
+  { key: "all", value: "All" },
+  { key: "doctor", value: "Doctor" },
+  { key: "reception", value: "Reception" },
+  { key: "patient", value: "Patient" },
 ];
