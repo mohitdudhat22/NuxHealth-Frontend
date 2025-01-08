@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NHButton, NHCard, NHInput, NHSelect } from "@/components"
+import { AppointmentWithoutBill } from '@/axiosApi/ApiHelper'
 
 const CreateBill = () => {
     const [formData, setFormData] = useState({
@@ -26,20 +27,71 @@ const CreateBill = () => {
         claimAmount: '',
         claimedAmount: '',
         billStatus: null,
-        insuranceType: null
+        insuranceType: null,
+        selectDoctor: '',
+        selectPatient: '',
     })
+
+    const [appointments, setAppointments] = useState([])
+    const [doctors, setDoctors] = useState([])
+    const [patients, setPatients] = useState([])
+
+    // Fetch appointments and extract doctors
+    useEffect(() => {
+        const fetchAppointments = async () => {
+            try {
+                const response = await AppointmentWithoutBill()
+                const appointmentsData = response.data
+                setAppointments(appointmentsData)
+
+                // Extract unique doctors
+                const uniqueDoctors = [
+                    ...new Map(appointmentsData.map(item => [
+                        item.doctorData._id,
+                        { value: item.doctorData._id, label: item.doctorData.fullName }
+                    ])).values()
+                ]
+                setDoctors(uniqueDoctors)
+            } catch (error) {
+                console.error('Error fetching appointments:', error)
+            }
+        }
+
+        fetchAppointments()
+    }, [])
+
+    // Update patients when a doctor is selected
+    useEffect(() => {
+        if (formData.selectDoctor) {
+            const filteredPatients = appointments
+                .filter(appointment => appointment.doctorData._id === formData.selectDoctor)
+                .map(item => ({
+                    value: item.patientData._id,
+                    label: item.patientData.fullName
+                }))
+
+            // Remove duplicates
+            const uniquePatients = [
+                ...new Map(filteredPatients.map(item => [item.value, item])).values()
+            ]
+            setPatients(uniquePatients)
+        } else {
+            setPatients([]) // Reset if no doctor is selected
+        }
+    }, [formData.selectDoctor, appointments])
 
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formData)
     }
+
     const handleChange = (e) => {
         if (e.target) {
-            const { name, value } = e.target;
+            const { name, value } = e.target
             setFormData(prev => ({
                 ...prev,
                 [name]: value
-            }));
+            }))
         }
     }
 
@@ -47,257 +99,248 @@ const CreateBill = () => {
         setFormData(prev => ({
             ...prev,
             [name]: value
-        }));
+        }))
     }
+
     return (
         <>
-        <div className='mb-9'>
-
-            <NHCard className='p-6 flex justify-between gap-9' title={"Select Doctor and Patient"}>
-            <NHSelect
-                    label="Select Doctor"
-                    name="selectDoctor"
-                    placeholder="Select Doctor"
-                    value={formData.selectDoctor}
-                    onChange={(value) => handleSelectChange(value, 'selectDoctor')}
-                    options={[
-                        { value: 'dr_smith', label: 'Dr. Smith' },
-                        { value: 'dr_jones', label: 'Dr. Jones' },
-                        { value: 'dr_brown', label: 'Dr. Brown' }
-                    ]}
-                />
-                <NHSelect
-                    label="Select Patient"
-                    name="selectPatient"
-                    placeholder="Select Patient"
-                    value={formData.selectPatient}
-                    onChange={(value) => handleSelectChange(value, 'selectPatient')}
-                    options={[
-                        { value: 'john_doe', label: 'John Doe' },
-                        { value: 'jane_doe', label: 'Jane Doe' },
-                        { value: 'sam_smith', label: 'Sam Smith' }
-                    ]}
-                />
-            </NHCard>
+            <div className='mb-9'>
+                <NHCard className='p-6 flex justify-between gap-9' title={"Select Doctor and Patient"}>
+                    <NHSelect
+                        label="Select Doctor"
+                        name="selectDoctor"
+                        placeholder="Select Doctor"
+                        value={formData.selectDoctor}
+                        onChange={(value) => handleSelectChange(value, 'selectDoctor')}
+                        options={doctors}
+                    />
+                    <NHSelect
+                        label="Select Patient"
+                        name="selectPatient"
+                        placeholder="Select Patient"
+                        value={formData.selectPatient}
+                        onChange={(value) => handleSelectChange(value, 'selectPatient')}
+                        options={patients}
+                    />
+                </NHCard>
             </div>
-
             <NHCard className='p-6' title={"Create Bill"}>
 
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                    {/* First Row */}
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                        <NHInput
-                            label="Patient Name"
-                            name="patientName"
-                            placeholder="Silver Medical Center"
-                            value={formData.patientName}
-                            onChange={handleChange}
-                        />
-                        <NHInput
-                            label="Phone Number"
-                            name="phoneNumber"
-                            value={formData.phoneNumber}
-                            onChange={handleChange}
-                            placeholder="991302 3830"
-                        />
-                        <NHSelect
-                            label="Gender"
-                            name="gender"
-                            value={formData.gender}
-                            onChange={(value) => handleSelectChange(value, 'gender')}
-                            placeholder="Select Gender"
-                            options={[
-                                { value: 'male', label: 'Male' },
-                                { value: 'female', label: 'Female' },
-                                { value: 'other', label: 'Other' }
-                            ]}
-                        />
-                        <NHInput
-                            label="Age"
-                            name="age"
-                            value={formData.age}
-                            onChange={handleChange}
-                            placeholder="22 Years"
-                        />
-                    </div>
+<form className="space-y-6" onSubmit={handleSubmit}>
+    {/* First Row */}
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        <NHInput
+            label="Patient Name"
+            name="patientName"
+            placeholder="Silver Medical Center"
+            value={formData.patientName}
+            onChange={handleChange}
+        />
+        <NHInput
+            label="Phone Number"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            placeholder="991302 3830"
+        />
+        <NHSelect
+            label="Gender"
+            name="gender"
+            value={formData.gender}
+            onChange={(value) => handleSelectChange(value, 'gender')}
+            placeholder="Select Gender"
+            options={[
+                { value: 'male', label: 'Male' },
+                { value: 'female', label: 'Female' },
+                { value: 'other', label: 'Other' }
+            ]}
+        />
+        <NHInput
+            label="Age"
+            name="age"
+            value={formData.age}
+            onChange={handleChange}
+            placeholder="22 Years"
+        />
+    </div>
 
-                    {/* Second Row */}
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                        <NHInput
-                            label="Doctor Name"
-                            name="doctorName"
-                            value={formData.doctorName}
-                            onChange={handleChange}
-                            placeholder="Dr. Marcus Phillips"
-                        />
-                        <NHInput
-                            label="Disease Name"
-                            name="diseaseName"
-                            value={formData.diseaseName}
-                            onChange={handleChange}
-                            placeholder="Meningococcal Disease"
-                        />
-                        <NHInput
-                            label="Description"
-                            name="description"
-                            value={formData.description}
-                            onChange={handleChange}
-                            placeholder="Lorem ipsum dolor sit amet, consectetur"
-                        />
-                        <NHSelect
-                            label="Payment Type"
-                            name="paymentType"
-                            placeholder="Select Payment Type"
-                            value={formData.paymentType}
-                            onChange={(value) => handleSelectChange(value, 'paymentType')}
-                            options={[
-                                { value: 'insurance', label: 'Insurance' },
-                                { value: 'cash', label: 'Cash' },
-                                { value: 'card', label: 'Card' }
-                            ]}
-                        />
-                    </div>
+    {/* Second Row */}
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        <NHInput
+            label="Doctor Name"
+            name="doctorName"
+            value={formData.doctorName}
+            onChange={handleChange}
+            placeholder="Dr. Marcus Phillips"
+        />
+        <NHInput
+            label="Disease Name"
+            name="diseaseName"
+            value={formData.diseaseName}
+            onChange={handleChange}
+            placeholder="Meningococcal Disease"
+        />
+        <NHInput
+            label="Description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Lorem ipsum dolor sit amet, consectetur"
+        />
+        <NHSelect
+            label="Payment Type"
+            name="paymentType"
+            placeholder="Select Payment Type"
+            value={formData.paymentType}
+            onChange={(value) => handleSelectChange(value, 'paymentType')}
+            options={[
+                { value: 'insurance', label: 'Insurance' },
+                { value: 'cash', label: 'Cash' },
+                { value: 'card', label: 'Card' }
+            ]}
+        />
+    </div>
 
-                    {/* Third Row */}
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                        <NHInput
-                            label="Bill Date"
-                            name="billDate"
-                            type="date"
-                            value={formData.billDate}
-                            onChange={handleChange}
-                        />
-                        <NHInput
-                            label="Bill Time"
-                            name="billTime"
-                            type="time"
-                            value={formData.billTime}
-                            onChange={handleChange}
-                        />
-                        <NHInput
-                            label="Bill Number"
-                            name="billNumber"
-                            value={formData.billNumber}
-                            onChange={handleChange}
-                            placeholder="102"
-                        />
-                        <NHInput
-                            label="Discount (%)"
-                            name="discount"
-                            value={formData.discount}
-                            onChange={handleChange}
-                            placeholder="20%"
-                        />
-                    </div>
+    {/* Third Row */}
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        <NHInput
+            label="Bill Date"
+            name="billDate"
+            type="date"
+            value={formData.billDate}
+            onChange={handleChange}
+        />
+        <NHInput
+            label="Bill Time"
+            name="billTime"
+            type="time"
+            value={formData.billTime}
+            onChange={handleChange}
+        />
+        <NHInput
+            label="Bill Number"
+            name="billNumber"
+            value={formData.billNumber}
+            onChange={handleChange}
+            placeholder="102"
+        />
+        <NHInput
+            label="Discount (%)"
+            name="discount"
+            value={formData.discount}
+            onChange={handleChange}
+            placeholder="20%"
+        />
+    </div>
 
-                    {/* Fourth Row */}
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                        <NHInput
-                            label="Tax"
-                            name="tax"
-                            value={formData.tax}
-                            onChange={handleChange}
-                            placeholder="₹ 250"
-                        />
-                        <NHInput
-                            label="Amount"
-                            name="amount"
-                            value={formData.amount}
-                            onChange={handleChange}
-                            placeholder="₹ 2,500"
-                        />
-                        <NHInput
-                            label="Total Amount"
-                            name="totalAmount"
-                            value={formData.totalAmount}
-                            onChange={handleChange}
-                            placeholder="₹ 2,500"
-                        />
-                        <NHInput
-                            label="Address"
-                            name="address"
-                            value={formData.address}
-                            onChange={handleChange}
-                            placeholder="350 Riverside Avenue"
-                        />
-                    </div>
+    {/* Fourth Row */}
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        <NHInput
+            label="Tax"
+            name="tax"
+            value={formData.tax}
+            onChange={handleChange}
+            placeholder="₹ 250"
+        />
+        <NHInput
+            label="Amount"
+            name="amount"
+            value={formData.amount}
+            onChange={handleChange}
+            placeholder="₹ 2,500"
+        />
+        <NHInput
+            label="Total Amount"
+            name="totalAmount"
+            value={formData.totalAmount}
+            onChange={handleChange}
+            placeholder="₹ 2,500"
+        />
+        <NHInput
+            label="Address"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            placeholder="350 Riverside Avenue"
+        />
+    </div>
 
-                    {/* Add Bill Status after Third Row */}
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                        <NHSelect
-                            label="Bill Status"
-                            name="billStatus"
-                            placeholder="Select Bill Status"
-                            value={formData.billStatus}
-                            onChange={(value) => handleSelectChange(value, 'billStatus')}
-                            options={[
-                                { value: 'paid', label: 'Paid' },
-                                { value: 'unpaid', label: 'Unpaid' }
-                            ]}
-                        />
-                    </div>
+    {/* Add Bill Status after Third Row */}
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        <NHSelect
+            label="Bill Status"
+            name="billStatus"
+            placeholder="Select Bill Status"
+            value={formData.billStatus}
+            onChange={(value) => handleSelectChange(value, 'billStatus')}
+            options={[
+                { value: 'paid', label: 'Paid' },
+                { value: 'unpaid', label: 'Unpaid' }
+            ]}
+        />
+    </div>
 
-                    {formData.paymentType !== 'insurance' && <div className="flex justify-end mt-6">
-                        <NHButton type="submit" variant="primary">
-                            Send
-                        </NHButton>
-                    </div>}
-                </form>
+    {formData.paymentType !== 'insurance' && <div className="flex justify-end mt-6">
+        <NHButton type="submit" variant="primary">
+            Send
+        </NHButton>
+    </div>}
+</form>
 
-            </NHCard>
-            <div className='mt-9'>
-                {/* Insurance Details Section */}
-                {formData.paymentType === 'insurance' && (
-                    <NHCard title="Insurance Details" className='p-6'>
-                        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                            <NHSelect
-                                label="Insurance Type"
-                                name="insuranceType"
-                                placeholder="Select Insurance Type"
-                                value={formData.insuranceType}
-                                onChange={(value) => handleSelectChange(value, 'insuranceType')}
-                                options={[
-                                    { value: 'cash', label: 'Cash' },
-                                    { value: 'cashless', label: 'Cashless' }
-                                ]}
-                            />
-                            <NHInput
-                                label="Insurance Company"
-                                name="insuranceCompany"
-                                value={formData.insuranceCompany}
-                                onChange={handleChange}
-                                placeholder="Acorn Crafts"
-                            />
-                            <NHInput
-                                label="Insurance Plan"
-                                name="insurancePlan"
-                                value={formData.insurancePlan}
-                                onChange={handleChange}
-                                placeholder="Health"
-                            />
-                            <NHInput
-                                label="Claim Amount"
-                                name="claimAmount"
-                                value={formData.claimAmount}
-                                onChange={handleChange}
-                                placeholder="₹ 2,050"
-                            />
-                            <NHInput
-                                label="Claimed Amount"
-                                name="claimedAmount"
-                                value={formData.claimedAmount}
-                                onChange={handleChange}
-                                placeholder="₹ 2,050"
-                            />
-                        </div>
-                        <div className="flex justify-end mt-6">
-                            <NHButton type="submit" variant="primary">
-                                Send
-                            </NHButton>
-                        </div>
-                    </NHCard>
-                )}
-            </div>
+</NHCard>
+<div className='mt-9'>
+{/* Insurance Details Section */}
+{formData.paymentType === 'insurance' && (
+    <NHCard title="Insurance Details" className='p-6'>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+            <NHSelect
+                label="Insurance Type"
+                name="insuranceType"
+                placeholder="Select Insurance Type"
+                value={formData.insuranceType}
+                onChange={(value) => handleSelectChange(value, 'insuranceType')}
+                options={[
+                    { value: 'cash', label: 'Cash' },
+                    { value: 'cashless', label: 'Cashless' }
+                ]}
+            />
+            <NHInput
+                label="Insurance Company"
+                name="insuranceCompany"
+                value={formData.insuranceCompany}
+                onChange={handleChange}
+                placeholder="Acorn Crafts"
+            />
+            <NHInput
+                label="Insurance Plan"
+                name="insurancePlan"
+                value={formData.insurancePlan}
+                onChange={handleChange}
+                placeholder="Health"
+            />
+            <NHInput
+                label="Claim Amount"
+                name="claimAmount"
+                value={formData.claimAmount}
+                onChange={handleChange}
+                placeholder="₹ 2,050"
+            />
+            <NHInput
+                label="Claimed Amount"
+                name="claimedAmount"
+                value={formData.claimedAmount}
+                onChange={handleChange}
+                placeholder="₹ 2,050"
+            />
+        </div>
+        <div className="flex justify-end mt-6">
+            <NHButton type="submit" variant="primary">
+                Send
+            </NHButton>
+        </div>
+    </NHCard>
+)}
+</div>
         </>
     )
 }
