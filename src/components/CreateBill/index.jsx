@@ -51,6 +51,36 @@ const CreateBill = () => {
     }
     return (
         <>
+        <div className='mb-9'>
+
+            <NHCard className='p-6 flex justify-between gap-9' title={"Select Doctor and Patient"}>
+            <NHSelect
+                    label="Select Doctor"
+                    name="selectDoctor"
+                    placeholder="Select Doctor"
+                    value={formData.selectDoctor}
+                    onChange={(value) => handleSelectChange(value, 'selectDoctor')}
+                    options={[
+                        { value: 'dr_smith', label: 'Dr. Smith' },
+                        { value: 'dr_jones', label: 'Dr. Jones' },
+                        { value: 'dr_brown', label: 'Dr. Brown' }
+                    ]}
+                />
+                <NHSelect
+                    label="Select Patient"
+                    name="selectPatient"
+                    placeholder="Select Patient"
+                    value={formData.selectPatient}
+                    onChange={(value) => handleSelectChange(value, 'selectPatient')}
+                    options={[
+                        { value: 'john_doe', label: 'John Doe' },
+                        { value: 'jane_doe', label: 'Jane Doe' },
+                        { value: 'sam_smith', label: 'Sam Smith' }
+                    ]}
+                />
+            </NHCard>
+            </div>
+
             <NHCard className='p-6' title={"Create Bill"}>
 
                 <form className="space-y-6" onSubmit={handleSubmit}>
