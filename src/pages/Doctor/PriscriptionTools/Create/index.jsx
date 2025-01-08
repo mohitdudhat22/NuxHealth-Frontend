@@ -13,40 +13,7 @@ export const Create = () => {
 
     const { appointments, isDrawerVisible, loading, openDrawer, closeDrawer, data, fetchAppointments, navigate, onSearch } = useTodayAppointments();
 
-    const appointmentData = [
-        {
-            "name": "Dr.Jaydon Philips",
-            "appointmentType": "Onsite",
-            "patientAge": "25 Years",
-            "patientGender": "Male",
-            "appointmentTime": "10:00 AM",
-            "status": "New"
-        },
-        {
-            "name": "Cooper Donin",
-            "appointmentType": "Onsite",
-            "patientAge": "35 Years",
-            "patientGender": "Female",
-            "appointmentTime": "10:10 AM",
-            "status": "Old"
-        },
-        {
-            "name": "Lincoln Arcand",
-            "appointmentType": "Onsite",
-            "patientAge": "25 Years",
-            "patientGender": "Female",
-            "appointmentTime": "10:10 AM",
-            "status": "Old"
-        },
-        {
-            "name": "Jakob Carder",
-            "appointmentType": "Onsite",
-            "patientAge": "23 Years",
-            "patientGender": "Male",
-            "appointmentTime": "10:10 AM",
-            "status": "New"
-        }
-    ]
+    const appointmentData = appointments || [];
 
     const handlePatientDetails = (appointment) => {
         setViewingPatientDetails(appointment);
@@ -90,10 +57,10 @@ export const Create = () => {
                                     </div>
                                 }
                                 headerBg={true}
-                                title={<span className="font-semibold text-[18px]">{appointment.name}</span>}
-                                appointmentType={appointment.appointmentType}
-                                patientAge={appointment.patientAge}
-                                PatientGender={appointment.patientGender}
+                                title={<span className="font-semibold text-[18px]">{appointment.patientId.fullName}</span>}
+                                appointmentType={appointment.type}
+                                patientAge={<>{appointment.patientId.age} Years</>}
+                                PatientGender={appointment.patientId.gender}
                                 appointmentTime={appointment.appointmentTime}
                                 footerContent={
                                     <NHButton

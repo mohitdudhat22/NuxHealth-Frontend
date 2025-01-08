@@ -11,9 +11,7 @@ export const CreatePrescription = ({
 
     // Destructure with defaults to handle missing appointment data
     const {
-        name = "Marcus Philips",
-        patientAge = "22 Years",
-        patientGender = "Male",
+        patientId
     } = appointment;
 
     // State to manage table data and additional note
@@ -132,15 +130,15 @@ export const CreatePrescription = ({
                     <div className="flex gap-4 mb-6">
                         <div className="w-3/5">
                             <label className="block text-sm font-medium text-gray-600">Patient Name</label>
-                            <NHInput disabled value={name} />
+                            <NHInput disabled value={patientId.fullName} />
                         </div>
                         <div className="w-1/5">
                             <label className="block text-sm font-medium text-gray-600">Age</label>
-                            <NHInput disabled value={patientAge} />
+                            <NHInput disabled value={patientId.age} />
                         </div>
                         <div className="w-1/5">
                             <label className="block text-sm font-medium text-gray-600">Gender</label>
-                            <NHInput disabled value={patientGender} />
+                            <NHInput disabled value={patientId.gender} />
                         </div>
                     </div>
 

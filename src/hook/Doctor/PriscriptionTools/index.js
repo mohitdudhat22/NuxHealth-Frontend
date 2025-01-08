@@ -13,7 +13,8 @@ export const useTodayAppointments = () => {
         try {
             setLoading(true);
             const response = await todayAppointment();
-            if (response.status === 1) {
+            console.log("🚀 ~ fetchAppointments ~ response:", response)
+            if (response.success === true) {
                 setAppointments(response.data);
                 console.log('Today’s Appointments:', response.data.length);
             }
@@ -36,15 +37,15 @@ export const useTodayAppointments = () => {
         setSearchQuery(query);
     };
 
-    // const data = filteredAppointments?.map((appointment) => ({
-    //     key: appointment?._id,
-    //     patientName: appointment?.patientName,
-    //     appointmentType: appointment?.appointmentType,
-    //     patientAge: appointment?.patientAge,
-    //     patientGender: appointment?.patientGender,
-    //     appointmentTime: appointment?.appointmentTime,
-    //     status: appointment?.status,
-    // }));
+    const data = appointments?.map((appointment) => ({
+        key: appointment?._id,
+        patientName: appointment?.patientName,
+        appointmentType: appointment?.type,
+        patientAge: appointment?.patientId?.age,
+        patientGender: appointment?.patientId?.gender,
+        appointmentTime: appointment?.appointmentTime,
+        status: appointment?.status,
+    }));
 
     const openDrawer = () => setDrawerVisible(true);
     const closeDrawer = () => setDrawerVisible(false);
@@ -55,7 +56,7 @@ export const useTodayAppointments = () => {
         loading,
         openDrawer,
         closeDrawer,
-        // data,
+        data,
         fetchAppointments,
         navigate,
         onSearch,
