@@ -33,6 +33,7 @@ import {
   AppointmentSchedularPage,
   PersonalHealthRecord,
   TeleconsultationAccess,
+  AppointmentTimeSlot,
   DoctorMeetingConference,
   PrescriptionAccess,
 } from "@/pages";
@@ -341,7 +342,11 @@ const NuxHealthRoute = createBrowserRouter(
                       path: "scheduler",
                       element: <AppointmentSchedularPage />,
                     },
-                  ],
+                    {
+                      path: "reschedule",
+                      element: <AppointmentTimeSlot />,
+                    },
+                  ]
                 },
                 {
                   path: "prescription-access",
