@@ -108,7 +108,7 @@ export const PersonalHealthRecord = () => {
                             onEditProfile={() => { }}
                         />
 
-                        <div className="grid grid-cols-[3fr_2fr] mt-8 grid-rows-2 gap-8">
+                        <div className="grid grid-cols-[3fr_2fr] mt-8 grid-rows-1 gap-8">
                             {/* Medical History Section */}
                             <section>
                                 <SectionHeader
@@ -140,7 +140,7 @@ export const PersonalHealthRecord = () => {
                             </section>
 
                             {/* Test Reports Section */}
-                            <section>
+                            {/* <section>
                                 <SectionHeader
                                     title="Test Reports"
                                     actionText="View All Reports"
@@ -160,7 +160,7 @@ export const PersonalHealthRecord = () => {
                                         date="2 Jan, 2022"
                                     />
                                 </div>
-                            </section>
+                            </section> */}
                         </div>
                     </>
                 );

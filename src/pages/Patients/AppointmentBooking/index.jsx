@@ -15,6 +15,7 @@ import maleIcon from "../../../assets/images/cover/male_icon.svg";
 import doctorLogo from "../../../assets/images/cover/Avatar_6.png";
 import { useNavigate } from "react-router-dom";
 import { AppointmentSchedularPage } from "..";
+import { useCancelAppoinmentBookings, usePreviousAppoinmentBookings, useTodaysAppoinmentBookings, useUpcomingAppoinmentBookings } from "@/hook/Patients";
 
 export const AppointmentBooking = () => {
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
@@ -27,6 +28,11 @@ export const AppointmentBooking = () => {
   // State for OffCanvas
   const [isOffCanvasVisible, setIsOffCanvasVisible] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
+
+  const { data: todayAppointments } = useTodaysAppoinmentBookings()
+  const { data: previousAppointments } = usePreviousAppoinmentBookings()
+  const { data: upcomingAppointments } = useUpcomingAppoinmentBookings()
+  const { data: cancleAppointments } = useCancelAppoinmentBookings()
 
   const navigate = useNavigate();
 
@@ -65,47 +71,6 @@ export const AppointmentBooking = () => {
     return `${fromDateStr} - ${toDateStr}`;
   };
 
-  // Dummy data for appointments
-  const appointmentData = [
-    {
-      id: 1,
-      title: "Dr. Nolan George",
-      hospitalName: "Artemis Hospital",
-      doctorQualification: "MBBS",
-      breakTime: "1 Hour",
-      workingTime: "6 Hour",
-      yearsOfExperience: "6+ Year",
-      emergencyContactNumber: "48555-20103",
-      specialtyType: "Obstetrics and genecology",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      appointmentType: "Online",
-      appointmentDate: "2 Jan, 2022",
-      appointmentTime: "10:20 AM",
-      patientIssue: "Feeling Tired",
-      gender: "Male",
-    },
-    {
-      id: 2,
-      title: "Dr. Geta Smith",
-      hospitalName: "Krishana Hospital",
-      doctorQualification: "MD",
-      breakTime: "1 Hour",
-      workingTime: "8 Hour",
-      yearsOfExperience: "3+ Year",
-      emergencyContactNumber: "24234-14482",
-      specialtyType: "Obstetrics and genecology",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      appointmentType: "Offline",
-      appointmentDate: "6 Feb, 2022",
-      appointmentTime: "08:30 AM",
-      patientIssue: "Feeling Tired",
-      gender: "Female",
-    },
-    // Add more appointment data as needed
-  ];
-
   // Function to handle "View Details" button click
   const handleViewDetails = (id) => {
     const appointment = appointmentData.find((item) => item.id === id);
@@ -126,7 +91,7 @@ export const AppointmentBooking = () => {
         <NHCard
           title={
             <span className="text-[#030229] text-[26px] font-semibold">
-              Scheduled Appointment
+              My Appointment
             </span>
           }
           rootClass={"p-0"}
@@ -147,10 +112,7 @@ export const AppointmentBooking = () => {
           }
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* {patientData.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
-                            return ( */}
-            {appointmentData.map((data) => (
+            {todayAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
                 headerBg={true}
@@ -165,7 +127,7 @@ export const AppointmentBooking = () => {
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">
-                    {data.title}
+                    Dr. {data.doctorName}
                   </span>
                 }
                 appointmentType={
@@ -197,8 +159,6 @@ export const AppointmentBooking = () => {
                 className="border border-slate-200"
               />
             ))}
-            {/* );
-                        })} */}
           </div>
         </NHCard>
       ),
@@ -210,7 +170,7 @@ export const AppointmentBooking = () => {
         <NHCard
           title={
             <span className="text-[#030229] text-[26px] font-semibold">
-              Previous Appointment
+              My Appointment
             </span>
           }
           rootClass={"p-0"}
@@ -231,10 +191,7 @@ export const AppointmentBooking = () => {
           }
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* {patientData.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
-                            return ( */}
-            {appointmentData.map((data) => (
+            {previousAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
                 headerBg={true}
@@ -249,7 +206,7 @@ export const AppointmentBooking = () => {
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">
-                    {data.title}
+                    Dr. {data.doctorName}
                   </span>
                 }
                 appointmentType={
@@ -262,8 +219,7 @@ export const AppointmentBooking = () => {
                 className="border border-slate-200"
               />
             ))}
-            {/* );
-                        })} */}
+
           </div>
         </NHCard>
       ),
@@ -275,7 +231,7 @@ export const AppointmentBooking = () => {
         <NHCard
           title={
             <span className="text-[#030229] text-[26px] font-semibold">
-              Cancel Appointment
+              My Appointment
             </span>
           }
           rootClass={"p-0"}
@@ -299,7 +255,7 @@ export const AppointmentBooking = () => {
             {/* {patientData.map((data, index) => {
                             const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
                             return ( */}
-            {appointmentData.map((data) => (
+            {cancleAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
                 headerBg={true}
@@ -314,7 +270,7 @@ export const AppointmentBooking = () => {
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">
-                    {data.title}
+                    Dr. {data.doctorName}
                   </span>
                 }
                 appointmentType={
@@ -327,8 +283,6 @@ export const AppointmentBooking = () => {
                 className="border border-slate-200"
               />
             ))}
-            {/* );
-                        })} */}
           </div>
         </NHCard>
       ),
@@ -340,7 +294,7 @@ export const AppointmentBooking = () => {
         <NHCard
           title={
             <span className="text-[#030229] text-[26px] font-semibold">
-              Pending Appointment
+              My Appointment
             </span>
           }
           rootClass={"p-0"}
@@ -361,10 +315,7 @@ export const AppointmentBooking = () => {
           }
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* {patientData.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
-                            return ( */}
-            {appointmentData.map((data) => (
+            {upcomingAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
                 headerBg={true}
@@ -379,7 +330,7 @@ export const AppointmentBooking = () => {
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">
-                    {data.title}
+                    Dr. {data.doctorName}
                   </span>
                 }
                 appointmentType={
@@ -411,8 +362,6 @@ export const AppointmentBooking = () => {
                 className="border border-slate-200"
               />
             ))}
-            {/* );
-                        })} */}
           </div>
         </NHCard>
       ),
