@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
@@ -8,6 +9,10 @@ import {
   NHSelect,
 } from "@/components";
 import { IoClose } from "react-icons/io5";
+=======
+import React, { useState, useEffect } from 'react';
+import { NHCard, NHSelect } from '@/components';
+>>>>>>> d4f05734a60d6b6fa099676d78d116fe940fbb4c
 
 const useAppointmentFilters = () => {
   const [filters, setFilters] = useState({});
