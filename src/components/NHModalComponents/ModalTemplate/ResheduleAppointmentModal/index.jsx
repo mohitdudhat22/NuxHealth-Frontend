@@ -26,6 +26,7 @@ export const RescheduleAppointmentModal = ({
                     <div className="date pb-5">
                         <NHDatePicker
                             label={"Select Date"}
+                            style={{ padding: '10px' }}
                         />
                     </div>
 
