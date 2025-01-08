@@ -23,7 +23,7 @@ export const AppointmentBooking = () => {
   const [toDate, setToDate] = useState(null);
   const [tempFromDate, setTempFromDate] = useState(null);
   const [tempToDate, setTempToDate] = useState(null);
-  const [bookAppoinment, setBookAppointment] = useState(false)
+  const [bookAppoinment, setBookAppointment] = useState(false);
 
   // State for OffCanvas
   const [isOffCanvasVisible, setIsOffCanvasVisible] = useState(false);
@@ -49,9 +49,6 @@ export const AppointmentBooking = () => {
   };
 
   const handleOk = () => {
-    // Handle the apply action here
-    console.log("From Date:", fromDate);
-    console.log("To Date:", toDate);
     setFromDate(tempFromDate);
     setToDate(tempToDate);
     handleCloseModal();
@@ -71,6 +68,47 @@ export const AppointmentBooking = () => {
     return `${fromDateStr} - ${toDateStr}`;
   };
 
+  // Dummy data for appointments
+  const appointmentData = [
+    {
+      id: 1,
+      title: "Dr. Nolan George",
+      hospitalName: "Artemis Hospital",
+      doctorQualification: "MBBS",
+      breakTime: "1 Hour",
+      workingTime: "6 Hour",
+      yearsOfExperience: "6+ Year",
+      emergencyContactNumber: "48555-20103",
+      specialtyType: "Obstetrics and genecology",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      appointmentType: "Online",
+      appointmentDate: "2 Dec, 2024",
+      appointmentTime: "10:20 AM",
+      patientIssue: "Feeling Tired",
+      gender: "Male",
+    },
+    {
+      id: 2,
+      title: "Dr. Geta Smith",
+      hospitalName: "Krishana Hospital",
+      doctorQualification: "MD",
+      breakTime: "1 Hour",
+      workingTime: "8 Hour",
+      yearsOfExperience: "3+ Year",
+      emergencyContactNumber: "24234-14482",
+      specialtyType: "Obstetrics and genecology",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      appointmentType: "Offline",
+      appointmentDate: "8 Jan, 2025",
+      appointmentTime: "08:30 AM",
+      patientIssue: "Feeling Tired",
+      gender: "Female",
+    },
+    // Add more appointment data as needed
+  ];
+
   // Function to handle "View Details" button click
   const handleViewDetails = (id) => {
     const appointment = appointmentData.find((item) => item.id === id);
@@ -79,9 +117,12 @@ export const AppointmentBooking = () => {
   };
 
   const handleAppointment = () => {
-    setBookAppointment(true)
-  }
+    setBookAppointment(true);
+  };
 
+  const handleReschedule = (appointment) => {
+    navigate("/patient/appointment/reschedule", { state: { appointment } });
+  };
 
   const tabItems = [
     {
@@ -105,7 +146,11 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="" onClick={() => handleAppointment()}>
+              <NHButton
+                variant="default"
+                className=""
+                onClick={() => handleAppointment()}
+              >
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -142,7 +187,7 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                    //   onClick={() => handleJoinCall(data)}
+                      //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -150,7 +195,7 @@ export const AppointmentBooking = () => {
                       size={"small"}
                       icon={Icons.CalenderIcon}
                       className={"w-full py-9"}
-                      onClick={() => navigate("/patient/appointment/rescheduler")}
+                      onClick={() => handleReschedule(data)}
                     >
                       Reschedule
                     </NHButton>
@@ -219,7 +264,6 @@ export const AppointmentBooking = () => {
                 className="border border-slate-200"
               />
             ))}
-
           </div>
         </NHCard>
       ),
@@ -345,7 +389,7 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                    //   onClick={() => handleJoinCall(data)}
+                      //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -353,7 +397,7 @@ export const AppointmentBooking = () => {
                       size={"small"}
                       icon={Icons.CalenderIcon}
                       className={"w-full py-9"}
-                      onClick={() => navigate("/patient/appointment/rescheduler")}
+                      onClick={() => handleReschedule(data)}
                     >
                       Reschedule
                     </NHButton>
@@ -370,9 +414,9 @@ export const AppointmentBooking = () => {
 
   return (
     <>
-      {bookAppoinment ?
+      {bookAppoinment ? (
         <AppointmentSchedularPage />
-        :
+      ) : (
         <div className="appo_booking_sec">
           <NHCard
             headerContent={
@@ -408,7 +452,11 @@ export const AppointmentBooking = () => {
                   style={{ backgroundImage: `url(${modalImg})` }}
                 >
                   <div className="flex items-center">
-                    <img src={doctorLogo} alt="Doctor" className="rounded-full" />
+                    <img
+                      src={doctorLogo}
+                      alt="Doctor"
+                      className="rounded-full"
+                    />
                     <div className="ml-4">
                       <h3 className="text-[18px] font-semibold text-white">
                         {selectedAppointment.title}
@@ -456,13 +504,17 @@ export const AppointmentBooking = () => {
                   </div>
                   <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
                     <div className="flex flex-col">
-                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">Break Time</h4>
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Break Time
+                      </h4>
                       <p className="text-[#141414] font-medium text-[16px] mt-1">
                         {selectedAppointment.breakTime}
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">Working Time</h4>
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Working Time
+                      </h4>
                       <p className="text-[#141414] font-medium text-[16px] mt-1">
                         {selectedAppointment.workingTime}
                       </p>
@@ -498,7 +550,9 @@ export const AppointmentBooking = () => {
                   </div>
                   <div className="grid grid-cols-1 gap-4 mb-4">
                     <div className="flex flex-col">
-                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">Description </h4>
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Description{" "}
+                      </h4>
                       <p className="text-[#141414] font-medium text-[16px] mt-1">
                         {selectedAppointment.description}
                       </p>
@@ -509,7 +563,7 @@ export const AppointmentBooking = () => {
             )}
           </Drawer>
         </div>
-      }
+      )}
     </>
   );
 };
