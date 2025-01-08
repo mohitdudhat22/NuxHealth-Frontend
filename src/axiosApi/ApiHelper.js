@@ -27,8 +27,15 @@ export const verifyOtp = (data) =>
 export const resetPassword = (data) =>
   request("post", "/api/auth/reset-password", data);
 
-/* Delete Data */
+/* Global Data */
 export const DeleteData = (url) => request("delete", `/api/${url}`);
+export const SearchHeader = (query, role) => {
+  let endpoint = `/api/admin/searchData?query=${query}`;
+  if (role) {
+    endpoint += `&role=${role}`;
+  }
+  return request("get", endpoint);
+};
 
 /* Admin Register Form */
 export const registerAdmin = (data) =>

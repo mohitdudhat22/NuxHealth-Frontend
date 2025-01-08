@@ -25,7 +25,7 @@ export const NHSelect = ({
   ...rest
 }) => {
   return (
-    <div className={clsx(styles.parent, parentClassName)} key={key}>
+    <div className={clsx(styles.parent, parentClassName, "w-full")} key={key}>
       {label && (
         <label
           htmlFor={id}

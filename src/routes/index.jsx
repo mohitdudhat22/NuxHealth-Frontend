@@ -57,7 +57,6 @@ import ChatempComponentforPateint from "@/components/chatTempComponentforPatient
 import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
 import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
 import { PatientMettingConference } from "@/pages/Patients";
-import ReSchedularAppoinmentPage from "@/pages/Patients/AppointmentBooking/ReSchedularAppoinmentPage/ReSchedularAppoinmentPage";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
