@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import { AppointmentSchedular, NHCard, NHSelect } from '@/components';
 
 const useAppointmentFilters = () => {
