@@ -207,6 +207,7 @@ const CreateBill = () => {
         try {
             const response = await createBillForAdmin(payload); 
             console.log('Bill created successfully:', response.data);
+            setFormData({});
         } catch (error) {
             console.error('Error creating bill:', error);
         }
