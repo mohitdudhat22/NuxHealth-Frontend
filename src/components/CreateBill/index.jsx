@@ -20,6 +20,15 @@ const useBillForm = () => {
         notes: '',
         patientName: '',
         doctorName: '',
+        phoneNumber: '',
+        gender: '',
+        age: '',
+        diseaseName: '',
+        amount: '',
+        totalAmount: '',
+        address: '',
+        billStatus: '',
+        insuranceType: '',
     });
 
     const [appointments, setAppointments] = useState([]);
@@ -108,6 +117,32 @@ const useBillForm = () => {
         }));
     };
 
+    const fetchPatient = async (value) => {
+        try {
+            console.log('formData.selectAppointment:', value);
+            const response = await getPatientForAdminBill(value);
+            const patientData = response.data.appointment;
+            console.log('Patient data:', patientData);
+            if (patientData) {
+                setFormData(prev => ({
+                    ...prev,
+                    amount: patientData?.amount || '',
+                    patientName: patientData?.patientId?.fullName || '',
+                    phoneNumber: patientData?.patientId?.phone || '',
+                    gender: patientData?.patientId?.gender || '',
+                    age: patientData?.patientId?.age || '',
+                    address: patientData?.patientId?.address || '',
+                    diseaseName: patientData?.dieseas_name || '',
+                    tax: patientData?.tax || '',
+                    totalAmount : patientData?.tax +patientData?.amount,
+                    doctorName: patientData?.doctorId?.fullName || '',
+                    discount: '20%',
+                }));
+            }
+        } catch (error) {
+            console.error('Error fetching patients:', error);
+        }
+    };
     return {
         formData,
         setFormData,
@@ -115,23 +150,27 @@ const useBillForm = () => {
         patients,
         filteredAppointments,
         handleChange,
-        handleSelectChange
+        handleSelectChange,
+        fetchPatient,
     };
 };
+
 
 const CreateBill = () => {
     const {
         formData,
+        setFormData,
         doctors,
         patients,
         filteredAppointments,
         handleChange,
-        handleSelectChange
+        handleSelectChange,
+        fetchPatient,
     } = useBillForm();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         const payload = {
             appointmentId: formData.selectAppointment,
             discount: Number(formData.discount),
@@ -145,9 +184,10 @@ const CreateBill = () => {
                 claimedAmount: Number(formData.claimedAmount)
             },
             notes: formData.notes,
-            status: true
+            status: true,
+            ...formData,
         };
-
+    
         try {
             const response = await axios.post('/api/admin/createBill', payload);
             console.log('Bill created successfully:', response.data);
@@ -155,7 +195,7 @@ const CreateBill = () => {
             console.error('Error creating bill:', error);
         }
     };
-
+    console.log('formData:', formData);
     return (
         <>
             <div className='mb-9'>
@@ -181,7 +221,7 @@ const CreateBill = () => {
                         name="selectAppointment"
                         placeholder="Select Appointment"
                         value={formData.selectAppointment}
-                        onChange={(value) => handleSelectChange(value, 'selectAppointment')}
+                        onChange={(value) => {handleSelectChange(value, 'selectAppointment');fetchPatient(value);}}
                         options={filteredAppointments}
                     />
                 </NHCard>
@@ -318,7 +358,7 @@ const CreateBill = () => {
                     </div>
 
                     {formData.paymentType !== 'insurance' && <div className="flex justify-end mt-6">
-                        <NHButton type="submit" variant="primary">
+                        <NHButton type="submit" variant="primary" onClick={handleSubmit}>
                             Send
                         </NHButton>
                     </div>}
@@ -370,7 +410,7 @@ const CreateBill = () => {
                             />
                         </div>
                         <div className="flex justify-end mt-6">
-                            <NHButton type="submit" variant="primary">
+                            <NHButton type="submit" variant="primary" onClick={handleSubmit}>
                                 Send
                             </NHButton>
                         </div>
