@@ -10,6 +10,8 @@ import socket, {
 import { getOldMessages } from "@/axiosApi/ApiHelper";
 
 export const ChatLayoutForDoctor = () => {
+  const userId = "6770443dceabc6c708235256";
+
   const initialUsers = [
     {
       _id: "677047f308067157dc712f80",
@@ -32,20 +34,24 @@ export const ChatLayoutForDoctor = () => {
   ];
 
   const [users, setUsers] = useState(initialUsers);
-  const [chats, setChats] = useState();
-  const [selectedUserId, setSelectedUserId] = useState('677047f308067157dc712f80');
+  const [chats, setChats] = useState(
+    initialUsers.map((user) => ({
+      _id: user._id,
+      participants: [{ _id: user._id, name: user.name, avatar: user.avatar }],
+      messages: [],
+    }))
+  );
+  const [selectedUserId, setSelectedUserId] = useState(initialUsers[0]._id);
   const [currentChat, setCurrentChat] = useState(null);
-  const [onlineUsers, setOnlineUsers] = useState({});
-
 
   useEffect(() => {
-    const userId = "6770443dceabc6c708235256"; 
     registerUser(userId);
-    joinChat("room1"); 
+    joinChat("room1");
 
     receiveMessage((data) => {
-      console.log(data,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
       const { from, message, timestamp } = data;
+
+      // Update chats with the new message
       setChats((prevChats) =>
         prevChats.map((chat) =>
           chat.participants.some((p) => p._id === from)
@@ -66,6 +72,7 @@ export const ChatLayoutForDoctor = () => {
         )
       );
 
+      // Update users list for the last message
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === from
@@ -91,7 +98,7 @@ export const ChatLayoutForDoctor = () => {
       const fetchMessages = async () => {
         try {
           const response = await getOldMessages("6770443dceabc6c708235256", selectedUserId);
-          const oldMessages = response.data.map((msg) => ({
+          const oldMessages = response.data?.map((msg) => ({
             id: msg._id,
             content: msg.message,
             sender: msg.from === "6770443dceabc6c708235256" ? "doctor" : "user",
@@ -99,7 +106,7 @@ export const ChatLayoutForDoctor = () => {
             type: "text",
           }));
 
-          // Update the chats state with the old messages
+          // Update chats with old messages
           setChats((prevChats) =>
             prevChats.map((chat) =>
               chat.participants.some((p) => p._id === selectedUserId)
@@ -118,32 +125,28 @@ export const ChatLayoutForDoctor = () => {
 
   // Update current chat when a user is selected
   useEffect(() => {
-    if (selectedUserId) {
-      const chat = chats.find((c) =>
-        c.participants.some((p) => p._id === selectedUserId)
-      );
-      setCurrentChat(chat || null);
-    } else {
-      setCurrentChat(null);
-    }
+    const chat = chats.find((c) =>
+      c.participants.some((p) => p._id === selectedUserId)
+    );
+    setCurrentChat(chat || null);
   }, [selectedUserId, chats]);
 
-  // Handle user selection
   const handleSelectUser = (userId) => {
     setSelectedUserId(userId);
   };
 
-  // Handle sending a message
   const handleSendMessage = (message) => {
     if (!selectedUserId || !currentChat) return;
-  
+
     const newMessage = {
       id: Date.now().toString(),
       ...message,
-      sender: "doctor",
+      sender: userId,
+      receiver: selectedUserId,
       timestamp: new Date().toISOString(),
     };
-  
+    console.log(newMessage,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", chats)
+
     setChats((prevChats) =>
       prevChats.map((chat) =>
         chat._id === currentChat._id
@@ -151,16 +154,14 @@ export const ChatLayoutForDoctor = () => {
           : chat
       )
     );
-  
-    // Send message via socket
+
     sendSocketMessage({
       to: selectedUserId,
-      from: "6770443dceabc6c708235256",
+      from: userId,
       message: message.content || message.fileDetails,
       roomId: "room1",
     });
-  
-    // Update last message in users list
+
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
         user._id === selectedUserId
@@ -176,14 +177,11 @@ export const ChatLayoutForDoctor = () => {
 
   return (
     <div className="grid grid-cols-[334px,1fr] h-full max-h-[calc(100vh-var(--header-height))]">
-      {/* Sidebar */}
       <ChatSidebar
         users={users}
         onSelectUser={handleSelectUser}
         activeUserId={selectedUserId}
-        initialChats={initialUsers}
       />
-      {/* Main Chat Area */}
       {currentChat ? (
         <ChatMessageBar
           selectedUser={currentChat.participants[0]}

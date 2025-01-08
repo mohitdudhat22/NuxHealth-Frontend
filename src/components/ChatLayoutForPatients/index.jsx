@@ -47,7 +47,7 @@ export const ChatLayoutForPatient = () => {
     receiveMessage((data) => {
       const { from, message, timestamp } = data;
       setChats((prevChats) =>
-        prevChats.map((chat) =>
+        prevChats?.map((chat) =>
           chat.participants.some((p) => p._id === from)
             ? {
                 ...chat,
@@ -67,7 +67,7 @@ export const ChatLayoutForPatient = () => {
       );
 
       setUsers((prevUsers) =>
-        prevUsers.map((user) =>
+        prevUsers?.map((user) =>
           user._id === from
             ? {
                 ...user,
@@ -89,9 +89,8 @@ export const ChatLayoutForPatient = () => {
     if (selectedUserId) {
       const fetchMessages = async () => {
         try {
-          console.log(selectedUserId)
           const response = await getOldMessages("677047f308067157dc712f80", selectedUserId);
-          const oldMessages = response.data.map((msg) => ({
+          const oldMessages = response.data?.map((msg) => ({
             id: msg._id,
             content: msg.message,
             sender: msg.from === "6770443dceabc6c708235256" ? "doctor" : "user",
@@ -100,7 +99,7 @@ export const ChatLayoutForPatient = () => {
           }));
 
           setChats((prevChats) =>
-            prevChats.map((chat) =>
+            prevChats?.map((chat) =>
               chat.participants.some((p) => p._id === selectedUserId)
                 ? { ...chat, messages: oldMessages }
                 : chat
@@ -117,7 +116,7 @@ export const ChatLayoutForPatient = () => {
 
   useEffect(() => {
     if (selectedUserId) {
-      const chat = chats.find((c) =>
+      const chat = chats?.find((c) =>
         c.participants.some((p) => p._id === selectedUserId)
       );
       setCurrentChat(chat || null);
@@ -141,7 +140,7 @@ export const ChatLayoutForPatient = () => {
     };
   
     setChats((prevChats) =>
-      prevChats.map((chat) =>
+      prevChats?.map((chat) =>
         chat._id === currentChat._id
           ? { ...chat, messages: [...chat.messages, newMessage] }
           : chat
@@ -156,7 +155,7 @@ export const ChatLayoutForPatient = () => {
     });
   
     setUsers((prevUsers) =>
-      prevUsers.map((user) =>
+      prevUsers?.map((user) =>
         user._id === selectedUserId
           ? {
               ...user,
