@@ -212,3 +212,5 @@ export const editDoctorProfileChangePassword = (data) =>
   request("post", "/api/doctor/changePassword", data);
 export const getOldMessages = (doctorId, patientId) =>
   request("get", `/chat/messages?from=${doctorId}&to=${patientId}`);
+export const getbillForReception = () =>
+  request("get", "/api/receptionist/getBillsMonitor");
