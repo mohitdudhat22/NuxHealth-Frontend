@@ -1,8 +1,16 @@
 import { AppointmentCard, NHButton, NHCard, NHInput, NHTabs } from '@/components';
 import Icons from '@/constants/icons';
 import React, { useState } from 'react'
+import { AppointmentSchedularPage } from '..';
+import { useNavigate } from 'react-router-dom';
 
 export const AppointmentBooking = () => {
+    const navigate = useNavigate();
+    const [bookAppoinment, setBookAppoinment] = useState(false)
+
+    const handleResheduling = () => {
+        navigate('reschedule')
+    }
 
     const tabItems = [
         {
@@ -10,12 +18,12 @@ export const AppointmentBooking = () => {
             label: "Scheduled Appointment",
             children: (
                 <NHCard
-                    title={<span className='text-[#030229] text-[26px] font-semibold'>Scheduled Appointment</span>}
+                    title={<span className='text-[#030229] text-[26px] font-semibold'>My Appointment</span>}
                     rootClass={"p-0"}
                     headerContent={
                         <>
                             <NHButton variant="default" className="text-black bg-white">{Icons.CalenderIcon}2 March,2022 - 13 March, 2022{Icons.CloseCircle}</NHButton>
-                            <NHButton variant="default" className="">{Icons.CalenderIcon}Book Appointment</NHButton>
+                            <NHButton variant="default" className="" onClick={() => setBookAppoinment(true)}>{Icons.CalenderIcon}Book Appointment</NHButton>
                         </>
                     }
                 >
@@ -53,7 +61,7 @@ export const AppointmentBooking = () => {
                                         size={"small"}
                                         icon={Icons.CalenderIcon}
                                         className={"w-full"}
-                                        onClick={() => setSelectedAppointment(data)}
+                                        onClick={() => handleResheduling()}
                                     >
                                         Reschedule
                                     </NHButton>
@@ -72,7 +80,7 @@ export const AppointmentBooking = () => {
             label: "Previous Appointment",
             children: (
                 <NHCard
-                    title={<span className='text-[#030229] text-[26px] font-semibold'>Previous Appointment</span>}
+                    title={<span className='text-[#030229] text-[26px] font-semibold'>My Appointment</span>}
                     rootClass={"p-0"}
                     headerContent={
                         <>
@@ -115,7 +123,7 @@ export const AppointmentBooking = () => {
             label: "Cancel Appointment",
             children: (
                 <NHCard
-                    title={<span className='text-[#030229] text-[26px] font-semibold'>Cancel Appointment</span>}
+                    title={<span className='text-[#030229] text-[26px] font-semibold'>My Appointment</span>}
                     rootClass={"p-0"}
                     headerContent={
                         <>
@@ -159,7 +167,7 @@ export const AppointmentBooking = () => {
             label: "Pending Appointment",
             children: (
                 <NHCard
-                    title={<span className='text-[#030229] text-[26px] font-semibold'>Pending Appointment</span>}
+                    title={<span className='text-[#030229] text-[26px] font-semibold'>My Appointment</span>}
                     rootClass={"p-0"}
                     headerContent={
                         <>
@@ -220,19 +228,22 @@ export const AppointmentBooking = () => {
 
     return (
         <>
-            <NHCard
-                headerContent={
-                    <NHInput
-                        prefix={Icons.SearchIcon}
-                        placeholder="Search Patient"
+            {bookAppoinment ?
+                <AppointmentSchedularPage /> :
+                <NHCard
+                    headerContent={
+                        <NHInput
+                            prefix={Icons.SearchIcon}
+                            placeholder="Search Patient"
+                        />
+                    }
+                >
+                    <NHTabs
+                        items={tabItems}
+                        defaultActiveKey="upcoming"
                     />
-                }
-            >
-                <NHTabs
-                    items={tabItems}
-                    defaultActiveKey="upcoming"
-                />
-            </NHCard>
+                </NHCard>
+            }
         </>
     );
 };
