@@ -52,7 +52,7 @@ export const NHHeader = () => {
             </p>
           </div>
         ) : (
-          <NHBreadCrumb separator=">" admin />
+          <NHBreadCrumb />
         )}
       </div>
       <div className={clsx("flex items-center justify-content-center gap-xl")}>

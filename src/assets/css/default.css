@@ -82,3 +82,7 @@ p {
 .button.ant-btn > span:not(:only-child) {
   align-self: center;
 }
+
+.ant-breadcrumb-link {
+  @apply flex;
+}
