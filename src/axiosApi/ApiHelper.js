@@ -146,7 +146,7 @@ export const editAdminProfile = () => request("post", "/api/admin/editAdmin");
 export const editAdminProfileChangePassword = (data) => request("post", "/api/admin/changePassword", data);
 export const editDoctorrofileChangePassword = (data) => request("post", "/api/doctor/changePassword", data);
 export const AppointmentWithoutBill = () => request("get", "/api/admin/getAppointment/withoutbill");
-
+export const createBillForAdmin = (data) => request("post", "/api/admin/createBill", data);
 //review
 export const GetUserNotifications = (userId) => request("get", `/api/notification/user/${userId}`);
 export const MarkNotificationAsRead = (notificationId) => request("put", `api/notification/mark-read/${notificationId}`);

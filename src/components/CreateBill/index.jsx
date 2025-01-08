@@ -1,64 +1,51 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { NHButton, NHCard, NHInput, NHSelect } from "@/components"
-import { AppointmentWithoutBill } from '@/axiosApi/ApiHelper'
+import { useEffect, useState } from 'react';
+import { NHButton, NHCard, NHInput, NHSelect } from '@/components';
+import { AppointmentWithoutBill } from '@/axiosApi/ApiHelper';
+import axios from 'axios';
 
 const CreateBill = () => {
     const [formData, setFormData] = useState({
-        patientName: '',
-        phoneNumber: '',
-        gender: null,
-        age: '',
-        doctorName: '',
-        diseaseName: '',
-        description: '',
-        paymentType: null,
-        billDate: '',
-        billTime: '',
-        billNumber: '',
+        selectDoctor: '',
+        selectPatient: '',
+        selectAppointment: '',
         discount: '',
         tax: '',
-        amount: '',
-        totalAmount: '',
-        address: '',
+        paymentType: null,
+        description: [],
         insuranceCompany: '',
         insurancePlan: '',
         claimAmount: '',
         claimedAmount: '',
-        billStatus: null,
-        insuranceType: null,
-        selectDoctor: '',
-        selectPatient: '',
-    })
+        notes: '',
+    });
 
-    const [appointments, setAppointments] = useState([])
-    const [doctors, setDoctors] = useState([])
-    const [patients, setPatients] = useState([])
-
+    const [appointments, setAppointments] = useState([]);
+    const [doctors, setDoctors] = useState([]);
+    const [patients, setPatients] = useState([]);
+    const [filteredAppointments, setFilteredAppointments] = useState([]);
+    
     // Fetch appointments and extract doctors
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
-                const response = await AppointmentWithoutBill()
-                const appointmentsData = response.data
-                setAppointments(appointmentsData)
+                const response = await AppointmentWithoutBill();
+                const appointmentsData = response.data;
+                setAppointments(appointmentsData);
 
-                // Extract unique doctors
                 const uniqueDoctors = [
                     ...new Map(appointmentsData.map(item => [
                         item.doctorData._id,
                         { value: item.doctorData._id, label: item.doctorData.fullName }
                     ])).values()
-                ]
-                setDoctors(uniqueDoctors)
+                ];
+                setDoctors(uniqueDoctors);
             } catch (error) {
-                console.error('Error fetching appointments:', error)
+                console.error('Error fetching appointments:', error);
             }
-        }
+        };
 
-        fetchAppointments()
-    }, [])
+        fetchAppointments();
+    }, []);
 
     // Update patients when a doctor is selected
     useEffect(() => {
@@ -68,44 +55,106 @@ const CreateBill = () => {
                 .map(item => ({
                     value: item.patientData._id,
                     label: item.patientData.fullName
-                }))
+                }));
 
-            // Remove duplicates
             const uniquePatients = [
                 ...new Map(filteredPatients.map(item => [item.value, item])).values()
-            ]
-            setPatients(uniquePatients)
+            ];
+            setPatients(uniquePatients);
+            
+            // Clear patient and appointment selection when doctor changes
+            setFormData(prev => ({
+                ...prev,
+                selectPatient: '',
+                selectAppointment: ''
+            }));
         } else {
-            setPatients([]) // Reset if no doctor is selected
+            setPatients([]);
         }
-    }, [formData.selectDoctor, appointments])
+    }, [formData.selectDoctor, appointments]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(formData)
-    }
+    // Update appointments when both doctor and patient are selected
+    useEffect(() => {
+        if (formData.selectDoctor && formData.selectPatient) {
+            const filtered = appointments.filter(
+                appointment =>
+                    appointment.doctorData._id === formData.selectDoctor &&
+                    appointment.patientData._id === formData.selectPatient
+            );
+
+            const formattedAppointments = filtered.map(item => ({
+                value: item.id,
+                label: `${new Date(item.date).toLocaleDateString()} - ${item.appointmentTime}`
+            }));
+            console.log('Filtered Appointments:', formattedAppointments);
+            setFilteredAppointments(formattedAppointments);
+            
+            // Update form data with selected appointment details if available
+            if (filtered.length > 0) {
+                const selectedAppointment = filtered.find(app => app._id === formData.selectAppointment);
+                if (selectedAppointment) {
+                    // You can add more fields here if needed
+                    setFormData(prev => ({
+                        ...prev,
+                        patientName: selectedAppointment.patientData.fullName,
+                        doctorName: selectedAppointment.doctorData.fullName,
+                        // Add other fields as needed
+                    }));
+                }
+            }
+        } else {
+            setFilteredAppointments([]);
+        }
+    }, [formData.selectDoctor, formData.selectPatient, formData.selectAppointment, appointments]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const payload = {
+            appointmentId: formData.selectAppointment,
+            discount: Number(formData.discount),
+            tax: Number(formData.tax),
+            paymentType: formData.paymentType,
+            description: formData.description,
+            insuranceDetails: {
+                insuranceCompany: formData.insuranceCompany,
+                insurancePlan: formData.insurancePlan,
+                claimAmount: Number(formData.claimAmount),
+                claimedAmount: Number(formData.claimedAmount)
+            },
+            notes: formData.notes,
+            status: true
+        };
+
+        try {
+            const response = await axios.post('/api/admin/createBill', payload);
+            console.log('Bill created successfully:', response.data);
+        } catch (error) {
+            console.error('Error creating bill:', error);
+        }
+    };
 
     const handleChange = (e) => {
         if (e.target) {
-            const { name, value } = e.target
+            const { name, value } = e.target;
             setFormData(prev => ({
                 ...prev,
                 [name]: value
-            }))
+            }));
         }
-    }
+    };
 
     const handleSelectChange = (value, name) => {
+        console.log('Selected:', value);
         setFormData(prev => ({
             ...prev,
             [name]: value
-        }))
-    }
-
+        }));
+    };
     return (
         <>
             <div className='mb-9'>
-                <NHCard className='p-6 flex justify-between gap-9' title={"Select Doctor and Patient"}>
+                <NHCard className='p-6 flex justify-between gap-9' title="Select Doctor, Patient, and Appointment">
                     <NHSelect
                         label="Select Doctor"
                         name="selectDoctor"
@@ -122,8 +171,17 @@ const CreateBill = () => {
                         onChange={(value) => handleSelectChange(value, 'selectPatient')}
                         options={patients}
                     />
+                      <NHSelect
+                        label="Select Appointment"
+                        name="selectAppointment"
+                        placeholder="Select Appointment"
+                        value={formData.selectAppointment}
+                        onChange={(value) => handleSelectChange(JSON.stringify(value), 'selectAppointment')}
+                        options={filteredAppointments}
+                    />
                 </NHCard>
             </div>
+
             <NHCard className='p-6' title={"Create Bill"}>
 
 <form className="space-y-6" onSubmit={handleSubmit}>
@@ -342,7 +400,7 @@ const CreateBill = () => {
 )}
 </div>
         </>
-    )
-}
+    );
+};
 
-export default CreateBill
+export default CreateBill;
