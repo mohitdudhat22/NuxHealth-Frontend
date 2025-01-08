@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import { AppointmentSchedular, NHCard, NHSelect } from '@/components';
+import { NHCard, NHSelect } from '@/components';
 
 const useAppointmentFilters = () => {
   const [filters, setFilters] = useState({});
@@ -152,17 +151,16 @@ export const AppointmentSchedularPage = () => {
         </div>
 
         <div className="mt-6">
-          <h3 className="font-medium mb-3">Available Time Slots</h3>
+          <h3 className="mb-3 font-medium">Available Time Slots</h3>
           <div>
             {/* Morning Session */}
-            <h4 className="font-medium mb-2">Morning Session</h4>
+            <h4 className="mb-2 font-medium">Morning Session</h4>
             <div className="grid grid-cols-8 gap-2">
               {['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM'].map((time) => (
                 <button
                   key={time}
-                  className={`p-2 border rounded hover:bg-gray-100 ${
-                    selectedTime === time ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
-                  }`}
+                  className={`p-2 border rounded hover:bg-gray-100 ${selectedTime === time ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                    }`}
                   onClick={() => handleTimeSelect(time)}
                 >
                   {time}
@@ -171,14 +169,13 @@ export const AppointmentSchedularPage = () => {
             </div>
 
             {/* Evening Session */}
-            <h4 className="font-medium mt-4 mb-2">Evening Session</h4>
+            <h4 className="mt-4 mb-2 font-medium">Evening Session</h4>
             <div className="grid grid-cols-8 gap-2">
               {['5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM'].map((time) => (
                 <button
                   key={time}
-                  className={`p-2 border rounded hover:bg-gray-100 ${
-                    selectedTime === time ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
-                  }`}
+                  className={`p-2 border rounded hover:bg-gray-100 ${selectedTime === time ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                    }`}
                   onClick={() => handleTimeSelect(time)}
                 >
                   {time}
@@ -189,16 +186,13 @@ export const AppointmentSchedularPage = () => {
         </div>
 
         <button
-          className="mt-6 p-2 bg-blue-500 text-white rounded"
+          className="p-2 mt-6 text-white bg-blue-500 rounded"
           onClick={handleBookAppointment}
         >
           Book Appointment
         </button>
       </NHCard>
 
-      <NHCard className="p-6 mt-4">
-        <AppointmentSchedular />
-      </NHCard>
     </>
   );
 };

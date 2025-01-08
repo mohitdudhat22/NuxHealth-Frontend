@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import moment from 'moment'
-import { momentLocalizer, Calendar } from 'react-big-calendar'
+// import { momentLocalizer, Calendar } from 'react-big-calendar'
 // import "react-big-calendar/lib/css/react-big-calendar.css";
 import events from './events';
 import { NHCard } from '..';
