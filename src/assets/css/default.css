@@ -6,6 +6,10 @@ html {
   font-size: var(--html);
 }
 
+body {
+  font-family: var(--font-sans);
+}
+
 .h1,
 h1 {
   @apply text-5xl;

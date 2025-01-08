@@ -18,7 +18,7 @@ export default {
         pearl: "var(--clr-pearl)",
       },
       fontFamily: {
-        primary: "var(--font-primary)",
+        sans: "var(--font-primary)",
       },
       spacing: {
         "2xl": "var(--space-2xl)",
