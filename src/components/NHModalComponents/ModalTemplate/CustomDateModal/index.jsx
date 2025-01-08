@@ -30,6 +30,7 @@ export const CustomDateModal = ({
                             label={"From Date"}
                             value={fromDate}
                             onChange={setFromDate} // Update fromDate
+                            style={{ padding: '10px' }}
                         />
                     </div>
 
@@ -38,6 +39,7 @@ export const CustomDateModal = ({
                             label={"To Date"}
                             value={toDate}
                             onChange={setToDate} // Update toDate
+                            style={{ padding: '10px' }}
                         />
                     </div>
                 </div>
