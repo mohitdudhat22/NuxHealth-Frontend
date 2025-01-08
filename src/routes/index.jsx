@@ -31,7 +31,8 @@ import {
   Buttons,
   AppoinmentManagement, AppointmentSchedularPage, PersonalHealthRecord,
   TeleconsultationAccess,
-  PrescriptionAccess
+  PrescriptionAccess,
+  AppointmentTimeSlot
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -335,6 +336,10 @@ const NuxHealthRoute = createBrowserRouter(
                     {
                       path: "scheduler",
                       element: <AppointmentSchedularPage />,
+                    },
+                    {
+                      path: "reschedule",
+                      element: <AppointmentTimeSlot />,
                     },
                   ]
                 },
