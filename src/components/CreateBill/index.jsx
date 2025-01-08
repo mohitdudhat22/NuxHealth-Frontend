@@ -245,7 +245,7 @@ const CreateBill = () => {
                 </form>
 
             </NHCard>
-            <div className='mt-9'   >
+            <div className='mt-9'>
                 {/* Insurance Details Section */}
                 {formData.paymentType === 'insurance' && (
                     <NHCard title="Insurance Details" className='p-6'>
