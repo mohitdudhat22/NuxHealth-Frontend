@@ -101,7 +101,8 @@ export const ChatLayoutForDoctor = () => {
           const oldMessages = response.data?.map((msg) => ({
             id: msg._id,
             content: msg.message,
-            sender: msg.from === "6770443dceabc6c708235256" ? "doctor" : "user",
+            sender: msg.from,
+            receiver: msg.to,
             timestamp: msg.timestamp,
             type: "text",
           }));
