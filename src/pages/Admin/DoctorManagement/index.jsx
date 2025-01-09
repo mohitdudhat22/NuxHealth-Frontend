@@ -124,7 +124,6 @@ export const DoctorManagement = () => {
           showPagination={true}
           tableColumn={columns}
           tableDataSource={data}
-          route="/admin/doctor-management"
         />
 
         {/* Delete Complaint Modal */}
