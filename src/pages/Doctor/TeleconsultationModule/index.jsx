@@ -13,8 +13,10 @@ import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate
 import { useState } from "react";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import { useCancleTeleconsultation, usePrivousTeleconsultation, useTodayTeleconsultation, useUpcomingTeleconsultation } from "@/hook/Doctor";
+import { useNavigate } from "react-router-dom";
 
 export const Teleconsultation = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSelectedPatientModel, setPatientModel] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
@@ -283,8 +285,8 @@ export const Teleconsultation = () => {
                 <NHButton
                   size={"small"}
                   className={"w-full"}
-                  onClick={() => navigate('videoCall?room='+selectedPatientData._id)}
-                >
+                  onClick={() => navigate('videoCall?room='+selectedPatientData.key)}
+                >{console.log(selectedPatientData)}
                   Join
                   {console.log(selectedPatientData._id)}
                 </NHButton>

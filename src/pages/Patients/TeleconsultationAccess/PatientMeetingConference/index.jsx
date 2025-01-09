@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useLocation } from "react-router-dom";
+import { useDecodeToken } from "@/hook";
 
 export const PatientMettingConference = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const sidebarRef = useRef(null);
   const location = useLocation();
-  const userData  = {name:"Mohit Dudhat 2"};
+  const {token} = useDecodeToken();
+  const userData  = token?.userData;
+  console.log(token)
   const getQueryParam = (param) => {
     return new URLSearchParams(location.search).get(param);
   };
@@ -40,7 +43,7 @@ export const PatientMettingConference = () => {
 
     const roomID = room;
     const userID = "1";
-    const userName = userData?.name;
+    const userName = userData?.fullName;
 
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
@@ -61,7 +64,7 @@ export const PatientMettingConference = () => {
             "//" +
             window.location.host +
             window.location.pathname +
-            "?roomID=" +
+            "?room=" +
             roomID,
         },
       ],
