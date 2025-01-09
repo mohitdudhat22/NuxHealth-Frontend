@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { Button, Popover, List, Empty } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import React, { useState, useEffect, useCallback } from "react";
+import { Button, Popover, List, Empty, Badge } from "antd";
+import { CloseOutlined, BellOutlined } from "@ant-design/icons";
 import NoNotificationFound from "../../assets/images/cover/no-notification-found.png";
 import socket from "@/services/socketService";
 import {
@@ -10,110 +10,53 @@ import {
 import { NHButton, NHCard } from "..";
 import { useDecodeToken } from "@/hook";
 
-const staticNotifications = [
-  {
-    id: 1,
-    title: "Change Invoice Theme",
-    description: "Lincoln Philips Change Invoice Theme.",
-    time: "5 min ago",
-    type: "message",
-    highlightText: "Invoice Theme",
-  },
-  {
-    id: 2,
-    title: "Dr.Bharat",
-    description: "Created Bill by dr.bharat.",
-    time: "5 min ago",
-    type: "message",
-    highlightText: "Bill",
-  },
-  {
-    id: 3,
-    title: "Payment Received.",
-    description: "24,668 is the payment done of Miracle Center.",
-    time: "1:52PM",
-    type: "success",
-    highlightText: "payment done",
-  },
-  {
-    id: 4,
-    title: "Payment Cancelled.",
-    description: "24,668 is the payment Cancelled of Miracle Center.",
-    time: "1:52PM",
-    type: "error",
-    highlightText: "payment Cancelled",
-  },
-  {
-    id: 5,
-    title: "Lincoln Philips",
-    description:
-      "Dr.Bharat Patel has been appointed to work with Successfully In Hospital.",
-    time: "1:34PM",
-    type: "user",
-    highlightText: "appointed to work with Successfully In Hospital",
-  },
-  {
-    id: 6,
-    title: "Lincoln Philips",
-    description: "Doctor Removed Rakesh Patel.",
-    time: "9:00AM",
-    type: "user",
-    highlightText: "Removed",
-  },
-];
-
-const getNotificationIcon = (type) => {
-  const icons = {
-    message: { bg: "#E5F1FF", color: "#3B82F6", symbol: "💬" },
-    success: { bg: "#E6FAF0", color: "#22C55E", symbol: "✓" },
-    error: { bg: "#FEE2E2", color: "#EF4444", symbol: "✕" },
-    user: { bg: "gray-200", color: "gray-600", symbol: "👤" },
-  };
-  const { bg, color, symbol } = icons[type] || {};
-  return bg ? (
-    <div
-      className={`w-8 h-8 rounded-full bg-[${bg}] flex items-center justify-center`}
-    >
-      <span className={`text-[${color}] text-lg`}>{symbol}</span>
-    </div>
-  ) : null;
-};
-
-const NotificationBox = ({ visible, onClose }) => {
+const NotificationBox = () => {
+  const [visible, setVisible] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   const { token } = useDecodeToken();
-  const userData = { id: token?.userData?.id };
+  const userData = { id: token?.userData?._id };
 
-  useEffect(() => {
-    const loadNotifications = async () => {
-      if (!userData?.id) return;
-      setLoading(true);
-      try {
-        const response = await GetUserNotifications(userData.id);
-        setNotifications(response.data);
-        setUnreadCount(response.data.filter((n) => !n.isRead).length);
-      } catch (error) {
-        console.error("Error loading notifications:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadNotifications();
+  const loadNotifications = useCallback(async () => {
+    if (!userData?.id) return;
+    setLoading(true);
+    try {
+      const response = await GetUserNotifications(userData.id);
+      setNotifications(response.notifications);
+      setUnreadCount(response.notifications.filter((n) => !n.isRead).length);
+    } catch (error) {
+      console.error("Error loading notifications:", error);
+    } finally {
+      setLoading(false);
+    }
   }, [userData?.id]);
 
   useEffect(() => {
+    loadNotifications();
+  }, [loadNotifications]);
+
+  useEffect(() => {
     if (!userData?.id) return;
-    socket.emit("userOnline", userData.id);
-    socket.on("notification", (notification) => {
-      setNotifications((prev) => [
-        { ...notification, isRead: false, timestamp: new Date() },
-        ...prev,
-      ]);
+    console.log(userData.id);
+
+    //aa even per socket regeter thashe socket.id -> userId
+    socket.emit("register-user", userData.id);
+
+    const handleNewNotification = (notification) => {
+      console.log("Received new notification:", notification);
+      alert("got new message");
+      setNotifications((prev) => [notification, ...prev]);
       setUnreadCount((prev) => prev + 1);
-    });
-    return () => socket.disconnect();
+    };
+
+    // new notification aa userId-> socket ne mokalshu 
+    socket.on("new-notification", handleNewNotification);
+
+    return () => {
+      socket.off("new-notification", handleNewNotification);
+      socket.disconnect();
+    };
   }, [userData?.id]);
 
   const handleNotificationClick = async (notification) => {
@@ -143,79 +86,82 @@ const NotificationBox = ({ visible, onClose }) => {
     return date.toLocaleDateString();
   };
 
+  const notificationContent = (
+    <NHCard
+      title="Notifications"
+      rootClass="p-0 w-96"
+      headerContent={
+        <NHButton
+          type="text"
+          icon={<CloseOutlined />}
+          onClick={() => setVisible(false)}
+          size="small"
+          className="text-gray-500"
+        />
+      }
+    >
+      {notifications?.length > 0 ? (
+        <List
+          loading={loading}
+          dataSource={notifications}
+          renderItem={(item) => (
+            <List.Item
+              className={`px-4 py-3 hover:bg-gray-50 cursor-pointer border-b ${
+                !item.isRead ? "bg-gray-100" : ""
+              }`}
+              onClick={() => handleNotificationClick(item)}
+            >
+              <div className="flex items-start gap-3 w-full">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center bg-blue-100">
+                  <span className="text-xl text-blue-600">🔔</span>
+                </div>
+                <div className="flex-1">
+                  <div className="flex justify-between items-start">
+                    <h3 className="text-base font-medium text-gray-900">
+                      {item.type === "Appointment" ? item.message : item.title}
+                    </h3>
+                    <span className="text-xs text-gray-500 ml-2">
+                      {formatTimestamp(item.timestamp)}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {item.message || item.description}
+                  </p>
+                </div>
+              </div>
+            </List.Item>
+          )}
+        />
+      ) : (
+        <Empty
+          image={NoNotificationFound}
+          imageStyle={{ height: 120 }}
+          description={
+            <span className="text-gray-600 font-medium text-lg">
+              No notifications yet!
+            </span>
+          }
+          className="py-8"
+        />
+      )}
+    </NHCard>
+  );
+
   return (
     <Popover
       open={visible}
-      onOpenChange={onClose}
-      overlayClassName="lg:!top-[62px] lg:!left-[1420px]"
+      onOpenChange={setVisible}
       trigger="click"
-      content={
-        <NHCard
-          title="Notifications"
-          rootClass="p-0"
-          headerContent={
-            <NHButton
-              type="text"
-              icon={<CloseOutlined />}
-              onClick={onClose}
-              size="small"
-              className="text-gray-500"
-            />
-          }
-        >
-          {notifications.length > 0 ? (
-            <List
-              dataSource={notifications}
-              renderItem={(item) => (
-                <List.Item
-                  className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b w-full"
-                  onClick={() => handleNotificationClick(item)}
-                >
-                  <div className="flex items-center gap-3 w-full">
-                    {getNotificationIcon(item.type)}
-                    <div className="flex-1">
-                      <div className="flex justify-between items-center">
-                        <h3 className="text-base font-medium text-[#030229]">
-                          {item.title}
-                        </h3>
-                        <span className="text-sm text-[#A7A7A7]">
-                          {formatTimestamp(item.timestamp)}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600 mt-1">
-                        {item.description
-                          .split(item.highlightText)
-                          .map((part, index, array) => (
-                            <>
-                              {part}
-                              {index < array.length - 1 && (
-                                <span className="text-blue-500 font-medium">
-                                  {item.highlightText}
-                                </span>
-                              )}
-                            </>
-                          ))}
-                      </p>
-                    </div>
-                  </div>
-                </List.Item>
-              )}
-            />
-          ) : (
-            <Empty
-              image={NoNotificationFound}
-              imageStyle={{ height: "100%" }}
-              description={
-                <span className="text-[#4F4F4F] font-medium text-lg">
-                  No notification yet!
-                </span>
-              }
-              className="p-4"
-            />
-          )}
-        </NHCard>
-      }
-    />
+      content={notificationContent}
+      placement="bottomRight"
+      overlayClassName="notification-popover"
+    >
+      <Badge count={unreadCount} size="small">
+        <Button className="relative" onClick={() => setVisible(!visible)}>
+          <BellOutlined style={{ fontSize: 20 }} />
+        </Button>
+      </Badge>
+    </Popover>
   );
 };
 
