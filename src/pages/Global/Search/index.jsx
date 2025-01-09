@@ -16,6 +16,10 @@ export const GlobalSearch = () => {
   const isPatient = location.pathname.startsWith("/patient");
   const isReception = location.pathname.startsWith("/reception");
 
+  console.log(doctorData, ":::::::doctorData");
+  console.log(patientData, ":::::::patientData");
+  console.log(receptionData, ":::::::receptionData");
+
   return (
     <div>
       {isDoctor && <DoctorData tableData={doctorData} loading={loading} />}
