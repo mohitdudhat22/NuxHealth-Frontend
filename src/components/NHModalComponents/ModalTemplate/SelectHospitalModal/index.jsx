@@ -1,15 +1,10 @@
 import { useAddHospital } from "@/hook";
 import clsx from "clsx";
 import { NHInput, NHModal, NHUpload } from "@/components/";
-import styles from "./SelectSocietyModal.module.css";
 
 export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
-  const {
-    handleSubmit,
-    handleChange,
-    formData,
-    uploadProps
-  } = useAddHospital(handleClose);
+  const { handleSubmit, handleChange, formData, uploadProps } =
+    useAddHospital(handleClose);
 
   return (
     <NHModal
@@ -24,9 +19,14 @@ export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
       disabledButton={false}
     >
       <form onSubmit={handleSubmit}>
-        <div className={clsx(styles.InputWrapper, "grid flex-col")}>
+        <div
+          className={clsx(
+            styles.InputWrapper,
+            "grid flex-col gap-xl grid-cols-2"
+          )}
+        >
           <NHInput
-            parentClassName={styles.colSpan}
+            parentClassName={(styles.colSpan, "col-span-2")}
             label="Hospital Name"
             placeholder="Enter Hospital Name"
             name="name"
@@ -35,7 +35,7 @@ export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
             required
           />
           <NHInput
-            parentClassName={styles.colSpan}
+            parentClassName={(styles.colSpan, "col-span-2")}
             label="Hospital Address"
             placeholder="Enter Address"
             name="address"
