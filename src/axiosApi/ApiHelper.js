@@ -211,3 +211,9 @@ export const getOldMessages = (doctorId, patientId) =>
   request("get", `/chat/messages?from=${doctorId}&to=${patientId}`);
 export const getbillForReception = () =>
   request("get", "/api/receptionist/getBillsMonitor");
+
+
+export const getPatientContact = request("get", "/api/patient/chatcontect");
+export const getDoctorContact = request("get", "/api/doctor/chatcontect");
+
+
