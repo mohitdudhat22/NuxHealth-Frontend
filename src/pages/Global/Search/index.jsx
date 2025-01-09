@@ -1,39 +1,33 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { ReceptionData } from "./ReceptionData";
-import { DoctorData } from "./DoctorData";
-import { PatientData } from "./PatientData";
 import { useGlobalSearch } from "@/hook/Global";
+import DoctorData from "./DoctorData";
+import PatientData from "./PatientData";
+import { NHCard } from "@/components";
+import { ReceptionData } from "./ReceptionData";
 
 export const GlobalSearch = () => {
-  const location = useLocation();
-  const [role, setRole] = useState("");
-
-  const { doctorData, patientData, receptionData, loading, error } =
-    useGlobalSearch(role);
-
-  const isDoctor = location.pathname.startsWith("/doctor");
-  const isPatient = location.pathname.startsWith("/patient");
-  const isReception = location.pathname.startsWith("/reception");
-
-  console.log(doctorData, ":::::::doctorData");
-  console.log(patientData, ":::::::patientData");
-  console.log(receptionData, ":::::::receptionData");
+  const { doctorData, patientData, receptionData, loading } = useGlobalSearch();
 
   return (
-    <div>
-      {isDoctor && <DoctorData tableData={doctorData} loading={loading} />}
-      {isPatient && <PatientData tableData={patientData} loading={loading} />}
-      {isReception && (
-        <ReceptionData tableData={receptionData} loading={loading} />
-      )}
-      {!isDoctor && !isPatient && !isReception && (
-        <>
-          <DoctorData tableData={DoctorData} loading={loading} />
-          <PatientData tableDat={PatientData} loading={loading} />
-          <ReceptionData tableDat={ReceptionData} loading={loading} />
-        </>
-      )}
-    </div>
+    <>
+      <div className="flex flex-col gap-xl">
+        {doctorData?.length > 0 && (
+          <NHCard title="Doctors" className="w-full">
+            <DoctorData tableData={doctorData} loading={loading} />
+          </NHCard>
+        )}
+        {patientData?.length > 0 && (
+          <NHCard title="Patients" className="w-full">
+            <PatientData tableData={patientData} loading={loading} />
+          </NHCard>
+        )}
+        {receptionData?.length > 0 && (
+          <NHCard title="Reception" className="w-full">
+            <ReceptionData tableData={receptionData} loading={loading} />
+          </NHCard>
+        )}
+      </div>
+      {/*
+       )} */}
+    </>
   );
 };

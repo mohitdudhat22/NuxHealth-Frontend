@@ -81,8 +81,12 @@ export const ProfileSetting = () => {
   return (
     <>
       <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative h-[35%] min-h-[40vh]">
-        <div className={styles.profileCard}>
-          <div className={styles.profile}>
+        <div
+          className={
+            (styles.profileCard, "w-full h-full absolute top-1/4 left-[17.5%]")
+          }
+        >
+          <div className={(styles.profile, "w-[990px] flex flex-col")}>
             <form action="" onSubmit={handleSubmitData}>
               <h3 className="mb-10 text-5xl text-white">Profile Setting</h3>
 
@@ -91,7 +95,14 @@ export const ProfileSetting = () => {
                   <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
                     <div className="flex flex-col items-center px-4 py-8">
                       <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB]">
-                        <img src={token?.userdetail?.profilePicture || "https://i.pravatar.cc/300"} alt={"Profile picture"} className='w-[150px] rounded-full' />
+                        <img
+                          src={
+                            token?.userdetail?.profilePicture ||
+                            "https://i.pravatar.cc/300"
+                          }
+                          alt={"Profile picture"}
+                          className="w-[150px] rounded-full"
+                        />
                       </div>
                       <h2 className="text-xl font-semibold">
                         {userdetail.firstName || "Lincoln"}{" "}
@@ -105,10 +116,11 @@ export const ProfileSetting = () => {
                           <li>
                             <button
                               onClick={() => handleTabChange("profile")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "profile"
-                                ? "bg-white text-blue-600 shadow-sm font-medium"
-                                : "text-gray-600 hover:bg-gray-50"
-                                }`}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "profile"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
                             >
                               Profile
                             </button>
@@ -116,10 +128,11 @@ export const ProfileSetting = () => {
                           <li>
                             <button
                               onClick={() => handleTabChange("changePassword")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "changePassword"
-                                ? "bg-white text-blue-600 shadow-sm font-medium"
-                                : "text-gray-600 hover:bg-gray-50"
-                                }`}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "changePassword"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
                             >
                               Change Password
                             </button>
@@ -127,10 +140,11 @@ export const ProfileSetting = () => {
                           <li>
                             <button
                               onClick={() => handleTabChange("terms")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "terms"
-                                ? "bg-white text-blue-600 shadow-sm font-medium"
-                                : "text-gray-600 hover:bg-gray-50"
-                                }`}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "terms"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
                             >
                               Terms & Condition
                             </button>
@@ -138,10 +152,11 @@ export const ProfileSetting = () => {
                           <li>
                             <button
                               onClick={() => handleTabChange("privacy")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "privacy"
-                                ? "bg-white text-blue-600 shadow-sm font-medium"
-                                : "text-gray-600 hover:bg-gray-50"
-                                }`}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "privacy"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
                             >
                               Privacy Policy
                             </button>
@@ -288,9 +303,9 @@ const Terms = () => (
     <h3 className="fw-semibold lh-base text-[26px] pl-5">Terms & Conditions</h3>
     <div className="prose max-w-none bg-white p-6 rounded-lg overflow-y-auto h-[calc(100vh-400px)] gap-4 grid">
       <p className="text-base">
-        The terms and conditions outline the rules and regulations for using
-        the website and the services provided. By accessing this website, we
-        assume you accept these terms and conditions.
+        The terms and conditions outline the rules and regulations for using the
+        website and the services provided. By accessing this website, we assume
+        you accept these terms and conditions.
       </p>
     </div>
   </div>
@@ -310,7 +325,15 @@ const Privacy = () => (
 );
 
 const ChangePassword = () => {
-  const { currentPassword, newPassword, confirmPassword, loading, handleInputChange, handleSubmit, isFormValid } = useChangePassword();
+  const {
+    currentPassword,
+    newPassword,
+    confirmPassword,
+    loading,
+    handleInputChange,
+    handleSubmit,
+    isFormValid,
+  } = useChangePassword();
 
   return (
     <NHCard

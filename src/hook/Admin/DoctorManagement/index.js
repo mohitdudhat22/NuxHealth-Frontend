@@ -34,7 +34,7 @@ export const useDoctorManagement = () => {
     "fullName",
     "gender",
     "metaData.doctorData.speciality",
-    "metaData.doctorData.qualification"
+    "metaData.doctorData.qualification",
   ]);
 
   const data = filteredDoctors?.map((doctor) => ({
@@ -48,6 +48,8 @@ export const useDoctorManagement = () => {
     morningSession: doctor?.metaData?.doctorData?.morningSession,
     eveningSession: doctor?.metaData?.doctorData?.eveningSession,
   }));
+
+  console.log(data);
 
   const openDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);

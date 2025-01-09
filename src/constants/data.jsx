@@ -225,13 +225,20 @@ export const headerOption = [
     disabled: false,
   },
   {
-    key: "reception",
-    value: "Reception",
+    key: "receptionist",
+    value: "Receptionist",
     disabled: false,
   },
   {
     key: "patient",
     value: "Patient",
     disabled: false,
+  },
+];
+
+export const headerDropdownItems = [
+  {
+    key: "1",
+    label: <>Profile</>,
   },
 ];
