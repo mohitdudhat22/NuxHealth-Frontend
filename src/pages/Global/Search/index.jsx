@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { ReceptionData } from "./ReceptionData";
 import { DoctorData } from "./DoctorData";
 import { PatientData } from "./PatientData";
-import { useGlobalSearch } from "@/hook";
+import { useGlobalSearch } from "@/hook/Global";
 
 export const GlobalSearch = () => {
   const location = useLocation();

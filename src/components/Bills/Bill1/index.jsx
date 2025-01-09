@@ -1,6 +1,6 @@
 import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
-import { useGetSingleBill } from "@/hook";
+import { useGetSingleBill } from "@/hook/Global";
 
 export function Bill1() {
   const { data } = useGetSingleBill();
@@ -27,14 +27,14 @@ export function Bill1() {
 
   return (
     <NHCard>
-      <div className="head flex justify-between pb-5">
+      <div className="flex justify-between pb-5 head">
         <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />
-        <div className="text-3xl text-blue-400 font-light">Invoice</div>
+        <div className="text-3xl font-light text-blue-400">Invoice</div>
       </div>
 
-      <div className="wrapper px-5">
-        <div className="billing-info flex justify-between mb-5 p-4">
-          <div className="info w-3/5">
+      <div className="px-5 wrapper">
+        <div className="flex justify-between p-4 mb-5 billing-info">
+          <div className="w-3/5 info">
             <h3 className="text-lg font-bold text-gray-900">
               {staticData.doctorName}
             </h3>
@@ -49,7 +49,7 @@ export function Bill1() {
           </div>
         </div>
 
-        <div className="invoice__patient bg-gray-100 p-4 rounded-lg flex justify-between">
+        <div className="flex justify-between p-4 bg-gray-100 rounded-lg invoice__patient">
           <div>
             <h3 className="text-base font-bold text-[#141414]">
               Billing To:
@@ -57,19 +57,19 @@ export function Bill1() {
             <h3 className="text-base font-bold text-[#141414]">
               {staticData.patient.firstName} {staticData.patient.lastName}
             </h3>
-            <span className="text-xs text-gray-500 block mt-2">
+            <span className="block mt-2 text-xs text-gray-500">
               {staticData.patient.address}
             </span>
-            <span className="text-xs text-gray-500 block">
+            <span className="block text-xs text-gray-500">
               {staticData.patient.phone}
             </span>
           </div>
         </div>
 
-        <table className="invoice__table w-full my-3 border-collapse">
+        <table className="w-full my-3 border-collapse invoice__table">
           <thead>
             <tr className="bg-[#0eabeb] text-white text-xs">
-              <th className="p-2 rounded-l-lg text-left">Item</th>
+              <th className="p-2 text-left rounded-l-lg">Item</th>
               <th className="p-2 text-left">Price</th>
               <th className="p-2 text-left">Qty</th>
               <th className="p-2 text-left rounded-r-lg">Total</th>
@@ -163,7 +163,7 @@ export function Bill1() {
           </tbody>
         </table>
 
-        <div className="invoice__total text-right font-bold text-lg">
+        <div className="text-lg font-bold text-right invoice__total">
           <table className="w-full max-w-xs ml-auto">
             <tbody>
               <tr>

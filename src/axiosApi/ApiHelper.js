@@ -170,16 +170,12 @@ export const previousAppointments = () =>
 export const cancelAppointments = () =>
   request("get", "/api/doctor/getAppointment?filter=cancel");
 
-export const getAllUnpaidBills = (id) =>
-  request("get", `/api/admin/getbillbystatus?status=Unpaid`);
-export const scheduledAppointmentsForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=today");
-export const penddingAppointmentsForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=upcoming");
-export const previousAppointmentsForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=previous");
-export const cancelAppointmentsForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=cancel");
+export const getAllUnpaidBills = (id) => request("get", `/api/admin/getbillbystatus?status=Unpaid`);
+// export const scheduledAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=today");
+export const scheduledAppointmentsForPatient = () => request("get", "/api/patient/getAppointment");
+export const penddingAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=upcoming");
+export const previousAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=previous");
+export const cancelAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=cancel");
 export const todayManagePriscription = () =>
   request("get", "/api/doctor/getPrescription?dateFilter=today");
 export const olderManagePriscription = () =>
