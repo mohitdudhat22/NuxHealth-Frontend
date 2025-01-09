@@ -1,8 +1,0 @@
-.InputWrapper {
-  gap: var(--space-xl);
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.colSpan {
-  grid-column: span 2;
-}
