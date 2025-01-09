@@ -126,8 +126,8 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
           </p>
         </div>
       </div>
-
-      {/* Chat Messages */}
+  
+      {/* Chat Messages - Scrollable */}
       <div
         ref={chatContainerRef}
         className="p-4 my-xl ml-md overflow-auto flex-1"
@@ -143,9 +143,9 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
               <div>
                 {groupedMessages[date].map((message) => {
                   if (!message) return null;
-
+  
                   const isCurrentUser = message.sender === userId;
-
+  
                   return (
                     <div
                       key={message.id}
@@ -168,9 +168,7 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
                             : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
                         } p-3`}
                       >
-                        {message.type === "text" && (
-                          <p>{message.content}</p>
-                        )}
+                        {message.type === "text" && <p>{message.content}</p>}
                         {message.type === "image" && (
                           <img
                             src={message.content}
@@ -207,11 +205,11 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
           ))}
         </div>
       </div>
-
+  
       {/* Input Area */}
       <form
         onSubmit={handleSendMessage}
-        className="ml-md flex items-center gap-md p-4 border-t sticky bottom-0 bg-white"
+        className="ml-md flex items-center gap-md p-4 border-t sticky bottom-0 bg-white z-10"
       >
         <button
           type="button"
@@ -249,7 +247,7 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
         />
         <NHButton icon={Icons.Send} variant="primary" type="submit" />
       </form>
-
+  
       {/* PDF Viewer Modal */}
       {selectedPdf && (
         <PDFViewerModal
@@ -259,7 +257,7 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
           fileName={selectedPdf.name}
         />
       )}
-
+  
       {/* Image Preview Modal */}
       <Modal
         visible={!!selectedImage}
@@ -274,4 +272,5 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
       </Modal>
     </div>
   );
+  
 };
