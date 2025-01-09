@@ -7,49 +7,66 @@ import socket, {
   sendMessage as sendSocketMessage,
   receiveMessage,
 } from "../../services/socketService";
-import { getOldMessages } from "@/axiosApi/ApiHelper";
+import { getOldMessages, getPatientContact } from "@/axiosApi/ApiHelper";
 
 export const ChatLayoutForPatient = () => {
   const userId = "677047f308067157dc712f80"; // Patient's user ID
-  const doctorId = "6770443dceabc6c708235256"
-  const initialUsers = [
+  const doctorId = "6770443dceabc6c708235256"; // Doctor's user ID
+  const [users, setUsers] = useState([
     {
-      _id: "6770443dceabc6c708235256",
-      name: "Dr. Jane Smith",
+      _id: doctorId,
+      name: "Dr. John Doe",
       avatar: "/placeholder.svg?height=48&width=48",
       status: "online",
       lastMessage: "How are you feeling today?",
       lastMessageTime: "10:30 AM",
       unreadCount: 0,
     },
+  ]);
+  
+  const [chats, setChats] = useState([
     {
-      _id: "677047f308067157dc712f80",
-      name: "Dr. John Doe",
-      avatar: "/placeholder.svg?height=48&width=48",
-      status: "offline",
-      lastMessage: "Your test results are ready.",
-      lastMessageTime: "Yesterday",
-      unreadCount: 1,
-    },
-  ];
-
-  const [users, setUsers] = useState(initialUsers);
-  const [chats, setChats] = useState(
-    initialUsers.map((user) => ({
-      _id: user._id,
-      participants: [{ _id: user._id, name: user.name, avatar: user.avatar }],
+      _id: doctorId,
+      participants: [{ _id: doctorId, name: "Dr. John Doe", avatar: "/placeholder.svg?height=48&width=48" }],
       messages: [],
-    }))
-  );
-  const [selectedUserId, setSelectedUserId] = useState(initialUsers[0]._id);
+    },
+  ]);
+  
+  const [selectedUserId, setSelectedUserId] = useState(doctorId);
   const [currentChat, setCurrentChat] = useState(null);
+  useEffect(() => {
+    const fetchContact = async () => {
+      try {
+        const response = await getPatientContact();
+        const contacts = response.data.map(contact => ({
+          _id: contact._id,
+          name: contact.fullName,
+          avatar: contact.profilePicture,
+          status: "offline", // You can update this based on your logic
+          lastMessage: "",
+          lastMessageTime: "",
+          unreadCount: 0,
+        }));
+        setUsers(contacts);
+        setSelectedUserId(contacts[0]?._id || null); // Select the first user by default
+        setChats(contacts.map(contact => ({
+          _id: contact._id,
+          participants: [{ _id: contact._id, name: contact.fullName, avatar: contact.profilePicture }],
+          messages: [],
+        })));
+      } catch (error) {
+        console.error("Failed to fetch contact:", error);
+      }
+    };
 
+    fetchContact();
+  }, []);
   useEffect(() => {
     registerUser(userId);
     joinChat("room1");
 
     receiveMessage((data) => {
-      const { from, message, timestamp } = data;
+      const { from, message, timestamp, type } = data;
 
       // Update chats with the new message
       setChats((prevChats) =>
@@ -64,7 +81,7 @@ export const ChatLayoutForPatient = () => {
                     content: message,
                     sender: "doctor",
                     timestamp,
-                    type: "text",
+                    type,
                   },
                 ],
               }
@@ -98,16 +115,15 @@ export const ChatLayoutForPatient = () => {
       const fetchMessages = async () => {
         try {
           const response = await getOldMessages(userId, selectedUserId);
-          console.log(response.data)
           const oldMessages = response.data?.map((msg) => ({
             id: msg._id,
             content: msg.message,
             sender: msg.from,
-      receiver: msg.to,
+            receiver: msg.to,
             timestamp: msg.timestamp,
-            type: "text",
+            type: msg.type,
           }));
-          console.log(oldMessages,"<<<<<<<<<<<<<<oldmessage")
+
           setChats((prevChats) =>
             prevChats.map((chat) =>
               chat.participants.some((p) => p._id === selectedUserId)
