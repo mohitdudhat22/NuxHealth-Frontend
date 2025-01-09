@@ -3,17 +3,17 @@ import { SearchHeader } from "@/axiosApi/ApiHelper";
 import { useLocation } from "react-router-dom";
 import { useSearch } from "@/context";
 
-export const useGlobalSearch = (role) => {
+export const useGlobalSearch = () => {
   const location = useLocation();
-  const { searchValue } = useSearch();
+  const { searchValue, role } = useSearch();
 
   const [doctorData, setDoctorData] = useState([]);
-  const [patientData, setPatientData] = useState();
-  const [receptionData, setReceptionData] = useState();
-  const [fullDoctorData, setFullDoctorData] = useState();
+  const [patientData, setPatientData] = useState([]);
+  const [receptionData, setReceptionData] = useState([]);
+  const [fullDoctorData, setFullDoctorData] = useState([]);
   const [fullPatientData, setFullPatientData] = useState([]);
+  const [fullReceptionData, setFullReceptionData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const effectiveRole = location.pathname.startsWith("/patient")
     ? "doctor"
@@ -22,7 +22,6 @@ export const useGlobalSearch = (role) => {
   const fetchData = async () => {
     if (searchValue.length > 0) {
       setLoading(true);
-      setError(null);
       try {
         const response = await SearchHeader(searchValue, effectiveRole);
         const data = response.data;
@@ -57,9 +56,22 @@ export const useGlobalSearch = (role) => {
             gender: patient.gender,
           }))
         );
-        setReceptionData(receptionData);
+        setReceptionData(
+          receptionData?.map((receptionist) => ({
+            key: receptionist._id,
+            avatar: receptionist.profilePicture,
+            receptionistName: receptionist.fullName,
+            email: receptionist.email,
+            phone: receptionist.phone,
+            gender: receptionist.gender,
+            qualification:
+              receptionist.metaData?.receptionistData?.qualification,
+            age: receptionist.age,
+          }))
+        );
         setFullDoctorData(doctorData);
         setFullPatientData(patientData);
+        setFullReceptionData(receptionData);
       } finally {
         setLoading(false);
       }
@@ -68,7 +80,7 @@ export const useGlobalSearch = (role) => {
 
   useEffect(() => {
     fetchData();
-  }, [searchValue]);
+  }, [searchValue, role]);
 
   return {
     doctorData,
@@ -76,7 +88,7 @@ export const useGlobalSearch = (role) => {
     receptionData,
     fullDoctorData,
     fullPatientData,
+    fullReceptionData,
     loading,
-    error,
   };
 };

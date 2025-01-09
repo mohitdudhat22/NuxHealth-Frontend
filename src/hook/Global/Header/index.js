@@ -8,7 +8,7 @@ export const useHeader = () => {
   const location = useLocation();
   const { token } = useDecodeToken();
 
-  const { searchValue, setSearchValue } = useSearch();
+  const { searchValue, setSearchValue, role, setRole } = useSearch();
   const [notificationVisible, setNotificationVisible] = useState(false);
   const [options, setOptions] = useState(headerOption);
 
@@ -57,12 +57,18 @@ export const useHeader = () => {
     setSearchValue(e.target.value);
   };
 
+  const handleRoleChange = (value) => {
+    const role = value.toLowerCase();
+    setRole(role);
+  };
+
   return {
     notificationVisible,
     setNotificationVisible,
     defaultOption,
     options,
     handleSearch,
+    handleRoleChange,
     BreadCrumb,
     firstName,
     isDoctor,

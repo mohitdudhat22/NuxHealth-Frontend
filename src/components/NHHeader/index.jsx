@@ -23,12 +23,13 @@ export const NHHeader = () => {
     defaultOption,
     options,
     handleSearch,
+    handleRoleChange,
     BreadCrumb,
     firstName,
     isDoctor,
     searchValue,
     isPatient,
-  } = useHeader();
+  } = useHeader(); 
 
   const navigate = useNavigate();
   const { token } = useDecodeToken();
@@ -65,6 +66,7 @@ export const NHHeader = () => {
               defaultValue={defaultOption}
               options={options}
               disabled={isPatient && true}
+              onChange={handleRoleChange}
               style={{
                 width: "auto",
               }}
