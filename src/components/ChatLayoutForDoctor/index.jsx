@@ -11,17 +11,34 @@ import { getDoctorContact, getOldMessages } from "@/axiosApi/ApiHelper";
 import { useDecodeToken } from "@/hook";
 
 export const ChatLayoutForDoctor = () => {
-  const {token} = useDecodeToken();
+  const { token } = useDecodeToken();
   const userId = "6770443dceabc6c708235256"; 
-  const patientId = "677047f308067157dc712f80";
   const [contact, setContact] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [currentChat, setCurrentChat] = useState(null);
 
   useEffect(() => {
     const fetchContact = async () => {
       try {
         const response = await getDoctorContact();
-        console.log(response.data)
-        setContact(response.data);
+        const contacts = response.data.map(contact => ({
+          _id: contact._id,
+          name: contact.fullName,
+          avatar: contact.profilePicture,
+          status: "offline", // You can update this based on your logic
+          lastMessage: "",
+          lastMessageTime: "",
+          unreadCount: 0,
+        }));
+        setUsers(contacts);
+        setSelectedUserId(contacts[0]?._id || null); // Select the first user by default
+        setChats(contacts.map(contact => ({
+          _id: contact._id,
+          participants: [{ _id: contact._id, name: contact.fullName, avatar: contact.profilePicture }],
+          messages: [],
+        })));
       } catch (error) {
         console.error("Failed to fetch contact:", error);
       }
@@ -29,37 +46,6 @@ export const ChatLayoutForDoctor = () => {
 
     fetchContact();
   }, []);
-  const initialUsers = [
-    {
-      _id: patientId,
-      name: "Dr. John Doe",
-      avatar: "/placeholder.svg?height=48&width=48",
-      status: "online",
-      lastMessage: "How are you feeling today?",
-      lastMessageTime: "10:30 AM",
-      unreadCount: 0,
-    },
-    {
-      _id: userId,
-      name: "Dr. Jane Smith",
-      avatar: "/placeholder.svg?height=48&width=48",
-      status: "offline",
-      lastMessage: "Your test results are ready.",
-      lastMessageTime: "Yesterday",
-      unreadCount: 1,
-    },
-  ];
-
-  const [users, setUsers] = useState(initialUsers);
-  const [chats, setChats] = useState(
-    initialUsers.map((user) => ({
-      _id: user._id,
-      participants: [{ _id: user._id, name: user.name, avatar: user.avatar }],
-      messages: [],
-    }))
-  );
-  const [selectedUserId, setSelectedUserId] = useState(patientId);
-  const [currentChat, setCurrentChat] = useState(null);
 
   useEffect(() => {
     registerUser(userId);
