@@ -235,3 +235,10 @@ export const headerOption = [
     disabled: false,
   },
 ];
+
+export const headerDropdownItems = [
+  {
+    key: "1",
+    label: <>Profile</>,
+  },
+];
