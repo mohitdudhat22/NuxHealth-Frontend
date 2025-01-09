@@ -52,7 +52,7 @@ export const BillingCard = ({ data }) => {
       headerContent={<NHButton>Create Bill</NHButton>}
     >
       <div className="mb-4">
-        <p className="text-xl text-gray-500">
+        <p className="text-xl text-[#030229] font-semibold">
           Pending Bills: <span className="text-red-500">50</span>
         </p>
       </div>
