@@ -93,10 +93,19 @@ export const CancelAppointment = () => {
       <NHCard
         title="Cancel Appointments"
         headerContent={
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" onChange={(e) => onSearch(e.target.value)} />
+          <NHInput
+            prefix={Icons.SearchIcon}
+            placeholder="Search Patient"
+            onChange={(e) => onSearch(e.target.value)}
+          />
         }
       >
-        <NHTable loading={loading} showPagination={true} tableColumn={columns} tableDataSource={data} />
+        <NHTable
+          loading={loading}
+          showPagination={true}
+          tableColumn={columns}
+          tableDataSource={data}
+        />
       </NHCard>
 
       {selectedPatient && (
