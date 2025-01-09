@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
+import "./TodayAppo.css"
 import { useTodaysAppointment } from "@/hook/Admin/PatientManagement/TodaysAppointment";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
@@ -13,31 +14,42 @@ const columns = (handleViewPatient) => [
     render: (text, record) => (
       <div className="flex items-center gap-2">
         <img src={record.avatar} alt={text} className="w-8 h-8 rounded-full" />
-        <span>{text}</span>
+        <span>{text || "N/A"}</span>
       </div>
     ),
   },
   {
-    title: "Disease Name",
-    dataIndex: "diseaseName",
-    key: "diseaseName",
+    title: "Patient Issue",
+    dataIndex: "patientIssue",
+    key: "patientIssue",
+    render: (text) => <span>{text || "N/A"}</span>,
   },
   {
     title: "Doctor Name",
     dataIndex: "doctorName",
     key: "doctorName",
+    render: (text) => <span>{text || "N/A"}</span>,
+  },
+  {
+    title: "Disease Name",
+    dataIndex: "diseaseName",
+    key: "diseaseName",
+    render: (text) => <span>{text || "N/A"}</span>,
   },
   {
     title: "Appointment Time",
     dataIndex: "appointmentTime",
     key: "appointmentTime",
+    render: (appointmentTime) => (
+      <Tag color={appointmentTime === "#F6F8FB"}>{appointmentTime || "N/A"}</Tag>
+    ),
   },
   {
     title: "Appointment Type",
     dataIndex: "appointmentType",
     key: "appointmentType",
     render: (type) => (
-      <Tag color={type === "online" ? "blue" : "orange"}>{type}</Tag>
+      <Tag color={type === "online" ? "blue" : "orange"}>{type || "N/A"}</Tag>
     ),
   },
   {
@@ -77,6 +89,7 @@ export const TodayAppointment = () => {
 
   return (
     <>
+    <div className="today_appo">
       <NHCard
         title="Today's Appointments"
         headerContent={
@@ -100,6 +113,7 @@ export const TodayAppointment = () => {
           patientData={selectedPatient}
         />
       )}
+      </div>
     </>
   );
 };

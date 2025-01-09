@@ -1,0 +1,32 @@
+.payment_process_sec .ant-tag {
+    border-radius: 30px;
+    padding: 6px 20px;
+    line-height: normal;
+    font-size: 16px;
+}
+
+.payment_process_sec .ant-tag-has-color {
+    color: #718EBF;
+    padding: 10px 20px;
+}
+
+.payment_process_sec .ant-btn-icon {
+    display: flex;
+    align-items: center;
+}
+.payment_process_sec .ant-btn-sm {
+    background-color: #F6F8FB;
+    border: none;
+}
+
+.payment_process_sec .ant-btn-sm:hover {
+    background-color: #F6F8FB !important;
+}
+
+.payment_process_sec .view-btn .ant-btn-icon svg {
+    color : #0EABEB;
+}
+
+.payment_process_sec .lock-btn .ant-btn-icon svg {
+    color : #818194;
+}
