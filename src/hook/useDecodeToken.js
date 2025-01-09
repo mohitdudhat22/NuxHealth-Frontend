@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
 
-// Utility function to get a token from cookies
 const getCookie = (name) => {
   const cookieMatch = document.cookie.match("(?:^|; )" + name + "=([^;]*)");
   return cookieMatch ? decodeURIComponent(cookieMatch[1]) : "";

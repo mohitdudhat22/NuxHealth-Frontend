@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { NHCard, NHSelect } from '@/components';
+import { AppointmentScheduler, NHCard, NHModal, NHSelect } from '@/components';
+// import { IoClose } from "react-icons/io5";
 
 const useAppointmentFilters = () => {
   const [filters, setFilters] = useState({});
@@ -108,7 +109,7 @@ export const AppointmentSchedularPage = () => {
     <>
       <NHCard className="p-6">
         {/* Filters Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <NHSelect
             label="Country"
             name="country"
@@ -167,22 +168,21 @@ export const AppointmentSchedularPage = () => {
       {/* Time Slots */}
       <div className="mt-10">
         <NHCard>
-          <h3 className="font-semibold mb-3 text-3xl pb-7">
+          <h3 className="mb-3 text-3xl font-semibold pb-7">
             Available Time Slots
           </h3>
           <div>
             {/* Morning Session */}
-            <h4 className="font-medium text-2xl mb-2">Morning Session</h4>
+            <h4 className="mb-2 text-2xl font-medium">Morning Session</h4>
             <div className="grid grid-cols-5 gap-2">
               {["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM"].map(
                 (time) => (
                   <button
                     key={time}
-                    className={`p-2 border border-[#A7A7A7] rounded-lg py-3 hover:bg-[#0EABEB] outline-none ${
-                      selectedTime === time
-                        ? "bg-[#0EABEB] text-white hover:bg-[rgb(14,171,340)]"
-                        : ""
-                    }`}
+                    className={`p-2 border border-[#A7A7A7] rounded-lg py-3 hover:bg-[#0EABEB] outline-none ${selectedTime === time
+                      ? "bg-[#0EABEB] text-white hover:bg-[rgb(14,171,340)]"
+                      : ""
+                      }`}
                     onClick={() => handleTimeSelect(time)}
                   >
                     {time}
@@ -192,17 +192,16 @@ export const AppointmentSchedularPage = () => {
             </div>
 
             {/* Evening Session */}
-            <h4 className="font-medium mt-4 mb-2">Evening Session</h4>
+            <h4 className="mt-4 mb-2 font-medium">Evening Session</h4>
             <div className="grid grid-cols-5 gap-2">
               {["5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM"].map(
                 (time) => (
                   <button
                     key={time}
-                    className={`p-2 border border-[#A7A7A7] rounded-lg py-3 hover:bg-[#0EABEB] outline-none ${
-                      selectedTime === time
-                        ? "bg-[#0EABEB] text-white hover:bg-[rgb(14,171,340)]"
-                        : ""
-                    }`}
+                    className={`p-2 border border-[#A7A7A7] rounded-lg py-3 hover:bg-[#0EABEB] outline-none ${selectedTime === time
+                      ? "bg-[#0EABEB] text-white hover:bg-[rgb(14,171,340)]"
+                      : ""
+                      }`}
                     onClick={() => handleTimeSelect(time)}
                   >
                     {time}
@@ -222,8 +221,8 @@ export const AppointmentSchedularPage = () => {
 
       {/* Appointment Scheduler */}
       <div className="mt-7">
-        <NHCard className="p-6 mt-4 w-full sm:w-3/4 md:w-2/3 lg:w-full xl:w-full mx-auto h-auto">
-          <AppointmentSchedular />
+        <NHCard className="w-full h-auto p-6 mx-auto mt-4 sm:w-3/4 md:w-2/3 lg:w-full xl:w-full">
+          <AppointmentScheduler />
         </NHCard>
 
         {/* Modal */}
@@ -235,51 +234,51 @@ export const AppointmentSchedularPage = () => {
                 onClick={handleCloseModal}
                 className="text-gray-500 hover:text-gray-700 focus:outline-none"
               >
-                <IoClose size={24} />
+                {/* <IoClose size={24} /> */}
               </button>
             </div>
           }
           open={isAppointmentModal}
-          >
+        >
           <div className="space-y-4">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Appointment Type</p></div>
               <div><p className="text-gray-600">Online</p></div>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Patient Name</p></div>
               <div><p className="text-gray-600">John Doe</p></div>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Appointment Date</p></div>
               <div><p className="text-gray-600">19 June, 2022</p></div>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Appointment Time</p></div>
               <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
             </div>
 
             <div className="pt-6">
-              <p className="font-medium text-xl text-gray-700">Patient Issue</p>
+              <p className="text-xl font-medium text-gray-700">Patient Issue</p>
               <input
                 type="text"
                 placeholder="Enter Patient Issue"
-                className="mt-2 w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"/>
+                className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" />
             </div>
 
             <div className="mt-4">
-              <p className="font-medium text-xl text-gray-700">Disease Name (Optional)</p>
+              <p className="text-xl font-medium text-gray-700">Disease Name (Optional)</p>
               <input
                 type="text"
                 placeholder="Enter Disease Name"
-                className="mt-2 w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"/>
+                className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" />
             </div>
 
-            <div className="mt-6 flex justify-end space-x-4">
-              <button className="px-4 py-2 bg-gray-300 text-black rounded-lg hover:bg-gray-400 focus:outline-none"   onClick={handleCloseModal}>
+            <div className="flex justify-end mt-6 space-x-4">
+              <button className="px-4 py-2 text-black bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none" onClick={handleCloseModal}>
                 Cancel
               </button>
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">
+              <button className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none">
                 Book Appointment
               </button>
             </div>

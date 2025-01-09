@@ -1,6 +1,6 @@
 import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
-import { useGetSingleBill } from "@/hook";
+import { useGetSingleBill } from "@/hook/Global";
 
 export function Bill3() {
   const { data: billData } = useGetSingleBill();
@@ -11,14 +11,14 @@ export function Bill3() {
 
   return (
     <NHCard>
-      <div className="head flex justify-between pb-5">
+      <div className="flex justify-between pb-5 head">
         <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />
-        <div className="text-3xl text-blue-400 font-light">Invoice</div>
+        <div className="text-3xl font-light text-blue-400">Invoice</div>
       </div>
 
-      <div className="wrapper px-5">
-        <div className="billing-info flex justify-between mb-5 p-4">
-          <div className="info w-3/5">
+      <div className="px-5 wrapper">
+        <div className="flex justify-between p-4 mb-5 billing-info">
+          <div className="w-3/5 info">
             <h3 className="text-lg font-bold text-gray-900">
               {billData.doctorId?.fullName || "Dr. Bharat Patel"}
             </h3>
@@ -40,7 +40,7 @@ export function Bill3() {
           </div>
         </div>
 
-        <div className="invoice__patient bg-gray-100 p-4 rounded-lg flex justify-between">
+        <div className="flex justify-between p-4 bg-gray-100 rounded-lg invoice__patient">
           <div className="space-y-1">
             <p className="text-sm font-semibold text-[#141414]">
               Name:{" "}
@@ -89,7 +89,7 @@ export function Bill3() {
           </div>
         </div>
 
-        <table className="invoice__table w-full my-3 border-collapse">
+        <table className="w-full my-3 border-collapse invoice__table">
           <thead>
             <tr className="bg-[#0eabeb] text-white text-xs">
               <th className="p-2 rounded-tl-lg">Description</th>
@@ -118,7 +118,7 @@ export function Bill3() {
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="p-2 text-center text-sm text-gray-500">
+                <td colSpan="4" className="p-2 text-sm text-center text-gray-500">
                   No items found
                 </td>
               </tr>
@@ -126,32 +126,32 @@ export function Bill3() {
           </tbody>
         </table>
 
-        <div className="invoice__total text-right font-bold text-lg">
+        <div className="text-lg font-bold text-right invoice__total">
           <table className="w-full max-w-xs ml-auto">
             <tbody>
               <tr>
-                <td className="label text-sm font-semibold">Amount:</td>
-                <td className="value text-right text-sm font-semibold">
+                <td className="text-sm font-semibold label">Amount:</td>
+                <td className="text-sm font-semibold text-right value">
                   ₹{billData.amount?.toFixed(2)}
                 </td>
               </tr>
               <tr>
-                <td className="label text-sm font-semibold">
+                <td className="text-sm font-semibold label">
                   Discount {billData?.discount}%:
                 </td>
-                <td className="value text-right text-sm font-semibold">
+                <td className="text-sm font-semibold text-right value">
                   ₹{(billData.amount * billData.discount / 100)?.toFixed(2)}
                 </td>
               </tr>
               <tr>
-                <td className="label text-sm font-semibold">Tax:</td>
-                <td className="value text-right text-sm font-semibold">
+                <td className="text-sm font-semibold label">Tax:</td>
+                <td className="text-sm font-semibold text-right value">
                   ₹{billData?.tax?.toFixed(2)}
                 </td>
               </tr>
               <tr className="text-blue-500">
-                <td className="label text-sm font-semibold">Total:</td>
-                <td className="value text-right text-sm font-semibold">
+                <td className="text-sm font-semibold label">Total:</td>
+                <td className="text-sm font-semibold text-right value">
                   ₹{billData?.totalAmount?.toFixed(2)}
                 </td>
               </tr>
