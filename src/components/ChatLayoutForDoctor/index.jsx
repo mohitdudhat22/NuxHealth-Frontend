@@ -11,16 +11,22 @@ import { getDoctorContact, getOldMessages } from "@/axiosApi/ApiHelper";
 import { useDecodeToken } from "@/hook";
 
 export const ChatLayoutForDoctor = () => {
-  const patientId = "677047f308067157dc712f80"; // Patient's user ID
-  const [contact, setContact] = useState([]);
-  const{ token }= useDecodeToken();
-  const userId = token?.userData?._id 
+  const {token} = useDecodeToken();
+  const userId = "6770443dceabc6c708235256"; 
+  const patientId = "677047f308067157dc712f80";
+  const [contact, setContact] = useState(null);
+
   useEffect(() => {
     const fetchContact = async () => {
-      const response = await getDoctorContact();
-      console.log(response.data);
-      setContact(response.data);
+      try {
+        const response = await getDoctorContact();
+        console.log(response.data)
+        setContact(response.data);
+      } catch (error) {
+        console.error("Failed to fetch contact:", error);
+      }
     };
+
     fetchContact();
   }, []);
   const initialUsers = [
