@@ -10,11 +10,12 @@ import socket, {
 import { getOldMessages } from "@/axiosApi/ApiHelper";
 
 export const ChatLayoutForDoctor = () => {
-  const userId = "6770443dceabc6c708235256";
-  const patientId = '677047f308067157dc712f80';
+  const userId = "6770443dceabc6c708235256"; // Doctor's user ID
+  const patientId = "677047f308067157dc712f80"; // Patient's user ID
+
   const initialUsers = [
     {
-      _id: "677047f308067157dc712f80",
+      _id: patientId,
       name: "Dr. John Doe",
       avatar: "/placeholder.svg?height=48&width=48",
       status: "online",
@@ -23,7 +24,7 @@ export const ChatLayoutForDoctor = () => {
       unreadCount: 0,
     },
     {
-      _id: "6770443dceabc6c708235256",
+      _id: userId,
       name: "Dr. Jane Smith",
       avatar: "/placeholder.svg?height=48&width=48",
       status: "offline",
@@ -62,7 +63,7 @@ export const ChatLayoutForDoctor = () => {
                   {
                     id: Date.now().toString(),
                     content: message,
-                    sender: "user",
+                    sender: "patient",
                     timestamp,
                     type: "text",
                   },
@@ -92,7 +93,6 @@ export const ChatLayoutForDoctor = () => {
     };
   }, []);
 
-  // Fetch old messages when a user is selected
   useEffect(() => {
     if (selectedUserId) {
       const fetchMessages = async () => {
@@ -107,7 +107,6 @@ export const ChatLayoutForDoctor = () => {
             type: "text",
           }));
 
-          // Update chats with old messages
           setChats((prevChats) =>
             prevChats.map((chat) =>
               chat.participants.some((p) => p._id === selectedUserId)
@@ -124,7 +123,6 @@ export const ChatLayoutForDoctor = () => {
     }
   }, [selectedUserId]);
 
-  // Update current chat when a user is selected
   useEffect(() => {
     const chat = chats.find((c) =>
       c.participants.some((p) => p._id === selectedUserId)
@@ -146,7 +144,6 @@ export const ChatLayoutForDoctor = () => {
       receiver: selectedUserId,
       timestamp: new Date().toISOString(),
     };
-    console.log(newMessage,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", chats)
 
     setChats((prevChats) =>
       prevChats.map((chat) =>
@@ -188,6 +185,7 @@ export const ChatLayoutForDoctor = () => {
           selectedUser={currentChat.participants[0]}
           messages={currentChat.messages}
           onSendMessage={handleSendMessage}
+          userId={userId}
         />
       ) : (
         <div className="flex flex-col items-center justify-center h-full text-gray-500">
