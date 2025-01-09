@@ -66,15 +66,21 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
         });
   
         // Send the file and its details via the socket
-        onSendMessage({
-          type: fileType,
-          fileDetails: {
-            name: file.name,
-            size: file.size,
-            type: file.type,
-          },
-          file: file, // Attach the file object
-        });
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = reader.result.split(',')[1];
+          onSendMessage({
+            type: fileType,
+            fileDetails: {
+              name: file.name,
+              size: file.size,
+              type: file.type,
+              base64: base64String,
+            },
+            file: file, // Attach the file object
+          });
+        };
+        reader.readAsDataURL(file);
       } catch (error) {
         console.error("File upload failed:", error);
       }
