@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { SearchHeader } from "@/axiosApi/ApiHelper";
+import { useLocation } from "react-router-dom";
 import { useSearch } from "@/context";
 
 export const useGlobalSearch = (role) => {
+  const location = useLocation();
   const { searchValue } = useSearch();
 
   const [doctorData, setDoctorData] = useState([]);
@@ -10,37 +12,30 @@ export const useGlobalSearch = (role) => {
   const [receptionData, setReceptionData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  // const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const effectiveRole = location.pathname.startsWith("/patient")
+    ? "doctor"
+    : role;
+
+  const fetchData = async () => {
+    if (searchValue.length > 0) {
       setLoading(true);
       setError(null);
       try {
-        const response = await SearchHeader(searchValue, role);
+        const response = await SearchHeader(searchValue, effectiveRole);
         const data = response.data;
-        console.log(response);
-
-        if (role === "doctor") {
-          setDoctorData(data);
-        } else if (role === "patient") {
-          setPatientData(data);
-        } else if (role === "reception") {
-          setReceptionData(data);
-        } else {
-          setDoctorData(data.doctors || []);
-          setPatientData(data.patients || []);
-          setReceptionData(data.receptions || []);
-        }
+        
       } catch (err) {
         setError(err);
       } finally {
         setLoading(false);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-  }, [role]);
+  }, [searchValue, role]);
 
   return { doctorData, patientData, receptionData, loading, error };
 };
