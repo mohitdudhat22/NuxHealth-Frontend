@@ -1,38 +1,38 @@
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Layout } from "antd";
 import clsx from "clsx";
 import { useDecodeToken } from "@/hook";
 import Icons from "@/constants/Icons";
-import { NHButton, NHBreadCrumb, NHDropDownImg } from "@/components/";
+import {
+  NHButton,
+  NHBreadCrumb,
+  NHDropDownImg,
+  NHInput,
+  NHSelect,
+} from "@/components/";
 import NotificationBox from "../NotificationBox";
+import { headerOption } from "@/constants/data";
+import { useHeader } from "@/hook/Global";
 
 const { Header } = Layout;
 
 export const NHHeader = () => {
+  const {
+    notificationVisible,
+    setNotificationVisible,
+    defaultOption,
+    options,
+    handleSearch,
+    BreadCrumb,
+    firstName,
+    isDoctor,
+    dropdownItems,
+    searchValue,
+    isPatient,
+  } = useHeader();
+
   const navigate = useNavigate();
-  const location = useLocation();
   const { token } = useDecodeToken();
-  const [notificationVisible, setNotificationVisible] = useState(false);
-  const dropdownItems = [
-    {
-      key: "1",
-      label: "Profile",
-    },
-  ];
-
-  const handleMenuClick = () => {
-    navigate("profile");
-  };
-
-  const BreadCrumb =
-    location.pathname === "/admin" ||
-    location.pathname === "/patient" ||
-    location.pathname === "/doctor" ||
-    location.pathname === "/reception";
-
-  const firstName = token?.userData?.fullName?.split(" ")[0];
-  const isDoctor = location.pathname.startsWith("/doctor");
 
   return (
     <Header
@@ -47,7 +47,7 @@ export const NHHeader = () => {
               Good Morning! {isDoctor && "Dr."}
               {firstName}
             </h3>
-            <p className="mt-1 h6 text-silver font-semibold">
+            <p className="mt-1 font-semibold h6 text-silver">
               Hope you have a good day
             </p>
           </div>
@@ -56,21 +56,45 @@ export const NHHeader = () => {
         )}
       </div>
       <div className={clsx("flex items-center justify-content-center gap-xl")}>
-        <NHButton
-          icon={Icons.NotificationBall}
-          onClick={() => setNotificationVisible(!notificationVisible)}
+        <NHInput
+          prefix={Icons?.SearchIcon}
+          placeholder="Quick Search"
+          value={searchValue}
+          onChange={handleSearch}
+          addonAfter={
+            <NHSelect
+              defaultValue={defaultOption}
+              options={options}
+              disabled={isPatient && true}
+              style={{
+                width: "auto",
+              }}
+            >
+              {/* {options?.map((option) => (
+                <Option key={option.key} value={option.key}>
+                  {option.value}
+                </Option>
+              ))} */}
+            </NHSelect>
+          }
         />
-        <NotificationBox
-          visible={notificationVisible}
-          onClose={() => setNotificationVisible(false)}
-        />
+        <div>
+          <NHButton
+            icon={Icons?.NotificationBall}
+            onClick={() => setNotificationVisible(!notificationVisible)}
+          />
+          <NotificationBox
+            visible={notificationVisible}
+            onClose={() => setNotificationVisible(false)}
+          />
+        </div>
         <NHDropDownImg
           items={dropdownItems}
           name={token?.userData?.fullName}
           image={token?.userData?.profilePicture}
           position={token?.userData?.role}
           imageAlt={"fakeImg"}
-          onClick={() => handleMenuClick()}
+          onClick={() => navigate("profile")}
           arrow
         />
       </div>
