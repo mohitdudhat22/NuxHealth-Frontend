@@ -37,7 +37,7 @@ export const Dashboard = () => {
             </div>
             <LineChart data={data?.patientStats} />
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 h-[100%]">
             <BillingCard data={data?.billdata} />
           </div>
         </div>

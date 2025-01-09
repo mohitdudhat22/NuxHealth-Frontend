@@ -31,7 +31,7 @@ export const NHDatePicker = ({
         format={format}
         onChange={onChange}
         placeholder={placeholder}
-        className={styles.datepicker}
+        className={clsx(styles.datepicker, "p-4 mt-1 rounded-2xl")}
         status={isInvalid && "error"}
         {...rest}
       />
