@@ -71,6 +71,7 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
           const base64String = reader.result.split(',')[1];
           onSendMessage({
             type: fileType,
+            content: reader.result, // Add this line to set the content for images
             fileDetails: {
               name: file.name,
               size: file.size,
