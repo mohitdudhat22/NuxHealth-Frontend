@@ -36,6 +36,7 @@ import {
   AppointmentTimeSlot,
   DoctorMeetingConference,
   PrescriptionAccess,
+  ReceptionBills
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/BillingAndPayement/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -56,7 +57,6 @@ import ChatempComponentforPateint from "@/components/chatTempComponentforPatient
 import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
 import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
 import { PatientMettingConference } from "@/pages/Patients";
-import ReSchedularAppoinmentPage from "@/pages/Patients/AppointmentBooking/ReSchedularAppoinmentPage/ReSchedularAppoinmentPage";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -211,7 +211,7 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <EditDesignInvoice />,
                 },
                 {
-                  path: "bill-view/:billId",
+                  path: "bill-view/:id",
                   element: <BillView />,
                 },
               ],
@@ -413,7 +413,11 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: "bills"
+                  element: <ReceptionBills />,
+                },
+                {
+                  path: "bill-view/:id",
+                  element: <BillView />,
                 },
               ],
             },
