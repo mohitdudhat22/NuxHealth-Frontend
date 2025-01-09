@@ -179,6 +179,8 @@ export const ChatLayoutForDoctor = () => {
     );
   };
 
+  const selectedUser = users.find(user => user._id === selectedUserId);
+
   return (
     <div className="grid grid-cols-[334px,1fr] h-full max-h-[calc(100vh-var(--header-height))]">
       <ChatSidebar
@@ -188,7 +190,7 @@ export const ChatLayoutForDoctor = () => {
       />
       {currentChat ? (
         <ChatMessageBar
-          selectedUser={currentChat.participants[0]}
+          selectedUser={selectedUser}
           messages={currentChat.messages}
           onSendMessage={handleSendMessage}
           userId={userId}
