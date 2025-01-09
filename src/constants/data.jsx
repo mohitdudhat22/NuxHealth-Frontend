@@ -214,8 +214,24 @@ export const AuthSliderData = [
 
 // Header Search Select Options
 export const headerOption = [
-  { key: "all", value: "All" },
-  { key: "doctor", value: "Doctor" },
-  { key: "reception", value: "Reception" },
-  { key: "patient", value: "Patient" },
+  {
+    key: "all",
+    value: "All",
+    disabled: false,
+  },
+  {
+    key: "doctor",
+    value: "Doctor",
+    disabled: false,
+  },
+  {
+    key: "reception",
+    value: "Reception",
+    disabled: false,
+  },
+  {
+    key: "patient",
+    value: "Patient",
+    disabled: false,
+  },
 ];

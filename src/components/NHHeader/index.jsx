@@ -20,13 +20,14 @@ export const NHHeader = () => {
     notificationVisible,
     setNotificationVisible,
     defaultOption,
-    filteredOptions,
+    options,
     handleSearch,
     BreadCrumb,
     firstName,
     isDoctor,
     dropdownItems,
     searchValue,
+    isPatient,
   } = useHeader();
 
   const navigate = useNavigate();
@@ -61,12 +62,19 @@ export const NHHeader = () => {
           onChange={handleSearch}
           addonAfter={
             <NHSelect
-              defaultValue="All"
-              options={headerOption}
+              defaultValue={defaultOption}
+              options={options}
+              disabled={isPatient && true}
               style={{
                 width: "auto",
               }}
-            />
+            >
+              {/* {options?.map((option) => (
+                <Option key={option.key} value={option.key}>
+                  {option.value}
+                </Option>
+              ))} */}
+            </NHSelect>
           }
         />
         <div>
