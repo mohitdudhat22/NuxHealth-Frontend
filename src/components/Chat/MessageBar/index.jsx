@@ -15,6 +15,25 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
     });
   };
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    if (date.toDateString() === today.toDateString()) {
+      return "Today";
+    } else if (date.toDateString() === yesterday.toDateString()) {
+      return "Yesterday";
+    } else {
+      return date.toLocaleDateString([], {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    }
+  };
+
   const handlePdfClick = (fileUrl, fileName) => {
     setSelectedPdf({ url: fileUrl, name: fileName });
   };
@@ -66,7 +85,19 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
     return url.includes("res.cloudinary.com");
   };
 
-  
+  const groupMessagesByDate = (messages) => {
+    return messages.reduce((groups, message) => {
+      const date = formatDate(message.timestamp);
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(message);
+      return groups;
+    }, {});
+  };
+
+  const groupedMessages = groupMessagesByDate(messages);
+
   // Improve right-side and left-side message styling
   const updateMessageStyles = () => {
     const rightSideMessages = document.querySelectorAll('.bg-blue-500');
@@ -110,83 +141,87 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
 
       <div className="p-4 my-xl ml-md overflow-auto flex-1">
         <div>
-          <div className="flex justify-center mb-4">
-            <span className="flex items-center justify-center mx-auto bg-[#718EBF1A] py-md px-2xl rounded-[var(--space-md)]">
-              Today
-            </span>
-          </div>
-          <div>
-            {messages?.map((message) => {
-              if (!message) return null;
+          {Object.keys(groupedMessages).map((date) => (
+            <div key={date}>
+              <div className="flex justify-center mb-4">
+                <span className="flex items-center justify-center mx-auto bg-[#718EBF1A] py-md px-2xl rounded-[var(--space-md)]">
+                  {date}
+                </span>
+              </div>
+              <div>
+                {groupedMessages[date].map((message) => {
+                  if (!message) return null;
 
-              const isCurrentUser = message.sender === userId;
+                  const isCurrentUser = message.sender === userId;
 
-              return (
-                <div
-                  key={message.id}
-                  className={`flex ${
-                    isCurrentUser ? "justify-end" : "justify-start"
-                  } items-end gap-2 mb-3`}
-                >
-                  {!isCurrentUser && (
-                    <Avatar
-                      size={24}
-                      src={selectedUser.avatar}
-                      alt={`${selectedUser.name} avatar`}
-                      className="rounded-full"
-                    />
-                  )}
-                  <div
-                    className={`max-w-[70%] ${
-                      isCurrentUser
-                        ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
-                        : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
-                    } p-3`}
-                  >
-                    {message.type === "text" && (
-                      <>
-                        {isCloudinaryUrl(message.content) ? (
+                  return (
+                    <div
+                      key={message.id}
+                      className={`flex ${
+                        isCurrentUser ? "justify-end" : "justify-start"
+                      } items-end gap-2 mb-3`}
+                    >
+                      {!isCurrentUser && (
+                        <Avatar
+                          size={24}
+                          src={selectedUser.avatar}
+                          alt={`${selectedUser.name} avatar`}
+                          className="rounded-full"
+                        />
+                      )}
+                      <div
+                        className={`max-w-[70%] ${
+                          isCurrentUser
+                            ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
+                            : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
+                        } p-3`}
+                      >
+                        {message.type === "text" && (
+                          <>
+                            {isCloudinaryUrl(message.content) ? (
+                              <img
+                                src={message.content}
+                                alt="Chat image"
+                                className="rounded-lg max-w-full h-[300px]"
+                              />
+                            ) : (
+                              <p>{message.content}</p>
+                            )}
+                          </>
+                        )}
+                        {message.type === "image" && message.fileDetails?.base64 && (
                           <img
-                            src={message.content}
+                            src={`data:image/jpeg;base64,${message.fileDetails.base64}`}
                             alt="Chat image"
                             className="rounded-lg max-w-full h-[300px]"
                           />
-                        ) : (
-                          <p>{message.content}</p>
                         )}
-                      </>
-                    )}
-                    {message.type === "image" && message.fileDetails?.base64 && (
-                      <img
-                        src={`data:image/jpeg;base64,${message.fileDetails.base64}`}
-                        alt="Chat image"
-                        className="rounded-lg max-w-full h-[300px]"
-                      />
-                    )}
-                    {message.type === "file" &&
-                      message.fileDetails?.type === "application/pdf" && (
-                        <NHButton
-                          variant="ghost"
-                          className="flex items-center gap-2 w-full hover:bg-opacity-10"
-                          onClick={() =>
-                            handlePdfClick(
-                              message.fileDetails.url,
-                              message.fileDetails.name
-                            )
-                          }
-                        >
-                          <Icons.FileText className="h-5 w-5" />
-                          <span>{message.fileDetails.name}</span>
-                        </NHButton>
-                      )}
-                    <p className="text-xs mt-1 opacity-70">
-                      {formatTime(message.timestamp)}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                        {message.type === "file" &&
+                          message.fileDetails?.type === "application/pdf" && (
+                            <NHButton
+                              variant="ghost"
+                              className="flex items-center gap-2 w-full hover:bg-opacity-10"
+                              onClick={() =>
+                                handlePdfClick(
+                                  message.fileDetails.url,
+                                  message.fileDetails.name
+                                )
+                              }
+                            >
+                              <Icons.FileText className="h-5 w-5" />
+                              <span>{message.fileDetails.name}</span>
+                            </NHButton>
+                          )}
+                        <p className="text-xs mt-1 opacity-70">
+                          {formatTime(message.timestamp)}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
