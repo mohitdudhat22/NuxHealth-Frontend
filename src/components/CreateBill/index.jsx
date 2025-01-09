@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { NHButton, NHCard, NHInput, NHSelect } from '@/components';
 import { AppointmentWithoutBill, getPatientForAdminBill, createBillForAdmin } from '@/axiosApi/ApiHelper';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 // Custom Hook
 const useBillForm = () => {
@@ -157,6 +158,12 @@ const useBillForm = () => {
 
 
 const CreateBill = () => {
+    const location = useLocation();
+//   const record = location.state?.record;
+  const { record } = location.state || {};
+
+  console.log('record:', record);
+
     const {
         formData,
         setFormData,
@@ -167,6 +174,38 @@ const CreateBill = () => {
         handleSelectChange,
         fetchPatient,
     } = useBillForm();
+
+    const isEditMode = !!record;
+
+    useEffect(() => {
+        if (record) {
+          // Pre-fill the form with the record data
+          setFormData({
+            selectDoctor: record.doctorId,
+            selectPatient: record.patientId,
+            selectAppointment: record.appointmentId,
+            patientName: record.patientName,
+            phoneNumber: record.phoneNumber,
+            gender: record.gender,
+            age: record.age,
+            address: record.address,
+            diseaseName: record.diseaseName,
+            amount: record.amount,
+            tax: record.tax,
+            totalAmount: record.totalAmount,
+            doctorName: record.doctorName,
+            discount: record.discount,
+            paymentType: record.paymentType,
+            billStatus: record.billStatus,
+            insuranceCompany: record.insuranceCompany,
+            insurancePlan: record.insurancePlan,
+            claimAmount: record.claimAmount,
+            claimedAmount: record.claimedAmount,
+            insuranceType: record.insuranceType,
+            notes: record.notes,
+          });
+        }
+      }, [record, setFormData]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -215,6 +254,7 @@ const CreateBill = () => {
     
     return (
         <>
+         {!isEditMode && (
             <div className='mb-9'>
                 <NHCard className='p-6 flex justify-between gap-9' title="Select Doctor, Patient, and Appointment">
                     <NHSelect
@@ -243,8 +283,9 @@ const CreateBill = () => {
                     />
                 </NHCard>
             </div>
+            )}
 
-            <NHCard className='p-6' title={"Create Bill"}>
+            <NHCard className='p-6' title={record ? "Edit Bill" : "Create Bill"}>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                         <NHInput
@@ -365,7 +406,7 @@ const CreateBill = () => {
 
                     {formData.paymentType !== 'insurance' && <div className="flex justify-end mt-6">
                         <NHButton type="submit" variant="primary" onClick={handleSubmit}>
-                            Send
+                           { record ? "Save" : "Send"}
                         </NHButton>
                     </div>}
                 </form>

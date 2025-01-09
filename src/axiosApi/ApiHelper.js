@@ -221,3 +221,14 @@ export const getOldMessages = (doctorId, patientId) =>
   request("get", `/chat/messages?from=${doctorId}&to=${patientId}`);
 export const getbillForReception = () =>
   request("get", "/api/receptionist/getBillsMonitor");
+
+export const fetchAppointmentsByPatient = () =>
+  request("get", "/api/patient/searchAppointment");
+
+
+export const fetchDoctorSession = (doctorId, date) => {
+  const url = date
+    ? `/api/patient/getDoctorSession/${doctorId}?date=${date}`
+    : `/api/patient/getDoctorSession/${doctorId}`;
+  return request("get", url);
+};

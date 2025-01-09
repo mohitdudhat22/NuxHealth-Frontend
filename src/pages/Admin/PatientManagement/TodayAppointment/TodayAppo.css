@@ -1,0 +1,24 @@
+.today_appo .ant-tag {
+    border-radius: 30px;
+    padding: 6px 20px;
+    line-height: normal;
+    font-size: 16px;
+}
+
+.today_appo .ant-tag-has-color {
+    color: #718EBF;
+    padding: 10px 20px;
+}
+
+.today_appo .ant-btn-icon {
+    display: flex;
+    align-items: center;
+}
+
+.today_appo .view-btn .ant-btn-icon svg {
+    color : #0EABEB;
+}
+
+.today_appo .view-btn:hover .ant-btn-icon svg {
+    color : #FFFFFF;
+}
