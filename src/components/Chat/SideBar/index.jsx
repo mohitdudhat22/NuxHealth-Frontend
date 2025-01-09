@@ -4,7 +4,6 @@ import { NHInput } from "@/components/FormComponents";
 import Icons from "@/constants/icons";
 import { Avatar, List } from "antd";
 import clsx from "clsx";
-import socket, { updateOnlineUsers, checkOnlineStatus } from "../../../services/socketService";
 
 export const Sidebar = ({
   users,
@@ -14,7 +13,6 @@ export const Sidebar = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredChats, setFilteredChats] = useState(initialChats);
-  const [onlineUsers, setOnlineUsers] = useState({});
 
   useEffect(() => {
     const filtered = users.filter((user) =>
@@ -23,20 +21,6 @@ export const Sidebar = ({
     setFilteredChats(filtered);
   }, [searchQuery, users]);
 
-  useEffect(() => {
-    const userId = "6770443dceabc6c708235256"; // Replace with actual doctor ID
-    checkOnlineStatus(userId);
-
-    updateOnlineUsers((data) => {
-      const { onlineUsers } = data;
-      setOnlineUsers(onlineUsers);
-    });
-
-    return () => {
-      // Clean up the event listener
-      socket.off('update-online-users');
-    };
-  }, []);
 
   const onSearch = (e) => {
     setSearchQuery(e.target.value);

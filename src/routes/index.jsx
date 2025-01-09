@@ -305,7 +305,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "chat-screen",
-                  element: <ChatLayout />,
+                  element: <ChatLayoutForDoctor />,
                   children: [
                     {
                       index: true,
@@ -375,7 +375,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "chat-screen",
-                  element: "chat-screen",
+                  element: <ChatLayoutForPatient />,
                 },
                 {
                   path: "bills",

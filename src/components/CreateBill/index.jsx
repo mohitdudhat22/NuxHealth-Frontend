@@ -1,38 +1,105 @@
-'use client'
+import { useEffect, useState } from 'react';
+import { NHButton, NHCard, NHInput, NHSelect } from '@/components';
+import { AppointmentWithoutBill, getPatientForAdminBill, createBillForAdmin } from '@/axiosApi/ApiHelper';
+import axios from 'axios';
 
-import { useState } from 'react'
-import { NHButton, NHCard, NHInput, NHSelect } from "@/components"
-
-const CreateBill = () => {
+// Custom Hook
+const useBillForm = () => {
     const [formData, setFormData] = useState({
-        patientName: '',
-        phoneNumber: '',
-        gender: null,
-        age: '',
-        doctorName: '',
-        diseaseName: '',
-        description: '',
-        paymentType: null,
-        billDate: '',
-        billTime: '',
-        billNumber: '',
+        selectDoctor: '',
+        selectPatient: '',
+        selectAppointment: '',
         discount: '',
         tax: '',
-        amount: '',
-        totalAmount: '',
-        address: '',
+        paymentType: null,
+        description: [],
         insuranceCompany: '',
         insurancePlan: '',
         claimAmount: '',
         claimedAmount: '',
-        billStatus: null,
-        insuranceType: null
-    })
+        notes: '',
+        patientName: '',
+        doctorName: '',
+        phoneNumber: '',
+        gender: '',
+        age: '',
+        diseaseName: '',
+        amount: '',
+        totalAmount: '',
+        address: '',
+        billStatus: '',
+        insuranceType: '',
+    });
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(formData)
-    }
+    const [appointments, setAppointments] = useState([]);
+    const [doctors, setDoctors] = useState([]);
+    const [patients, setPatients] = useState([]);
+    const [filteredAppointments, setFilteredAppointments] = useState([]);
+
+    useEffect(() => {
+        const fetchAppointments = async () => {
+            try {
+                const response = await AppointmentWithoutBill();
+                const appointmentsData = response.data;
+                setAppointments(appointmentsData);
+
+                const uniqueDoctors = [
+                    ...new Map(appointmentsData.map(item => [
+                        item.doctorData._id,
+                        { value: item.doctorData._id, label: item.doctorData.fullName }
+                    ])).values()
+                ];
+                setDoctors(uniqueDoctors);
+            } catch (error) {
+                console.error('Error fetching appointments:', error);
+            }
+        };
+
+        fetchAppointments();
+    }, []);
+
+    useEffect(() => {
+        if (formData.selectDoctor) {
+            const filteredPatients = appointments
+                .filter(appointment => appointment.doctorData._id === formData.selectDoctor)
+                .map(item => ({
+                    value: item.patientData._id,
+                    label: item.patientData.fullName
+                }));
+
+            const uniquePatients = [
+                ...new Map(filteredPatients.map(item => [item.value, item])).values()
+            ];
+            setPatients(uniquePatients);
+
+            setFormData(prev => ({
+                ...prev,
+                selectPatient: '',
+                selectAppointment: ''
+            }));
+        } else {
+            setPatients([]);
+        }
+    }, [formData.selectDoctor, appointments]);
+
+    useEffect(() => {
+        if (formData.selectDoctor && formData.selectPatient) {
+            const filtered = appointments.filter(
+                appointment =>
+                    appointment.doctorData._id === formData.selectDoctor &&
+                    appointment.patientData._id === formData.selectPatient
+            );
+
+            const formattedAppointments = filtered.map(item => ({
+                value: item.id,
+                label: `${new Date(item.date).toLocaleDateString()} - ${item.appointmentTime}`
+            }));
+            setFilteredAppointments(formattedAppointments);
+        } else {
+            setFilteredAppointments([]);
+        }
+    }, [formData.selectDoctor, formData.selectPatient, appointments]);
+
     const handleChange = (e) => {
         if (e.target) {
             const { name, value } = e.target;
@@ -41,50 +108,144 @@ const CreateBill = () => {
                 [name]: value
             }));
         }
-    }
+    };
 
     const handleSelectChange = (value, name) => {
         setFormData(prev => ({
             ...prev,
             [name]: value
         }));
-    }
+    };
+
+    const fetchPatient = async (value) => {
+        try {
+            console.log('formData.selectAppointment:', value);
+            const response = await getPatientForAdminBill(value);
+            const patientData = response.data.appointment;
+            console.log('Patient data:', patientData);
+            if (patientData) {
+                setFormData(prev => ({
+                    ...prev,
+                    amount: patientData?.amount || '',
+                    patientName: patientData?.patientId?.fullName || '',
+                    phoneNumber: patientData?.patientId?.phone || '',
+                    gender: patientData?.patientId?.gender || '',
+                    age: patientData?.patientId?.age || '',
+                    address: patientData?.patientId?.address || '',
+                    diseaseName: patientData?.dieseas_name || '',
+                    tax: patientData?.tax || '',
+                    totalAmount : patientData?.tax +patientData?.amount,
+                    doctorName: patientData?.doctorId?.fullName || '',
+                    discount: '20%',
+                }));
+            }
+        } catch (error) {
+            console.error('Error fetching patients:', error);
+        }
+    };
+    return {
+        formData,
+        setFormData,
+        doctors,
+        patients,
+        filteredAppointments,
+        handleChange,
+        handleSelectChange,
+        fetchPatient,
+    };
+};
+
+
+const CreateBill = () => {
+    const {
+        formData,
+        setFormData,
+        doctors,
+        patients,
+        filteredAppointments,
+        handleChange,
+        handleSelectChange,
+        fetchPatient,
+    } = useBillForm();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        const payload = {
+            appointmentId: formData.selectAppointment,
+            patientDetails: {
+                name: formData.patientName,
+                phoneNumber: formData.phoneNumber,
+                gender: formData.gender,
+                age: formData.age,
+                address: formData.address,
+            },
+            doctorDetails: {
+                name: formData.doctorName,
+            },
+            diseaseName: formData.diseaseName,
+            description: formData.description,
+            discount: Number(formData.discount),
+            tax: Number(formData.tax),
+            paymentDetails: {
+                paymentType: formData.paymentType,
+                amount: Number(formData.amount),
+                totalAmount: Number(formData.totalAmount),
+            },
+            insuranceDetails: formData.paymentType === 'insurance' ? {
+                insuranceCompany: formData.insuranceCompany,
+                insurancePlan: formData.insurancePlan,
+                claimAmount: Number(formData.claimAmount),
+                claimedAmount: Number(formData.claimedAmount),
+                insuranceType: formData.insuranceType,
+            } : null,
+            billStatus: formData.billStatus,
+            notes: formData.notes,
+            status: true,
+        };
+    
+        try {
+            const response = await createBillForAdmin(payload); 
+            console.log('Bill created successfully:', response.data);
+            setFormData({});
+        } catch (error) {
+            console.error('Error creating bill:', error);
+        }
+    };
+    
     return (
         <>
-        <div className='mb-9'>
-
-            <NHCard className='p-6 flex justify-between gap-9' title={"Select Doctor and Patient"}>
-            <NHSelect
-                    label="Select Doctor"
-                    name="selectDoctor"
-                    placeholder="Select Doctor"
-                    value={formData.selectDoctor}
-                    onChange={(value) => handleSelectChange(value, 'selectDoctor')}
-                    options={[
-                        { value: 'dr_smith', label: 'Dr. Smith' },
-                        { value: 'dr_jones', label: 'Dr. Jones' },
-                        { value: 'dr_brown', label: 'Dr. Brown' }
-                    ]}
-                />
-                <NHSelect
-                    label="Select Patient"
-                    name="selectPatient"
-                    placeholder="Select Patient"
-                    value={formData.selectPatient}
-                    onChange={(value) => handleSelectChange(value, 'selectPatient')}
-                    options={[
-                        { value: 'john_doe', label: 'John Doe' },
-                        { value: 'jane_doe', label: 'Jane Doe' },
-                        { value: 'sam_smith', label: 'Sam Smith' }
-                    ]}
-                />
-            </NHCard>
+            <div className='mb-9'>
+                <NHCard className='p-6 flex justify-between gap-9' title="Select Doctor, Patient, and Appointment">
+                    <NHSelect
+                        label="Select Doctor"
+                        name="selectDoctor"
+                        placeholder="Select Doctor"
+                        value={formData.selectDoctor}
+                        onChange={(value) => handleSelectChange(value, 'selectDoctor')}
+                        options={doctors}
+                    />
+                    <NHSelect
+                        label="Select Patient"
+                        name="selectPatient"
+                        placeholder="Select Patient"
+                        value={formData.selectPatient}
+                        onChange={(value) => handleSelectChange(value, 'selectPatient')}
+                        options={patients}
+                    />
+                    <NHSelect
+                        label="Select Appointment"
+                        name="selectAppointment"
+                        placeholder="Select Appointment"
+                        value={formData.selectAppointment}
+                        onChange={(value) => {handleSelectChange(value, 'selectAppointment');fetchPatient(value);}}
+                        options={filteredAppointments}
+                    />
+                </NHCard>
             </div>
 
             <NHCard className='p-6' title={"Create Bill"}>
-
                 <form className="space-y-6" onSubmit={handleSubmit}>
-                    {/* First Row */}
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                         <NHInput
                             label="Patient Name"
@@ -121,8 +282,14 @@ const CreateBill = () => {
                         />
                     </div>
 
-                    {/* Second Row */}
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+                    <NHInput
+                            label="Address"
+                            name="address"
+                            value={formData.address}
+                            onChange={handleChange}
+                            placeholder="350 Riverside Avenue"
+                        />
                         <NHInput
                             label="Doctor Name"
                             name="doctorName"
@@ -136,13 +303,6 @@ const CreateBill = () => {
                             value={formData.diseaseName}
                             onChange={handleChange}
                             placeholder="Meningococcal Disease"
-                        />
-                        <NHInput
-                            label="Description"
-                            name="description"
-                            value={formData.description}
-                            onChange={handleChange}
-                            placeholder="Lorem ipsum dolor sit amet, consectetur"
                         />
                         <NHSelect
                             label="Payment Type"
@@ -158,29 +318,7 @@ const CreateBill = () => {
                         />
                     </div>
 
-                    {/* Third Row */}
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                        <NHInput
-                            label="Bill Date"
-                            name="billDate"
-                            type="date"
-                            value={formData.billDate}
-                            onChange={handleChange}
-                        />
-                        <NHInput
-                            label="Bill Time"
-                            name="billTime"
-                            type="time"
-                            value={formData.billTime}
-                            onChange={handleChange}
-                        />
-                        <NHInput
-                            label="Bill Number"
-                            name="billNumber"
-                            value={formData.billNumber}
-                            onChange={handleChange}
-                            placeholder="102"
-                        />
                         <NHInput
                             label="Discount (%)"
                             name="discount"
@@ -188,11 +326,7 @@ const CreateBill = () => {
                             onChange={handleChange}
                             placeholder="20%"
                         />
-                    </div>
-
-                    {/* Fourth Row */}
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-                        <NHInput
+                         <NHInput
                             label="Tax"
                             name="tax"
                             value={formData.tax}
@@ -213,16 +347,8 @@ const CreateBill = () => {
                             onChange={handleChange}
                             placeholder="₹ 2,500"
                         />
-                        <NHInput
-                            label="Address"
-                            name="address"
-                            value={formData.address}
-                            onChange={handleChange}
-                            placeholder="350 Riverside Avenue"
-                        />
                     </div>
 
-                    {/* Add Bill Status after Third Row */}
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                         <NHSelect
                             label="Bill Status"
@@ -238,15 +364,14 @@ const CreateBill = () => {
                     </div>
 
                     {formData.paymentType !== 'insurance' && <div className="flex justify-end mt-6">
-                        <NHButton type="submit" variant="primary">
+                        <NHButton type="submit" variant="primary" onClick={handleSubmit}>
                             Send
                         </NHButton>
                     </div>}
                 </form>
-
             </NHCard>
+
             <div className='mt-9'>
-                {/* Insurance Details Section */}
                 {formData.paymentType === 'insurance' && (
                     <NHCard title="Insurance Details" className='p-6'>
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
@@ -291,7 +416,7 @@ const CreateBill = () => {
                             />
                         </div>
                         <div className="flex justify-end mt-6">
-                            <NHButton type="submit" variant="primary">
+                            <NHButton type="submit" variant="primary" onClick={handleSubmit}>
                                 Send
                             </NHButton>
                         </div>
@@ -299,7 +424,7 @@ const CreateBill = () => {
                 )}
             </div>
         </>
-    )
-}
+    );
+};
 
-export default CreateBill
+export default CreateBill;
