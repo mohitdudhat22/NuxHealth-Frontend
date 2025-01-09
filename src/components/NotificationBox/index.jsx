@@ -41,7 +41,7 @@ const NotificationBox = () => {
     console.log(userData.id);
 
     //aa even per socket regeter thashe socket.id -> userId
-    socket.emit("userOnline", userData.id);
+    socket.emit("register-user", userData.id);
 
     const handleNewNotification = (notification) => {
       console.log("Received new notification:", notification);
