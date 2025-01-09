@@ -28,11 +28,12 @@ export const AppointmentBooking = () => {
   // State for OffCanvas
   const [isOffCanvasVisible, setIsOffCanvasVisible] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [activeTab, setActiveTab] = useState("Scheduled");
 
   const { data: todayAppointments } = useTodaysAppoinmentBookings()
   const { data: previousAppointments } = usePreviousAppoinmentBookings()
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings()
-  const { data: cancleAppointments } = useCancelAppoinmentBookings()
+  const { data: cancelAppointments } = useCancelAppoinmentBookings()
 
   const navigate = useNavigate();
 
@@ -68,52 +69,28 @@ export const AppointmentBooking = () => {
     return `${fromDateStr} - ${toDateStr}`;
   };
 
-  // Dummy data for appointments
-  const appointmentData = [
-    {
-      id: 1,
-      title: "Dr. Nolan George",
-      hospitalName: "Artemis Hospital",
-      doctorQualification: "MBBS",
-      breakTime: "1 Hour",
-      workingTime: "6 Hour",
-      yearsOfExperience: "6+ Year",
-      emergencyContactNumber: "48555-20103",
-      specialtyType: "Obstetrics and genecology",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      appointmentType: "Online",
-      appointmentDate: "2 Dec, 2024",
-      appointmentTime: "10:20 AM",
-      patientIssue: "Feeling Tired",
-      gender: "Male",
-    },
-    {
-      id: 2,
-      title: "Dr. Geta Smith",
-      hospitalName: "Krishana Hospital",
-      doctorQualification: "MD",
-      breakTime: "1 Hour",
-      workingTime: "8 Hour",
-      yearsOfExperience: "3+ Year",
-      emergencyContactNumber: "24234-14482",
-      specialtyType: "Obstetrics and genecology",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      appointmentType: "Offline",
-      appointmentDate: "8 Jan, 2025",
-      appointmentTime: "08:30 AM",
-      patientIssue: "Feeling Tired",
-      gender: "Female",
-    },
-    // Add more appointment data as needed
-  ];
-
   // Function to handle "View Details" button click
   const handleViewDetails = (id) => {
-    const appointment = appointmentData.find((item) => item.id === id);
-    setSelectedAppointment(appointment);
-    setIsOffCanvasVisible(true); // Show OffCanvas
+    // Determine which array to search based on the active tab
+    let appointment;
+    if (activeTab === "Scheduled") {
+      appointment = todayAppointments.find((item) => item.id === id);
+    } else if (activeTab === "Previous") {
+      appointment = previousAppointments.find((item) => item.id === id);
+    } else if (activeTab === "Cancel") {
+      appointment = cancelAppointments.find((item) => item.id === id);
+    } else if (activeTab === "Pending") {
+      appointment = upcomingAppointments.find((item) => item.id === id);
+    }
+
+    if (appointment) {
+      setSelectedAppointment(appointment);
+      setIsOffCanvasVisible(true); // Show OffCanvas
+    }
+  };
+
+  const handleTabChange = (key) => {
+    setActiveTab(key);
   };
 
   const handleAppointment = () => {
@@ -187,7 +164,7 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                      //   onClick={() => handleJoinCall(data)}
+                    //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -296,10 +273,7 @@ export const AppointmentBooking = () => {
           }
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* {patientData.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
-                            return ( */}
-            {cancleAppointments.map((data) => (
+            {cancelAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
                 headerBg={true}
@@ -389,7 +363,7 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                      //   onClick={() => handleJoinCall(data)}
+                    //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -423,7 +397,7 @@ export const AppointmentBooking = () => {
               <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
             }
           >
-            <NHTabs items={tabItems} defaultActiveKey="Scheduled" />
+            <NHTabs items={tabItems} defaultActiveKey="Scheduled" onChange={handleTabChange} />
           </NHCard>
 
           <CustomDateModal
@@ -463,7 +437,7 @@ export const AppointmentBooking = () => {
                       </h3>
                       <div className="text-white bg-[#718EBF] rounded-full px-5 py-3 inline-flex items-center">
                         {/* Conditionally render gender icon */}
-                        {selectedAppointment.gender.toLowerCase() === "male" ? (
+                        {selectedAppointment.gender === "male" ? (
                           <img
                             src={maleIcon} // Replace with your male icon import
                             alt="Male"

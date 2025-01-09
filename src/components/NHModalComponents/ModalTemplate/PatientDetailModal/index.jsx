@@ -12,6 +12,25 @@ export const PatientDetailModal = ({
   ...rest
 }) => {
 
+  const dummyPatientData = {
+    appointmentType: "Online",
+    appointmentDate: "2023-10-15",
+    appointmentTime: "10:00 AM",
+    patientName: "John Doe",
+    phoneNumber: "123-456-7890",
+    age: 30,
+    gender: "Male",
+    issue: "Fever",
+    diseaseName: "Common Cold",
+    doctorName: "Dr. Smith",
+    address: "123 Main St, City, Country",
+  };
+
+  const displayPatientData = {
+    ...dummyPatientData,
+    ...patientData,
+  };
+
   return (
     <NHModal
       title={
@@ -35,17 +54,18 @@ export const PatientDetailModal = ({
     >
       {patientData ? (
         <AppointmentCard
-          key={patientData.name}
-          appointmentDate={patientData.appointmentDate}
-          appointmentTime={patientData.appointmentTime}
-          patientName={patientData.patientName}
-          patientPhoneNumber={patientData.phoneNumber}
-          patientAge={<>{patientData.age} Years</>}
-          patientGender={patientData.gender}
-          patientIssue={patientData.issue}
-          diseaseName={patientData.diseaseName}
-          patientDoctorName={patientData.doctorName}
-          patientAddress={patientData.address}
+          key={displayPatientData.name}
+          appointmentType={displayPatientData.appointmentType}
+          appointmentDate={displayPatientData.appointmentDate}
+          appointmentTime={displayPatientData.appointmentTime}
+          patientName={displayPatientData.patientName}
+          patientPhoneNumber={displayPatientData.phoneNumber}
+          patientAge={<>{displayPatientData.age} Years</>}
+          patientGender={displayPatientData.gender}
+          patientIssue={displayPatientData.issue}
+          diseaseName={displayPatientData.diseaseName}
+          patientDoctorName={displayPatientData.doctorName}
+          patientAddress={displayPatientData.address}
           className="p-0"
           footerContent={
             <div className="p-10"></div>

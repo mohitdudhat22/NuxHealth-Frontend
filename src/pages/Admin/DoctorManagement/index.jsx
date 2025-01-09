@@ -11,12 +11,27 @@ import {
 } from "@/components";
 import { Avatar } from "antd";
 import { useDeleteModal } from "@/hook/Global";
+import { useState } from "react";
+import DoctorDrawer from "@/components/NHModalComponents/ModalTemplate/DoctorDrawer";
 
 export const DoctorManagement = () => {
   const { data, loading, fetchDoctors, navigate, onSearch } =
     useDoctorManagement();
 
+    const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+
   const { deleteData, isDelete, setDelete } = useDeleteModal(fetchDoctors);
+
+  const showDrawer = (doctor) => {
+    setSelectedDoctor(doctor);
+    setDrawerVisible(true);
+  };
+
+  const onCloseDrawer = () => {
+    setDrawerVisible(false);
+    setSelectedDoctor(null);
+  };
 
   const columns = [
     {
@@ -69,7 +84,7 @@ export const DoctorManagement = () => {
       render: (_, record) => {
         return (
           <Space size="middle">
-            <NHButton size={"small"} icon={Icons.View} className="edit-btn" />
+            <NHButton size={"small"} icon={Icons.View} className="edit-btn" onClick={() => showDrawer(record)} />
             <NHButton
               size={"small"}
               icon={Icons.Delete}
@@ -121,6 +136,13 @@ export const DoctorManagement = () => {
         >
           Are you sure you want to delete this Doctor?
         </DeleteModal>
+
+        {/* Doctor Drawer */}
+      <DoctorDrawer
+        visible={drawerVisible}
+        onClose={onCloseDrawer}
+        doctor={selectedDoctor}
+      />
       </NHCard>
     </>
   );

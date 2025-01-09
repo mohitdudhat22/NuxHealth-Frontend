@@ -2,7 +2,11 @@ import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import { PaymentProcessModal } from "@/components/NHModalComponents/ModalTemplate/PaymentProcessModal";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
+import "./PaymentProcess.css";
 import { usePaymentProcess } from "@/hook/Admin/BillingAndPayments/PaymentProcess";
+import { useNavigate } from "react-router-dom";
+import { CashPaymentModal } from "@/components/CashPaymentModal/CashPaymentModal";
+import { useState } from "react";
 
 export const PaymentProcess = () => {
   const {
@@ -16,12 +20,29 @@ export const PaymentProcess = () => {
     setIsModalOpen,
   } = usePaymentProcess();
 
+  const navigate = useNavigate();
+
+  const [isCashPaymentModalOpen, setIsCashPaymentModalOpen] = useState(false);
+
+  const handleCashPayment = (record) => {
+    setIsCashPaymentModalOpen(true);
+    // You can also set any record-specific data here if needed
+  };
+
+  const handlePay = () => {
+    // Handle the payment logic here
+    console.log("Payment processed");
+    setIsCashPaymentModalOpen(false);
+  };
+
   const columns = [
     {
       title: "Bill Number",
       dataIndex: "billNumber",
       key: "billNumber",
-      render: (text) => <a>{text}</a>,
+      render: (billNumber) => (
+        <Tag color={billNumber === "#F6F8FB"}>{billNumber}</Tag>
+      ),
     },
     {
       title: "Patient Name",
@@ -55,6 +76,9 @@ export const PaymentProcess = () => {
       title: "Time",
       dataIndex: "time",
       key: "time",
+      render: (time) => (
+        <Tag color={time === "#F6F8FB"}>{time}</Tag>
+      ),
     },
     {
       title: "Action",
@@ -66,21 +90,25 @@ export const PaymentProcess = () => {
             size="small"
             icon={Icons.EditBillIcon}
             className="edit-btn bg-white"
-            onClick={() => onEdit(record)}
+            onClick={() =>
+              navigate(`/admin/payment-process/edit-bill`, { state: { record: record } })
+            }
           />
           <NHButton
             type="primary"
             size="small"
             icon={Icons.ViewBillIcon}
             className="view-btn bg-white"
-            onClick={() => onViewDetails(record)}
+            onClick={() =>
+              navigate(`/admin/payment-process/bill-view/${record.billNumber}`, { state: { billData: record } })
+            }
           />
           <NHButton
             type="default"
             size="small"
             icon={Icons.PaymentIcon}
             className="lock-btn bg-white"
-            onClick={() => onPayment(record)}
+            onClick={() => handleCashPayment(record)}
           />
         </Space>
       ),
@@ -89,6 +117,7 @@ export const PaymentProcess = () => {
 
   return (
     <>
+    <div className="payment_process_sec">
       <NHHead title="Payment Process" />
       <NHCard
         title={"Billing Details"}
@@ -113,6 +142,13 @@ export const PaymentProcess = () => {
         handleClose={() => setIsModalOpen(false)}
         // paymentData={record}
       />
+
+<CashPaymentModal
+          open={isCashPaymentModalOpen}
+          handleClose={() => setIsCashPaymentModalOpen(false)}
+          handlePay={handlePay}
+        />
+      </div>
     </>
   );
 };

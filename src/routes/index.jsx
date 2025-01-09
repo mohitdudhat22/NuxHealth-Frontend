@@ -59,6 +59,9 @@ import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
 import { PatientMettingConference } from "@/pages/Patients";
 import { PatientHealthRecord } from "@/pages/Reception/PatientHealthRecord";
 import { PatientHelthDetails } from "@/pages/Reception/PatientHealthRecord/PatientHealthDetails";
+import { InsuranceBillView } from "@/pages/Admin/BillingAndPayement/InsuranceClaims/InsuranceBillView";
+import CreateBill from "@/components/CreateBill";
+import { PaymentBillView } from "@/pages/Admin/BillingAndPayement/PaymentProcess/PaymentBillView";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -220,11 +223,33 @@ const NuxHealthRoute = createBrowserRouter(
             },
             {
               path: "insurance-claims",
-              element: <InsuranceClaims />,
+              children: [
+                {
+                  index: true,
+                  element: <InsuranceClaims />,
+                },
+                {
+                 path: "insurance-bill-view/:id",
+                 element: <InsuranceBillView />,
+                }
+              ],
             },
             {
               path: "payment-process",
-              element: <PaymentProcess />,
+              children: [
+                {
+                  index: true,
+                  element: <PaymentProcess />,
+                },
+                {
+                    path: "edit-bill",
+                    element: <CreateBill />,
+                },
+                {
+                  path: "bill-view/:id",
+                  element: <PaymentBillView />,
+                },
+              ],
             },
             {
               path: "reporting-analytics",

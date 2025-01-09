@@ -4,24 +4,23 @@ import { RescheduleAppointmentModal } from "@/components/NHModalComponents/Modal
 export const AppointmentTimeSlot = () => {
   return (
     <div className="appointment_time-slot" style={{ height: "100%" }}>
-      <Calendar
-        localizer={localizer}
+      <FullCalendar
+        ref={calendarRef}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        initialView="timeGridWeek"
         events={events}
-        startAccessor="start"
-        endAccessor="end"
-        selectable
-        onSelectEvent={handleSelectEvent}
-        defaultView="week"
-        views={["month", "week", "day"]}
-        step={60}
-        timeslots={1}
-        min={new Date(0, 0, 0, 8, 0, 0)}
-        max={new Date(0, 0, 0, 18, 0, 0)}
-        eventPropGetter={eventPropGetter}
-        components={{
-          timeGutterHeader: TimeColumnHeader,
-          toolbar: CustomToolbar,
+        eventClick={handleEventClick}
+        eventContent={renderEventContent}
+        headerToolbar={{
+          left: "prev,next today",
+          center: "title",
+          right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
+        customButtons={customButtons}
+        slotMinTime="08:00:00"
+        slotMaxTime="18:00:00"
+        allDaySlot={false}
+        height="100%"
       />
       <RescheduleAppointmentModal
         handleOk={handleModalOk}
