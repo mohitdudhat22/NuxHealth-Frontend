@@ -28,7 +28,11 @@ export const CancelAppointment = () => {
       key: "patientName",
       render: (text, record) => (
         <div className="flex items-center gap-2">
-          <img src={record.avatar} alt={text} className="w-8 h-8 rounded-full" />
+          <img
+            src={record.avatar}
+            alt={text}
+            className="w-8 h-8 rounded-full"
+          />
           <span>{text}</span>
         </div>
       ),
@@ -80,10 +84,19 @@ export const CancelAppointment = () => {
       <NHCard
         title="Cancel Appointments"
         headerContent={
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" onChange={(e) => onSearch(e.target.value)} />
+          <NHInput
+            prefix={Icons.SearchIcon}
+            placeholder="Search Patient"
+            onChange={(e) => onSearch(e.target.value)}
+          />
         }
       >
-        <NHTable loading={loading} showPagination={true} tableColumn={columns} tableDataSource={data} />
+        <NHTable
+          loading={loading}
+          showPagination={true}
+          tableColumn={columns}
+          tableDataSource={data}
+        />
       </NHCard>
 
       {selectedPatient && (
