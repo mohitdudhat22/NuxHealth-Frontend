@@ -1,4 +1,4 @@
-import { useDeleteModal, useDoctorManagement } from "@/hook";
+import { useDoctorManagement } from "@/hook";
 import { Space, Tag } from "antd/lib";
 import Icons from "@/constants/icons";
 import {
@@ -10,6 +10,7 @@ import {
   NHHead,
 } from "@/components";
 import { Avatar } from "antd";
+import { useDeleteModal } from "@/hook/Global";
 
 export const DoctorManagement = () => {
   const { data, loading, fetchDoctors, navigate, onSearch } =

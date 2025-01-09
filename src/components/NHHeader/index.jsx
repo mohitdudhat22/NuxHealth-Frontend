@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Layout } from "antd";
 import clsx from "clsx";
-import { useDecodeToken, useHeader } from "@/hook";
+import { useDecodeToken } from "@/hook";
 import Icons from "@/constants/Icons";
 import {
   NHButton,
@@ -12,6 +12,7 @@ import {
 } from "@/components/";
 import NotificationBox from "../NotificationBox";
 import { headerOption } from "@/constants/data";
+import { useHeader } from "@/hook/Global";
 
 const { Header } = Layout;
 
@@ -45,7 +46,7 @@ export const NHHeader = () => {
               Good Morning! {isDoctor && "Dr."}
               {firstName}
             </h3>
-            <p className="mt-1 h6 text-silver font-semibold">
+            <p className="mt-1 font-semibold h6 text-silver">
               Hope you have a good day
             </p>
           </div>

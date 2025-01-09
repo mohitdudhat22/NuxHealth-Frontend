@@ -3,14 +3,14 @@ import { useLocation } from "react-router-dom";
 import { ReceptionData } from "./ReceptionData";
 import { DoctorData } from "./DoctorData";
 import { PatientData } from "./PatientData";
-import { useGlobalSearch } from "@/hook";
+import { useGlobalSearch } from "@/hook/Global";
 
 export const GlobalSearch = () => {
   const location = useLocation();
   const [role, setRole] = useState("");
 
   const { doctorData, patientData, receptionData, loading, error } =
-    useGlobalSearch( role);
+    useGlobalSearch(role);
 
   const isDoctor = location.pathname.startsWith("/doctor");
   const isPatient = location.pathname.startsWith("/patient");
