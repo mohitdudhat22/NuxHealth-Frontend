@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import socket, { registerUser, joinChat, sendMessage, receiveMessage, updateOnlineUsers, checkOnlineStatus } from '../../services/socketService';
+import socket, { registerUser, joinChat, sendMessage, receiveMessage } from '../../services/socketService';
 import { Input, Button, List, Typography, Card, Avatar } from 'antd';
 import { getOldMessages } from '@/axiosApi/ApiHelper';
 import 'tailwindcss/tailwind.css';
@@ -28,24 +28,7 @@ export const ChattempComponentforDoctor = () => {
     registerUser(userId);
     joinChat('room1'); // Replace with actual room ID
     receiveMessage(handleMessageReceive);
-
-    updateOnlineUsers((data) => {
-      console.log('Received data:', data); // Log to inspect the structure of data
-      if (!data) {
-          console.error('Error: data is undefined or null');
-          return;
-      }
-      
-      const { onlineUsers, checkonline } = data;
-      if (onlineUsers !== undefined) {
-          setOnlineUsers(onlineUsers);
-      }
-      setIsPatientOnline(!checkonline?.doctorId);
-  });
   
-
-    checkOnlineStatus(userId);
-
     // Fetch old messages
     fetchOldMessages();
 

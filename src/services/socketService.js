@@ -18,12 +18,4 @@ export const receiveMessage = (callback) => {
   socket.on("receive-message", callback);
 };
 
-export const updateOnlineUsers = (callback) => {
-  socket.on("update-online-users", callback);
-};
-
-export const checkOnlineStatus = (callback) => {
-  socket.on("check-online", callback);
-};
-
 export default socket;
