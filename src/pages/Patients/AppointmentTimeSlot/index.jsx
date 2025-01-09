@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./AppointmentTimeSlot.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
 import { useLocation } from "react-router-dom";
-
-const localizer = momentLocalizer(moment);
 
 export const AppointmentTimeSlot = () => {
   const location = useLocation();
@@ -29,21 +29,20 @@ export const AppointmentTimeSlot = () => {
       ? moment(getEventDate(selectedAppointment)).add(1, "hour").toDate()
       : null,
   });
-  
 
   useEffect(() => {
     if (selectedAppointment) {
       const newEvent = {
         title: "Rescheduled Appointment",
         start: getEventDate(selectedAppointment),
-        end: moment(getEventDate(selectedAppointment)).toDate(), // 1-hour duration
+        end: moment(getEventDate(selectedAppointment)).add(1, "hour").toDate(), // 1-hour duration
       };
       setEvents([newEvent]);
     }
   }, [selectedAppointment]);
 
-  const handleSelectEvent = (event) => {
-    setSelectedSlot({ start: event.start, end: event.end });
+  const handleEventClick = (info) => {
+    setSelectedSlot({ start: info.event.start, end: info.event.end });
     setIsModalOpen(true);
   };
 
@@ -54,21 +53,21 @@ export const AppointmentTimeSlot = () => {
         minute: moment(time, "HH:mm").minute(),
       })
       .toDate();
-  
-    const eventEnd = moment(eventStart).toDate();
-  
+
+    const eventEnd = moment(eventStart).add(1, "hour").toDate();
+
     // Create the new rescheduled event
     const newEvent = {
       title: "Rescheduled Appointment",
       start: eventStart,
       end: eventEnd,
     };
-  
+
     // Remove the old event (if any)
     const updatedEvents = events.filter(
       (event) => event.start !== selectedSlot.start
     );
-  
+
     // Add the new event
     setEvents([...updatedEvents, newEvent]);
     setIsModalOpen(false);
@@ -78,85 +77,60 @@ export const AppointmentTimeSlot = () => {
     setIsModalOpen(false);
   };
 
-  const eventPropGetter = (event) => {
-    if (event.title === "Rescheduled Appointment") {
-      return {
-        style: {
+  const renderEventContent = (eventInfo) => {
+    return (
+      <div
+        style={{
           backgroundColor: "#0EABEB",
           color: "white",
           borderRadius: "4px",
           border: "none",
-        },
-      };
-    }
-    return {};
-  };
-
-  const TimeColumnHeader = () => {
-    return (
-      <div className="rbc-time-header">
-        <div className="rbc-label text-[#0EABEB] font-semibold">Time</div>
+          padding: "2px 5px",
+        }}
+      >
+        {eventInfo.event.title}
       </div>
     );
   };
 
-  const CustomToolbar = ({ date, onNavigate }) => {
-    const startDate = moment(date).startOf("week").format("D MMMM, YYYY");
-    const endDate = moment(date).endOf("week").format("D MMMM, YYYY");
-
-    const goToPreviousWeek = () => {
-      onNavigate("PREV");
-    };
-
-    const goToNextWeek = () => {
-      onNavigate("NEXT");
-    };
-
-    return (
-      <div className="rbc-toolbar">
-        <span className="rbc-toolbar-label">
-          <button
-            type="button"
-            className="bg-transparent !border-0 !text-[#0EABEB]"
-            onClick={goToPreviousWeek}
-          >
-            <FaArrowLeft />
-          </button>
-          <span className="!text-[#0EABEB] font-semibold">
-            {startDate} - {endDate}
-          </span>
-          <button
-            type="button"
-            className="bg-transparent !border-0 !text-[#0EABEB]"
-            onClick={goToNextWeek}
-          >
-            <FaArrowRight />
-          </button>
-        </span>
-      </div>
-    );
+  const customButtons = {
+    prev: {
+      icon: FaArrowLeft,
+      click: () => {
+        const calendarApi = calendarRef.current.getApi();
+        calendarApi.prev();
+      },
+    },
+    next: {
+      icon: FaArrowRight,
+      click: () => {
+        const calendarApi = calendarRef.current.getApi();
+        calendarApi.next();
+      },
+    },
   };
+
+  const calendarRef = React.createRef();
 
   return (
     <div className="appointment_time-slot" style={{ height: "100%" }}>
-      <Calendar
-        localizer={localizer}
+      <FullCalendar
+        ref={calendarRef}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        initialView="timeGridWeek"
         events={events}
-        startAccessor="start"
-        endAccessor="end"
-        selectable
-        onSelectEvent={handleSelectEvent}
-        defaultView="week"
-        views={["month", "week", "day"]}
-        step={60}
-        timeslots={1}
-        min={new Date(0, 0, 0, 8, 0, 0)}
-        max={new Date(0, 0, 0, 18, 0, 0)}
-        eventPropGetter={eventPropGetter}
-        components={{
-          timeGutterHeader: TimeColumnHeader,
-          toolbar: CustomToolbar,
+        eventClick={handleEventClick}
+        eventContent={renderEventContent}
+        headerToolbar={{
+          left: "prev,next today",
+          center: "title",
+          right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
+        customButtons={customButtons}
+        slotMinTime="08:00:00"
+        slotMaxTime="18:00:00"
+        allDaySlot={false}
+        height="100%"
       />
       <RescheduleAppointmentModal
         handleOk={handleModalOk}
@@ -164,7 +138,7 @@ export const AppointmentTimeSlot = () => {
         rescheduleAppo={isModalOpen}
         Title="Reschedule Appointment"
         initialDate={selectedSlot.start}
-        initialTime={moment(selectedSlot.start).format("HH:mm")} 
+        initialTime={moment(selectedSlot.start).format("HH:mm")}
       />
     </div>
   );
