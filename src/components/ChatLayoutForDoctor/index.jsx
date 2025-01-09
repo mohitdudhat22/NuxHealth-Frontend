@@ -7,12 +7,22 @@ import socket, {
   sendMessage as sendSocketMessage,
   receiveMessage,
 } from "../../services/socketService";
-import { getOldMessages } from "@/axiosApi/ApiHelper";
+import { getDoctorContact, getOldMessages } from "@/axiosApi/ApiHelper";
+import { useDecodeToken } from "@/hook";
 
 export const ChatLayoutForDoctor = () => {
-  const userId = "6770443dceabc6c708235256"; // Doctor's user ID
   const patientId = "677047f308067157dc712f80"; // Patient's user ID
-
+  const [contact, setContact] = useState([]);
+  const{ token }= useDecodeToken();
+  const userId = token?.userData?._id 
+  useEffect(() => {
+    const fetchContact = async () => {
+      const response = await getDoctorContact();
+      console.log(response.data);
+      setContact(response.data);
+    };
+    fetchContact();
+  }, []);
   const initialUsers = [
     {
       _id: patientId,
