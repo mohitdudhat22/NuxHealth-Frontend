@@ -10,20 +10,14 @@ import {
 import { useRegister } from "@/hook/";
 
 export const PatientRegistration = () => {
-  const {
-    formData,
-    handleChange,
-    handleSubmit,
-    isLoading,
-    isDisabled,
-  } = useRegister();
+  const { formData, handleChange, handleSubmit, isLoading, isDisabled } =
+    useRegister();
 
   return (
     <>
       <h2>Registration</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-xl mt-xl">
         <div className="grid flex-col grid-cols-2 d-grid gap-y-2 gap-x-5">
-
           <NHInput
             label="First Name"
             name="firstName"
@@ -32,7 +26,6 @@ export const PatientRegistration = () => {
             onChange={handleChange}
             required
           />
-
           <NHInput
             label="Last Name"
             name="lastName"
@@ -57,32 +50,30 @@ export const PatientRegistration = () => {
             onChange={handleChange}
             required
           />
-
           <NHInput
-            label={'Age'}
-            name='age'
+            label={"Age"}
+            name="age"
             placeholder={"Enter Age"}
             value={formData?.age}
             onChange={handleChange}
             required
           />
           <NHInput
-            label={'Height (cm)'}
-            name='height'
+            label={"Height (cm)"}
+            name="height"
             placeholder={"Enter Height"}
             value={formData?.height}
             onChange={handleChange}
             required
           />
           <NHInput
-            label={'Weight (kg)'}
-            name='weight'
+            label={"Weight (kg)"}
+            name="weight"
             placeholder={"Enter Weight"}
             value={formData?.weight}
             onChange={handleChange}
             required
           />
-
           <NHSelect
             label="Gender"
             name="gender"
@@ -122,7 +113,6 @@ export const PatientRegistration = () => {
             onChange={(value) => updateFormData("dob", value)}
             required
           />
-
           <NHInput
             label="Country"
             name="country"
@@ -131,7 +121,6 @@ export const PatientRegistration = () => {
             onChange={handleChange}
             required
           />
-
           <NHInput
             label="State"
             name="state"
@@ -140,7 +129,6 @@ export const PatientRegistration = () => {
             onChange={handleChange}
             required
           />
-
           <NHInput
             label="City"
             name="city"
@@ -148,8 +136,8 @@ export const PatientRegistration = () => {
             value={formData?.city}
             onChange={handleChange}
             required
+            parentClassName="col-span-2"
           />
-
           <NHInput
             parentClassName="col-span-2"
             label="Address"
@@ -159,7 +147,6 @@ export const PatientRegistration = () => {
             onChange={handleChange}
             required
           />
-
           <NHPasswordInput
             label="Password"
             name="password"
@@ -169,7 +156,6 @@ export const PatientRegistration = () => {
             parentClassName="col-span-2"
             required
           />
-
           <NHPasswordInput
             label="Confirm Password"
             name="confirmPassword"
@@ -186,7 +172,11 @@ export const PatientRegistration = () => {
           checked={formData?.termsAccepted}
           onChange={handleChange}
         >
-          I agree to all the <span className="text-[#5678E9]">T & C</span> and <Link to="/privacy-policies"><span className="text-[#5678E9]">Privacy Policies</span></Link>.
+          I agree to all the <span className="text-[#5678E9]">T & C</span> and{" "}
+          <Link to="/privacy-policies">
+            <span className="text-[#5678E9]">Privacy Policies</span>
+          </Link>
+          .
         </NHCheckbox>
 
         <NHButton
@@ -200,7 +190,10 @@ export const PatientRegistration = () => {
         </NHButton>
 
         <h6 className="text-center fw-normal">
-          Already have an account? <Link to="/login" className="text-[#5678E9]">Login</Link>
+          Already have an account?{" "}
+          <Link to="/login" className="text-[#5678E9]">
+            Login
+          </Link>
         </h6>
       </form>
     </>

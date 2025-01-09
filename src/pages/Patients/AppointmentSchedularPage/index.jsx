@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { AppointmentScheduler, NHCard, NHModal, NHSelect } from '@/components';
-// import { IoClose } from "react-icons/io5";
 
 const useAppointmentFilters = () => {
   const [filters, setFilters] = useState({});
