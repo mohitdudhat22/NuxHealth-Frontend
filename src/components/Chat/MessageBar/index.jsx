@@ -34,37 +34,65 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
     const file = e.target.files[0];
     if (file) {
       try {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const base64Data = reader.result.split(",")[1]; // Extract base64 string
-          const fileType = file.type.startsWith("image") ? "image" : "file";
-          console.log({
-            type: fileType,
-            fileDetails: {
-              type: file.type,
-              base64: base64Data, // Store base64 data
-              name: file.name,
-            },
-          })
-          onSendMessage({
-            type: fileType,
-            fileDetails: {
-              type: file.type,
-              base64: base64Data, // Store base64 data
-              name: file.name,
-            },
-          });
-        };
-        reader.readAsDataURL(file); // Convert the file to base64
+        const fileType = file.type.startsWith("image") ? "image" : "file";
+  
+        // Log the file details
+        console.log({
+          type: fileType,
+          fileDetails: {
+            type: file.type,
+            name: file.name,
+            size: file.size,
+          },
+        });
+  
+        // Send the file and its details via the socket
+        onSendMessage({
+          type: fileType,
+          fileDetails: {
+            name: file.name,
+            size: file.size,
+            type: file.type,
+          },
+          file: file, // Attach the file object
+        });
       } catch (error) {
         console.error("File upload failed:", error);
       }
     }
   };
 
+  const isCloudinaryUrl = (url) => {
+    return url.includes("res.cloudinary.com");
+  };
+
+  
+  // Improve right-side and left-side message styling
+  const updateMessageStyles = () => {
+    const rightSideMessages = document.querySelectorAll('.bg-blue-500');
+    const leftSideMessages = document.querySelectorAll('.bg-gray-100');
+  
+    rightSideMessages.forEach((message) => {
+      message.style.backgroundColor = '#4A90E2'; // Softer blue
+      message.style.borderRadius = '15px'; // Rounded corners
+      message.style.padding = '10px 15px'; // Add better padding
+      message.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)'; // Subtle shadow
+    });
+  
+    leftSideMessages.forEach((message) => {
+      message.style.backgroundColor = '#F1F3F5'; // Softer gray
+      message.style.borderRadius = '15px'; // Rounded corners
+      message.style.padding = '10px 15px'; // Add better padding
+      message.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)'; // Subtle shadow
+    });
+  };
+
+  useEffect(() => {
+    updateMessageStyles();
+  }, [messages]);
+
   return (
     <div className="w-full flex flex-col h-full">
-      {/* Header */}
       <div className="flex bg-white items-center gap-xl p-xl">
         <Avatar
           size={48}
@@ -80,17 +108,13 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
         </div>
       </div>
 
-      {/* Chat Area */}
       <div className="p-4 my-xl ml-md overflow-auto flex-1">
         <div>
-          {/* Date Separator */}
           <div className="flex justify-center mb-4">
             <span className="flex items-center justify-center mx-auto bg-[#718EBF1A] py-md px-2xl rounded-[var(--space-md)]">
               Today
             </span>
           </div>
-
-          {/* Messages */}
           <div>
             {messages?.map((message) => {
               if (!message) return null;
@@ -119,7 +143,19 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
                         : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
                     } p-3`}
                   >
-                    {message.type === "text" && <p>{message.content}</p>}
+                    {message.type === "text" && (
+                      <>
+                        {isCloudinaryUrl(message.content) ? (
+                          <img
+                            src={message.content}
+                            alt="Chat image"
+                            className="rounded-lg max-w-full h-[300px]"
+                          />
+                        ) : (
+                          <p>{message.content}</p>
+                        )}
+                      </>
+                    )}
                     {message.type === "image" && message.fileDetails?.base64 && (
                       <img
                         src={`data:image/jpeg;base64,${message.fileDetails.base64}`}
@@ -154,7 +190,6 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
         </div>
       </div>
 
-      {/* Bottom Area */}
       <form
         onSubmit={handleSendMessage}
         className="ml-md flex items-center gap-md p-4 border-t"
@@ -180,7 +215,6 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
         <NHButton icon={Icons.Send} variant="primary" type="submit" />
       </form>
 
-      {/* PDF Viewer Modal */}
       {selectedPdf && (
         <PDFViewerModal
           isOpen={!!selectedPdf}
