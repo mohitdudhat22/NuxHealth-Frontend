@@ -154,70 +154,70 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
 
                   const isCurrentUser = message.sender === userId;
 
-                  return (
+                    return (
                     <div
                       key={message.id}
                       className={`flex ${
-                        isCurrentUser ? "justify-end" : "justify-start"
+                      isCurrentUser ? "justify-end" : "justify-start"
                       } items-end gap-2 mb-3`}
                     >
                       {!isCurrentUser && (
-                        <Avatar
-                          size={24}
-                          src={selectedUser.avatar}
-                          alt={`${selectedUser.name} avatar`}
-                          className="rounded-full"
-                        />
+                      <Avatar
+                        size={24}
+                        src={selectedUser.avatar}
+                        alt={`${selectedUser.name} avatar`}
+                        className="rounded-full"
+                      />
                       )}
                       <div
-                        className={`max-w-[70%] ${
-                          isCurrentUser
-                            ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
-                            : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
-                        } p-3`}
+                      className={`max-w-[70%] ${
+                        isCurrentUser
+                        ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
+                        : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
+                      } p-3`}
                       >
-                        {message.type === "text" && (
-                          <>
-                            {isCloudinaryUrl(message.content) ? (
-                              <img
-                                src={message.content}
-                                alt="Chat image"
-                                className="rounded-lg max-w-full h-[300px]"
-                              />
-                            ) : (
-                              <p>{message.content}</p>
-                            )}
-                          </>
-                        )}
-                        {message.type === "image" && message.fileDetails?.base64 && (
+                      {message.type === "text" && (
+                        <>
+                        {isCloudinaryUrl(message.content) ? (
                           <img
-                            src={`data:image/jpeg;base64,${message.fileDetails.base64}`}
-                            alt="Chat image"
-                            className="rounded-lg max-w-full h-[300px]"
+                          src={message.content}
+                          alt="Chat image"
+                          className="rounded-lg max-w-full h-[300px]"
                           />
+                        ) : (
+                          <p>{message.content}</p>
                         )}
-                        {message.type === "file" &&
-                          message.fileDetails?.type === "application/pdf" && (
-                            <NHButton
-                              variant="ghost"
-                              className="flex items-center gap-2 w-full hover:bg-opacity-10"
-                              onClick={() =>
-                                handlePdfClick(
-                                  message.fileDetails.url,
-                                  message.fileDetails.name
-                                )
-                              }
-                            >
-                              <Icons.FileText className="h-5 w-5" />
-                              <span>{message.fileDetails.name}</span>
-                            </NHButton>
-                          )}
-                        <p className="text-xs mt-1 opacity-70">
-                          {formatTime(message.timestamp)}
-                        </p>
+                        </>
+                      )}
+                      {message.type === "image" && (
+                        <img
+                        src={message.content}
+                        alt="Chat image"
+                        className="rounded-lg max-w-full h-[300px]"
+                        />
+                      )}
+                      {message.type === "file" &&
+                        message.fileDetails?.type === "application/pdf" && (
+                        <NHButton
+                          variant="ghost"
+                          className="flex items-center gap-2 w-full hover:bg-opacity-10"
+                          onClick={() =>
+                          handlePdfClick(
+                            message.fileDetails.url,
+                            message.fileDetails.name
+                          )
+                          }
+                        >
+                          <Icons.FileText className="h-5 w-5" />
+                          <span>{message.fileDetails.name}</span>
+                        </NHButton>
+                        )}
+                      <p className="text-xs mt-1 opacity-70">
+                        {formatTime(message.timestamp)}
+                      </p>
                       </div>
                     </div>
-                  );
+                    );
                 })}
               </div>
             </div>
