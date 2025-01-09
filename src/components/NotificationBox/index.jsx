@@ -84,7 +84,7 @@ const NotificationBox = ({ visible, onClose }) => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   const { token } = useDecodeToken();
-  const userData = { id: token?.userData?.id };
+  const userData = { id: token?.userData?._id };
 
   useEffect(() => {
     const loadNotifications = async () => {
@@ -92,8 +92,9 @@ const NotificationBox = ({ visible, onClose }) => {
       setLoading(true);
       try {
         const response = await GetUserNotifications(userData.id);
-        setNotifications(response.data);
-        setUnreadCount(response.data.filter((n) => !n.isRead).length);
+        console.log(response.notifications,"-------------")
+        setNotifications(response.notifications);
+        setUnreadCount(response?.notifications?.filter((n) => !n.isRead).length);
       } catch (error) {
         console.error("Error loading notifications:", error);
       } finally {
@@ -101,7 +102,7 @@ const NotificationBox = ({ visible, onClose }) => {
       }
     };
     loadNotifications();
-  }, [userData?.id]);
+  }, [userData?.id, token]);
 
   useEffect(() => {
     if (!userData?.id) return;
@@ -142,7 +143,7 @@ const NotificationBox = ({ visible, onClose }) => {
     if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
     return date.toLocaleDateString();
   };
-
+  console.log(notifications)
   return (
     <Popover
       open={visible}
@@ -163,7 +164,7 @@ const NotificationBox = ({ visible, onClose }) => {
             />
           }
         >
-          {notifications.length > 0 ? (
+          {notifications?.length > 0 ? (
             <List
               dataSource={notifications}
               renderItem={(item) => (
