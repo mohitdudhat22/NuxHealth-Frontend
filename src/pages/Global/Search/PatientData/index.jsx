@@ -1,4 +1,5 @@
 import { NHButton, NHTable } from "@/components";
+import Icons from "@/constants/icons";
 
 const PatientData = ({ tableData }) => {
   const columns = [
@@ -40,11 +41,11 @@ const PatientData = ({ tableData }) => {
     {
       title: "Action",
       key: "action",
-      render: (text, record) => (
-        <NHButton type="primary" onClick={() => handleView(record)}>
-          View
-        </NHButton>
-      ),
+      render: (_, record) => {
+        return (
+          <NHButton size={"small"} icon={Icons.View} className="edit-btn" />
+        );
+      },
     },
   ];
 

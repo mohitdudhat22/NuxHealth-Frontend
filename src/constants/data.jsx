@@ -225,8 +225,8 @@ export const headerOption = [
     disabled: false,
   },
   {
-    key: "reception",
-    value: "Reception",
+    key: "receptionist",
+    value: "Receptionist",
     disabled: false,
   },
   {
