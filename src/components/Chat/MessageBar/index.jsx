@@ -30,20 +30,35 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
     setInputMessage("");
   };
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      const fileUrl = URL.createObjectURL(file);
-      const fileType = file.type.startsWith("image") ? "image" : "file";
-
-      onSendMessage({
-        type: fileType,
-        fileDetails: {
-          type: file.type,
-          url: fileUrl,
-          name: file.name,
-        },
-      });
+      try {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64Data = reader.result.split(",")[1]; // Extract base64 string
+          const fileType = file.type.startsWith("image") ? "image" : "file";
+          console.log({
+            type: fileType,
+            fileDetails: {
+              type: file.type,
+              base64: base64Data, // Store base64 data
+              name: file.name,
+            },
+          })
+          onSendMessage({
+            type: fileType,
+            fileDetails: {
+              type: file.type,
+              base64: base64Data, // Store base64 data
+              name: file.name,
+            },
+          });
+        };
+        reader.readAsDataURL(file); // Convert the file to base64
+      } catch (error) {
+        console.error("File upload failed:", error);
+      }
     }
   };
 
@@ -105,9 +120,9 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
                     } p-3`}
                   >
                     {message.type === "text" && <p>{message.content}</p>}
-                    {message.type === "image" && message.fileDetails?.url && (
+                    {message.type === "image" && message.fileDetails?.base64 && (
                       <img
-                        src={message.fileDetails.url}
+                        src={`data:image/jpeg;base64,${message.fileDetails.base64}`}
                         alt="Chat image"
                         className="rounded-lg max-w-full h-[300px]"
                       />
