@@ -8,32 +8,16 @@ import socket, {
   receiveMessage,
 } from "../../services/socketService";
 import { getOldMessages, getPatientContact } from "@/axiosApi/ApiHelper";
+import { useDecodeToken } from "@/hook";
 
 export const ChatLayoutForPatient = () => {
+  const { token } = useDecodeToken();
   const userId = "677047f308067157dc712f80"; // Patient's user ID
-  const doctorId = "6770443dceabc6c708235256"; // Doctor's user ID
-  const [users, setUsers] = useState([
-    {
-      _id: doctorId,
-      name: "Dr. John Doe",
-      avatar: "/placeholder.svg?height=48&width=48",
-      status: "online",
-      lastMessage: "How are you feeling today?",
-      lastMessageTime: "10:30 AM",
-      unreadCount: 0,
-    },
-  ]);
-  
-  const [chats, setChats] = useState([
-    {
-      _id: doctorId,
-      participants: [{ _id: doctorId, name: "Dr. John Doe", avatar: "/placeholder.svg?height=48&width=48" }],
-      messages: [],
-    },
-  ]);
-  
-  const [selectedUserId, setSelectedUserId] = useState(doctorId);
+  const [users, setUsers] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
+
   useEffect(() => {
     const fetchContact = async () => {
       try {
@@ -61,12 +45,13 @@ export const ChatLayoutForPatient = () => {
 
     fetchContact();
   }, []);
+
   useEffect(() => {
     registerUser(userId);
     joinChat("room1");
 
     receiveMessage((data) => {
-      const { from, message, timestamp, type } = data;
+      const { from, message, timestamp, fileDetails, type } = data;
 
       // Update chats with the new message
       setChats((prevChats) =>
@@ -79,6 +64,7 @@ export const ChatLayoutForPatient = () => {
                   {
                     id: Date.now().toString(),
                     content: message,
+                    fileDetails,
                     sender: "doctor",
                     timestamp,
                     type,
@@ -95,7 +81,7 @@ export const ChatLayoutForPatient = () => {
           user._id === from
             ? {
                 ...user,
-                lastMessage: message,
+                lastMessage: message || (fileDetails ? "File sent" : ""),
                 lastMessageTime: "Just now",
                 unreadCount: user.unreadCount + 1,
               }
@@ -109,7 +95,6 @@ export const ChatLayoutForPatient = () => {
     };
   }, []);
 
-  // Fetch old messages when a user is selected
   useEffect(() => {
     if (selectedUserId) {
       const fetchMessages = async () => {
@@ -122,6 +107,7 @@ export const ChatLayoutForPatient = () => {
             receiver: msg.to,
             timestamp: msg.timestamp,
             type: msg.type,
+            fileDetails: msg.fileDetails,
           }));
 
           setChats((prevChats) =>
@@ -140,7 +126,6 @@ export const ChatLayoutForPatient = () => {
     }
   }, [selectedUserId]);
 
-  // Update current chat when a user is selected
   useEffect(() => {
     const chat = chats.find((c) =>
       c.participants.some((p) => p._id === selectedUserId)
@@ -174,8 +159,10 @@ export const ChatLayoutForPatient = () => {
     sendSocketMessage({
       to: selectedUserId,
       from: userId,
-      message: message.content || message.fileDetails,
+      message: message.content || message.fileDetails.url,
       roomId: "room1",
+      fileDetails: message.fileDetails,
+      type: message.type,
     });
 
     setUsers((prevUsers) =>
@@ -191,6 +178,8 @@ export const ChatLayoutForPatient = () => {
     );
   };
 
+  const selectedUser = users.find(user => user._id === selectedUserId);
+
   return (
     <div className="grid grid-cols-[334px,1fr] h-full max-h-[calc(100vh-var(--header-height))]">
       <ChatSidebar
@@ -200,7 +189,7 @@ export const ChatLayoutForPatient = () => {
       />
       {currentChat ? (
         <ChatMessageBar
-          selectedUser={currentChat.participants[0]}
+          selectedUser={selectedUser}
           messages={currentChat.messages}
           onSendMessage={handleSendMessage}
           userId={userId}
