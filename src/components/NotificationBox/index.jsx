@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button, Popover, List, Empty, Badge } from "antd";
 import { CloseOutlined, BellOutlined } from "@ant-design/icons";
 import NoNotificationFound from "../../assets/images/cover/no-notification-found.png";
@@ -18,34 +18,45 @@ const NotificationBox = () => {
   const { token } = useDecodeToken();
   const userData = { id: token?.userData?._id };
 
+  const loadNotifications = useCallback(async () => {
+    if (!userData?.id) return;
+    setLoading(true);
+    try {
+      const response = await GetUserNotifications(userData.id);
+      setNotifications(response.notifications);
+      setUnreadCount(response.notifications.filter((n) => !n.isRead).length);
+    } catch (error) {
+      console.error("Error loading notifications:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [userData?.id]);
+
   useEffect(() => {
-    const loadNotifications = async () => {
-      if (!userData?.id) return;
-      setLoading(true);
-      try {
-        const response = await GetUserNotifications(userData.id);
-        setNotifications(response.notifications);
-        setUnreadCount(response?.notifications?.filter((n) => !n.isRead).length);
-      } catch (error) {
-        console.error("Error loading notifications:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     loadNotifications();
-  }, [userData?.id, token]);
+  }, [loadNotifications]);
 
   useEffect(() => {
     if (!userData?.id) return;
+    console.log(userData.id);
+
+    //aa even per socket regeter thashe socket.id -> userId
     socket.emit("userOnline", userData.id);
-    socket.on("notification", (notification) => {
-      setNotifications((prev) => [
-        { ...notification, isRead: false, timestamp: new Date() },
-        ...prev,
-      ]);
+
+    const handleNewNotification = (notification) => {
+      console.log("Received new notification:", notification);
+      alert("got new message");
+      setNotifications((prev) => [notification, ...prev]);
       setUnreadCount((prev) => prev + 1);
-    });
-    return () => socket.disconnect();
+    };
+
+    // new notification aa userId-> socket ne mokalshu 
+    socket.on("new-notification", handleNewNotification);
+
+    return () => {
+      socket.off("new-notification", handleNewNotification);
+      socket.disconnect();
+    };
   }, [userData?.id]);
 
   const handleNotificationClick = async (notification) => {
@@ -144,14 +155,12 @@ const NotificationBox = () => {
       content={notificationContent}
       placement="bottomRight"
       overlayClassName="notification-popover"
-      icon={<BellOutlined />}
     >
-      <Button
-        className="relative"
-        onClick={() => setVisible(!visible)}
-      >
+      <Badge count={unreadCount} size="small">
+        <Button className="relative" onClick={() => setVisible(!visible)}>
           <BellOutlined style={{ fontSize: 20 }} />
-      </Button>
+        </Button>
+      </Badge>
     </Popover>
   );
 };
