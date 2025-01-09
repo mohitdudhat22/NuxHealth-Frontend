@@ -31,5 +31,5 @@ export * from "./NHModalComponents";
 export * from "./Bills";
 
 /* Chart */
-export { AppointmentSchedular } from "./AppointmentSchedular";
+export { AppointmentScheduler } from "./AppointmentScheduler";
 export * from "./Chat/";

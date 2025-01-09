@@ -1,4 +1,4 @@
-import { useDeleteModal, useReceptionManagement } from "@/hook";
+import { useReceptionManagement } from "@/hook";
 import { Space } from "antd/lib";
 import Icons from "@/constants/icons";
 import {
@@ -10,6 +10,7 @@ import {
   NHTable,
 } from "@/components";
 import { Avatar } from "antd";
+import { useDeleteModal } from "@/hook/Global";
 
 export const ReceptionManagement = () => {
   const { data, loading, searchQuery, onSearch, fetchReception } =
