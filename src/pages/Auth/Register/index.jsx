@@ -178,12 +178,7 @@ export const Register = () => {
           <Link to="/privacy-policies">Privacy Policies</Link>.
         </NHCheckbox>
 
-        <NHButton
-          variant="primary"
-          block
-          type="submit"
-          loading={isLoading}
-        >
+        <NHButton variant="primary" block type="submit" loading={isLoading}>
           Register
         </NHButton>
 

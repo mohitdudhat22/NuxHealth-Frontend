@@ -402,7 +402,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "patient-registration",
-                  element: <Register />,
+                  element: <PatientRegistration />,
                 },
                 {
                   path: "personal-health",
