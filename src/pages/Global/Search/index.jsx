@@ -13,7 +13,7 @@ export const GlobalSearch = () => {
   const { doctorData, patientData, receptionData, loading, error } =
     useGlobalSearch();
 
-  console.log(doctorData);
+  console.log(patientData);
 
   const isPatient = location.pathname.startsWith("/patient");
 

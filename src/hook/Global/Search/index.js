@@ -11,6 +11,7 @@ export const useGlobalSearch = (role) => {
   const [patientData, setPatientData] = useState();
   const [receptionData, setReceptionData] = useState();
   const [fullDoctorData, setFullDoctorData] = useState();
+  const [fullPatientData, setFullPatientData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -44,9 +45,21 @@ export const useGlobalSearch = (role) => {
             eveningSession: doctor?.metaData?.doctorData?.eveningSession,
           }))
         );
-        setPatientData(patientData);
+        setPatientData(
+          patientData?.map((patient) => ({
+            key: patient._id,
+            name: patient.fullName,
+            number: patient.phone,
+            appointmentType: patient.metaData?.appointmentType || "null",
+            appointmentDate: patient.metaData?.appointmentDate || "null",
+            appointmentTime: patient.metaData?.appointmentTime || "null",
+            age: patient.age,
+            gender: patient.gender,
+          }))
+        );
         setReceptionData(receptionData);
         setFullDoctorData(doctorData);
+        setFullPatientData(patientData);
       } finally {
         setLoading(false);
       }
@@ -62,6 +75,7 @@ export const useGlobalSearch = (role) => {
     patientData,
     receptionData,
     fullDoctorData,
+    fullPatientData,
     loading,
     error,
   };
