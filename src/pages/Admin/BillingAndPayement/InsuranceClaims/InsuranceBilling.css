@@ -1,0 +1,20 @@
+.insurance_sec .ant-tag {
+    border-radius: 30px;
+    padding: 6px 20px;
+    line-height: normal;
+    font-size: 16px;
+}
+
+.insurance_sec .ant-tag-has-color {
+    color: #718EBF;
+    padding: 10px 20px;
+}
+
+.insurance_sec .ant-btn-icon {
+    display: flex;
+    align-items: center;
+}
+
+.insurance_sec .edit-btn .ant-btn-icon svg {
+    color : #0EABEB;
+}

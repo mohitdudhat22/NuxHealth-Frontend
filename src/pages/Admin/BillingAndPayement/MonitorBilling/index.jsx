@@ -12,6 +12,7 @@ import {
   NHTable,
 } from "@/components";
 import Icons from "@/constants/icons";
+import "./Billing.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -24,6 +25,9 @@ export const MonitorBilling = () => {
       title: "Bill Number",
       dataIndex: "billNumber",
       key: "billNumber",
+      render: (billNumber) => (
+        <Tag color={billNumber === "#F6F8FB"}>{billNumber}</Tag>
+      ),
     },
     {
       title: "Patient Name",
@@ -57,6 +61,9 @@ export const MonitorBilling = () => {
       title: "Time",
       dataIndex: "time",
       key: "time",
+      render: (time) => (
+        <Tag color={time === "#F6F8FB"}>{time}</Tag>
+      ),
     },
     {
       title: "Action",
@@ -69,7 +76,7 @@ export const MonitorBilling = () => {
             icon={Icons.View}
             className="bg-white view-btn border-primary"
             onClick={() =>
-              navigate(`/admin/monitor-billing/bill-view/${record.billNumber}`)
+              navigate(`/admin/monitor-billing/bill-view/${record.billNumber}`, { state: { billData: record } })
             }
           />
         </Space>
@@ -79,9 +86,10 @@ export const MonitorBilling = () => {
 
   return (
     <>
+    <div className="monitor_billing_sec">
       <NHHead />
       <NHCard
-        title="Billing and Payments"
+        title="Monitor Billing"
         headerContent={
           <>
             <NHInput
@@ -113,6 +121,7 @@ export const MonitorBilling = () => {
           showPagination={true}
         />
       </NHCard>
+      </div>
     </>
   );
 };

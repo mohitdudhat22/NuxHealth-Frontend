@@ -2,7 +2,7 @@ import { Bill1, Bill2, Bill3, StaticBill1, StaticBill2, StaticBill3 } from '@/co
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
 
-export const BillView = () => {
+export const PaymentBillView = () => {
   const location = useLocation();
     const { billData } = location.state || {};
 

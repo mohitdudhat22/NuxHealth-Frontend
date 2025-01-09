@@ -1,6 +1,7 @@
 import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
+import "./InsuranceBilling.css";
 import { useInsuranceClaims } from '@/hook/Admin/BillingAndPayments';
 
 export const InsuranceClaims = () => {
@@ -18,6 +19,11 @@ export const InsuranceClaims = () => {
       title: "Bill Number",
       dataIndex: "billNumber",
       key: "billNumber",
+      render: (billNumber) => (
+        <Tag color={billNumber === "billNumber" ? "#F6F8FB" : "#F6F8FB"}>
+          {billNumber}
+        </Tag>
+      ),
     },
     {
       title: "Doctor Name",
@@ -44,7 +50,7 @@ export const InsuranceClaims = () => {
       dataIndex: "insurancePlan",
       key: "insurancePlan",
       render: (plan) => (
-        <Tag color={plan === "Maternity" ? "blue" : "green"}>
+        <Tag color={plan === "Maternity" ? "#F6F8FB" : "#F6F8FB"}>
           {plan}
         </Tag>
       ),
@@ -64,7 +70,7 @@ export const InsuranceClaims = () => {
             variant="secondary"
             size="small"
             icon={Icons.ViewBillIcon}
-            onClick={() => navigate(`view-bill/${record.key}`)}
+            onClick={() => navigate(`/admin/insurance-claims/insurance-view-bill/${record.billNumber}`, { state: { billData: record } })}
             className="edit-btn bg-white"
           />
         </Space>
@@ -74,6 +80,7 @@ export const InsuranceClaims = () => {
 
   return (
     <>
+    <div className="insurance_sec">
       <NHHead title="Insurance Claims" />
       <NHCard
         title={"Insurance Claims"}
@@ -87,6 +94,7 @@ export const InsuranceClaims = () => {
       >
         <NHTable loading={loading} showPagination={true} tableColumn={columns} tableDataSource={data} />
       </NHCard>
+      </div>
     </>
   );
 };
