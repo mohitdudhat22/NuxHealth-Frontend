@@ -50,7 +50,7 @@ export const ChatLayoutForDoctor = () => {
     joinChat("room1");
 
     receiveMessage((data) => {
-      const { from, message, timestamp } = data;
+      const { from, message, timestamp, fileDetails, type } = data;
 
       // Update chats with the new message
       setChats((prevChats) =>
@@ -63,9 +63,10 @@ export const ChatLayoutForDoctor = () => {
                   {
                     id: Date.now().toString(),
                     content: message,
+                    fileDetails,
                     sender: "patient",
                     timestamp,
-                    type: "text",
+                    type,
                   },
                 ],
               }
@@ -79,7 +80,7 @@ export const ChatLayoutForDoctor = () => {
           user._id === from
             ? {
                 ...user,
-                lastMessage: message,
+                lastMessage: message || (fileDetails ? "File sent" : ""),
                 lastMessageTime: "Just now",
                 unreadCount: user.unreadCount + 1,
               }
@@ -97,14 +98,15 @@ export const ChatLayoutForDoctor = () => {
     if (selectedUserId) {
       const fetchMessages = async () => {
         try {
-          const response = await getOldMessages(userId, patientId);
+          const response = await getOldMessages(userId, selectedUserId);
           const oldMessages = response.data?.map((msg) => ({
             id: msg._id,
             content: msg.message,
             sender: msg.from,
             receiver: msg.to,
             timestamp: msg.timestamp,
-            type: "text",
+            type: msg.type,
+            fileDetails: msg.fileDetails,
           }));
 
           setChats((prevChats) =>
@@ -156,8 +158,10 @@ export const ChatLayoutForDoctor = () => {
     sendSocketMessage({
       to: selectedUserId,
       from: userId,
-      message: message.content || message.fileDetails,
+      message: message.content || message.fileDetails.url,
       roomId: "room1",
+      fileDetails: message.fileDetails,
+      type: message.type,
     });
 
     setUsers((prevUsers) =>
