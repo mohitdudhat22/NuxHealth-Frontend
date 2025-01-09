@@ -33,7 +33,7 @@ export const AppointmentBooking = () => {
   const { data: todayAppointments } = useTodaysAppoinmentBookings()
   const { data: previousAppointments } = usePreviousAppoinmentBookings()
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings()
-  const { data: cancleAppointments } = useCancelAppoinmentBookings()
+  const { data: cancelAppointments } = useCancelAppoinmentBookings()
 
   const navigate = useNavigate();
 
@@ -78,11 +78,11 @@ export const AppointmentBooking = () => {
     } else if (activeTab === "Previous") {
       appointment = previousAppointments.find((item) => item.id === id);
     } else if (activeTab === "Cancel") {
-      appointment = cancleAppointments.find((item) => item.id === id);
+      appointment = cancelAppointments.find((item) => item.id === id);
     } else if (activeTab === "Pending") {
       appointment = upcomingAppointments.find((item) => item.id === id);
     }
-  
+
     if (appointment) {
       setSelectedAppointment(appointment);
       setIsOffCanvasVisible(true); // Show OffCanvas
@@ -164,7 +164,7 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                      //   onClick={() => handleJoinCall(data)}
+                    //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -273,10 +273,7 @@ export const AppointmentBooking = () => {
           }
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* {patientData.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
-                            return ( */}
-            {cancleAppointments.map((data) => (
+            {cancelAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
                 headerBg={true}
@@ -366,7 +363,7 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                      //   onClick={() => handleJoinCall(data)}
+                    //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
