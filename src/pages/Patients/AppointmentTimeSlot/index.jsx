@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+// import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+// import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./AppointmentTimeSlot.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
