@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { NHButton, NHCard, NHTable } from "..";
-import { Space } from "antd";
 import Icons from "@/constants/icons";
 import { useNavigate } from "react-router-dom";
+
 export const BillingCard = ({ data }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -35,20 +35,14 @@ export const BillingCard = ({ data }) => {
       fixed: "right",
       width: 100,
       render: (_, record) => (
-        <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() =>
-              navigate(
-                `/admin/monitor-billing/bill-view/${record.billNumber}`,
-                { state: { billData: record } }
-              )
-            }
-            className="view-btn bg-white"
-          />
-        </Space>
+        <NHButton
+          isView
+          onClick={() =>
+            navigate(`/admin/monitor-billing/bill-view/${record?.billsNo}`, {
+              state: { billData: record },
+            })
+          }
+        />
       ),
     },
   ];
@@ -58,7 +52,7 @@ export const BillingCard = ({ data }) => {
       title={"Billing & Payments"}
       headerContent={
         <NHButton
-          icon={Icons.PlusSquare}
+          icon={Icons?.PlusSquare}
           onClick={() => navigate("/admin/monitor-billing/create-bill")}
           variant="primary"
         >

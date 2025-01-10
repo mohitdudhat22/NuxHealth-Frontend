@@ -11,7 +11,6 @@ import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { TodayAppointment } from "./TodayAppointment";
-import { render } from "react-dom";
 import { UpcomingAppointment } from "./UpcomingAppointment";
 import { PreviousAppointment } from "./PreviousAppointment";
 import { CancelAppointment } from "./CancelAppointment";
