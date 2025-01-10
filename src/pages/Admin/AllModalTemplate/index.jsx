@@ -18,7 +18,7 @@ import { ReminderJoinModal } from '@/components/NHModalComponents/ModalTemplate/
 import { ReminderModal } from '@/components/NHModalComponents/ModalTemplate/ReminderModal';
 import { RescheduleAppointmentModal } from '@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal';
 import { SelectPaymentTypeModal } from '@/components/NHModalComponents/ModalTemplate/SelectPaymentTypeModal';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export const AllModalTemplate = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -333,6 +333,15 @@ export const AllModalTemplate = () => {
                             onClick={() => payMethodProccess()}
                         >
                             Payment Method Process
+                        </NHButton>
+                    </li>
+                    <li>
+                        <NHButton
+                            variant="primary"
+                            type="submit"
+                            onClick={() => razorPay()}
+                        >
+                            Pay 100 rupees
                         </NHButton>
                     </li>
 
