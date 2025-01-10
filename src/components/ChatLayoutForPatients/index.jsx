@@ -17,7 +17,8 @@ export const ChatLayoutForPatient = () => {
   const [chats, setChats] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
-
+  const [isOnline, setIsOnline] = useState(false);
+  console.log(isOnline,"<<<<<<<<<<<<<<<<< other person")
   useEffect(() => {
     const fetchContact = async () => {
       try {
@@ -26,13 +27,13 @@ export const ChatLayoutForPatient = () => {
           _id: contact._id,
           name: contact.fullName,
           avatar: contact.profilePicture,
-          status: "offline", // You can update this based on your logic
+          status: "offline",
           lastMessage: "",
           lastMessageTime: "",
           unreadCount: 0,
         }));
         setUsers(contacts);
-        setSelectedUserId(contacts[0]?._id || null); // Select the first user by default
+        setSelectedUserId(contacts[0]?._id || null);
         setChats(contacts.map(contact => ({
           _id: contact._id,
           participants: [{ _id: contact._id, name: contact.fullName, avatar: contact.profilePicture }],
@@ -45,7 +46,16 @@ export const ChatLayoutForPatient = () => {
 
     fetchContact();
   }, []);
-
+  const handleUserStatus = (data) => {
+    setIsOnline(data.online);
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user._id === selectedUserId
+          ? { ...user, status: data.online ? "online" : "offline" }
+          : user
+      )
+    );
+  };
   useEffect(() => {
     registerUser(userId);
     joinChat("room1");
@@ -97,6 +107,14 @@ export const ChatLayoutForPatient = () => {
 
   useEffect(() => {
     if (selectedUserId) {
+
+      //selecteduser -> check online line ->
+      socket.emit("check-online", selectedUserId);
+
+
+ 
+      socket.on("user-status", handleUserStatus);
+      
       const fetchMessages = async () => {
         try {
           const response = await getOldMessages(userId, selectedUserId);
@@ -124,6 +142,9 @@ export const ChatLayoutForPatient = () => {
 
       fetchMessages();
     }
+    return () => {
+      socket.off("user-status", handleUserStatus);
+    };
   }, [selectedUserId]);
 
   useEffect(() => {
