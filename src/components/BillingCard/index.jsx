@@ -78,10 +78,6 @@ export const BillingCard = ({ data }) => {
         dataSource={data}
         route="/admin"
         defaultPageSize="5"
-        scroll={{
-          y: "220px",
-          // x: "600px",
-        }}
       />
     </NHCard>
   );

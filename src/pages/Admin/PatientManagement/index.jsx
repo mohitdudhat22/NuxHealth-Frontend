@@ -70,13 +70,7 @@ export const PatientManagement = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() => handleViewBill(record)}
-            className="view-btn bg-white"
-          />
+          <NHButton isView onClick={() => handleViewBill(record)} />
         </Space>
       ),
     },

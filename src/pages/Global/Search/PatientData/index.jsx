@@ -43,7 +43,7 @@ const PatientData = ({ tableData }) => {
       key: "action",
       render: (_, record) => {
         return (
-          <NHButton size={"small"} icon={Icons.View} className="edit-btn" />
+          <NHButton isEdit />
         );
       },
     },
