@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AppointmentScheduler, NHButton, NHCard, NHDatePicker, NHInput, NHModal, NHSelect } from "@/components";
-import { fetchAppointmentsByPatient, fetchDoctorSession } from "@/axiosApi/ApiHelper";
+import { appointmentBooking, fetchAppointmentsByPatient, fetchDoctorSession } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 
 export const AppointmentSchedularPage = () => {
@@ -12,41 +12,37 @@ export const AppointmentSchedularPage = () => {
     specialities: [],
     doctors: [],
     appointmentDate: '',
+    appointmentType: '',
+    paymentType: '',
     patientIssue: '',
     diseaseName: ''
   });
-  console.log("🚀 ~ AppointmentSchedularPage ~ data:", data)
 
   const [filters, setFilters] = useState({});
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const [doctorId, setDoctorId] = useState();
   const [isAppointmentModal, setIsAppointmentModal] = useState(false);
   const [timeSlots, setTimeSlots] = useState();
-  console.log("🚀 ~ AppointmentSchedularPage ~ timeSlots:", timeSlots)
-
-  // Fetch data from API
-  const fetchData = async () => {
-    try {
-      const response = await fetchAppointmentsByPatient();
-      if (response && response.length > 0) {
-        const countries = response.map((item) => ({
-          value: item.country,
-          label: item.country,
-          states: item.states,
-        }));
-        setData({ countries });
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchAppointmentsByPatient();
+        if (response && response.length > 0) {
+          const countries = response.map((item) => ({
+            value: item.country,
+            label: item.country,
+            states: item.states,
+          }));
+          setData((prev) => ({ ...prev, countries }));
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     fetchData();
   }, []);
 
-  // Handle selection changes and cascading updates
   const handleSelectChange = (value, key) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
 
@@ -89,7 +85,9 @@ export const AppointmentSchedularPage = () => {
         label: doctor.name,
       })) || [];
       setData((prev) => ({ ...prev, doctors }));
-    } else { }
+    } else if (key === "appointmentType" || key === "paymentType") {
+      setData((prev) => ({ ...prev, [key]: value }));
+    }
   };
 
   const handleTimeSelect = (time) => {
@@ -97,7 +95,7 @@ export const AppointmentSchedularPage = () => {
   };
 
   const handleBookAppointment = () => {
-    if (selectedDoctor && selectedTime) {
+    if (selectedTime) {
       setIsAppointmentModal(true);
     } else {
       toast.error("Please choose doctor and time slot.");
@@ -108,36 +106,80 @@ export const AppointmentSchedularPage = () => {
     setIsAppointmentModal(false);
   };
 
-
-  const handleDoctorChange = async (value) => {
+  const handleDoctorChange = async (value, appointmentDate) => {
     const doctorId = value;
-    const { appointmentDate } = data;
+    console.log("🚀 ~ handleDoctorChange ~ appointmentDate:", appointmentDate)
+
+
     setSelectedDoctor(doctorId);
     if (doctorId) {
       try {
-        // Fetch the time slots for the selected doctor
         const response = await fetchDoctorSession(doctorId, appointmentDate);
-        console.log("🚀 ~ handleDoctorChange ~ response:", response)
-        setTimeSlots(response.data); // Assume response contains a timeSlots array
+        setTimeSlots(response.data);
       } catch (error) {
         console.error("Error fetching time slots:", error);
       }
     }
   };
 
-  const handeDateChange = (value, dateString) => {
+  const handleDateChange = (value, dateString) => {
     setData((prevData) => ({
-      ...prevData, // Keep the existing state intact
-      appointmentDate: dateString, // Update appointmentDate with the formatted date string
+      ...prevData,
+      appointmentDate: dateString,
     }));
-    handleDoctorChange()
-  }
+    handleDoctorChange(selectedDoctor, dateString);
+  };
+
+  const handleInputChanges = (value, key) => {
+    setData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
 
   const appointmentTypes = [
-    { value: "inperson", label: "In-Person" },
+    { value: "onsite", label: "OnSite" },
     { value: "online", label: "Online" },
-    { value: "emergency", label: "Emergency" },
-  ]
+  ];
+
+  const paymentTypes = [
+    { value: "Cash", label: "Cash" },
+    { value: "Online", label: "Online" },
+    { value: "Insurance", label: "Insurance" },
+  ];
+
+  const handleBooking = async () => {
+    const formData = {
+      appointmentDate: data.appointmentDate,
+      appointmentType: data.appointmentType,
+      patientIssue: data.patientIssue,
+      diseaseName: data.diseaseName,
+      selectedTime: selectedTime,
+      selectedDoctor: selectedDoctor,
+      paymentType: data.paymentType,
+      filters: { ...filters },
+    };
+
+    const payload = {
+      doctorId: formData.selectedDoctor,
+      date: formData.appointmentDate,
+      appointmentTime: formData.selectedTime,
+      type: formData.appointmentType,
+      patient_issue: formData.patientIssue,
+      dieseas_name: formData.diseaseName,
+      city: formData.filters.city,
+      state: formData.filters.state,
+      country: formData.filters.country,
+      paymentType: formData.paymentType,
+      paymentStatus: false
+    }
+    try {
+      const response = await appointmentBooking(payload);
+      console.log("🚀 ~ handleBooking ~ response:", response)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <>
@@ -196,20 +238,20 @@ export const AppointmentSchedularPage = () => {
           <NHDatePicker
             label="Appointment Date"
             name="appointmentDate"
-            onChange={(value, dateString) => handeDateChange(value, dateString)}
+            onChange={(value, dateString) => handleDateChange(value, dateString)}
             format={"YYYY-MM-DD"}
           />
           <NHInput
             label="Patient Issue"
             name="patientIssue"
             placeholder="Patient Issue"
-            onChange={(value) => handleSelectChange(value, "patientIssue")}
+            onChange={(e) => handleInputChanges(e.target.value, "patientIssue")}
           />
           <NHInput
             label="Disease Name"
             name="diseaseName"
             placeholder="Disease Name"
-            onChange={(value) => handleSelectChange(value, "diseaseName")}
+            onChange={(e) => handleInputChanges(e.target.value, "diseaseName")}
           />
         </div>
       </NHCard>
@@ -248,13 +290,13 @@ export const AppointmentSchedularPage = () => {
             </div>
           </div>
 
-          <button className="p-3 px-5 mt-10 text-white bg-blue-500 rounded" onClick={handleBookAppointment}>
+          <NHButton className="p-3 px-5 mt-10 text-white bg-blue-500 rounded" onClick={handleBookAppointment}>
             Book Appointment
-          </button>
-        </NHCard >
-      </div >
+          </NHButton>
+        </NHCard>
+      </div>
       {/* Appointment Scheduler */}
-      < div className="mt-7" >
+      <div className="mt-7">
         <NHCard className="w-full h-auto p-6 mx-auto mt-4 sm:w-3/4 md:w-2/3 lg:w-full xl:w-full">
           <AppointmentScheduler />
         </NHCard>
@@ -277,10 +319,10 @@ export const AppointmentSchedularPage = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Appointment Type</p></div>
-              <div><p className="text-gray-600">Online</p></div>
+              <div><p className="text-gray-600">{data.appointmentDate}</p></div>
             </div>
             <div className="flex items-center justify-between">
-              <div><p className="font-medium text-gray-700">Patient Name</p></div>
+              <div><p className="font-medium text-gray-700">Doctor Name</p></div>
               <div><p className="text-gray-600">John Doe</p></div>
             </div>
             <div className="flex items-center justify-between">
@@ -291,34 +333,34 @@ export const AppointmentSchedularPage = () => {
               <div><p className="font-medium text-gray-700">Appointment Time</p></div>
               <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
             </div>
-
-            <div className="pt-6">
-              <p className="text-xl font-medium text-gray-700">Patient Issue</p>
-              <input
-                type="text"
-                placeholder="Enter Patient Issue"
-                className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" />
+            <div className="flex items-center justify-between">
+              <div><p className="font-medium text-gray-700">Patient Issue</p></div>
+              <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div><p className="font-medium text-gray-700">Disease Name</p></div>
+              <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
             </div>
 
-            <div className="mt-4">
-              <p className="text-xl font-medium text-gray-700">Disease Name (Optional)</p>
-              <input
-                type="text"
-                placeholder="Enter Disease Name"
-                className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" />
-            </div>
+            <NHSelect
+              label="Payment Type"
+              name="paymentType"
+              placeholder="Payment Type"
+              onChange={(value) => handleSelectChange(value, "paymentType")}
+              options={paymentTypes}
+            />
 
             <div className="flex justify-end mt-6 space-x-4">
-              <button className="px-4 py-2 text-black bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none" onClick={handleCloseModal}>
+              <NHButton className="px-4 py-2 text-black bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none" onClick={handleCloseModal}>
                 Cancel
-              </button>
-              <button className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none">
+              </NHButton>
+              <NHButton className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none" onClick={handleBooking}>
                 Book Appointment
-              </button>
+              </NHButton>
             </div>
           </div>
         </NHModal>
-      </div >
+      </div>
     </>
   );
 };
