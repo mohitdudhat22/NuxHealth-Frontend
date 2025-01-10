@@ -3,3 +3,19 @@
     max-height: 300px;
     overflow-y: scroll;
 }
+
+.notification-popover .ant-btn-sm.ant-btn-icon-only {
+    width: 30px;
+    height: 30px;
+}
+
+.notification-popover .ant-btn-sm.ant-btn-icon-only .anticon svg {
+    font-size: 15px;
+}
+
+.notification-popover ._header_w7z07_13 {
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}

@@ -145,10 +145,10 @@ export const Teleconsultation = () => {
                     appointmentDate={appointmentDate || date}
                     appointmentTime={appointmentTime}
                     footerContent={
-                      <div className="flex justify-between gap-4">
+                      <div className="flex justify-between gap-4 w-full">
                         <NHButton
                           size={"small"}
-                          className={"w-full"}
+                          className={"w-full py-3 px-4"}
                           onClick={() => handleJoinCall(data)}
                         >
                           Join Call
@@ -156,7 +156,7 @@ export const Teleconsultation = () => {
                         <NHButton
                           size={"small"}
                           icon={Icons.CalenderIcon}
-                          className={"w-full"}
+                          className={"w-full py-3 px-4"}
                           onClick={() => handelReschedule()}
                         >
                           Reschedule
