@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 
 export const useDashboard = () => {
   const navigate = useNavigate();
-  const token = Cookies.get(import.meta.env.VITE_TOKEN_NAME);
   const [totalPatients, setTotalPatients] = useState(0);
   const [totalDoctors, setTotalDoctors] = useState(0);
 

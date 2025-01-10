@@ -1,15 +1,22 @@
-import React from 'react'
-import { NHCard } from '..'
-import { Empty } from 'antd'
+import React from "react";
+import { NHCard } from "..";
+import { Empty } from "antd";
 
-export const DepartmentCard = ({ title, departments, icon, image, discrition, type = "patient" }) => {
+export const DepartmentCard = ({
+  title,
+  departments,
+  icon,
+  image,
+  discrition,
+  type = "patient",
+}) => {
   return (
     <NHCard title={title}>
       {departments.length === 0 ? ( // Check if departments array is empty
         <div className="flex items-center justify-center w-full h-full">
           <Empty
             image={image}
-            className='h-full'
+            className="h-full"
             imageStyle={{ height: "100%" }}
             description={discrition}
           />
@@ -19,13 +26,16 @@ export const DepartmentCard = ({ title, departments, icon, image, discrition, ty
           {departments.map((dept) => (
             <div key={dept.key} className="flex justify-between items-center">
               <span className="text-gray-700">{dept.name}</span>
-              <div className="w-12 h-12 flex items-center justify-center">
-                {icon} {dept.count}
+              <div className="w-[60px] bg-[#F6F8FB] rounded-2xl flex items-center justify-center p-2 gap-x-2">
+                <div className="w-8 h-8 flex items-center justify-center ">
+                  {icon}
+                </div>
+                <div className="">{dept.count}</div>
               </div>
             </div>
           ))}
         </div>
       )}
     </NHCard>
-  )
-}
+  );
+};

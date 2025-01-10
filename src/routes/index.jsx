@@ -57,6 +57,8 @@ import ChatempComponentforPateint from "@/components/chatTempComponentforPatient
 import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
 import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
 import { PatientMettingConference } from "@/pages/Patients";
+import { PatientHealthRecord } from "@/pages/Reception/PatientHealthRecord";
+import { PatientHelthDetails } from "@/pages/Reception/PatientHealthRecord/PatientHealthDetails";
 import { InsuranceBillView } from "@/pages/Admin/BillingAndPayement/InsuranceClaims/InsuranceBillView";
 import CreateBill from "@/components/CreateBill";
 import { PaymentBillView } from "@/pages/Admin/BillingAndPayement/PaymentProcess/PaymentBillView";
@@ -373,7 +375,7 @@ const NuxHealthRoute = createBrowserRouter(
                       path: "reschedule",
                       element: <AppointmentTimeSlot />,
                     },
-                  ]
+                  ],
                 },
                 {
                   path: "prescription-access",
@@ -426,15 +428,24 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "patient-registration",
-                  element: <Register />,
+                  element: <PatientRegistration />,
                 },
                 {
                   path: "personal-health",
-                  element: "personal-health",
+                  children: [
+                    {
+                      index: true,
+                      element: <PatientHealthRecord />,
+                    },
+                    {
+                      path: "view-patient/:id",
+                      element: <PatientHelthDetails />,
+                    },
+                  ],
                 },
                 {
                   path: "appointment",
-                  element: "appointment-booking"
+                  element: "appointment-booking",
                 },
                 {
                   path: "bills",

@@ -14,7 +14,7 @@ export const DashboardLayout = ({ items }) => {
   const [show, setShow] = useState(false);
   const { searchValue } = useSearch();
 
-  
+
   return (
     <Layout className={styles.main}>
       <NHSidebar items={items} className={clsx(show ? styles.Sidebar : "")} />

@@ -11,8 +11,8 @@ import {
   NHSelect,
 } from "@/components/";
 import NotificationBox from "../NotificationBox";
-import { headerOption } from "@/constants/data";
 import { useHeader } from "@/hook/Global";
+import { headerDropdownItems } from "@/constants/data";
 
 const { Header } = Layout;
 
@@ -23,13 +23,13 @@ export const NHHeader = () => {
     defaultOption,
     options,
     handleSearch,
+    handleRoleChange,
     BreadCrumb,
     firstName,
     isDoctor,
-    dropdownItems,
     searchValue,
     isPatient,
-  } = useHeader();
+  } = useHeader(); 
 
   const navigate = useNavigate();
   const { token } = useDecodeToken();
@@ -66,6 +66,7 @@ export const NHHeader = () => {
               defaultValue={defaultOption}
               options={options}
               disabled={isPatient && true}
+              onChange={handleRoleChange}
               style={{
                 width: "auto",
               }}
@@ -89,7 +90,7 @@ export const NHHeader = () => {
           />
         </div>
         <NHDropDownImg
-          items={dropdownItems}
+          items={headerDropdownItems}
           name={token?.userData?.fullName}
           image={token?.userData?.profilePicture}
           position={token?.userData?.role}

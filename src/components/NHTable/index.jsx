@@ -30,7 +30,7 @@ export const NHTable = ({
         id={id}
         name={name}
         data-test-id={dataTestId}
-        columns={tableColumn.map((column) => ({
+        columns={tableColumn?.map((column) => ({
           ...column,
           render: loading
             ? () => (
@@ -41,8 +41,8 @@ export const NHTable = ({
                 active
               />
             )
-            : column.render
-              ? column.render
+            : column?.render
+              ? column?.render
               : (text) => text,
         }))}
         dataSource={tableDataSource}

@@ -164,7 +164,7 @@ export const LineChart = ({ data }) => {
             className={`px-4 min-w-[60px] rounded-md ${
               viewMode === "year"
                 ? "bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90"
-                : "text-gray-500 hover:text-gray-700"
+                : "text-[#A7A7A7] text-[16px] hover:text-gray-700"
             }`}
           >
             Year
@@ -175,7 +175,7 @@ export const LineChart = ({ data }) => {
             className={`px-4 min-w-[60px] rounded-md ${
               viewMode === "month"
                 ? "bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90"
-                : "text-gray-500 hover:text-gray-700"
+                : "text-[#A7A7A7] text-[16px] hover:text-gray-700"
             }`}
           >
             Month
@@ -186,7 +186,7 @@ export const LineChart = ({ data }) => {
             className={`px-4 min-w-[60px] rounded-md ${
               viewMode === "week"
                 ? "bg-[#0EA5E9] text-white hover:bg-[#0EA5E9]/90"
-                : "text-gray-500 hover:text-gray-700"
+                : "text-[#A7A7A7] text-[16px] hover:text-gray-700"
             }`}
           >
             Week

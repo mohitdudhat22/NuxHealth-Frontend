@@ -45,6 +45,10 @@ p {
   @apply text-sm;
 }
 
+span {
+  @apply flex;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

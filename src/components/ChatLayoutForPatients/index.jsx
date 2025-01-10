@@ -7,49 +7,51 @@ import socket, {
   sendMessage as sendSocketMessage,
   receiveMessage,
 } from "../../services/socketService";
-import { getOldMessages } from "@/axiosApi/ApiHelper";
+import { getOldMessages, getPatientContact } from "@/axiosApi/ApiHelper";
+import { useDecodeToken } from "@/hook";
 
 export const ChatLayoutForPatient = () => {
+  const { token } = useDecodeToken();
   const userId = "677047f308067157dc712f80"; // Patient's user ID
-  const doctorId = "6770443dceabc6c708235256"
-  const initialUsers = [
-    {
-      _id: "6770443dceabc6c708235256",
-      name: "Dr. Jane Smith",
-      avatar: "/placeholder.svg?height=48&width=48",
-      status: "online",
-      lastMessage: "How are you feeling today?",
-      lastMessageTime: "10:30 AM",
-      unreadCount: 0,
-    },
-    {
-      _id: "677047f308067157dc712f80",
-      name: "Dr. John Doe",
-      avatar: "/placeholder.svg?height=48&width=48",
-      status: "offline",
-      lastMessage: "Your test results are ready.",
-      lastMessageTime: "Yesterday",
-      unreadCount: 1,
-    },
-  ];
-
-  const [users, setUsers] = useState(initialUsers);
-  const [chats, setChats] = useState(
-    initialUsers.map((user) => ({
-      _id: user._id,
-      participants: [{ _id: user._id, name: user.name, avatar: user.avatar }],
-      messages: [],
-    }))
-  );
-  const [selectedUserId, setSelectedUserId] = useState(initialUsers[0]._id);
+  const [users, setUsers] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
+
+  useEffect(() => {
+    const fetchContact = async () => {
+      try {
+        const response = await getPatientContact();
+        const contacts = response.data.map(contact => ({
+          _id: contact._id,
+          name: contact.fullName,
+          avatar: contact.profilePicture,
+          status: "offline", // You can update this based on your logic
+          lastMessage: "",
+          lastMessageTime: "",
+          unreadCount: 0,
+        }));
+        setUsers(contacts);
+        setSelectedUserId(contacts[0]?._id || null); // Select the first user by default
+        setChats(contacts.map(contact => ({
+          _id: contact._id,
+          participants: [{ _id: contact._id, name: contact.fullName, avatar: contact.profilePicture }],
+          messages: [],
+        })));
+      } catch (error) {
+        console.error("Failed to fetch contact:", error);
+      }
+    };
+
+    fetchContact();
+  }, []);
 
   useEffect(() => {
     registerUser(userId);
     joinChat("room1");
 
     receiveMessage((data) => {
-      const { from, message, timestamp } = data;
+      const { from, message, timestamp, fileDetails, type } = data;
 
       // Update chats with the new message
       setChats((prevChats) =>
@@ -62,9 +64,10 @@ export const ChatLayoutForPatient = () => {
                   {
                     id: Date.now().toString(),
                     content: message,
+                    fileDetails,
                     sender: "doctor",
                     timestamp,
-                    type: "text",
+                    type,
                   },
                 ],
               }
@@ -78,7 +81,7 @@ export const ChatLayoutForPatient = () => {
           user._id === from
             ? {
                 ...user,
-                lastMessage: message,
+                lastMessage: message || (fileDetails ? "File sent" : ""),
                 lastMessageTime: "Just now",
                 unreadCount: user.unreadCount + 1,
               }
@@ -92,22 +95,21 @@ export const ChatLayoutForPatient = () => {
     };
   }, []);
 
-  // Fetch old messages when a user is selected
   useEffect(() => {
     if (selectedUserId) {
       const fetchMessages = async () => {
         try {
           const response = await getOldMessages(userId, selectedUserId);
-          console.log(response.data)
           const oldMessages = response.data?.map((msg) => ({
             id: msg._id,
             content: msg.message,
             sender: msg.from,
-      receiver: msg.to,
+            receiver: msg.to,
             timestamp: msg.timestamp,
-            type: "text",
+            type: msg.type,
+            fileDetails: msg.fileDetails,
           }));
-          console.log(oldMessages,"<<<<<<<<<<<<<<oldmessage")
+
           setChats((prevChats) =>
             prevChats.map((chat) =>
               chat.participants.some((p) => p._id === selectedUserId)
@@ -124,7 +126,6 @@ export const ChatLayoutForPatient = () => {
     }
   }, [selectedUserId]);
 
-  // Update current chat when a user is selected
   useEffect(() => {
     const chat = chats.find((c) =>
       c.participants.some((p) => p._id === selectedUserId)
@@ -158,8 +159,10 @@ export const ChatLayoutForPatient = () => {
     sendSocketMessage({
       to: selectedUserId,
       from: userId,
-      message: message.content || message.fileDetails,
+      message: message.content || message.fileDetails.url,
       roomId: "room1",
+      fileDetails: message.fileDetails,
+      type: message.type,
     });
 
     setUsers((prevUsers) =>
@@ -175,6 +178,8 @@ export const ChatLayoutForPatient = () => {
     );
   };
 
+  const selectedUser = users.find(user => user._id === selectedUserId);
+
   return (
     <div className="grid grid-cols-[334px,1fr] h-full max-h-[calc(100vh-var(--header-height))]">
       <ChatSidebar
@@ -184,7 +189,7 @@ export const ChatLayoutForPatient = () => {
       />
       {currentChat ? (
         <ChatMessageBar
-          selectedUser={currentChat.participants[0]}
+          selectedUser={selectedUser}
           messages={currentChat.messages}
           onSendMessage={handleSendMessage}
           userId={userId}
