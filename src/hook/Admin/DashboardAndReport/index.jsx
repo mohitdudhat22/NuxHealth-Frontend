@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import { getDashboardAndReport } from '@/axiosApi/ApiHelper';
-import { Teleconsultation } from '@/pages';
+import { useEffect, useState } from "react";
+import { getDashboardAndReport } from "@/axiosApi/ApiHelper";
 
 export const useDashboardAndReport = () => {
   const [dashboardData, setDashboardData] = useState(null);
@@ -13,6 +12,7 @@ export const useDashboardAndReport = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   const data = {
     totalPatients: dashboardData?.patientSummary?.totalPatients,
     totalDoctors: dashboardData?.totalDoctors,
@@ -24,14 +24,14 @@ export const useDashboardAndReport = () => {
       totalNewPatients: dashboardData?.patientSummary?.newPatients,
     },
     patientStats: dashboardData?.patientStats,
-    appointments: dashboardData?.appointments.map(appointment => ({
+    appointments: dashboardData?.appointments.map((appointment) => ({
       patientName: appointment.patientId.fullName,
       doctorName: appointment.doctorId.fullName,
       appointmentTime: appointment.appointmentTime,
       type: appointment.type,
-      diseaseName: appointment.dieseas_name
+      diseaseName: appointment.dieseas_name,
     })),
-    billdata: dashboardData?.billdata
-  }
+    billdata: dashboardData?.billdata,
+  };
   return { data };
 };

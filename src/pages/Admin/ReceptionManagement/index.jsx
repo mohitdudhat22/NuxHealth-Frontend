@@ -77,11 +77,9 @@ export const ReceptionManagement = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton size={"small"} icon={Icons.View} className="view-btn" onClick={() => showDrawer(record)} />
+          <NHButton isView onClick={() => showDrawer(record)} />
           <NHButton
-            size={"small"}
-            icon={Icons.Delete}
-            className="delete-btn"
+           isDelete
             onClick={() => setDelete(record)}
           />
         </Space>

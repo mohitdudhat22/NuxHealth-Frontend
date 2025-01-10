@@ -242,3 +242,5 @@ export const headerDropdownItems = [
     label: <>Profile</>,
   },
 ];
+
+/* Common Table Columns */

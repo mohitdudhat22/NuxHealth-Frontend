@@ -55,7 +55,7 @@ const DoctorData = ({ tableData, loading }) => {
      render: (_, record) => {
        return (
          <Space size="middle">
-           <NHButton size={"small"} icon={Icons.View} className="edit-btn" />
+           <NHButton isEdit />
          </Space>
        );
      },

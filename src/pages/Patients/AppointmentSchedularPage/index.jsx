@@ -106,9 +106,11 @@ export const AppointmentSchedularPage = () => {
     setIsAppointmentModal(false);
   };
 
-  const handleDoctorChange = async (value) => {
+  const handleDoctorChange = async (value, appointmentDate) => {
     const doctorId = value;
-    const { appointmentDate } = data;
+    console.log("🚀 ~ handleDoctorChange ~ appointmentDate:", appointmentDate)
+
+
     setSelectedDoctor(doctorId);
     if (doctorId) {
       try {
@@ -125,7 +127,7 @@ export const AppointmentSchedularPage = () => {
       ...prevData,
       appointmentDate: dateString,
     }));
-    handleDoctorChange(selectedDoctor);
+    handleDoctorChange(selectedDoctor, dateString);
   };
 
   const handleInputChanges = (value, key) => {
