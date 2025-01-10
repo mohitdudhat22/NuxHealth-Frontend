@@ -237,3 +237,7 @@ export const fetchDoctorSession = (doctorId, date) => {
     : `/api/patient/getDoctorSession/${doctorId}`;
   return request("get", url);
 };
+
+export const appointmentBooking = (data) => {
+  request("post", "/api/patient/createAppointment", data)
+}

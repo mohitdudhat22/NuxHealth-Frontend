@@ -236,7 +236,7 @@ export const Teleconsultation = () => {
           <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
         }
       >
-        <NHTabs items={tabItems} defaultActiveKey="upcoming" />
+        <NHTabs items={tabItems} defaultActiveKey="today" />
       </NHCard>
 
       <PatientDetailModal
