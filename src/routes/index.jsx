@@ -229,8 +229,8 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <InsuranceClaims />,
                 },
                 {
-                 path: "insurance-bill-view/:id",
-                 element: <InsuranceBillView />,
+                  path: "insurance-bill-view/:id",
+                  element: <InsuranceBillView />,
                 }
               ],
             },
@@ -242,8 +242,8 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <PaymentProcess />,
                 },
                 {
-                    path: "edit-bill",
-                    element: <CreateBill />,
+                  path: "edit-bill",
+                  element: <CreateBill />,
                 },
                 {
                   path: "bill-view/:id",
@@ -445,7 +445,22 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "appointment",
-                  element: "appointment-booking",
+                  // element: <AppointmentBooking />,
+                  children: [
+                    {
+                      index: true,
+                      // element: <AppoinmentManagement />,
+                      element: <AppointmentBooking />,
+                    },
+                    {
+                      path: "scheduler",
+                      element: <AppointmentSchedularPage />,
+                    },
+                    {
+                      path: "reschedule",
+                      element: <AppointmentTimeSlot />,
+                    },
+                  ],
                 },
                 {
                   path: "bills",
