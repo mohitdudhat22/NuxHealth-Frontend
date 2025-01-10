@@ -50,30 +50,92 @@ export const ReportingAnalytics = () => {
 
   return (
     <>
-    <NHHead title="Reporting & Analytics" />
+      <NHHead title="Reporting & Analytics" />
       <div className="p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <StatisticsCard
+          {/* <StatisticsCard
             title="Total Patients"
             count={data?.totalPatients}
             icon={Icons.Patient}
-          />
-          <StatisticsCard
-            title="Repeat Patients"
-            count={data?.repeatPatients}
-            icon={Icons.Doctor}
-          />
-          <StatisticsCard
-            title="Admitted Patient"
-            count={0}
-            icon={Icons.AdmittedPatient}
-          />
-          <StatisticsCard
-            title="Total Claim"
-            count={0}
-            icon={Icons.TotalClaim}
-          />
+          /> */}
+
+          <div className="bg-white p-5 px-8 rounded-2xl shadow-md">
+            <div className="flex items-center justify-between gap-8">
+              <div className="flex items-center gap-x-4">
+                <div className="flex items-center justify-center w-[45px] h-[45px] text-blue-500">
+                  {Icons.Patient}
+                </div>
+                <div>
+                  <h3 className="text-[16px] font-semibold text-[#030229]">
+                    Total Patients
+                  </h3>
+                </div>
+              </div>
+              <div>
+                <p className="text-[26px] font-extrabold text-[#030229]">
+                  {data?.totalPatients}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-5 px-8 rounded-2xl shadow-md">
+            <div className="flex items-center justify-between gap-8">
+              <div className="flex items-center gap-x-4">
+                <div className="flex items-center justify-center w-[45px] h-[45px] text-blue-500">
+                  {Icons.Doctor}
+                </div>
+                <div>
+                  <h3 className="text-[16px] font-semibold text-[#030229]">
+                    Repeat Patients
+                  </h3>
+                </div>
+              </div>
+              <div>
+                <p className="text-[26px] font-extrabold text-[#030229]">
+                  {data?.repeatPatients}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-5 px-8 rounded-2xl shadow-md">
+            <div className="flex items-center justify-between gap-8">
+              <div className="flex items-center gap-x-4">
+                <div className="flex items-center justify-center w-[45px] h-[45px] text-blue-500">
+                  {Icons.AdmittedPatient}
+                </div>
+                <div>
+                  <h3 className="text-[16px] font-semibold text-[#030229]">
+                    Admitted Patient
+                  </h3>
+                </div>
+              </div>
+              <div>
+                <p className="text-[26px] font-extrabold text-[#030229]">{0}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-5 px-8 rounded-2xl shadow-md">
+            <div className="flex items-center justify-between gap-8">
+              <div className="flex items-center gap-x-4">
+                <div className="flex items-center justify-center w-[45px] h-[45px] text-blue-500">
+                  {Icons.TotalClaim}
+                </div>
+                <div>
+                  <h3 className="text-[16px] font-semibold text-[#030229]">
+                    Total Claim
+                  </h3>
+                </div>
+              </div>
+              <div>
+                <p className="text-[26px] font-extrabold text-[#030229]">{0}</p>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="md:col-span-2">
             <AppointmentChart

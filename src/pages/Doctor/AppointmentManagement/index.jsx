@@ -162,7 +162,7 @@ export const AppointmentManagement = () => {
             >
                 <NHTabs
                     items={tabItems}
-                    defaultActiveKey="upcoming"
+                    defaultActiveKey="today"
                 />
             </NHCard>
 

@@ -21,7 +21,7 @@ export const AppointmentScheduler = () => {
     <NHCard>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, resourceTimelinePlugin]}
-        initialView="resourceTimelineDay"
+        initialView="dayGridMonth"
         headerToolbar={{
           left: "prev,next today",
           center: "title",

@@ -1,11 +1,3 @@
-.dropDwnButton {
-  box-shadow: unset;
-  border: 0;
-  background-color: transparent;
-  gap: var(--space-md);
-  cursor: pointer;
-}
-
 @media (max-width: 1399px) {
   .dropDwnContent {
     display: none;

@@ -15,7 +15,6 @@ export const useCancelAppoinmentBookings = () => {
       const response = await cancelAppointmentsForPatient();
       if (response.status === 1) {
         setAppointments(response.data.appointments);
-        console.log('Today’s Appointments:', response.data.length);
       }
     } finally {
       setLoading(false);

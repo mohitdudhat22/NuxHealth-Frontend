@@ -11,12 +11,29 @@ import {
 } from "@/components";
 import { Avatar } from "antd";
 import { useDeleteModal } from "@/hook/Global";
+import { useState } from "react";
+import DoctorDrawer from "@/components/NHModalComponents/ModalTemplate/DoctorDrawer";
 
 export const ReceptionManagement = () => {
   const { data, loading, searchQuery, onSearch, fetchReception } =
     useReceptionManagement();
 
   const { deleteData, isDelete, setDelete } = useDeleteModal(fetchReception);
+
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedReceptionist, setSelectedReceptionist] = useState(null);
+
+  // Function to open the DoctorDrawer with receptionist data
+  const showDrawer = (receptionist) => {
+    setSelectedReceptionist(receptionist);
+    setDrawerVisible(true);
+  };
+
+  // Function to close the DoctorDrawer
+  const onCloseDrawer = () => {
+    setDrawerVisible(false);
+    setSelectedReceptionist(null);
+  };
 
   const columns = [
     {
@@ -60,7 +77,7 @@ export const ReceptionManagement = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton size={"small"} icon={Icons.View} className="view-btn" />
+          <NHButton size={"small"} icon={Icons.View} className="view-btn" onClick={() => showDrawer(record)} />
           <NHButton
             size={"small"}
             icon={Icons.Delete}
@@ -112,6 +129,12 @@ export const ReceptionManagement = () => {
         >
           Are you sure you want to delete this Reception?
         </DeleteModal>
+
+        <DoctorDrawer
+          visible={drawerVisible}
+          onClose={onCloseDrawer}
+          receptionist={selectedReceptionist}
+        />
       </NHCard>
     </>
   );

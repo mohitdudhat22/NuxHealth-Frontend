@@ -31,7 +31,7 @@ export const AppointmentsList = ({ data }) => {
   return (
     <NHCard
       title={"Today's Appointments List"}
-      className={"max-h-[150px] overflow-auto"}
+      className={"max-h-[200px] overflow-auto"}
       headerContent={
         <button className="text-blue-500 text-sm">View All</button>
       }

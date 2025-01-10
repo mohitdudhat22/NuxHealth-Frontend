@@ -1,87 +1,93 @@
-import React, { useState, useEffect } from 'react';
-import { AppointmentScheduler, NHCard, NHModal, NHSelect } from '@/components';
-// import { IoClose } from "react-icons/io5";
-
-const useAppointmentFilters = () => {
-  const [filters, setFilters] = useState({});
-  const [data, setData] = useState({
-    countries: [
-      { value: "india", label: "India" },
-      { value: "usa", label: "USA" },
-      { value: "uk", label: "UK" },
-      { value: "canada", label: "Canada" },
-    ],
-    states: [
-      { value: "gujarat", label: "Gujarat" },
-      { value: "california", label: "California" },
-      { value: "texas", label: "Texas" },
-      { value: "ontario", label: "Ontario" },
-    ],
-    cities: [
-      { value: "ahmedabad", label: "Ahmedabad" },
-      { value: "losangeles", label: "Los Angeles" },
-      { value: "houston", label: "Houston" },
-      { value: "toronto", label: "Toronto" },
-    ],
-    hospitals: [
-      { value: "apollo", label: "Apollo Hospital" },
-      { value: "city", label: "City Hospital" },
-      { value: "metro", label: "Metro Hospital" },
-    ],
-    doctors: [
-      { value: "smith", label: "Dr. Smith" },
-      { value: "patel", label: "Dr. Patel" },
-      { value: "brown", label: "Dr. Brown" },
-      { value: "lee", label: "Dr. Lee" },
-    ],
-    specialities: [
-      { value: "cardiology", label: "Cardiology" },
-      { value: "neurology", label: "Neurology" },
-      { value: "orthopedics", label: "Orthopedics" },
-      { value: "pediatrics", label: "Pediatrics" },
-    ],
-    appointmentTypes: [
-      { value: "inperson", label: "In-Person" },
-      { value: "online", label: "Online" },
-      { value: "emergency", label: "Emergency" },
-    ],
-  });
-
-  const updateFilters = (key, value) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const queryString = new URLSearchParams(filters).toString();
-      const url = `/api/appointment?${queryString}`;
-      console.log(`Fetching data from: ${url}`);
-      // Simulate an API call with hardcoded data
-      setTimeout(() => {
-        setData((prev) => ({ ...prev }));
-      }, 500);
-    };
-
-    if (Object.keys(filters).length > 0) {
-      fetchData();
-    }
-  }, [filters]);
-
-  return { filters, data, updateFilters };
-};
+import React, { useState, useEffect } from "react";
+import { AppointmentScheduler, NHButton, NHCard, NHDatePicker, NHInput, NHModal, NHSelect } from "@/components";
+import { appointmentBooking, fetchAppointmentsByPatient, fetchDoctorSession } from "@/axiosApi/ApiHelper";
+import toast from "react-hot-toast";
 
 export const AppointmentSchedularPage = () => {
-  const { filters, data, updateFilters } = useAppointmentFilters();
+  const [data, setData] = useState({
+    countries: [],
+    states: [],
+    cities: [],
+    hospitals: [],
+    specialities: [],
+    doctors: [],
+    appointmentDate: '',
+    appointmentType: '',
+    paymentType: '',
+    patientIssue: '',
+    diseaseName: ''
+  });
+
+  const [filters, setFilters] = useState({});
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [isAppointmentModal, setIsAppointmentModal] = useState(false);
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [timeSlots, setTimeSlots] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchAppointmentsByPatient();
+        if (response && response.length > 0) {
+          const countries = response.map((item) => ({
+            value: item.country,
+            label: item.country,
+            states: item.states,
+          }));
+          setData((prev) => ({ ...prev, countries }));
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleSelectChange = (value, key) => {
-    updateFilters(key, value);
+    setFilters((prev) => ({ ...prev, [key]: value }));
+
+    if (key === "country") {
+      const selectedCountry = data.countries.find((c) => c.value === value);
+      const states = selectedCountry?.states.map((state) => ({
+        value: state.state,
+        label: state.state,
+        cities: state.cities,
+      })) || [];
+      setData((prev) => ({ ...prev, states, cities: [], hospitals: [], specialities: [], doctors: [] }));
+    } else if (key === "state") {
+      const selectedState = data.states.find((s) => s.value === value);
+      const cities = selectedState?.cities.map((city) => ({
+        value: city.city,
+        label: city.city,
+        hospitals: city.hospitals,
+      })) || [];
+      setData((prev) => ({ ...prev, cities, hospitals: [], specialities: [], doctors: [] }));
+    } else if (key === "city") {
+      const selectedCity = data.cities.find((c) => c.value === value);
+      const hospitals = selectedCity?.hospitals.map((hospital) => ({
+        value: hospital.name,
+        label: hospital.name,
+        specialties: hospital.specialties,
+      })) || [];
+      setData((prev) => ({ ...prev, hospitals, specialities: [], doctors: [] }));
+    } else if (key === "hospital") {
+      const selectedHospital = data.hospitals.find((h) => h.value === value);
+      const specialities = selectedHospital?.specialties.map((speciality) => ({
+        value: speciality.speciality,
+        label: speciality.speciality,
+        doctors: speciality.doctors,
+      })) || [];
+      setData((prev) => ({ ...prev, specialities, doctors: [] }));
+    } else if (key === "speciality") {
+      const selectedSpeciality = data.specialities.find((sp) => sp.value === value);
+      const doctors = selectedSpeciality?.doctors.map((doctor) => ({
+        value: doctor.id,
+        label: doctor.name,
+      })) || [];
+      setData((prev) => ({ ...prev, doctors }));
+    } else if (key === "appointmentType" || key === "paymentType") {
+      setData((prev) => ({ ...prev, [key]: value }));
+    }
   };
 
   const handleTimeSelect = (time) => {
@@ -89,20 +95,88 @@ export const AppointmentSchedularPage = () => {
   };
 
   const handleBookAppointment = () => {
-    if (selectedDoctor && selectedTime) {
+    if (selectedTime) {
       setIsAppointmentModal(true);
-      // alert(`Appointment booked with ${selectedDoctor} at ${selectedTime}`);
     } else {
-      alert("Please select both a doctor and a time slot.");
+      toast.error("Please choose doctor and time slot.");
     }
-  };
-
-  const handleOpenModal = () => {
-    setIsAppointmentModal(true);
   };
 
   const handleCloseModal = () => {
     setIsAppointmentModal(false);
+  };
+
+  const handleDoctorChange = async (value) => {
+    const doctorId = value;
+    const { appointmentDate } = data;
+    setSelectedDoctor(doctorId);
+    if (doctorId) {
+      try {
+        const response = await fetchDoctorSession(doctorId, appointmentDate);
+        setTimeSlots(response.data);
+      } catch (error) {
+        console.error("Error fetching time slots:", error);
+      }
+    }
+  };
+
+  const handleDateChange = (value, dateString) => {
+    setData((prevData) => ({
+      ...prevData,
+      appointmentDate: dateString,
+    }));
+    handleDoctorChange(selectedDoctor);
+  };
+
+  const handleInputChanges = (value, key) => {
+    setData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
+
+  const appointmentTypes = [
+    { value: "onsite", label: "OnSite" },
+    { value: "online", label: "Online" },
+  ];
+
+  const paymentTypes = [
+    { value: "Cash", label: "Cash" },
+    { value: "Online", label: "Online" },
+    { value: "Insurance", label: "Insurance" },
+  ];
+
+  const handleBooking = async () => {
+    const formData = {
+      appointmentDate: data.appointmentDate,
+      appointmentType: data.appointmentType,
+      patientIssue: data.patientIssue,
+      diseaseName: data.diseaseName,
+      selectedTime: selectedTime,
+      selectedDoctor: selectedDoctor,
+      paymentType: data.paymentType,
+      filters: { ...filters },
+    };
+
+    const payload = {
+      doctorId: formData.selectedDoctor,
+      date: formData.appointmentDate,
+      appointmentTime: formData.selectedTime,
+      type: formData.appointmentType,
+      patient_issue: formData.patientIssue,
+      dieseas_name: formData.diseaseName,
+      city: formData.filters.city,
+      state: formData.filters.state,
+      country: formData.filters.country,
+      paymentType: formData.paymentType,
+      paymentStatus: false
+    }
+    try {
+      const response = await appointmentBooking(payload);
+      console.log("🚀 ~ handleBooking ~ response:", response)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   return (
@@ -139,16 +213,6 @@ export const AppointmentSchedularPage = () => {
             options={data.hospitals}
           />
           <NHSelect
-            label="Doctor"
-            name="doctor"
-            placeholder="Select Doctor"
-            onChange={(value) => {
-              handleSelectChange(value, "doctor");
-              setSelectedDoctor(value);
-            }}
-            options={data.doctors}
-          />
-          <NHSelect
             label="Speciality"
             name="speciality"
             placeholder="Select Speciality"
@@ -156,11 +220,36 @@ export const AppointmentSchedularPage = () => {
             options={data.specialities}
           />
           <NHSelect
+            label="Doctor"
+            name="doctor"
+            placeholder="Select Doctor"
+            onChange={(value) => handleDoctorChange(value)}
+            options={data.doctors}
+          />
+          <NHSelect
             label="Appointment Type"
             name="appointmentType"
             placeholder="Appointment Type"
             onChange={(value) => handleSelectChange(value, "appointmentType")}
-            options={data.appointmentTypes}
+            options={appointmentTypes}
+          />
+          <NHDatePicker
+            label="Appointment Date"
+            name="appointmentDate"
+            onChange={(value, dateString) => handleDateChange(value, dateString)}
+            format={"YYYY-MM-DD"}
+          />
+          <NHInput
+            label="Patient Issue"
+            name="patientIssue"
+            placeholder="Patient Issue"
+            onChange={(e) => handleInputChanges(e.target.value, "patientIssue")}
+          />
+          <NHInput
+            label="Disease Name"
+            name="diseaseName"
+            placeholder="Disease Name"
+            onChange={(e) => handleInputChanges(e.target.value, "diseaseName")}
           />
         </div>
       </NHCard>
@@ -168,57 +257,42 @@ export const AppointmentSchedularPage = () => {
       {/* Time Slots */}
       <div className="mt-10">
         <NHCard>
-          <h3 className="mb-3 text-3xl font-semibold pb-7">
-            Available Time Slots
-          </h3>
-          <div>
-            {/* Morning Session */}
-            <h4 className="mb-2 text-2xl font-medium">Morning Session</h4>
-            <div className="grid grid-cols-5 gap-2">
-              {["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM"].map(
-                (time) => (
-                  <button
-                    key={time}
-                    className={`p-2 border border-[#A7A7A7] rounded-lg py-3 hover:bg-[#0EABEB] outline-none ${selectedTime === time
-                      ? "bg-[#0EABEB] text-white hover:bg-[rgb(14,171,340)]"
-                      : ""
-                      }`}
-                    onClick={() => handleTimeSelect(time)}
-                  >
-                    {time}
-                  </button>
-                )
-              )}
-            </div>
-
-            {/* Evening Session */}
-            <h4 className="mt-4 mb-2 font-medium">Evening Session</h4>
-            <div className="grid grid-cols-5 gap-2">
-              {["5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM"].map(
-                (time) => (
-                  <button
-                    key={time}
-                    className={`p-2 border border-[#A7A7A7] rounded-lg py-3 hover:bg-[#0EABEB] outline-none ${selectedTime === time
-                      ? "bg-[#0EABEB] text-white hover:bg-[rgb(14,171,340)]"
-                      : ""
-                      }`}
-                    onClick={() => handleTimeSelect(time)}
-                  >
-                    {time}
-                  </button>
-                )
-              )}
+          <h3 className="mb-3 text-3xl font-semibold pb-7">Available Time Slots</h3>
+          {/* Time Slot Buttons */}
+          <div className="">
+            <p className="mb-8 text-2xl font-semibold text-center"> Morning Session</p>
+            <div className="grid grid-cols-8 gap-2">
+              {timeSlots?.morningSlots?.map(({ start }) => (
+                <NHButton
+                  key={start}
+                  className={`p-2 border rounded-lg ${selectedTime === start ? "bg-blue-500 text-white" : ""}`}
+                  onClick={() => handleTimeSelect(start)}
+                >
+                  {start}
+                </NHButton>
+              ))}
             </div>
           </div>
-          <button
-            className="mt-10 p-3 px-5 bg-[#0EABEB] text-white rounded"
-            onClick={handleBookAppointment}
-          >
+          <div className="">
+            <p className="my-8 text-2xl font-semibold text-center"> Evening Session</p>
+            <div className="grid grid-cols-8 gap-2">
+              {timeSlots?.eveningSlots?.map(({ start }) => (
+                <NHButton
+                  key={start}
+                  className={`p-2 border rounded-lg ${selectedTime === start ? "bg-blue-500 text-white" : ""}`}
+                  onClick={() => handleTimeSelect(start)}
+                >
+                  {start}
+                </NHButton>
+              ))}
+            </div>
+          </div>
+
+          <NHButton className="p-3 px-5 mt-10 text-white bg-blue-500 rounded" onClick={handleBookAppointment}>
             Book Appointment
-          </button>
+          </NHButton>
         </NHCard>
       </div>
-
       {/* Appointment Scheduler */}
       <div className="mt-7">
         <NHCard className="w-full h-auto p-6 mx-auto mt-4 sm:w-3/4 md:w-2/3 lg:w-full xl:w-full">
@@ -243,10 +317,10 @@ export const AppointmentSchedularPage = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Appointment Type</p></div>
-              <div><p className="text-gray-600">Online</p></div>
+              <div><p className="text-gray-600">{data.appointmentDate}</p></div>
             </div>
             <div className="flex items-center justify-between">
-              <div><p className="font-medium text-gray-700">Patient Name</p></div>
+              <div><p className="font-medium text-gray-700">Doctor Name</p></div>
               <div><p className="text-gray-600">John Doe</p></div>
             </div>
             <div className="flex items-center justify-between">
@@ -257,30 +331,30 @@ export const AppointmentSchedularPage = () => {
               <div><p className="font-medium text-gray-700">Appointment Time</p></div>
               <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
             </div>
-
-            <div className="pt-6">
-              <p className="text-xl font-medium text-gray-700">Patient Issue</p>
-              <input
-                type="text"
-                placeholder="Enter Patient Issue"
-                className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" />
+            <div className="flex items-center justify-between">
+              <div><p className="font-medium text-gray-700">Patient Issue</p></div>
+              <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div><p className="font-medium text-gray-700">Disease Name</p></div>
+              <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
             </div>
 
-            <div className="mt-4">
-              <p className="text-xl font-medium text-gray-700">Disease Name (Optional)</p>
-              <input
-                type="text"
-                placeholder="Enter Disease Name"
-                className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" />
-            </div>
+            <NHSelect
+              label="Payment Type"
+              name="paymentType"
+              placeholder="Payment Type"
+              onChange={(value) => handleSelectChange(value, "paymentType")}
+              options={paymentTypes}
+            />
 
             <div className="flex justify-end mt-6 space-x-4">
-              <button className="px-4 py-2 text-black bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none" onClick={handleCloseModal}>
+              <NHButton className="px-4 py-2 text-black bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none" onClick={handleCloseModal}>
                 Cancel
-              </button>
-              <button className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none">
+              </NHButton>
+              <NHButton className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none" onClick={handleBooking}>
                 Book Appointment
-              </button>
+              </NHButton>
             </div>
           </div>
         </NHModal>

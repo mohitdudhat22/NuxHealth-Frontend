@@ -31,7 +31,7 @@ export const resetPassword = (data) =>
 export const DeleteData = (url) => request("delete", `/api/${url}`);
 export const SearchHeader = (query, role) => {
   let endpoint = `/api/admin/searchData?query=${query}`;
-  if (role) {
+  if (role && role !== "all") {
     endpoint += `&role=${role}`;
   }
   return request("get", endpoint);
@@ -170,12 +170,17 @@ export const previousAppointments = () =>
 export const cancelAppointments = () =>
   request("get", "/api/doctor/getAppointment?filter=cancel");
 
-export const getAllUnpaidBills = (id) => request("get", `/api/admin/getbillbystatus?status=Unpaid`);
+export const getAllUnpaidBills = (id) =>
+  request("get", `/api/admin/getbillbystatus?status=Unpaid`);
 // export const scheduledAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=today");
-export const scheduledAppointmentsForPatient = () => request("get", "/api/patient/getAppointment");
-export const penddingAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=upcoming");
-export const previousAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=previous");
-export const cancelAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=cancel");
+export const scheduledAppointmentsForPatient = () =>
+  request("get", "/api/patient/getAppointment");
+export const penddingAppointmentsForPatient = () =>
+  request("get", "/api/patient/getAppointment?filter=upcoming");
+export const previousAppointmentsForPatient = () =>
+  request("get", "/api/patient/getAppointment?filter=previous");
+export const cancelAppointmentsForPatient = () =>
+  request("get", "/api/patient/getAppointment?filter=cancel");
 export const todayManagePriscription = () =>
   request("get", "/api/doctor/getPrescription?dateFilter=today");
 export const olderManagePriscription = () =>
@@ -192,11 +197,16 @@ export const previousAppointmentForDoctor = () =>
 export const cancelAppointmentForDoctor = () =>
   request("get", "/api/doctor/getAppointment?filter=cancel");
 export const editAdminProfile = () => request("post", "/api/admin/editAdmin");
-export const editAdminProfileChangePassword = (data) => request("post", "/api/admin/changePassword", data);
-export const editDoctorrofileChangePassword = (data) => request("post", "/api/doctor/changePassword", data);
-export const AppointmentWithoutBill = () => request("get", "/api/admin/getAppointment/withoutbill");
-export const createBillForAdmin = (data) => request("post", "/api/admin/createBill", data);
-export const getPatientForAdminBill = (id) => request("get", `/api/admin/getpatientfromappointment/${id}`);
+export const editAdminProfileChangePassword = (data) =>
+  request("post", "/api/admin/changePassword", data);
+export const editDoctorrofileChangePassword = (data) =>
+  request("post", "/api/doctor/changePassword", data);
+export const AppointmentWithoutBill = () =>
+  request("get", "/api/admin/getAppointment/withoutbill");
+export const createBillForAdmin = (data) =>
+  request("post", "/api/admin/createBill", data);
+export const getPatientForAdminBill = (id) =>
+  request("get", `/api/admin/getpatientfromappointment/${id}`);
 
 //review
 export const GetUserNotifications = (userId) =>
@@ -211,3 +221,23 @@ export const getOldMessages = (doctorId, patientId) =>
   request("get", `/chat/messages?from=${doctorId}&to=${patientId}`);
 export const getbillForReception = () =>
   request("get", "/api/receptionist/getBillsMonitor");
+
+
+export const getPatientContact = () => request("get", "/api/patient/chatcontect");
+export const getDoctorContact = () => request("get", "/api/doctor/chatcontect");
+
+
+export const fetchAppointmentsByPatient = () =>
+  request("get", "/api/patient/searchAppointment");
+
+
+export const fetchDoctorSession = (doctorId, date) => {
+  const url = date
+    ? `/api/patient/getDoctorSession/${doctorId}?date=${date}`
+    : `/api/patient/getDoctorSession/${doctorId}`;
+  return request("get", url);
+};
+
+export const appointmentBooking = (data) => {
+  request("post", "/api/patient/createAppointment", data)
+}
