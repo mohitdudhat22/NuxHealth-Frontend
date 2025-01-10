@@ -79,10 +79,10 @@ export const NHHeader = () => {
           }
         />
         <div>
-          <NHButton
+          {/* <NHButton
             icon={Icons?.NotificationBall}
             onClick={() => setNotificationVisible(!notificationVisible)}
-          />
+          /> */}
           <NotificationBox
             visible={notificationVisible}
             onClose={() => setNotificationVisible(false)}

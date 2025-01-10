@@ -1,0 +1,5 @@
+.notification-popover .ant-popover-content {
+    position: relative;
+    max-height: 300px;
+    overflow-y: scroll;
+}
