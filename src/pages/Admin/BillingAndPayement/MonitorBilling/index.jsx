@@ -61,9 +61,7 @@ export const MonitorBilling = () => {
       title: "Time",
       dataIndex: "time",
       key: "time",
-      render: (time) => (
-        <Tag color={time === "#F6F8FB"}>{time}</Tag>
-      ),
+      render: (time) => <Tag color={time === "#F6F8FB"}>{time}</Tag>,
     },
     {
       title: "Action",
@@ -76,7 +74,10 @@ export const MonitorBilling = () => {
             icon={Icons.View}
             className="bg-white view-btn border-primary"
             onClick={() =>
-              navigate(`/admin/monitor-billing/bill-view/${record.billNumber}`, { state: { billData: record } })
+              navigate(
+                `/admin/monitor-billing/bill-view/${record.billNumber}`,
+                { state: { billData: record } }
+              )
             }
           />
         </Space>
@@ -86,41 +87,41 @@ export const MonitorBilling = () => {
 
   return (
     <>
-    <div className="monitor_billing_sec">
-      <NHHead />
-      <NHCard
-        title="Monitor Billing"
-        headerContent={
-          <>
-            <NHInput
-              prefix={Icons.SearchIcon}
-              placeholder="Search"
-              onChange={(e) => onSearch(e.target.value)}
-            />
-            <NHButton
-              variant="default"
-              className="bg-white border-primary"
-              onClick={() => navigate("edit-design-invoice")}
-            >
-              {Icons.EditBillIcon}Edit Invoice Theme
-            </NHButton>
-            <NHButton
-              icon={Icons.PlusSquare}
-              onClick={() => navigate("/admin/monitor-billing/create-bill")}
-              variant="primary"
-            >
-              Create Bill
-            </NHButton>
-          </>
-        }
-      >
-        <NHTable
-          loading={loading}
-          tableColumn={columns}
-          tableDataSource={data}
-          showPagination={true}
-        />
-      </NHCard>
+      <div className="monitor_billing_sec">
+        <NHHead />
+        <NHCard
+          title="Monitor Billing"
+          headerContent={
+            <>
+              <NHInput
+                prefix={Icons.SearchIcon}
+                placeholder="Search"
+                onChange={(e) => onSearch(e.target.value)}
+              />
+              <NHButton
+                variant="default"
+                className="bg-white border-primary"
+                onClick={() => navigate("edit-design-invoice")}
+              >
+                {Icons.EditBillIcon}Edit Invoice Theme
+              </NHButton>
+              <NHButton
+                icon={Icons.PlusSquare}
+                onClick={() => navigate("/admin/monitor-billing/create-bill")}
+                variant="primary"
+              >
+                Create Bill
+              </NHButton>
+            </>
+          }
+        >
+          <NHTable
+            loading={loading}
+            tableColumn={columns}
+            tableDataSource={data}
+            showPagination={true}
+          />
+        </NHCard>
       </div>
     </>
   );
