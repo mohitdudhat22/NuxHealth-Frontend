@@ -58,11 +58,8 @@ const columns = (handleViewPatient) => [
     render: (_, record) => (
       <Space size="middle">
         <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.ViewBillIcon}
+      isView
           onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
         />
       </Space>
     ),

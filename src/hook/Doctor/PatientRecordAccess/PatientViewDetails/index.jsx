@@ -30,7 +30,6 @@ export const usePatientViewDetails = () => {
       title: "Disease Name",
       dataIndex: "dieseasName",
       key: "diseaseName",
-
     },
     {
       title: "Patient Issue",
@@ -60,13 +59,7 @@ export const usePatientViewDetails = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() => navigate("patientrecordaccess")}
-            className="bg-white view-btn"
-          />
+          <NHButton isView onClick={() => navigate("patientrecordaccess")} />
         </Space>
       ),
     },

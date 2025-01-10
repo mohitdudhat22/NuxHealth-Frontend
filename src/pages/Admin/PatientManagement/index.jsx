@@ -11,7 +11,6 @@ import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { TodayAppointment } from "./TodayAppointment";
-import { render } from "react-dom";
 import { UpcomingAppointment } from "./UpcomingAppointment";
 import { PreviousAppointment } from "./PreviousAppointment";
 import { CancelAppointment } from "./CancelAppointment";
@@ -70,13 +69,7 @@ export const PatientManagement = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() => handleViewBill(record)}
-            className="view-btn bg-white"
-          />
+          <NHButton isView onClick={() => handleViewBill(record)} />
         </Space>
       ),
     },

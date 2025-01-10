@@ -28,7 +28,7 @@ export const NHInput = ({
       {label && (
         <label
           htmlFor={id}
-          className={clsx(styles.label, "mb-xs", labelClassName)}
+          className={clsx(styles.label, "mb-xs flex", labelClassName)}
         >
           {label} {required && <span className="d-block text-danger">*</span>}
         </label>

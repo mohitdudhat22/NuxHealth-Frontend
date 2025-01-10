@@ -29,7 +29,11 @@ export const CancelAppointment = () => {
       key: "patientName",
       render: (text, record) => (
         <div className="flex items-center gap-2">
-          <img src={record.avatar} alt={text} className="w-8 h-8 rounded-full" />
+          <img
+            src={record.avatar}
+            alt={text}
+            className="w-8 h-8 rounded-full"
+          />
           <span>{text || "N/A"}</span>
         </div>
       ),
@@ -57,7 +61,9 @@ export const CancelAppointment = () => {
       dataIndex: "appointmentTime",
       key: "appointmentTime",
       render: (appointmentTime) => (
-        <Tag color={appointmentTime === "#F6F8FB"}>{appointmentTime || "N/A"}</Tag>
+        <Tag color={appointmentTime === "#F6F8FB"}>
+          {appointmentTime || "N/A"}
+        </Tag>
       ),
     },
     {
@@ -73,13 +79,7 @@ export const CancelAppointment = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() => handleViewPatient(record)}
-            className="view-btn bg-white"
-          />
+          <NHButton isView onClick={() => handleViewPatient(record)} />
         </Space>
       ),
     },

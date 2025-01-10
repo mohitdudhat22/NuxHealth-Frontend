@@ -1,9 +1,9 @@
-import { getbill } from "@/axiosApi/ApiHelper"
-import { NHButton, NHCard, NHInput, NHTable } from "@/components"
-import Icons from "@/constants/icons"
-import { Space, Tag } from "antd"
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { getbill } from "@/axiosApi/ApiHelper";
+import { NHButton, NHCard, NHInput, NHTable } from "@/components";
+import Icons from "@/constants/icons";
+import { Space, Tag } from "antd";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { filterByQuery } from "@/utils/FilterSearch";
 
 export const useBillingAndPayments = () => {
@@ -35,7 +35,7 @@ export const useBillingAndPayments = () => {
     "phoneNumber",
     "status",
     "date",
-    "time"
+    "time",
   ]);
 
   const onSearch = (value) => {
@@ -68,9 +68,7 @@ export const useBillingAndPayments = () => {
       dataIndex: "status",
       key: "status",
       render: (status) => (
-        <Tag color={status === "Paid" ? "green" : "red"}>
-          {status}
-        </Tag>
+        <Tag color={status === "Paid" ? "green" : "red"}>{status}</Tag>
       ),
     },
     {
@@ -86,17 +84,11 @@ export const useBillingAndPayments = () => {
     {
       title: "Action",
       key: "action",
-      render: (_, record) =>
+      render: (_, record) => (
         <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            className="bg-white view-btn border-primary"
-            onClick={() => navigate("view-bill")}
-          />
-
+          <NHButton isView onClick={() => navigate("view-bill")} />
         </Space>
+      ),
     },
   ];
 
@@ -132,6 +124,6 @@ export const useBillingAndPayments = () => {
     defaultColumns,
     defaultData,
     navigate,
-    onSearch
-  }
-}
+    onSearch,
+  };
+};

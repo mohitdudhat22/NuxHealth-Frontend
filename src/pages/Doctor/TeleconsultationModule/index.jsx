@@ -88,13 +88,7 @@ export const Teleconsultation = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() => handleViewBill(record)}
-            className="bg-white view-btn"
-          />
+          <NHButton isView onClick={() => handleViewBill(record)} />
         </Space>
       ),
     },

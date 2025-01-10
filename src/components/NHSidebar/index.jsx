@@ -1,13 +1,13 @@
 import { useState } from "react";
 import clsx from "clsx";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { FullLogo } from "@/assets/images";
 import { useAside } from "@/hook";
 import { AppointmentCard, NHButton } from "..";
 import Icons from "@/constants/Icons";
-import styles from "./NHSidebar.module.css";
 import Cookies from "js-cookie";
+import styles from "./NHSidebar.module.css";
 
 const { Sider } = Layout;
 
@@ -53,10 +53,7 @@ export const NHSidebar = ({ collapsed, className, items }) => {
         items={items}
       />
       <div>
-        {/* {location.pathname.startsWith("/admin")
-          ? null
-          : <AppointmentCard />
-        } */}
+        {location.pathname.startsWith("/patient") ? <AppointmentCard /> : null}
         <NHButton
           block
           className={clsx("justify-content-start rounded-none")}
