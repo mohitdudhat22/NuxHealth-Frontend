@@ -18,32 +18,33 @@ export const ChatLayoutForDoctor = () => {
   const [chats, setChats] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
+  const [isOnline, setIsOnline] = useState(false);
+  console.log(isOnline,"<<<<<<<<<<<<<<<<< other person")
 
+  const fetchContact = async () => {
+    try {
+      const response = await getDoctorContact();
+      const contacts = response.data.map(contact => ({
+        _id: contact._id,
+        name: contact.fullName,
+        avatar: contact.profilePicture,
+        status: "offline", // You can update this based on your logic
+        lastMessage: "",
+        lastMessageTime: "",
+        unreadCount: 0,
+      }));
+      setUsers(contacts);
+      setSelectedUserId(contacts[0]?._id || null); // Select the first user by default
+      setChats(contacts.map(contact => ({
+        _id: contact._id,
+        participants: [{ _id: contact._id, name: contact.fullName, avatar: contact.profilePicture }],
+        messages: [],
+      })));
+    } catch (error) {
+      console.error("Failed to fetch contact:", error);
+    }
+  };
   useEffect(() => {
-    const fetchContact = async () => {
-      try {
-        const response = await getDoctorContact();
-        const contacts = response.data.map(contact => ({
-          _id: contact._id,
-          name: contact.fullName,
-          avatar: contact.profilePicture,
-          status: "offline", // You can update this based on your logic
-          lastMessage: "",
-          lastMessageTime: "",
-          unreadCount: 0,
-        }));
-        setUsers(contacts);
-        setSelectedUserId(contacts[0]?._id || null); // Select the first user by default
-        setChats(contacts.map(contact => ({
-          _id: contact._id,
-          participants: [{ _id: contact._id, name: contact.fullName, avatar: contact.profilePicture }],
-          messages: [],
-        })));
-      } catch (error) {
-        console.error("Failed to fetch contact:", error);
-      }
-    };
-
     fetchContact();
   }, []);
 
@@ -95,9 +96,23 @@ export const ChatLayoutForDoctor = () => {
       socket.off("receive-message");
     };
   }, []);
-
+  const handleUserStatus = (data) => {
+    setIsOnline(data.online);
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user._id === selectedUserId
+          ? { ...user, status: data.online ? "online" : "offline" }
+          : user
+      )
+    );
+  };
   useEffect(() => {
     if (selectedUserId) {
+      socket.emit("check-online", selectedUserId);
+
+      
+      socket.on("user-status", handleUserStatus);
+
       const fetchMessages = async () => {
         try {
           const response = await getOldMessages(userId, selectedUserId);
@@ -125,6 +140,9 @@ export const ChatLayoutForDoctor = () => {
 
       fetchMessages();
     }
+    return () => {
+      socket.off("user-status", handleUserStatus);
+    };
   }, [selectedUserId]);
 
   useEffect(() => {
