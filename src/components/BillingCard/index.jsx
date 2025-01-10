@@ -34,13 +34,7 @@ export const BillingCard = ({ data }) => {
       width: 100,
       render: (_, record) => (
         <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() => handleViewBill(record)}
-            className="view-btn bg-white"
-          />
+          <NHButton isView onClick={() => handleViewBill(record)} />
         </Space>
       ),
     },
@@ -63,10 +57,6 @@ export const BillingCard = ({ data }) => {
         dataSource={data}
         route="/admin"
         defaultPageSize="5"
-        scroll={{
-          y: "220px",
-          // x: "600px",
-        }}
       />
     </NHCard>
   );

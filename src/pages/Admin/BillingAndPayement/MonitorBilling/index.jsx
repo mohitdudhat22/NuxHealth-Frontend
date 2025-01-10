@@ -71,10 +71,7 @@ export const MonitorBilling = () => {
       render: (_, record) => (
         <Space size="middle">
           <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.View}
-            className="bg-white view-btn border-primary"
+            isView
             onClick={() =>
               navigate(`/admin/monitor-billing/bill-view/${record.billNumber}`, { state: { billData: record } })
             }

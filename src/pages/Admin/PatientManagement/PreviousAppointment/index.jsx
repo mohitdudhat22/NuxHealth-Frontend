@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
-import "./PreviousAppo.css"
+import "./PreviousAppo.css";
 import { usePreviousAppointments } from "@/hook/Admin/PatientManagement/PreviousAppontment";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
@@ -29,7 +29,11 @@ export const PreviousAppointment = () => {
       key: "patientName",
       render: (text, record) => (
         <div className="flex items-center gap-2">
-          <img src={record.avatar} alt={text} className="w-8 h-8 rounded-full" />
+          <img
+            src={record.avatar}
+            alt={text}
+            className="w-8 h-8 rounded-full"
+          />
           <span>{text || "N/A"}</span>
         </div>
       ),
@@ -57,7 +61,9 @@ export const PreviousAppointment = () => {
       dataIndex: "appointmentTime",
       key: "appointmentTime",
       render: (appointmentTime) => (
-        <Tag color={appointmentTime === "#F6F8FB"}>{appointmentTime || "N/A"}</Tag>
+        <Tag color={appointmentTime === "#F6F8FB"}>
+          {appointmentTime || "N/A"}
+        </Tag>
       ),
     },
     {
@@ -73,13 +79,7 @@ export const PreviousAppointment = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() => handleViewPatient(record)}
-            className="view-btn bg-white"
-          />
+          <NHButton isView onClick={() => handleViewPatient(record)} />
         </Space>
       ),
     },
@@ -87,29 +87,34 @@ export const PreviousAppointment = () => {
 
   return (
     <>
-    <div className="previous_appo">
-      <NHCard
-        title="Previous Appointments"
-        headerContent={
-          <NHInput
-            prefix={Icons.SearchIcon}
-            placeholder="Search Patient"
-            onChange={(e) => onSearch(e.target.value)}
+      <div className="previous_appo">
+        <NHCard
+          title="Previous Appointments"
+          headerContent={
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              onChange={(e) => onSearch(e.target.value)}
+            />
+          }
+        >
+          <NHTable
+            loading={loading}
+            showPagination={true}
+            tableColumn={columns}
+            tableDataSource={data}
           />
-        }
-      >
-        <NHTable loading={loading} showPagination={true} tableColumn={columns} tableDataSource={data} />
-      </NHCard>
+        </NHCard>
 
-      {selectedPatient && (
-        <PatientDetailModal
-          isModalOpen={isModalOpen}
-          onCancel={handleCloseModal}
-          handleClose={handleCloseModal}
-          Title="Patient Details"
-          patientData={selectedPatient}
-        />
-      )}
+        {selectedPatient && (
+          <PatientDetailModal
+            isModalOpen={isModalOpen}
+            onCancel={handleCloseModal}
+            handleClose={handleCloseModal}
+            Title="Patient Details"
+            patientData={selectedPatient}
+          />
+        )}
       </div>
     </>
   );

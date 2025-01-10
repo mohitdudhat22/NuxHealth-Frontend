@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { createDoctor, editDoctor } from '@/axiosApi/ApiHelper';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { createDoctor, editDoctor } from "@/axiosApi/ApiHelper";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export const useCreateDoctor = () => {
   const { id } = useParams();
@@ -13,29 +13,29 @@ export const useCreateDoctor = () => {
   const [formData, setFormData] = useState({
     profilePicture: null,
     signature: null,
-    firstName: '',
-    lastName: '',
-    email: '',
-    age: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    age: "",
     gender: [],
-    phone: '',
-    qualification: '',
-    speciality: '',
+    phone: "",
+    qualification: "",
+    speciality: "",
     workOn: [],
-    morningSession: 'null', /* */
-    eveningSession: 'null',/* */
-    duration: '',/* */
+    morningSession: "null" /* */,
+    eveningSession: "null" /* */,
+    duration: "" /* */,
     country: [],
     state: [],
     city: [],
-    zipCode: '',
-    fullAddress: '',
-    experience: '',
-    description: '',
-    consultationRate: '',
-    onlineConsultationRate: '',
-    worksiteLink: '',
-    emergencyContactNo: '',
+    zipCode: "",
+    fullAddress: "",
+    experience: "",
+    description: "",
+    consultationRate: "",
+    onlineConsultationRate: "",
+    worksiteLink: "",
+    emergencyContactNo: "",
   });
 
   useEffect(() => {
@@ -60,10 +60,13 @@ export const useCreateDoctor = () => {
         fullAddress: EditData?.address?.fullAddress || "",
         experience: EditData?.metaData?.doctorData?.experience || "",
         description: EditData?.metaData?.doctorData?.description || "",
-        consultationRate: EditData?.metaData?.doctorData?.consultationRate || "",
-        onlineConsultationRate: EditData?.metaData?.doctorData?.onlineConsultationRate || "",
+        consultationRate:
+          EditData?.metaData?.doctorData?.consultationRate || "",
+        onlineConsultationRate:
+          EditData?.metaData?.doctorData?.onlineConsultationRate || "",
         worksiteLink: EditData?.metaData?.doctorData?.worksiteLink || "",
-        emergencyContactNo: EditData?.metaData?.doctorData?.emergencyContactNo || "",
+        emergencyContactNo:
+          EditData?.metaData?.doctorData?.emergencyContactNo || "",
         profilePicture: EditData?.profilePicture || "",
         signature: EditData?.metaData?.doctorData?.signature || "",
       });
@@ -110,18 +113,17 @@ export const useCreateDoctor = () => {
       console.log(`${key}:`, value);
     }
 
-
     if (isEditing) {
       const response = await editDoctor(id, data);
       if (response.status === 1) {
-        navigate('/admin/doctor-management')
+        navigate("/admin/doctor-management");
       }
     }
 
     if (!isEditing) {
       const response = await createDoctor(data);
       if (response.status === 1) {
-        navigate('/admin/doctor-management')
+        navigate("/admin/doctor-management");
       }
     }
   };
@@ -132,6 +134,6 @@ export const useCreateDoctor = () => {
     handleSelectChange,
     handleFileChange,
     handleSubmit,
-    isEditing
+    isEditing,
   };
 };
