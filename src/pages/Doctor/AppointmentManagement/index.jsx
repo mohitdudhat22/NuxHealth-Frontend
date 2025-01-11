@@ -3,6 +3,7 @@ import { TodayAppointments } from "./TodaysAppointment";
 import { PreviousAppointments } from "./PreviousAppointment";
 import { UpcomingAppointments } from "./UpcomingAppointment";
 import { CancelAppointments } from "./CancelAppointment";
+import { useDecodeToken } from "@/hook";
 
 export const AppointmentManagement = () => {
   const tabItems = [
@@ -27,6 +28,9 @@ export const AppointmentManagement = () => {
       children: <CancelAppointments />,
     },
   ];
+
+  const { token } = useDecodeToken();
+  console.log(token);
 
   return (
     <>
