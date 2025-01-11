@@ -17,7 +17,7 @@ export const TeleconsultationAccess = () => {
     // API Calls
     const { data: previousData } = usePreviousTeleconsultationModule();
     const { data: todaysData, setIsDateModalOpen, isDateModalOpen,filterAppointments } = useTodaysTeleconsultationModule();
-    const { data: upcomingData } = useUpcomingTeleconsultationModule();
+    const { data: upcomingData} = useUpcomingTeleconsultationModule();
     const { data: canceledData } = useCancelTeleconsultationModule();
 
     // Use Effect to Update States
@@ -150,7 +150,21 @@ export const TeleconsultationAccess = () => {
                 >
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         {previousAppointments.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
+                            const {
+                                name,
+                                type,
+                                patientIssue,
+                                diseaseName,
+                                appointmentDate,
+                                appointmentTime,
+                                date,
+                                patientName,
+                                doctorId,
+                                hospitalId,
+                                patientId,
+                                patient_issue
+              
+                              } = data;
                             return (
                                 <AppointmentCard
                                     key={"1"}
@@ -163,12 +177,12 @@ export const TeleconsultationAccess = () => {
                                             {Icons.ViewBillIcon}
                                         </button>
                                     }
-                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. Nolan George</span>}
-                                    appointmentType={<span className='text-[#FFC313]'>Online</span>}
-                                    hospitalName={"Artemis Hospital"}
-                                    appointmentDate={'2 Jan, 2022'}
-                                    appointmentTime={"10:20 AM"}
-                                    patientIssue={"Feeling Tired"}
+                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId.fullName}</span>}
+                                    appointmentType={<span className='text-[#FFC313]'>{type}</span>}
+                                    hospitalName={hospitalId.name}
+                                    appointmentDate={date}
+                                    appointmentTime={appointmentTime}
+                                    patientIssue={patient_issue}
                                     className="border border-slate-200"
                                 />
                             );
@@ -193,7 +207,21 @@ export const TeleconsultationAccess = () => {
                 >
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         {canceledAppointments.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
+                           const {
+                            name,
+                            type,
+                            patientIssue,
+                            diseaseName,
+                            appointmentDate,
+                            appointmentTime,
+                            date,
+                            patientName,
+                            doctorId,
+                            hospitalId,
+                            patientId,
+                            patient_issue
+          
+                          } = data;
                             return (
                                 <AppointmentCard
                                     key={"1"}
@@ -206,13 +234,12 @@ export const TeleconsultationAccess = () => {
                                             {Icons.ViewBillIcon}
                                         </button>
                                     }
-                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. Nolan George</span>}
-                                    appointmentType={<span className='text-[#FFC313]'>Online</span>}
-                                    hospitalName={"Artemis Hospital"}
-                                    appointmentDate={'2 Jan, 2022'}
-                                    appointmentCancelDate={'2 Jan, 2022'}
-                                    appointmentTime={"10:20 AM"}
-                                    patientIssue={"Feeling Tired"}
+                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId.fullName}</span>}
+                                    appointmentType={<span className='text-[#FFC313]'>{type}</span>}
+                                    hospitalName={hospitalId.name}
+                                    appointmentDate={date}
+                                    appointmentTime={appointmentTime}
+                                    patientIssue={patient_issue}
                                     className="border border-slate-200"
                                 />
                             );
@@ -230,14 +257,28 @@ export const TeleconsultationAccess = () => {
                     rootClass={"p-0"}
                     headerContent={
                         <>
-                            <NHButton variant="default" className="text-black bg-white">{Icons.CalenderIcon}2 March,2022 - 13 March, 2022{Icons.CloseCircle}</NHButton>
+                          <NHButton variant="default" className="text-black bg-white" onClick={() => setIsDateModalOpen(true)}>{Icons.CalenderIcon} {fromDate ? fromDate : "From"} - {toDate ? toDate : "To"}{Icons.CloseCircle}</NHButton>
                             <NHButton variant="default" className="">{Icons.CalenderIcon}Book Appointment</NHButton>
                         </>
                     }
                 >
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         {upcomingAppointments.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime } = data;
+                             const {
+                                name,
+                                type,
+                                patientIssue,
+                                diseaseName,
+                                appointmentDate,
+                                appointmentTime,
+                                date,
+                                patientName,
+                                doctorId,
+                                hospitalId,
+                                patientId,
+                                patient_issue
+              
+                              } = data;
                             return (
                                 <AppointmentCard
                                     key={"1"}
@@ -250,12 +291,12 @@ export const TeleconsultationAccess = () => {
                                             {Icons.ViewBillIcon}
                                         </button>
                                     }
-                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. Nolan George</span>}
-                                    appointmentType={<span className='text-[#FFC313]'>Online</span>}
-                                    hospitalName={"Artemis Hospital"}
-                                    appointmentDate={'2 Jan, 2022'}
-                                    appointmentTime={"10:20 AM"}
-                                    patientIssue={"Feeling Tired"}
+                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId.fullName}</span>}
+                                    appointmentType={<span className='text-[#FFC313]'>{type}</span>}
+                                    hospitalName={hospitalId.name}
+                                    appointmentDate={date}
+                                    appointmentTime={appointmentTime}
+                                    patientIssue={patient_issue}
                                     footerContent={
                                         <div className="flex justify-between gap-4">
                                             <NHButton
