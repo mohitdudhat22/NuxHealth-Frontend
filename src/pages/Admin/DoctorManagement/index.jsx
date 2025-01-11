@@ -1,5 +1,5 @@
 import { useDoctorManagement } from "@/hook";
-import { Space, Tag } from "antd/lib";
+import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
 import {
   NHButton,
@@ -18,7 +18,7 @@ export const DoctorManagement = () => {
   const { data, loading, fetchDoctors, navigate, onSearch } =
     useDoctorManagement();
 
-    const [drawerVisible, setDrawerVisible] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   const { deleteData, isDelete, setDelete } = useDeleteModal(fetchDoctors);
@@ -84,13 +84,8 @@ export const DoctorManagement = () => {
       render: (_, record) => {
         return (
           <Space size="middle">
-            <NHButton size={"small"} icon={Icons.View} className="edit-btn" onClick={() => showDrawer(record)} />
-            <NHButton
-              size={"small"}
-              icon={Icons.Delete}
-              className="delete-btn"
-              onClick={() => setDelete(record)}
-            />
+            <NHButton isView onClick={() => showDrawer(record)} />
+            <NHButton isDelete onClick={() => setDelete(record)} />
           </Space>
         );
       },
@@ -99,7 +94,7 @@ export const DoctorManagement = () => {
 
   return (
     <>
-      <NHHead />
+      <NHHead title="Doctor Management" />
       <NHCard
         title="Doctor Management"
         headerContent={
@@ -138,11 +133,11 @@ export const DoctorManagement = () => {
         </DeleteModal>
 
         {/* Doctor Drawer */}
-      <DoctorDrawer
-        visible={drawerVisible}
-        onClose={onCloseDrawer}
-        doctor={selectedDoctor}
-      />
+        <DoctorDrawer
+          visible={drawerVisible}
+          onClose={onCloseDrawer}
+          doctor={selectedDoctor}
+        />
       </NHCard>
     </>
   );

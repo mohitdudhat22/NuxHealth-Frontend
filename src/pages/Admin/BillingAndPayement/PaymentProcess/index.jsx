@@ -76,9 +76,7 @@ export const PaymentProcess = () => {
       title: "Time",
       dataIndex: "time",
       key: "time",
-      render: (time) => (
-        <Tag color={time === "#F6F8FB"}>{time}</Tag>
-      ),
+      render: (time) => <Tag color={time === "#F6F8FB"}>{time}</Tag>,
     },
     {
       title: "Action",
@@ -86,12 +84,11 @@ export const PaymentProcess = () => {
       render: (_, record) => (
         <Space size="middle">
           <NHButton
-            type="primary"
-            size="small"
-            icon={Icons.EditBillIcon}
-            className="edit-btn bg-white"
+            isEdit
             onClick={() =>
-              navigate(`/admin/payment-process/edit-bill`, { state: { record: record } })
+              navigate(`/admin/payment-process/edit-bill`, {
+                state: { record: record },
+              })
             }
           />
           <NHButton
@@ -100,7 +97,10 @@ export const PaymentProcess = () => {
             icon={Icons.ViewBillIcon}
             className="view-btn bg-white"
             onClick={() =>
-              navigate(`/admin/payment-process/bill-view/${record.billNumber}`, { state: { billData: record } })
+              navigate(
+                `/admin/payment-process/bill-view/${record.billNumber}`,
+                { state: { billData: record } }
+              )
             }
           />
           <NHButton
@@ -117,33 +117,33 @@ export const PaymentProcess = () => {
 
   return (
     <>
-    <div className="payment_process_sec">
-      <NHHead title="Payment Process" />
-      <NHCard
-        title={"Billing Details"}
-        headerContent={
-          <NHInput
-            prefix={Icons.SearchIcon}
-            placeholder="Search Patient"
-            onChange={(e) => onSearch(e.target.value)}
+      <div className="payment_process_sec">
+        <NHHead title="Payment Process" />
+        <NHCard
+          title={"Billing Details"}
+          headerContent={
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              onChange={(e) => onSearch(e.target.value)}
+            />
+          }
+        >
+          <NHTable
+            loading={loading}
+            showPagination={true}
+            tableColumn={columns}
+            tableDataSource={data}
           />
-        }
-      >
-        <NHTable
-          loading={loading}
-          showPagination={true}
-          tableColumn={columns}
-          tableDataSource={data}
+        </NHCard>
+
+        <PaymentProcessModal
+          open={isModalOpen}
+          handleClose={() => setIsModalOpen(false)}
+          // paymentData={record}
         />
-      </NHCard>
 
-      <PaymentProcessModal
-        open={isModalOpen}
-        handleClose={() => setIsModalOpen(false)}
-        // paymentData={record}
-      />
-
-<CashPaymentModal
+        <CashPaymentModal
           open={isCashPaymentModalOpen}
           handleClose={() => setIsCashPaymentModalOpen(false)}
           handlePay={handlePay}

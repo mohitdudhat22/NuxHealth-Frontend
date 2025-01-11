@@ -19,66 +19,58 @@ export const Manage = () => {
     };
 
     const columns = [
-        {
-            title: "Patient Name",
-            dataIndex: "patientName",
-            key: "patientName",
-            render: (text, record) => (
-                <div className="flex items-center gap-2">
-                    <img
-                        src={record.avatar}
-                        alt={text}
-                        className="w-8 h-8 rounded-full"
-                    />
-                    <span>{text}</span>
-                </div>
-            )
-        },
-        {
-            title: "Patient Number",
-            dataIndex: "patientNumber",
-            key: "patientNumber",
-        },
-        {
-            title: "Appointment Type",
-            dataIndex: "appointmentType",
-            key: "appointmentType",
-            render: (type) => (
-                <Tag color={type === "Online" ? "blue" : "orange"}>
-                    {type}
-                </Tag>
-            ),
-        },
-        {
-            title: "Appointment Time",
-            dataIndex: "appointmentTime",
-            key: "appointmentTime",
-        },
-        {
-            title: "Age",
-            dataIndex: "age",
-            key: "age",
-        },
-        {
-            title: "Gender",
-            dataIndex: "gender",
-            key: "gender",
-        },
-        {
-            title: "Action",
-            key: "action",
-            render: (_, record) => (
-                <Space size="middle">
-                    <NHButton
-                        type="primary"
-                        size="small"
-                        icon={Icons.ViewBillIcon}
-                        onClick={() => handleViewBill(record)}
-                        className="bg-white view-btn"
-                    />
-                </Space>
-            ),
-        },
+      {
+        title: "Patient Name",
+        dataIndex: "patientName",
+        key: "patientName",
+        render: (text, record) => (
+          <div className="flex items-center gap-2">
+            <img
+              src={record.avatar}
+              alt={text}
+              className="w-8 h-8 rounded-full"
+            />
+            <span>{text}</span>
+          </div>
+        ),
+      },
+      {
+        title: "Patient Number",
+        dataIndex: "patientNumber",
+        key: "patientNumber",
+      },
+      {
+        title: "Appointment Type",
+        dataIndex: "appointmentType",
+        key: "appointmentType",
+        render: (type) => (
+          <Tag color={type === "Online" ? "blue" : "orange"}>{type}</Tag>
+        ),
+      },
+      {
+        title: "Appointment Time",
+        dataIndex: "appointmentTime",
+        key: "appointmentTime",
+      },
+      {
+        title: "Age",
+        dataIndex: "age",
+        key: "age",
+      },
+      {
+        title: "Gender",
+        dataIndex: "gender",
+        key: "gender",
+      },
+      {
+        title: "Action",
+        key: "action",
+        render: (_, record) => (
+          <Space size="middle">
+            <NHButton isView onClick={() => handleViewBill(record)} />
+          </Space>
+        ),
+      },
     ];
 
     const tabItems = [

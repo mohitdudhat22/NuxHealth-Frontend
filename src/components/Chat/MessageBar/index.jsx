@@ -110,9 +110,9 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
   }, [messages]);
 
   return (
-    <div className="w-full flex flex-col h-full">
+    <div className="w-full flex flex-col max-h-[calc(100vh-var(--header-height))]">
       {/* User Header */}
-      <div className="flex bg-white items-center gap-xl p-xl sticky top-0 z-10">
+      <div className="flex bg-white items-center gap-xl p-xl relative top-0 z-10">
         <Avatar
           size={48}
           src={selectedUser?.avatar}
@@ -164,8 +164,8 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
                       <div
                         className={`max-w-[70%] ${
                           isCurrentUser
-                            ? "bg-blue-500 text-white rounded-l-lg rounded-tr-lg"
-                            : "bg-gray-100 text-gray-800 rounded-r-lg rounded-tl-lg"
+                            ? "bg-[#0EABEB] text-white rounded-l-lg rounded-tr-lg"
+                            : "bg-[rgba(113,142,191,0.1)] text-[#030229] rounded-r-lg rounded-tl-lg"
                         } p-3`}
                       >
                         {message.type === "text" && <p>{message.content}</p>}
@@ -209,7 +209,7 @@ export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) =>
       {/* Input Area */}
       <form
         onSubmit={handleSendMessage}
-        className="ml-md flex items-center gap-md p-4 border-t sticky bottom-0 bg-white z-10"
+        className="flex items-center gap-md p-4 border-t relative bottom-0 bg-white z-10"
       >
         <button
           type="button"

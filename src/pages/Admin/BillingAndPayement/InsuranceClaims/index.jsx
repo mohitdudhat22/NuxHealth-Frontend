@@ -2,17 +2,11 @@ import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
 import "./InsuranceBilling.css";
-import { useInsuranceClaims } from '@/hook/Admin/BillingAndPayments';
+import { useInsuranceClaims } from "@/hook/Admin/BillingAndPayments";
 
 export const InsuranceClaims = () => {
-  const {
-    claims,
-    loading,
-    data,
-    fetchClaims,
-    onSearch,
-    navigate
-  } = useInsuranceClaims();
+  const { claims, loading, data, fetchClaims, onSearch, navigate } =
+    useInsuranceClaims();
 
   const columns = [
     {
@@ -50,9 +44,7 @@ export const InsuranceClaims = () => {
       dataIndex: "insurancePlan",
       key: "insurancePlan",
       render: (plan) => (
-        <Tag color={plan === "Maternity" ? "#F6F8FB" : "#F6F8FB"}>
-          {plan}
-        </Tag>
+        <Tag color={plan === "Maternity" ? "#F6F8FB" : "#F6F8FB"}>{plan}</Tag>
       ),
     },
     {
@@ -66,12 +58,13 @@ export const InsuranceClaims = () => {
       render: (_, record) => (
         <Space size="middle">
           <NHButton
-            type="primary"
-            variant="secondary"
-            size="small"
-            icon={Icons.ViewBillIcon}
-            onClick={() => navigate(`/admin/insurance-claims/insurance-view-bill/${record.billNumber}`, { state: { billData: record } })}
-            className="edit-btn bg-white"
+            isView
+            onClick={() =>
+              navigate(
+                `/admin/insurance-claims/insurance-view-bill/${record.billNumber}`,
+                { state: { billData: record } }
+              )
+            }
           />
         </Space>
       ),
@@ -80,20 +73,25 @@ export const InsuranceClaims = () => {
 
   return (
     <>
-    <div className="insurance_sec">
-      <NHHead title="Insurance Claims" />
-      <NHCard
-        title={"Insurance Claims"}
-        headerContent={
-          <NHInput
-            prefix={Icons.SearchIcon}
-            placeholder="Search Patient"
-            onChange={(e) => onSearch(e.target.value)}
+      <div className="insurance_sec">
+        <NHHead title="Insurance Claims" />
+        <NHCard
+          title={"Insurance Claims"}
+          headerContent={
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              onChange={(e) => onSearch(e.target.value)}
+            />
+          }
+        >
+          <NHTable
+            loading={loading}
+            showPagination={true}
+            tableColumn={columns}
+            tableDataSource={data}
           />
-        }
-      >
-        <NHTable loading={loading} showPagination={true} tableColumn={columns} tableDataSource={data} />
-      </NHCard>
+        </NHCard>
       </div>
     </>
   );
