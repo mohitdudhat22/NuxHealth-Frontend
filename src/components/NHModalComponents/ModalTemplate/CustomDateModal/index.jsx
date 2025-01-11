@@ -14,6 +14,8 @@ export const CustomDateModal = ({
     setToDate,
     ...rest
 }) => {
+
+
     return (
         <NHModal
             title={"Custom Date "}
