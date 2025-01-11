@@ -121,7 +121,7 @@ export const PersonalHealthRecord = () => {
               patientAddress={`${patientData?.address.fullAddress}, ${patientData?.address.city}`}
               lastAppointmentDate="2 Jan, 2022"
               lastAppointmentTime="4:30 PM"
-              onEditProfile={() => {}}
+              onEditProfile={() => { }}
             />
 
             <div className="grid grid-cols-[3fr_2fr] mt-8 grid-rows-1 gap-8">
@@ -132,23 +132,22 @@ export const PersonalHealthRecord = () => {
                 className={"max-h-[200px] overflow-auto"}
                 headerContent={
                   <button
-                    className="text-blue-500 text-sm"
+                    className="text-sm text-blue-500"
                     onClick={() => setCurrentView("medical-history")}
                   >
                     View All
                   </button>
                 }
               >
-                <div className="space-y-1 grid grid-cols-1 md:grid-cols-3">
+                <div className="grid grid-cols-1 space-y-1 md:grid-cols-3">
                   {medicalHistoryData.map((medicalData, index) => {
-                    console.log(medicalData);
                     return (
                       <NHCard className={"border border-[#F4F4F4] rounded-xl "}>
                         <div className="flex justify-between bg-[#F6F8FB] rounded-lg p-3">
-                          <h3 className="text-gray-900 font-medium text-sm ">
+                          <h3 className="text-sm font-medium text-gray-900 ">
                             {medicalData.title}
                           </h3>
-                          <span className="px-4 py-1 bg-blue-50 text-blue-600 rounded-full text-sm">
+                          <span className="px-4 py-1 text-sm text-blue-600 rounded-full bg-blue-50">
                             {medicalData.date}
                           </span>
                         </div>
