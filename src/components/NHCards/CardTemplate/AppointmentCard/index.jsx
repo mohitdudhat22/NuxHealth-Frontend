@@ -1,4 +1,6 @@
 import { NHCard } from "@/components";
+import classNames from "classnames";
+import { useMemo } from "react";
 
 export const AppointmentCard = ({
   title,
@@ -8,10 +10,10 @@ export const AppointmentCard = ({
   children,
   className,
   reminder,
-  ...props // Collect all other props dynamically
+  ...props
 }) => {
-  // Function to render label and value dynamically
-  const renderFields = () => {
+  // Memoize the renderFields function to prevent unnecessary re-renders
+  const renderFields = useMemo(() => {
     return Object.entries(props).map(([key, value]) => {
       if (!value) return null; // Skip undefined or null values
 
@@ -22,14 +24,14 @@ export const AppointmentCard = ({
 
       return (
         <p key={key} className="mb-3">
-          <span className="text-xl text-[#818194]">{label}</span>
+          <span className="text-xl inline text-[#818194]">{label}</span>
           <span className="float-right text-xl font-bold text-[#4F4F4F]">
             {value}
           </span>
         </p>
       );
     });
-  };
+  }, [props]);
 
   return (
     <NHCard
@@ -46,10 +48,10 @@ export const AppointmentCard = ({
       )}
 
       {/* Dynamically Render Fields */}
-      {renderFields()}
+      {renderFields}
 
       {/* Footer Section */}
-      {children && <div className={className}>{children}</div>}
+      {children && <div className={classNames(className)}>{children}</div>}
       {footerContent && <div className="pt-4 mt-4">{footerContent}</div>}
     </NHCard>
   );
