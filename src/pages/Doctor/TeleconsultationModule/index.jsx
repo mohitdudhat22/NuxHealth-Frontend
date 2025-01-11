@@ -25,7 +25,7 @@ export const Teleconsultation = () => {
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [appointmentId, setAppointmentId] = useState(null);
-  const { data: privousTeleconsultation, loading: privousLoader } = usePrivousTeleconsultation();
+  const { data: privousTeleconsultation, loading: privousLoader,fetchAppointments } = usePrivousTeleconsultation();
   const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
   const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
   const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
@@ -47,18 +47,6 @@ export const Teleconsultation = () => {
       console.error("Error rescheduling appointment:", error);
     }
   };
-   const fetchAppointments = async () => {
-          try {
-              setLoading(true);
-              const response = await getPrivousTeleconsultation();
-              if (response.status === 1) {
-                  setAppointments(response.data.appointments);
-                  console.log('Today’s Appointments:', response.data.length);
-              }
-          } finally {
-              setLoading(false);
-          }
-      };
   const handleViewBill = (record) => {
     setSelectedPatient(record);
     setIsModalOpen(true);
