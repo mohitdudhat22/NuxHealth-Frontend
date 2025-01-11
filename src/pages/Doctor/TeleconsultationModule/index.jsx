@@ -24,12 +24,41 @@ export const Teleconsultation = () => {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
-  const [appointmentId,setAppointmentId] = useState(null);
+  const [appointmentId, setAppointmentId] = useState(null);
   const { data: privousTeleconsultation, loading: privousLoader } = usePrivousTeleconsultation();
   const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
   const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
   const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
+  const rescheduleAppointment = async (selectedDate, selectedTime) => {
+    const payload = {
+      date: selectedDate,
+      appointmentTime: selectedTime,
+    };
 
+    console.log("Appointment ID:", appointmentId);
+    console.log("Payload:", payload);
+
+    try {
+      const response = await reschedule(appointmentId, payload);
+      console.log("Response:", response);
+      setIsReshceduleModal(false); // Close modal after successful reschedule
+      fetchAppointments();
+    } catch (error) {
+      console.error("Error rescheduling appointment:", error);
+    }
+  };
+   const fetchAppointments = async () => {
+          try {
+              setLoading(true);
+              const response = await getPrivousTeleconsultation();
+              if (response.status === 1) {
+                  setAppointments(response.data.appointments);
+                  console.log('Today’s Appointments:', response.data.length);
+              }
+          } finally {
+              setLoading(false);
+          }
+      };
   const handleViewBill = (record) => {
     setSelectedPatient(record);
     setIsModalOpen(true);
@@ -45,15 +74,6 @@ export const Teleconsultation = () => {
     setAppointmentId(id)
     console.log("Reschedule");
   };
-
-  const rescheduleAppointment = async ()=>{
-    const payload = {
-
-    }
-    console.log(appointmentId)
-    const response = await reschedule(appointmentId, payload);
-    console.log(response);
-  }
   const columns = [
     {
       title: "Patient Name",
@@ -174,9 +194,10 @@ export const Teleconsultation = () => {
             </div>
           </NHCard>
           <RescheduleAppointmentModal
-            open={isReshceduleModal}
-            handleClose={() => setIsReshceduleModal(false)}
             handleOk={rescheduleAppointment}
+            handleClose={() => setIsReshceduleModal(false)}
+            Title="Reschedule Appointment"
+            rescheduleAppo={isReshceduleModal}
           />
         </>
       ),
@@ -290,7 +311,7 @@ export const Teleconsultation = () => {
                 <NHButton
                   size={"small"}
                   className={"w-full"}
-                  onClick={() => navigate('videoCall?room='+selectedPatientData.key)}
+                  onClick={() => navigate('videoCall?room=' + selectedPatientData.key)}
                 >{console.log(selectedPatientData)}
                   Join
                   {console.log(selectedPatientData._id)}

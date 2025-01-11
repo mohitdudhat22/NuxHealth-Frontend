@@ -36,6 +36,7 @@ export const usePrivousTeleconsultation = () => {
         setSearchQuery(query);
     };
 
+
     const data = appointments?.map((appointment) => ({
         key: appointment?._id,
         patientName: appointment?.patientId?.fullName,
