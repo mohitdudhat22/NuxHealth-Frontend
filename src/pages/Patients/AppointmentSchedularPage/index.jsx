@@ -3,7 +3,7 @@ import { AppointmentScheduler, NHButton, NHCard, NHDatePicker, NHInput, NHModal,
 import { appointmentBooking } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 import { useDecodeToken } from "@/hook";
-import { useAppointmentData } from "./useAppointmentData";
+import { useAppointmentData } from "./hooks/useAppointmentData";
 
 export const AppointmentSchedularPage = () => {
   const {
