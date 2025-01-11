@@ -19,33 +19,32 @@ export const ChatLayoutForPatient = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [isOnline, setIsOnline] = useState(false);
   console.log(isOnline,"<<<<<<<<<<<<<<<<< other person")
-  useEffect(() => {
-    const fetchContact = async () => {
-      try {
-        const response = await getPatientContact();
-        const contacts = response.data.map(contact => ({
-          _id: contact._id,
-          name: contact.fullName,
-          avatar: contact.profilePicture,
-          status: "offline",
-          lastMessage: "",
-          lastMessageTime: "",
-          unreadCount: 0,
-        }));
-        setUsers(contacts);
-        setSelectedUserId(contacts[0]?._id || null);
-        setChats(contacts.map(contact => ({
-          _id: contact._id,
-          participants: [{ _id: contact._id, name: contact.fullName, avatar: contact.profilePicture }],
-          messages: [],
-        })));
-      } catch (error) {
-        console.error("Failed to fetch contact:", error);
-      }
-    };
-
-    fetchContact();
-  }, []);
+  const fetchContact = async () => {
+    try {
+      const response = await getPatientContact();
+      const contacts = response.data.map(contact => ({
+        _id: contact._id,
+        name: contact.fullName,
+        avatar: contact.profilePicture,
+        status: "offline",
+        lastMessage: "",
+        lastMessageTime: "",
+        unreadCount: 0,
+      }));
+      setUsers(contacts);
+      console.log("checking online for ", contacts[0]?._id)
+      joinChat({from:userId, to:contacts[0]?._id});
+      socket.emit("check-online", contacts[0]?._id);
+      setSelectedUserId(contacts[0]?._id || null);
+      setChats(contacts.map(contact => ({
+        _id: contact._id,
+        participants: [{ _id: contact._id, name: contact.fullName, avatar: contact.profilePicture }],
+        messages: [],
+      })));
+    } catch (error) {
+      console.error("Failed to fetch contact:", error);
+    }
+  };
   const handleUserStatus = (data) => {
     setIsOnline(data.online);
     setUsers((prevUsers) =>
@@ -56,10 +55,34 @@ export const ChatLayoutForPatient = () => {
       )
     );
   };
-  useEffect(() => {
-    registerUser(userId);
-    joinChat("room1");
+  const fetchMessages = async () => {
+    try {
+      const response = await getOldMessages(userId, selectedUserId);
+      console.log(response)
+      const oldMessages = response.data?.map((msg) => ({
+        id: msg._id,
+        content: msg.message,
+        sender: msg.from,
+        receiver: msg.to,
+        timestamp: msg.timestamp,
+        type: msg.type,
+        fileDetails: msg.fileDetails,
+      }));
 
+      setChats((prevChats) =>
+        prevChats.map((chat) =>
+          chat.participants.some((p) => p._id === selectedUserId)
+            ? { ...chat, messages: oldMessages }
+            : chat
+        )
+      );
+    } catch (error) {
+      console.error("Failed to fetch old messages:", error);
+    }
+  };
+  useEffect(() => {
+    fetchContact();
+    registerUser(userId);
     receiveMessage((data) => {
       const { from, message, timestamp, fileDetails, type } = data;
 
@@ -99,52 +122,20 @@ export const ChatLayoutForPatient = () => {
         )
       );
     });
-
+    socket.emit("check-online", selectedUserId);
+    socket.on("user-status", handleUserStatus);
     return () => {
       socket.off("receive-message");
+      socket.off("user-status", handleUserStatus);
     };
   }, []);
 
   useEffect(() => {
     if (selectedUserId) {
-
-      //selecteduser -> check online line ->
       socket.emit("check-online", selectedUserId);
-
-
- 
       socket.on("user-status", handleUserStatus);
-      
-      const fetchMessages = async () => {
-        try {
-          const response = await getOldMessages(userId, selectedUserId);
-          const oldMessages = response.data?.map((msg) => ({
-            id: msg._id,
-            content: msg.message,
-            sender: msg.from,
-            receiver: msg.to,
-            timestamp: msg.timestamp,
-            type: msg.type,
-            fileDetails: msg.fileDetails,
-          }));
-
-          setChats((prevChats) =>
-            prevChats.map((chat) =>
-              chat.participants.some((p) => p._id === selectedUserId)
-                ? { ...chat, messages: oldMessages }
-                : chat
-            )
-          );
-        } catch (error) {
-          console.error("Failed to fetch old messages:", error);
-        }
-      };
-
       fetchMessages();
     }
-    return () => {
-      socket.off("user-status", handleUserStatus);
-    };
   }, [selectedUserId]);
 
   useEffect(() => {

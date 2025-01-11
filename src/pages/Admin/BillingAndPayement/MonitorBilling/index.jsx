@@ -100,7 +100,7 @@ export const MonitorBilling = () => {
                 className="bg-white border-primary"
                 onClick={() => navigate("edit-design-invoice")}
               >
-                {Icons.EditBillIcon}Edit Invoice Theme
+                {Icons.EditBillIcon} Edit Invoice Theme
               </NHButton>
               <NHButton
                 icon={Icons.PlusSquare}

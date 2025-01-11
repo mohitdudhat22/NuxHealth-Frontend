@@ -241,3 +241,5 @@ export const fetchDoctorSession = (doctorId, date) => {
 export const appointmentBooking = (data) => {
   request("post", "/api/patient/createAppointment", data)
 }
+
+export const reschedule = (id,data)=>request("post",`/api/doctor/editAppointment/${id}`,data);

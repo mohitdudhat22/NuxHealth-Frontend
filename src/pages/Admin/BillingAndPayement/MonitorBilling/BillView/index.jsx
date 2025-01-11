@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 export const BillView = () => {
   const location = useLocation();
     const { billData } = location.state || {};
-
   const selectedInvoice = (localStorage.getItem('selectedBill') || "Bill")
   switch (selectedInvoice) {
     case "Bill":

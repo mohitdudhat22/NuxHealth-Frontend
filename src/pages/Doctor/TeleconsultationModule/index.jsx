@@ -14,6 +14,8 @@ import { useState } from "react";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import { useCancleTeleconsultation, usePrivousTeleconsultation, useTodayTeleconsultation, useUpcomingTeleconsultation } from "@/hook/Doctor";
 import { useNavigate } from "react-router-dom";
+import { reschedule } from "@/axiosApi/ApiHelper";
+import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
 
 export const Teleconsultation = () => {
   const navigate = useNavigate();
@@ -22,8 +24,7 @@ export const Teleconsultation = () => {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
-
-
+  const [appointmentId,setAppointmentId] = useState(null);
   const { data: privousTeleconsultation, loading: privousLoader } = usePrivousTeleconsultation();
   const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
   const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
@@ -39,11 +40,20 @@ export const Teleconsultation = () => {
     setPatientModel(true);
   };
 
-  const handelReschedule = () => {
+  const handelReschedule = (id) => {
     setIsReshceduleModal(true);
+    setAppointmentId(id)
     console.log("Reschedule");
   };
 
+  const rescheduleAppointment = async ()=>{
+    const payload = {
+
+    }
+    console.log(appointmentId)
+    const response = await reschedule(appointmentId, payload);
+    console.log(response);
+  }
   const columns = [
     {
       title: "Patient Name",
@@ -151,7 +161,7 @@ export const Teleconsultation = () => {
                           size={"small"}
                           icon={Icons.CalenderIcon}
                           className={"w-full py-3 px-4"}
-                          onClick={() => handelReschedule()}
+                          onClick={() => handelReschedule(data?.key)}
                         >
                           Reschedule
                         </NHButton>
@@ -163,9 +173,10 @@ export const Teleconsultation = () => {
               })}
             </div>
           </NHCard>
-          <CustomDateModal
+          <RescheduleAppointmentModal
             open={isReshceduleModal}
             handleClose={() => setIsReshceduleModal(false)}
+            handleOk={rescheduleAppointment}
           />
         </>
       ),
