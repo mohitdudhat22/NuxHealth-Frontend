@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-
-// Setup the localizer by providing the moment object
-const localizer = momentLocalizer(moment);
 
 const ReSchedularAppoinmentPage = () => {
   const [events, setEvents] = useState([
@@ -45,7 +38,7 @@ const ReSchedularAppoinmentPage = () => {
     const goToPreviousWeek = () => {
         onNavigate('PREV');
       };
-  
+
       const goToNextWeek = () => {
         onNavigate('NEXT');
       };
@@ -65,7 +58,7 @@ const ReSchedularAppoinmentPage = () => {
 
   return (
     <div style={{ height: "100%" }}>
-      <Calendar
+      {/* <Calendar
         localizer={localizer}
         events={events}
         startAccessor="start"
@@ -82,7 +75,7 @@ const ReSchedularAppoinmentPage = () => {
           timeGutterHeader: TimeColumnHeader, // Custom time column header
           toolbar: CustomToolbar, // Custom toolbar for date range
         }}
-      />
+      /> */}
     </div>
   );
 };

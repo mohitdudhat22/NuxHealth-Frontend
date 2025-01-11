@@ -13,7 +13,7 @@ export const Modal = () => {
         <NHModal
           title={"Testing"}
           open={isModalOpen}
-          closeIcon
+          closeIcon={true}
           handleOk={() => setIsModalOpen(false)}
           onCancel={() => setIsModalOpen(false)}
           handleClose={() => setIsModalOpen(false)}

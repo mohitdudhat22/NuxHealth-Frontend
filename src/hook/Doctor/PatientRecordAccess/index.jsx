@@ -1,25 +1,26 @@
+import { useEffect, useState } from "react";
+import { Space } from "antd";
 import { getPatientRecordAccess } from "@/axiosApi/ApiHelper";
 import { NHButton } from "@/components";
-import Icons from "@/constants/icons";
-import { Space } from "antd";
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const usePatientRecordAccess = () => {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
   const fetchData = async () => {
     const data = await getPatientRecordAccess();
-    setData(data);
+    setData(data.data);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
   const [filter, setFilter] = useState("month");
-  const handleSelectChange = (value, name) => {
+  const handleSelectChange = (value) => {
     setFilter(value);
   };
+
   const columns = [
     {
       title: "Patient Name",
@@ -79,31 +80,5 @@ export const usePatientRecordAccess = () => {
     },
   ];
 
-  const staticData = [
-    {
-      key: "1",
-      patientName: "Marcus Phillips",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Viral Infection",
-      patientIssue: "Feeling Tired",
-      lastAppointmentDate: "2 Jan, 2022",
-      lastAppointmentTime: "4:30 PM",
-      age: "22 Years",
-      gender: "Male",
-    },
-    {
-      key: "2",
-      patientName: "London Shaffer",
-      avatar: "https://i.pravatar.cc/300",
-      diseaseName: "Diabetes",
-      patientIssue: "Stomach Ache",
-      lastAppointmentDate: "5 Jan, 2022",
-      lastAppointmentTime: "5:00 PM",
-      age: "45 Years",
-      gender: "Female",
-    },
-    // Add more patient records here
-  ];
-
-  return { data, staticData, columns, handleSelectChange, filter };
+  return { data, columns, handleSelectChange, filter };
 };
