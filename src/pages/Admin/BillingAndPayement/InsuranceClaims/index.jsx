@@ -61,7 +61,7 @@ export const InsuranceClaims = () => {
             isView
             onClick={() =>
               navigate(
-                `/admin/insurance-claims/insurance-view-bill/${record.billNumber}`,
+                `/admin/insurance-claims/insurance-bill-view/${record.billNumber}`,
                 { state: { billData: record } }
               )
             }

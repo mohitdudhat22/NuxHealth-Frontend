@@ -238,6 +238,14 @@ const Profile = () => {
             required
           />
           <NHInput
+            label="Last Name"
+            name="lastName"
+            value={profileData.fullName}
+            onChange={handleChange}
+            disabled={!isEditing}
+            required
+          />
+          <NHInput
             label="Email Address"
             name="email"
             type="email"
@@ -338,23 +346,30 @@ const ChangePassword = () => {
   return (
     <NHCard
       title="Change Password"
-      headerContent={
-        <>
-          <NHButton
-            variant="primary"
-            onClick={handleSubmit}
-            disabled={loading || !isFormValid}
-          >
-            {loading ? "Saving..." : "Save"}
-          </NHButton>
-        </>
-      }
+      // headerContent={
+      //   <>
+      //     <NHButton
+      //       variant="primary"
+      //       onClick={handleSubmit}
+      //       disabled={loading || !isFormValid}
+      //     >
+      //       {loading ? "Saving..." : "Save"}
+      //     </NHButton>
+      //   </>
+      // }
     >
+      <p className="text-[#A7A7A7] text-[16px] my-3">
+        To change your password, please fill in the fields below. Your password
+        must contain at least 8 characters, it must also include at least one
+        upper case letter, one lower case letter, one number and one special
+        character.
+      </p>
       <form onSubmit={handleSubmit} className="space-y-6">
         <NHPasswordInput
           label="Current Password"
           name="currentPassword"
           type="password"
+          placeholder={"Enter Current Password"}
           value={currentPassword}
           onChange={handleInputChange}
           required
@@ -363,6 +378,7 @@ const ChangePassword = () => {
           label="New Password"
           name="newPassword"
           type="password"
+          placeholder={"Enter New Password"}
           value={newPassword}
           onChange={handleInputChange}
           required
@@ -371,10 +387,20 @@ const ChangePassword = () => {
           label="Confirm New Password"
           name="confirmPassword"
           type="password"
+          placeholder={"Enter Conform Password"}
           value={confirmPassword}
           onChange={handleInputChange}
           required
         />
+
+        <NHButton
+          variant="primary"
+          onClick={handleSubmit}
+          disabled={loading || !isFormValid}
+          className={"w-full !bg-[#0EABEB] !text-white"}
+        >
+          {loading ? "Saving..." : "Change Password"}
+        </NHButton>
       </form>
     </NHCard>
   );

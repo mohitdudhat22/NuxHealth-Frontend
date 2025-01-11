@@ -85,6 +85,9 @@ export const PaymentProcess = () => {
         <Space size="middle">
           <NHButton
             isEdit
+            size="small"
+            icon={Icons.EditBillIcon}
+            className={"edit-btn bg-white"}
             onClick={() =>
               navigate(`/admin/payment-process/edit-bill`, {
                 state: { record: record },
