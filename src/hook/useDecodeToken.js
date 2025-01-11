@@ -12,8 +12,7 @@ export const useDecodeToken = () => {
 
   useEffect(() => {
     const decodeToken = () => {
-      // Try to get token from localStorage, sessionStorage, or cookies
-      let token =
+            let token =
         localStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
         sessionStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
         getCookie(import.meta.env.VITE_TOKEN_NAME);
