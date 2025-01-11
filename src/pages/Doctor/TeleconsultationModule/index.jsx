@@ -29,7 +29,7 @@ export const Teleconsultation = () => {
   const [toDate, setToDate] = useState(null);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
 
-  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments, filterAppointments,setIsDateModalOpen,isDateModalOpen } = usePrivousTeleconsultation();
+  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments, filterAppointments, setIsDateModalOpen,isDateModalOpen } = usePrivousTeleconsultation();
   const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
   const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
   const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()

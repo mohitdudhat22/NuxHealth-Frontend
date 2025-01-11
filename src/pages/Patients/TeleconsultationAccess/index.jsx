@@ -5,16 +5,18 @@ import { usePreviousTeleconsultationModule } from "@/hook/Patients/Teleconsultat
 import { useTodaysTeleconsultationModule } from "@/hook/Patients/TeleconsultationModule/TodaysTeleconsultationModule";
 import { useUpcomingTeleconsultationModule } from "@/hook/Patients/TeleconsultationModule/UpcomingTeleconsultationModule";
 import { useCancelTeleconsultationModule } from "@/hook/Patients/TeleconsultationModule/CancelTeleconsultationModule";
+import { CustomDateModal } from '@/components/NHModalComponents/ModalTemplate/CustomDateModal';
 
 export const TeleconsultationAccess = () => {
     const [previousAppointments, setPreviousAppointments] = useState([]);
     const [todaysAppointments, setTodaysAppointments] = useState([]);
     const [upcomingAppointments, setUpcomingAppointments] = useState([]);
     const [canceledAppointments, setCanceledAppointments] = useState([]);
-
+    const [fromDate, setFromDate] = useState(null);
+    const [toDate, setToDate] = useState(null);
     // API Calls
     const { data: previousData } = usePreviousTeleconsultationModule();
-    const { data: todaysData } = useTodaysTeleconsultationModule();
+    const { data: todaysData, setIsDateModalOpen, isDateModalOpen,filterAppointments } = useTodaysTeleconsultationModule();
     const { data: upcomingData } = useUpcomingTeleconsultationModule();
     const { data: canceledData } = useCancelTeleconsultationModule();
 
@@ -38,14 +40,28 @@ export const TeleconsultationAccess = () => {
                     headerContent={
                         <>
                             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-                            <NHButton variant="default" className="text-black bg-white">{Icons.CalenderIcon}2 March,2022 - 13 March, 2022{Icons.CloseCircle}</NHButton>
+                            <NHButton variant="default" className="text-black bg-white" onClick={() => setIsDateModalOpen(true)}>{Icons.CalenderIcon} {fromDate ? fromDate : "From"} - {toDate ? toDate : "To"}{Icons.CloseCircle}</NHButton>
                             <NHButton variant="default" className="">{Icons.CalenderIcon}Book Appointment</NHButton>
                         </>
                     }
                 >
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         {todaysAppointments.map((data, index) => {
-                            const { name, patientIssue, diseaseName, appointmentDate, appointmentTime, _id } = data;
+                        const {
+                            name,
+                            type,
+                            patientIssue,
+                            diseaseName,
+                            appointmentDate,
+                            appointmentTime,
+                            date,
+                            patientName,
+                            doctorId,
+                            hospitalId,
+                            patientId,
+                            patient_issue
+          
+                          } = data;
                             return (
                                 <AppointmentCard
                                     key={"1"}
@@ -66,12 +82,12 @@ export const TeleconsultationAccess = () => {
                                             </button>
                                         </>
                                     }
-                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. Nolan George</span>}
-                                    appointmentType={<span className='text-[#FFC313]'>Online</span>}
-                                    hospitalName={"Artemis Hospital"}
-                                    appointmentDate={'2 Jan, 2022'}
-                                    appointmentTime={"10:20 AM"}
-                                    patientIssue={"Feeling Tired"}
+                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId.fullName}</span>}
+                                    appointmentType={<span className='text-[#FFC313]'>{type}</span>}
+                                    hospitalName={hospitalId.name}
+                                    appointmentDate={date}
+                                    appointmentTime={appointmentTime}
+                                    patientIssue={patient_issue}
                                     footerContent={
                                         <div className="flex justify-between gap-4">
                                             <NHButton
@@ -96,6 +112,25 @@ export const TeleconsultationAccess = () => {
                             );
                         })}
                     </div>
+                      <CustomDateModal
+                                handleOk={filterAppointments} // Apply filter
+                                onCancel={() => {
+                                  setFromDate(null); // Reset fromDate
+                                  setToDate(null); // Reset toDate
+                                  setIsDateModalOpen(false); // Close modal without changes
+                                }}
+                                handleClose={() => {
+                                  setIsDateModalOpen(false); // Close without applying
+                                  setFromDate(null); // Reset fromDate
+                                  setToDate(null); // Reset toDate
+                                }}
+                                Title="Filter by Date"
+                                isRescheduleModal={isDateModalOpen} // Control modal visibility
+                                fromDate={fromDate}
+                                toDate={toDate}
+                                setFromDate={setFromDate} // Update fromDate
+                                setToDate={setToDate} // Update toDate
+                              />
                 </NHCard>
             )
         },
