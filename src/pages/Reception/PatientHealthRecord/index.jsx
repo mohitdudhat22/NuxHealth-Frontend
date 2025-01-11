@@ -2,64 +2,59 @@ import { Space } from "antd/lib";
 import Icons from "@/constants/icons";
 import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import { Avatar } from "antd";
-import { useDoctorManagement } from "@/hook";
+import { useEffect, useRef, useState } from "react";
+import { SearchHeader } from "@/axiosApi/ApiHelper";
+import { useNavigate } from "react-router-dom";
 
 export const PatientHealthRecord = () => {
-  const { navigate } = useDoctorManagement();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [data, setData] = useState([]);
 
-  const data = [
-    {
-      _id: "1",
-      PatientName: "John Doe",
-      phone: "1234567890",
-      email: "john@gmail.com",
-      age: "25",
-      gender: "male",
-    },
-    {
-      _id: "2",
-      PatientName: "John Doe",
-      phone: "1234567890",
-      email: "john@gmail.com",
-      age: "25",
-      gender: "male",
-    },
-    {
-      _id: "3",
-      PatientName: "John Doe",
-      phone: "1234567890",
-      email: "john@gmail.com",
-      age: "25",
-      gender: "male",
-    },
-    {
-      _id: "4",
-      PatientName: "John Doe",
-      phone: "1234567890",
-      email: "john@gmail.com",
-      age: "25",
-      gender: "male",
-    },
-  ];
+  const [filteredData, setFilteredData] = useState(data);
+  const debounceTimeout = useRef(null);
 
-  const handleViewClick = async (record) => {
-    const patientData = await fetchPatientData(record._id);
-    if (patientData) {
-      navigate(`view-patient/${record._id}`, {
-        state: { patient: patientData },
-      });
+  const handleSearch = async (value) => {
+    setLoading(true);
+    try {
+      const response = await SearchHeader(value, "patient");
+      const searchResults = response.data;
+      setFilteredData(searchResults);
+    } catch (error) {
+      console.error("Error during search:", error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+
+    debounceTimeout.current = setTimeout(() => {
+      if (!searchValue) {
+        setFilteredData(data);
+      } else {
+        handleSearch(searchValue);
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(debounceTimeout.current);
+    };
+  }, [searchValue, data]);
 
   const columns = [
     {
       title: "Patient Name",
-      dataIndex: "PatientName",
-      key: "PatienttName",
-      render: (name, record) => (
+      dataIndex: "fullName",
+      key: "fullName",
+      render: (fullName, record) => (
         <Space>
           <Avatar src={record.avatar} alt={name} size={40} />
-          <span>{name}</span>
+          <span>{fullName}</span>
         </Space>
       ),
     },
@@ -86,21 +81,21 @@ export const PatientHealthRecord = () => {
     {
       title: "Action",
       key: "action",
-      render: (_, record, patient) => {
-        console.log("patient", record);
-        return (
-          <Space size="middle">
-            <NHButton
-              size={"small"}
-              icon={Icons.View}
-              className="view-btn"
-              onClick={() =>
-                navigate(`view-patient/${record?._id}`, { state: { patient } })
-              }
-            />
-          </Space>
-        );
-      },
+      render: (_, record) => (
+        <Space size="middle">
+          <NHButton
+            size="small"
+            icon={Icons.View}
+            className="view-btn"
+            onClick={() => {
+              console.log("r",record)
+              return navigate(`view-patient/${record._id}`, {
+                state: { patient: record },
+              });
+            }}
+          />
+        </Space>
+      ),
     },
   ];
 
@@ -110,17 +105,18 @@ export const PatientHealthRecord = () => {
 
       <NHInput
         prefix={Icons.SearchIcon}
-        placeholder={"Search by Name, Email or Phone"}
+        placeholder="Search by Name, Email or Phone"
         className="mb-10 max-w-[850px] mx-auto"
-        // value={""}
-        // onChange={(e) => onSearch(e.target.value)}
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
       />
 
       <NHCard title="Patient Health Record">
         <NHTable
           showPagination={true}
           tableColumn={columns}
-          tableDataSource={data}
+          tableDataSource={filteredData}
+          loading={loading}
         />
       </NHCard>
     </>
