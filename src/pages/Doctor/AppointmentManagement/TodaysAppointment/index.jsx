@@ -8,79 +8,101 @@ import { CancelOnsiteAppointmentModal } from "@/components/NHModalComponents/Mod
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import moment from "moment";
 
-const columns = (handleViewPatient) => [
-  {
-    title: "Patient Name",
-    dataIndex: "patientName",
-    key: "patientName",
-    render: (text, record) => (
-      <div className="flex items-center gap-2">
-        <img src={record.avatar} alt={text} className="w-8 h-8 rounded-full" />
-        <span>{text}</span>
-      </div>
-    ),
-  },
-  {
-    title: "Disease Name",
-    dataIndex: "diseaseName",
-    key: "diseaseName",
-  },
-  {
-    title: "Doctor Name",
-    dataIndex: "doctorName",
-    key: "doctorName",
-  },
-  {
-    title: "Appointment Time",
-    dataIndex: "appointmentTime",
-    key: "appointmentTime",
-  },
-  {
-    title: "Appointment Type",
-    dataIndex: "appointmentType",
-    key: "appointmentType",
-    render: (type) => (
-      <Tag color={type === "online" ? "blue" : "orange"}>{type}</Tag>
-    ),
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.RedCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.BlueCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-      </Space>
-    ),
-  },
-];
-
 export const TodayAppointments = () => {
-  const { data, loading, error } = useTodayAppointment();
+  const { data, loading } = useTodayAppointment();
+  console.log("🚀 ~ TodayAppointments ~ data:", data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-  const [filteredAppointments, setFilteredAppointments] = useState(data);
+  // const [filteredAppointments, setFilteredAppointments] = useState(data);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
+  const [filteredAppointments, setFilteredAppointments] = useState([
+    {
+      key: "1",
+      patientName: "John Doe",
+      diseaseName: "Flu",
+      patientIssue: "Fever and cough",
+      appointmentTime: "10:00 AM",
+      appointmentType: "Consultation",
+    },
+    {
+      key: "2",
+      patientName: "Jane Smith",
+      diseaseName: "Diabetes",
+      patientIssue: "High blood sugar",
+      appointmentTime: "11:00 AM",
+      appointmentType: "Follow-up",
+    },
+    {
+      key: "3",
+      patientName: "Alice Johnson",
+      diseaseName: "Hypertension",
+      patientIssue: "High blood pressure",
+      appointmentTime: "12:00 PM",
+      appointmentType: "Consultation",
+    },
+    {
+      key: "4",
+      patientName: "Bob Brown",
+      diseaseName: "Asthma",
+      patientIssue: "Shortness of breath",
+      appointmentTime: "01:00 PM",
+      appointmentType: "Consultation",
+    },
+    {
+      key: "5",
+      patientName: "Charlie Davis",
+      diseaseName: "Allergy",
+      patientIssue: "Skin rash",
+      appointmentTime: "02:00 PM",
+      appointmentType: "Consultation",
+    },
+  ]);
+
+  const columns = [
+    {
+      title: "Patient Name",
+      dataIndex: "patientName",
+      key: "patientName",
+    },
+    {
+      title: "Dieses Name",
+      dataIndex: "diseaseName",
+      key: "diseaseName",
+    },
+    {
+      title: "Patient Issue",
+      dataIndex: "patientIssue",
+      key: "patientIssue",
+    },
+    {
+      title: "Appointment Time",
+      dataIndex: "appointmentTime",
+      key: "appointmentTime",
+    },
+    {
+      title: "Appointment Type",
+      dataIndex: "appointmentType",
+      key: "appointmentType",
+    },
+    {
+      title: "Action",
+      key: "action",
+      fixed: "right",
+      width: 150,
+      render: (_, record) => (
+        <Space size="middle">
+          <NHButton isReschedule onClick={() => handleViewPatient(record)} />
+          <NHButton isCancel onClick={() => handleViewPatient(record)} />
+        </Space>
+      ),
+    },
+  ];
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
-    console.log(record, "Viewing patient details");
-
     if (record.appointmentType === "online") {
       setModalType("online");
     } else {
@@ -116,8 +138,6 @@ export const TodayAppointments = () => {
     setIsDateModalOpen(false);
   };
 
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
     <>
       <NHCard
@@ -125,19 +145,20 @@ export const TodayAppointments = () => {
         headerContent={
           <>
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-            <NHButton onClick={handleOpenDateModal}>
-              {Icons.CalenderIcon} Any Date
+            <NHButton onClick={handleOpenDateModal} icon={Icons?.CalenderIcon}>
+              Any Date
             </NHButton>
-            <NHButton>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
+            <NHButton icon={Icons?.CalenderIcon}>
+              Appointment Time Slot
+            </NHButton>
           </>
         }
       >
         <NHTable
           loading={loading}
           showPagination={true}
-          tableColumn={columns(handleViewPatient)}
+          tableColumn={columns}
           tableDataSource={filteredAppointments}
-          route="/doctor"
         />
       </NHCard>
 
@@ -162,12 +183,11 @@ export const TodayAppointments = () => {
       )}
 
       <CustomDateModal
+        Title="Select Custom Date Range"
         handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}
         customDate={isDateModalOpen}
-        Title="Select Custom Date Range"
-        loading={false}
         fromDate={fromDate}
         toDate={toDate}
         setFromDate={setFromDate}

@@ -8,7 +8,7 @@ export const useHeader = () => {
   const location = useLocation();
   const { token } = useDecodeToken();
 
-  const { searchValue, setSearchValue, role, setRole } = useSearch();
+  const { searchValue, setSearchValue,  setRole } = useSearch();
   const [notificationVisible, setNotificationVisible] = useState(false);
   const [options, setOptions] = useState(headerOption);
 

@@ -38,24 +38,32 @@ export function Bill2() {
             <h3 className="text-lg font-bold text-gray-900">
               {staticData.doctorName}
             </h3>
-            <span className="text-base text-gray-500">
+            <span className="text-base text-gray-500 text-[10px]">
               {staticData.doctorDescription}
             </span>
           </div>
           <div>
-            <p><strong>Bill No :</strong> <span>{staticData.billNumber}</span></p>
-            <p><strong>Date :</strong> <span>{new Date(staticData.date).toLocaleDateString()}</span></p>
-            <p><strong>Bill Time :</strong> <span>{staticData.time}</span></p>
+            <p className="flex">
+              <strong>Bill No :</strong> <span>{staticData.billNumber}</span>
+            </p>
+            <p className="flex">
+              <strong>Date :</strong>{" "}
+              <span>{new Date(staticData.date).toLocaleDateString()}</span>
+            </p>
+            <p className="flex">
+              <strong>Bill Time :</strong> <span>{staticData.time}</span>
+            </p>
           </div>
+
         </div>
 
         <div className="flex justify-between p-4 bg-gray-100 rounded-lg invoice__patient">
           <div>
-            <h3 className="text-base font-bold text-[#141414]">
+            <h3 className="text-base font-bold text-[#141414] text-lg">
               Billing To:
             </h3>
-            <h3 className="text-base font-bold text-[#141414]">
-              {staticData.patient.firstName} {staticData.patient.lastName}
+            <h3 className="text-base font-bold text-[#141414] text-lg">
+              {staticData.patient.fullName}
             </h3>
             <span className="block mt-2 text-xs text-gray-500">
               {staticData.patient.address}
@@ -64,11 +72,15 @@ export function Bill2() {
               {staticData.patient.phone}
             </span>
           </div>
+          <div>
+            <p className="flex"><strong>Gender :</strong> <span>{staticData.patient.gender}</span></p>
+            <p className="flex"><strong>Age :</strong> <span>{staticData.patient.age}</span></p>
+          </div>
         </div>
 
         <table className="w-full my-3 border-collapse invoice__table">
           <thead>
-            <tr className="bg-[#0eabeb] text-white text-xs">
+            <tr className="bg-[#0eabeb] text-white text-lg">
               <th className="p-2 text-left rounded-l-lg">Item</th>
               <th className="p-2 text-left">Price</th>
               <th className="p-2 text-left">Qty</th>
@@ -164,22 +176,22 @@ export function Bill2() {
         </table>
 
         <div className="text-lg font-bold text-right invoice__total">
-          <table className="w-full max-w-xs ml-auto">
+          <table className="w-full max-w-md ml-auto">
             <tbody>
               <tr>
-                <td className="p-2 text-sm font-semibold text-gray-900">
+                <td className="p-2 text-sm font-semibold text-gray-900 flex">
                   Sub Total :{" "}
-                  <span className="ml-2 text-gray-500">$2110.00</span>
+                  <span className="ml-2 text-gray-500 flex">$2110.00</span>
                 </td>
               </tr>
               <tr>
-                <td className="p-2 text-sm font-semibold text-gray-900">
+                <td className="p-2 text-sm font-semibold text-gray-900 flex">
                   Discount 5% :{" "}
                   <span className="ml-2 text-gray-500">$255.00</span>
                 </td>
               </tr>
               <tr>
-                <td className="p-2 text-sm font-semibold text-blue-500">
+                <td className="p-2 text-sm font-semibold text-blue-500 flex">
                   Total : <span className="ml-2 text-blue-500">$2254.00</span>
                 </td>
               </tr>

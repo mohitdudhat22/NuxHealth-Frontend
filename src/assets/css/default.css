@@ -46,7 +46,7 @@ p {
 }
 
 span {
-  @apply flex;
+  @apply inline-flex;
 }
 
 ::-webkit-scrollbar {
