@@ -6,6 +6,8 @@ import { useTodaysTeleconsultationModule } from "@/hook/Patients/Teleconsultatio
 import { useUpcomingTeleconsultationModule } from "@/hook/Patients/TeleconsultationModule/UpcomingTeleconsultationModule";
 import { useCancelTeleconsultationModule } from "@/hook/Patients/TeleconsultationModule/CancelTeleconsultationModule";
 import { CustomDateModal } from '@/components/NHModalComponents/ModalTemplate/CustomDateModal';
+import { RescheduleAppointmentModal } from '@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal';
+import { rescheduleForPatient } from '@/axiosApi/ApiHelper';
 
 export const TeleconsultationAccess = () => {
     const [previousAppointments, setPreviousAppointments] = useState([]);
@@ -13,13 +15,38 @@ export const TeleconsultationAccess = () => {
     const [upcomingAppointments, setUpcomingAppointments] = useState([]);
     const [canceledAppointments, setCanceledAppointments] = useState([]);
     const [fromDate, setFromDate] = useState(null);
+    const [isReshceduleModal, setIsReshceduleModal] = useState(false);
     const [toDate, setToDate] = useState(null);
+    const [appointmentId, setAppointmentId] = useState(null);
     // API Calls
     const { data: previousData } = usePreviousTeleconsultationModule();
-    const { data: todaysData, setIsDateModalOpen, isDateModalOpen,filterAppointments } = useTodaysTeleconsultationModule();
+    const { data: todaysData, setIsDateModalOpen, isDateModalOpen, filterAppointments } = useTodaysTeleconsultationModule();
     const { data: upcomingData} = useUpcomingTeleconsultationModule();
     const { data: canceledData } = useCancelTeleconsultationModule();
 
+const rescheduleAppointment = async (selectedDate, selectedTime) => {
+    const payload = {
+      date: selectedDate,
+      appointmentTime: selectedTime,
+    };
+
+    console.log("Appointment ID:", appointmentId);
+    console.log("Payload:", payload);
+
+    try {
+      const response = await rescheduleForPatient(appointmentId, payload);
+      console.log("Response:", response);
+      setIsReshceduleModal(false); // Close modal after successful reschedule
+      fetchAppointments();
+    } catch (error) {
+      console.error("Error rescheduling appointment:", error);
+    }
+  };
+
+  const handelReschedule = (id) => {
+    setIsReshceduleModal(true);
+    setAppointmentId(id)
+  };
     // Use Effect to Update States
     useEffect(() => {
         if (previousData) setPreviousAppointments(previousData);
@@ -279,6 +306,7 @@ export const TeleconsultationAccess = () => {
                                 patient_issue
               
                               } = data;
+                              console.log(data,"<<<<<<<<<<<<<")
                             return (
                                 <AppointmentCard
                                     key={"1"}
@@ -310,7 +338,7 @@ export const TeleconsultationAccess = () => {
                                                 size={"small"}
                                                 icon={Icons.CalenderIcon}
                                                 className={"w-full"}
-                                                onClick={() => setSelectedAppointment(data)}
+                                                onClick={() => handelReschedule(data?._id)}
                                             >
                                                 Reschedule
                                             </NHButton>
@@ -321,6 +349,12 @@ export const TeleconsultationAccess = () => {
                             );
                         })}
                     </div>
+                       <RescheduleAppointmentModal
+                                handleOk={rescheduleAppointment}
+                                handleClose={() => setIsReshceduleModal(false)}
+                                Title="Reschedule Appointment"
+                                rescheduleAppo={isReshceduleModal}
+                              />
                 </NHCard>
             )
         },

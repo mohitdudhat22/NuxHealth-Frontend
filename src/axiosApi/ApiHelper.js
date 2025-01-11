@@ -243,5 +243,7 @@ export const appointmentBooking = (data) => {
 }
 
 export const reschedule = (id,data)=>request("post",`/api/doctor/editAppointment/${id}`,data);
+export const rescheduleForPatient = (id,data)=>request("post",`/api/patient/editAppointment/${id}`,data);
+
 export const getAppointmentsTeleconsultationWithFromAndTo = (startDate, endDate) => request("get", `/api/doctor/getAppointmentsTeleconcsultation?startDate=${startDate}&endDate=${endDate}`);
 export const getAppointmentsTeleconsultationWithFromAndToForPatient = (startDate, endDate) => request("get", `/api/patient/getAppointmentsTeleconcsultation?startDate=${startDate}&endDate=${endDate}`);

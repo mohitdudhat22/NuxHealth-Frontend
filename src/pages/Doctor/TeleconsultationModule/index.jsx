@@ -67,7 +67,6 @@ export const Teleconsultation = () => {
   const handelReschedule = (id) => {
     setIsReshceduleModal(true);
     setAppointmentId(id)
-    console.log("Reschedule");
   };
   const columns = [
     {
