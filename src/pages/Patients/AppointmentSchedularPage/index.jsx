@@ -24,6 +24,15 @@ export const AppointmentSchedularPage = () => {
   const [isAppointmentModal, setIsAppointmentModal] = useState(false);
   const [timeSlots, setTimeSlots] = useState();
 
+
+  useEffect(() => {
+    // Load Razorpay script
+    const script = document.createElement('script')
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    script.async = true
+    document.body.appendChild(script)
+}, [])
+console.log(import.meta.env.VITE_RAZORPAY_KEY_ID);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -92,6 +101,7 @@ export const AppointmentSchedularPage = () => {
 
   const handleTimeSelect = (time) => {
     setSelectedTime(time);
+    setData({...data,appointmentTime:time})
   };
 
   const handleBookAppointment = () => {
@@ -109,7 +119,6 @@ export const AppointmentSchedularPage = () => {
   const handleDoctorChange = async (value, appointmentDate) => {
     const doctorId = value;
     console.log("🚀 ~ handleDoctorChange ~ appointmentDate:", appointmentDate)
-
 
     setSelectedDoctor(doctorId);
     if (doctorId) {
@@ -147,7 +156,71 @@ export const AppointmentSchedularPage = () => {
     { value: "Online", label: "Online" },
     { value: "Insurance", label: "Insurance" },
   ];
+  const razorPay = async () => {
+    try {
+        // Create order
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/payment/create-order`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              appointmentType: data.appointmentType,
+              doctorId: selectedDoctor
+          })
+      });
+        const order = await response.json();
 
+        const options = {
+            key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+            amount: order.amount,
+            currency: "INR",
+            name: "Your Company Name",
+            description: "Test Transaction",
+            order_id: order.id,
+            handler: async function (response) {
+                // Verify payment
+                console.log(response, "-------------");
+                
+                const verifyResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/payment/verify-payment`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_signature: response.razorpay_signature
+                    })
+                });
+                
+                const data = await verifyResponse.json();
+                if (data.verified) {
+                    alert("Payment successful!");
+                    await handleBooking()
+                    alert("appointment  successfully booked!");
+
+                } else {
+                    alert("Payment verification failed!");
+                }
+            },
+            prefill: {
+                name: "Customer Name",
+                email: "customer@example.com",
+                contact: "9999999999"
+            },
+            theme: {
+                color: "#3399cc"
+            }
+        };
+
+        const rzp1 = new window.Razorpay(options);
+        rzp1.open();
+    } catch (error) {
+        console.error("Payment error:", error);
+        alert("Payment failed!");
+    }
+};
   const handleBooking = async () => {
     const formData = {
       appointmentDate: data.appointmentDate,
@@ -319,7 +392,7 @@ export const AppointmentSchedularPage = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Appointment Type</p></div>
-              <div><p className="text-gray-600">{data.appointmentDate}</p></div>
+              <div><p className="text-gray-600">{data?.appointmentType}</p></div>
             </div>
             <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Doctor Name</p></div>
@@ -327,19 +400,19 @@ export const AppointmentSchedularPage = () => {
             </div>
             <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Appointment Date</p></div>
-              <div><p className="text-gray-600">19 June, 2022</p></div>
+              <div><p className="text-gray-600">{data?.appointmentDate}</p></div>
             </div>
             <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Appointment Time</p></div>
-              <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
+              <div><p className="text-gray-600">{data?.appointmentTime}</p></div>
             </div>
             <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Patient Issue</p></div>
-              <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
+              <div><p className="text-gray-600">{data?.patientIssue}</p></div>
             </div>
             <div className="flex items-center justify-between">
               <div><p className="font-medium text-gray-700">Disease Name</p></div>
-              <div><p className="text-gray-600">11:00 AM - 12:00 PM</p></div>
+              <div><p className="text-gray-600">{data?.diseaseName}</p></div>
             </div>
 
             <NHSelect
@@ -354,7 +427,7 @@ export const AppointmentSchedularPage = () => {
               <NHButton className="px-4 py-2 text-black bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none" onClick={handleCloseModal}>
                 Cancel
               </NHButton>
-              <NHButton className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none" onClick={handleBooking}>
+              <NHButton className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none" onClick={razorPay}>
                 Book Appointment
               </NHButton>
             </div>
