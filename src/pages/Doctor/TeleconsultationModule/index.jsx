@@ -25,10 +25,17 @@ export const Teleconsultation = () => {
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [appointmentId, setAppointmentId] = useState(null);
-  const { data: privousTeleconsultation, loading: privousLoader,fetchAppointments } = usePrivousTeleconsultation();
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
+
+  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments } = usePrivousTeleconsultation();
   const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
   const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
   const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
+
+
   const rescheduleAppointment = async (selectedDate, selectedTime) => {
     const payload = {
       date: selectedDate,
@@ -47,6 +54,38 @@ export const Teleconsultation = () => {
       console.error("Error rescheduling appointment:", error);
     }
   };
+
+  const filterAppointments = () => {
+    if (fromDate && toDate) {
+      const filtered = privousTeleconsultation.filter((appointment) => {
+        const appointmentDate = new Date(appointment.appointmentDate); // Ensure the date is parsed correctly
+        const appointmentStatus = appointment.status; // Check the status field
+  
+        // Ensure the status filter works correctly, if necessary
+        const isStatusMatch = appointmentStatus === 'canceled'; // Adjust based on your needs, e.g., 'canceled', 'completed', etc.
+  
+        return (
+          appointmentDate >= new Date(fromDate) &&
+          appointmentDate <= new Date(toDate) &&
+          isStatusMatch
+        );
+      });
+
+      console.log(filtered,"<<<<<<<<<<<<<<<<<<<")
+      setFilteredAppointments(filtered);
+    } else {
+      // If no date range is provided, just filter based on status
+      const filtered = privousTeleconsultation.filter((appointment) => {
+        const appointmentStatus = appointment.status;
+        return appointmentStatus === 'canceled'; // Adjust as necessary
+      });
+      console.log(filtered,"<<<<<<<<<<<<<<<<<<<")
+      setFilteredAppointments(filtered);
+    }
+  
+    setIsDateModalOpen(false); // Close the date filter modal after applying
+  };
+  
   const handleViewBill = (record) => {
     setSelectedPatient(record);
     setIsModalOpen(true);
@@ -124,12 +163,16 @@ export const Teleconsultation = () => {
             rootClass={"p-0"}
             title="Teleconsultation Module"
             headerContent={
-              <>
-                <NHButton variant="default" className="text-black bg-white">
-                  {Icons.CalenderIcon}2 March,2022 - 13 March, 2022
+              <div className="flex items-center justify-between">
+                <NHButton
+                  variant="default"
+                  className="text-black bg-white"
+                  onClick={() => setIsDateModalOpen(true)}
+                >
+                  {Icons.CalenderIcon} {fromDate ? fromDate : "From"} - {toDate ? toDate : "To"}
                   {Icons.CloseCircle}
                 </NHButton>
-              </>
+              </div>
             }
           >
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -187,6 +230,26 @@ export const Teleconsultation = () => {
             Title="Reschedule Appointment"
             rescheduleAppo={isReshceduleModal}
           />
+          <CustomDateModal
+            handleOk={filterAppointments} // Apply filter
+            onCancel={() => {
+              setFromDate(null); // Reset fromDate
+              setToDate(null); // Reset toDate
+              setIsDateModalOpen(false); // Close modal without changes
+            }}
+            handleClose={() => {
+              setIsDateModalOpen(false); // Close without applying
+              setFromDate(null); // Reset fromDate
+              setToDate(null); // Reset toDate
+            }}
+            Title="Filter by Date"
+            isRescheduleModal={isDateModalOpen} // Control modal visibility
+            fromDate={fromDate}
+            toDate={toDate}
+            setFromDate={setFromDate} // Update fromDate
+            setToDate={setToDate} // Update toDate
+          />
+
         </>
       ),
     },
