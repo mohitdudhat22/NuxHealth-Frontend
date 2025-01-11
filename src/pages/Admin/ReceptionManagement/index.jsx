@@ -15,7 +15,7 @@ import { useState } from "react";
 import DoctorDrawer from "@/components/NHModalComponents/ModalTemplate/DoctorDrawer";
 
 export const ReceptionManagement = () => {
-  const { data, loading, searchQuery, onSearch, fetchReception } =
+  const { data, loading, searchQuery, onSearch, fetchReception, navigate } =
     useReceptionManagement();
 
   const { deleteData, isDelete, setDelete } = useDeleteModal(fetchReception);
@@ -78,10 +78,7 @@ export const ReceptionManagement = () => {
       render: (_, record) => (
         <Space size="middle">
           <NHButton isView onClick={() => showDrawer(record)} />
-          <NHButton
-           isDelete
-            onClick={() => setDelete(record)}
-          />
+          <NHButton isDelete onClick={() => setDelete(record)} />
         </Space>
       ),
     },

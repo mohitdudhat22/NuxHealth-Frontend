@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 export const useOlderManagePrescription = (id) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  console.log("older", data);
 
   useEffect(() => {
     const fetchData = async () => {
