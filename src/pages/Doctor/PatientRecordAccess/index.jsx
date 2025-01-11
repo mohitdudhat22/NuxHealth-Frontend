@@ -3,7 +3,7 @@ import Icons from "@/constants/icons";
 import { usePatientRecordAccess } from "@/hook/Doctor/PatientRecordAccess";
 
 export const PatientRecordAccess = () => {
-  const { data, handleSelectChange, columns, staticData, filter } =
+  const { data, handleSelectChange, columns, filter } =
     usePatientRecordAccess();
 
   return (
@@ -26,12 +26,7 @@ export const PatientRecordAccess = () => {
         </div>
       }
     >
-      <NHTable
-        columns={columns}
-        showPagination={true}
-        dataSource={data || staticData}
-        route={"/doctor/patientrecordaccess"}
-      />
+      <NHTable columns={columns} showPagination={true} dataSource={data} />
     </NHCard>
   );
 };
