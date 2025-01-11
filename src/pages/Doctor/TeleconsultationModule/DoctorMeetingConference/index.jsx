@@ -44,7 +44,7 @@ export const DoctorMeetingConference = () => {
     const roomID = room;
     const userID = "1";
     const userName = token?.userData?.fullName;
-
+    console.log(userName)
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
@@ -83,10 +83,10 @@ export const DoctorMeetingConference = () => {
 
   useEffect(() => {
     const videoCallDiv = document.getElementById("video-call-container");
-    if (videoCallDiv) {
+    if (videoCallDiv && token) {
       initZegoCloudMeeting(videoCallDiv);
     }
-  }, []);
+  }, [token]);
 
   return (
     <div className="d-flex">

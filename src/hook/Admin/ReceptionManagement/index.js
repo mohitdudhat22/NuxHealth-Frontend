@@ -57,6 +57,7 @@ export const useReceptionManagement = () => {
     data,
     searchQuery,
     onSearch,
-    fetchReception
+    navigate,
+    fetchReception,
   };
 };
