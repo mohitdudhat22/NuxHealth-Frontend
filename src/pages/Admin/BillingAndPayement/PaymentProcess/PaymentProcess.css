@@ -30,3 +30,7 @@
 .payment_process_sec .lock-btn .ant-btn-icon svg {
     color : #818194;
 }
+
+.payment_process_sec .ant-btn-variant-solid:not(:disabled):not(.ant-btn-disabled):hover {
+    color: #39973D;
+}

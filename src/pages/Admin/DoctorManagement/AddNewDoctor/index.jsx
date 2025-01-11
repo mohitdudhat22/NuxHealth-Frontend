@@ -332,7 +332,7 @@ export const AddNewDoctor = () => {
                 // onChange={handleChange}
               />
             </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mt-4">
               <NHInput
                 label="Hospital Website Link"
                 name="worksiteLink"
