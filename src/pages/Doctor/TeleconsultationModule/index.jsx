@@ -25,12 +25,11 @@ export const Teleconsultation = () => {
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [appointmentId, setAppointmentId] = useState(null);
-  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
 
-  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments } = usePrivousTeleconsultation();
+  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments, filterAppointments,setIsDateModalOpen,isDateModalOpen } = usePrivousTeleconsultation();
   const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
   const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
   const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
@@ -55,37 +54,6 @@ export const Teleconsultation = () => {
     }
   };
 
-  const filterAppointments = () => {
-    if (fromDate && toDate) {
-      const filtered = privousTeleconsultation.filter((appointment) => {
-        const appointmentDate = new Date(appointment.appointmentDate); // Ensure the date is parsed correctly
-        const appointmentStatus = appointment.status; // Check the status field
-  
-        // Ensure the status filter works correctly, if necessary
-        const isStatusMatch = appointmentStatus === 'canceled'; // Adjust based on your needs, e.g., 'canceled', 'completed', etc.
-  
-        return (
-          appointmentDate >= new Date(fromDate) &&
-          appointmentDate <= new Date(toDate) &&
-          isStatusMatch
-        );
-      });
-
-      console.log(filtered,"<<<<<<<<<<<<<<<<<<<")
-      setFilteredAppointments(filtered);
-    } else {
-      // If no date range is provided, just filter based on status
-      const filtered = privousTeleconsultation.filter((appointment) => {
-        const appointmentStatus = appointment.status;
-        return appointmentStatus === 'canceled'; // Adjust as necessary
-      });
-      console.log(filtered,"<<<<<<<<<<<<<<<<<<<")
-      setFilteredAppointments(filtered);
-    }
-  
-    setIsDateModalOpen(false); // Close the date filter modal after applying
-  };
-  
   const handleViewBill = (record) => {
     setSelectedPatient(record);
     setIsModalOpen(true);
