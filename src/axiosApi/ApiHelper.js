@@ -30,7 +30,7 @@ export const resetPassword = (data) =>
 /* Global Data */
 export const DeleteData = (url) => request("delete", `/api/${url}`);
 export const SearchHeader = (query, role) => {
-  let endpoint = `/api/admin/searchData?query=${query}`;
+  let endpoint = `/api/searchData?query=${query}`;
   if (role && role !== "all") {
     endpoint += `&role=${role}`;
   }
