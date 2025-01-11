@@ -1,0 +1,7 @@
+.prescription-tool-modal {
+    width: 700px !important;
+}
+
+.prescription-tool-modal .ant-modal-close {
+    display: none;
+}
