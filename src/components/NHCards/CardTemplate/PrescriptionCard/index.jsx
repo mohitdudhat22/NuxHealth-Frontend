@@ -1,6 +1,8 @@
 import React from "react";
 import { NHTable, NHButton, NHCard } from "@/components";
 import Logo from "@/assets/images/logo/logo.png";
+import { Modal } from "antd";
+import "./PrescriptionTool.css";
 
 export const PrescriptionCard = ({
   hospitalName,
@@ -13,6 +15,11 @@ export const PrescriptionCard = ({
   address,
   additionalNote,
   patientData,
+  isModalOpen,
+  onCancel,
+  handleClose,
+  Title,
+  handleOk,
   isSendButton = false,
 }) => {
   // If patientData is not provided, don't render anything
@@ -30,6 +37,22 @@ export const PrescriptionCard = ({
   ];
 
   return (
+    
+    <Modal
+      title={Title}
+      visible={isModalOpen}
+      onOk={handleOk}
+      onCancel={onCancel}
+      className="prescription-tool-modal"
+      footer={[
+        <NHButton key="back" onClick={onCancel}>
+          Close
+        </NHButton>,
+        <NHButton key="submit" variant="primary" onClick={handleOk}>
+          Send
+        </NHButton>,
+      ]}
+    >
     <NHCard className="min-h-full">
       {/* Header Section */}
       <div className="p-6 mb-8 rounded-lg bg-slate-100">
@@ -120,5 +143,7 @@ export const PrescriptionCard = ({
         {isSendButton && <NHButton variant="primary">Send</NHButton>}
       </div>
     </NHCard>
+    </Modal>
+    
   );
 };
