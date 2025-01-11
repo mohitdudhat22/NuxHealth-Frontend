@@ -1,0 +1,11 @@
+.header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: var(--space-md) calc(var(--space-xl) * 2);
+}
+
+.HeaderRight {
+  gap: 20px;
+}

@@ -1,5 +1,5 @@
 import { useDoctorManagement } from "@/hook";
-import { Space, Tag } from "antd/lib";
+import { Space, Tag } from "antd";
 import Icons from "@/constants/icons";
 import {
   NHButton,
@@ -94,7 +94,7 @@ export const DoctorManagement = () => {
 
   return (
     <>
-      <NHHead />
+      <NHHead title="Doctor Management" />
       <NHCard
         title="Doctor Management"
         headerContent={

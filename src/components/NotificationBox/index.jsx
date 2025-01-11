@@ -7,6 +7,7 @@ import {
   GetUserNotifications,
   MarkNotificationAsRead,
 } from "@/axiosApi/ApiHelper";
+import "./NotificationBox.css";
 import { NHButton, NHCard } from "..";
 import { useDecodeToken } from "@/hook";
 
@@ -89,7 +90,7 @@ const NotificationBox = () => {
   const notificationContent = (
     <NHCard
       title="Notifications"
-      rootClass="p-0 w-96"
+      rootClass="p-0 w-[400px]"
       headerContent={
         <NHButton
           type="text"
