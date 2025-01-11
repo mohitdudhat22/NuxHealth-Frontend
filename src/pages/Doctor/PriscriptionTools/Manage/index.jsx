@@ -106,9 +106,6 @@ export const Manage = () => {
     additionalNote: content?.additionalNote,
   }));
 
-  // console.log(todayData, ":::::todayData");
-  // console.log(oldData, ":::::oldData");
-
   const tabItems = [
     {
       key: "today",
@@ -158,6 +155,7 @@ export const Manage = () => {
         <NHTabs items={tabItems} defaultActiveKey="today" />
       </NHCard>
 
+      <div className="prescription-tool">
       <PrescriptionCard
         isModalOpen={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
@@ -166,6 +164,7 @@ export const Manage = () => {
         handleOk={() => setIsModalOpen(false)}
         patientData={selectedPatient}
       />
+      </div>
     </>
   );
 };
