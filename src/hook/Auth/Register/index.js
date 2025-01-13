@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { getHospitals, registerAdmin } from "@/axiosApi/ApiHelper";
+import { getHospitals, registerAdmin, registerPatient } from "@/axiosApi/ApiHelper";
 
 export const useRegister = () => {
   let navigate = useNavigate();
@@ -164,8 +164,14 @@ export const useRegister = () => {
         confirmPassword: formData.confirmPassword,
       };
       console.log(apiRequestData)
-      await registerAdmin(apiRequestData);
-      navigate("/login");
+
+      const url = window.location.href;
+      if (url.includes("reception")) {
+        await registerPatient(apiRequestData);
+      } else {
+        await registerAdmin(apiRequestData);
+        navigate("/login");
+      }
       toast.success("Registration successful!");
     } catch (error) {
       toast.error(error.message || "Registration failed.");

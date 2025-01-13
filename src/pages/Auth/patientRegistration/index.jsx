@@ -10,7 +10,7 @@ import {
 import { useRegister } from "@/hook/";
 
 export const PatientRegistration = () => {
-  const { formData, handleChange, handleSubmit, isLoading, isDisabled } =
+  const { formData, handleChange, handleSubmit, isLoading } =
     useRegister();
 
   return (
@@ -183,7 +183,6 @@ export const PatientRegistration = () => {
           variant="primary"
           block
           type="submit"
-          disabled={isDisabled}
           loading={isLoading}
         >
           Register

@@ -40,6 +40,9 @@ export const SearchHeader = (query, role) => {
 /* Admin Register Form */
 export const registerAdmin = (data) =>
   request("post", "/api/registerAdmin", data);
+export const registerPatient = (data) =>
+  request("post", "api/registerPatient", data);
+
 
 /* Hospital Add And Get */
 export const addHospitals = (data) =>
