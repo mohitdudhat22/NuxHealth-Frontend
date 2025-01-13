@@ -150,8 +150,8 @@ export const PatientRegistration = () => {
             showSearch
             label="Country"
             name="country"
-            options={countries}
             placeholder="Select Country"
+            options={countries}
             value={formData?.country}
             onChange={(value) => handleChange({
               target: { name: "country", value},
