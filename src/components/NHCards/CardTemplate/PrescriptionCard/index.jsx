@@ -22,11 +22,6 @@ export const PrescriptionCard = ({
   handleOk,
   isSendButton = false,
 }) => {
-  // If patientData is not provided, don't render anything
-  if (!patientData) {
-    return null;
-  }
-
   // Medicine Table Columns
   const columns = [
     { title: "Medicine Name", dataIndex: "medicineName", key: "medicineName" },
@@ -62,10 +57,10 @@ export const PrescriptionCard = ({
           </div>
           <div className="text-right">
             <h2 className="text-lg font-semibold">
-              {patientData.DoctorName || doctorName}
+              {patientData?.DoctorName || doctorName}
             </h2>
             <p className="text-sm text-gray-500">
-              {patientData.doctorspecialty || doctorspecialty}
+              {patientData?.doctorspecialty || doctorspecialty}
             </p>
           </div>
         </div>
@@ -76,25 +71,25 @@ export const PrescriptionCard = ({
             <p>
               <span className="text-xl text-[#818194]">Hospital Name:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patientData.hospitalName || hospitalName}
+                {patientData?.hospitalName || hospitalName}
               </span>
             </p>
             <p>
               <span className="text-xl text-[#818194]">Patient Name:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patientData.patientName || patientName}
+                {patientData?.patientName || patientName}
               </span>
             </p>
             <p>
               <span className="text-xl text-[#818194]">Gender:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patientData.gender || gender}
+                {patientData?.gender || gender}
               </span>
             </p>
             <p>
               <span className="text-xl text-[#818194]">Address:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patientData.address || address}
+                {patientData?.address || address}
               </span>
             </p>
           </div>
@@ -102,13 +97,13 @@ export const PrescriptionCard = ({
             <p>
               <span className="text-xl text-[#818194]">Prescription Date:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patientData.prescriptionDate || prescriptionDate}
+                {patientData?.prescriptionDate || prescriptionDate}
               </span>
             </p>
             <p>
               <span className="text-xl text-[#818194]">Age:</span>
               <span className={`text-xl font-bold text-[#4F4F4F]`}>
-                {patientData.age || age}
+                {patientData?.age || age}
               </span>
             </p>
           </div>
@@ -120,7 +115,7 @@ export const PrescriptionCard = ({
         showPagination={true}
         columns={columns}
         dataSource={
-          patientData.medications?.map((medication, index) => ({
+          patientData?.medications?.map((medication, index) => ({
             key: index.toString(),
             ...medication,
           })) || []
@@ -133,7 +128,7 @@ export const PrescriptionCard = ({
       <div className="mb-4">
         <h3 className="text-sm font-medium text-gray-600">Additional Note</h3>
         <p className="text-sm text-gray-500">
-          {patientData.additionalNote || additionalNote}
+          {patientData?.additionalNote || additionalNote}
         </p>
       </div>
 

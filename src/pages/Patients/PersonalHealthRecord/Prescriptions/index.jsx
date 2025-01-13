@@ -1,19 +1,17 @@
-import { AppointmentCard, NHButton, NHCard, NHInput } from '@/components';
+import { AppointmentCard, NHButton, NHCard, NHInput, PrescriptionCard } from '@/components';
 import Icons from '@/constants/icons';
 import { usePatientPrescriptionData } from '@/hook/Patients';
 import { Tag } from 'antd';
 import React, { useEffect, useState } from 'react'
 
 export const Prescriptions = () => {
-
     const { loading, data, error } = usePatientPrescriptionData();
     const [prescriptionData, setPrescriptionData] = useState([]);
-
-    useEffect(() => {
-        if (data) {
-            setPrescriptionData(data);
-        }
-    }, [data]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handlePatientDetails=(data)=>{
+        setPrescriptionData(data);
+        setIsModalOpen(true);
+    }
     return (
         <>
             <NHCard
@@ -27,13 +25,13 @@ export const Prescriptions = () => {
                 }
             >
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                    {prescriptionData.map((prescriptions, index) => (
+                    {data?.map((prescriptions, index) => (
                         <AppointmentCard
                             key={prescriptions.prescriptionId}
                             headerContent={
                                 <>
                                     <span
-                                        onClick={() => handlePatientDetails()}
+                                        onClick={() => handlePatientDetails(prescriptions)}
                                         className="cursor-pointer"
                                     >
                                         {Icons.ViewBillIcon}
@@ -49,6 +47,16 @@ export const Prescriptions = () => {
                         />
                     ))}
                 </div>
+                {prescriptionData && (
+                        <PrescriptionCard
+                        isModalOpen={isModalOpen}
+                        onCancel={() => setIsModalOpen(false)}
+                        handleClose={() => setIsModalOpen(false)}
+                        Title="Prescription"
+                        handleOk={() => setIsModalOpen(false)}
+                        patientData={prescriptionData}
+                      />
+                      )}
             </NHCard>
         </>
     );
