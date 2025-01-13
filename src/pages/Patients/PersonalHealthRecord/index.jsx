@@ -11,10 +11,12 @@ import React, { useState } from "react";
 import { Prescriptions } from "./Prescriptions";
 import { MedicalHistory } from "./MedicalHistory";
 import { TestReports } from "./TestReports";
+import { useNavigate } from "react-router-dom";
 
 export const PersonalHealthRecord = () => {
   const [currentView, setCurrentView] = useState("dashboard");
   const { data, loading, error } = usePatientDashboardData();
+  const navigate = useNavigate();
 
   // if (loading) return <p>Loading patient data...</p>;
   // if (error) return <p>Error fetching data: {error}</p>;
@@ -22,23 +24,21 @@ export const PersonalHealthRecord = () => {
   const patientData = data?.patientProfile;
   const prescriptions = data?.prescriptions || [];
 
-  const prescriptionHeaders = [
-    "Hospital Name",
-    "Date",
-    "Disease Name",
-    "Action",
-  ];
-  const prescriptionRows = prescriptions.map((prescription) => [
-    prescription.hospitalName,
-    new Date(prescription.prescriptionDate).toLocaleDateString(),
-    prescription.DiseaseName,
-    <button
-      key={prescription.prescriptionId}
-      className="text-blue-500 hover:underline"
-    >
-      View
-    </button>,
-  ]);
+  // const prescriptionRows = prescriptions.map((prescription) => [
+  //   prescription.hospitalName,
+
+  //   new Date(prescription.prescriptionDate).toLocaleDateString(),
+  //   prescription.DiseaseName,
+
+  //   <button
+  //     key={prescription.prescriptionId}
+  //     className="text-blue-500 hover:underline"
+  //   >
+  //     View
+  //   </button>,
+  // ]);
+
+  console.log(prescriptions);
 
   const medicalHistoryData = [
     {
@@ -72,19 +72,19 @@ export const PersonalHealthRecord = () => {
     },
     {
       title: "Date",
-      dataIndex: "date",
+      dataIndex: "prescriptionDate",
       key: "date",
     },
     {
       title: "Disease Name",
-      dataIndex: "diseaseName",
+      dataIndex: "DiseaseName",
       key: "diseaseName",
     },
     {
       title: "Action",
       key: "action",
       render: () => (
-        <NHButton size={"small"} icon={Icons.SearchIcon} className="view-btn" />
+        <NHButton size={"small"} icon={Icons.View} className="view-btn" />
       ),
     },
   ];
@@ -121,7 +121,7 @@ export const PersonalHealthRecord = () => {
               patientAddress={`${patientData?.address.fullAddress}, ${patientData?.address.city}`}
               lastAppointmentDate="2 Jan, 2022"
               lastAppointmentTime="4:30 PM"
-              onEditProfile={() => { }}
+              onEditProfile={() => {}}
             />
 
             <div className="grid grid-cols-[3fr_2fr] mt-8 grid-rows-1 gap-8">
@@ -184,7 +184,7 @@ export const PersonalHealthRecord = () => {
                   headerContent={
                     <span
                       className="text-[#5678E9] text-xl"
-                      onClick={() => setCurrentView("prescriptions")}
+                      onClick={() => navigate("/patient/prescription-access")}
                     >
                       View All Prescription
                     </span>

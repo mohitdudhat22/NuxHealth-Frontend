@@ -103,7 +103,7 @@ export const MedicalHistory = () => {
               }
               headerBg={true}
               title={
-                <span className="font-semibold text-[18px]">
+                <span className="text-[#030229] font-semibold text-[18px]">
                   {medical.patientName}
                 </span>
               }
