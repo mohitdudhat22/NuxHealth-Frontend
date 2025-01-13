@@ -1,5 +1,6 @@
 import moment from "moment";
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
+import FullCalendar from "@fullcalendar/react";
 
 export const AppointmentTimeSlot = () => {
   return (
