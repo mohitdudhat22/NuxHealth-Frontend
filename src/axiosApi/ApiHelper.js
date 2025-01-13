@@ -94,8 +94,8 @@ export const getCancleTeleconsultation = () =>
 /* Patient */
 export const patientDashboard = () =>
   request("get", "/api/patient/getDashboardData");
-export const patientPrescriptionData = () =>
-  request("get", "/api/patient/getPrescription");
+export const patientPrescriptionData = (role = "patient") =>
+  request("get", `/api/${role}/getPrescription`);
 export const getSinglePatientDashboard = (id, role) => request("get", `/api/${role}/getpatientdeshboard?patientId=${id}`);
 
 /* Reception */

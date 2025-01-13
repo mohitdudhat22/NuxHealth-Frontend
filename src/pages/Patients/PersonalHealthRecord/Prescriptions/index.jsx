@@ -5,7 +5,6 @@ import { Tag } from 'antd';
 import React, { useEffect, useState } from 'react'
 
 export const Prescriptions = () => {
-
     const { loading, data, error } = usePatientPrescriptionData();
     const [prescriptionData, setPrescriptionData] = useState([]);
 

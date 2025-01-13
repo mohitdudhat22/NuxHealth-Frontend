@@ -7,6 +7,7 @@ import {
 } from "@/components";
 import Icons from "@/constants/icons";
 import { usePatientDashboardData } from "@/hook/Patients";
+import { Prescriptions } from "@/pages/Patients/PersonalHealthRecord/Prescriptions";
 import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
@@ -217,8 +218,8 @@ export const PatientHelthDetails = () => {
         );
       // case "medical-history":
       //   return <MedicalHistory />;
-      // case "prescriptions":
-      //   return <Prescriptions />;
+      case "prescriptions":
+        return <Prescriptions />;
       // case "test-reports":
       //   return <TestReports />;
       default:
