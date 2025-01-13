@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { getHospitals, registerAdmin, registerPatient } from "@/axiosApi/ApiHelper";
-
+import { Country } from "country-state-city";
 export const useRegister = () => {
   const navigate = useNavigate();
 
@@ -17,21 +17,21 @@ export const useRegister = () => {
     gender: "",
     hospitalId: [],
     age: "",
-      country: "",
-      state: "",
-      city: "",
+    country: "",
+    state: "",
+    city: "",
     address: "",
     password: "",
     confirmPassword: "",
     termsAccepted: false,
-    bloodGroup: "", 
-    dob: "", 
+    bloodGroup: "",
+    dob: "",
     height: "",
     weight: "",
     phoneCode: ""
   });
 
-  console.log(errors);
+  console.log(formData);
 
   // Fetch hospitals based on zip code
   const fetchHospital = async (zipcode) => {
@@ -68,11 +68,10 @@ export const useRegister = () => {
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
     // Check password match dynamically
     if (name === "password" || name === "confirmPassword") {
       setErrors((prevErrors) => ({
@@ -155,8 +154,8 @@ export const useRegister = () => {
         formData.weight,
       ];
     } else {
-      specificFields = [ formData.zipCode, formData.hospitalId];
-     
+      specificFields = [formData.zipCode, formData.hospitalId];
+
     }
 
     return (
@@ -183,7 +182,8 @@ export const useRegister = () => {
           ...formData,
           age:Number(formData.age),
           fullAddress:formData.address,
-          phone:formData.phoneCode + formData.phone
+          phoneCode: Country.getAllCountries().find((c) => c.name === formData.country).phonecode,
+          phone: String("+" +Country.getAllCountries().find((c) => c.name === formData.country).phonecode)+ " "  + formData.phone
         };
         await registerPatient(apiRequestData);
         toast.success("Patient registration successful!");
@@ -201,7 +201,7 @@ export const useRegister = () => {
       setIsLoading(false);
     }
   };
- 
+
   return {
     hospitalNames,
     formData,

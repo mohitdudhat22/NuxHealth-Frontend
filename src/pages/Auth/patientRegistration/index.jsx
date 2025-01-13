@@ -40,7 +40,7 @@ export const PatientRegistration = () => {
       }))
     : [];
   
-
+    console.log(Country.getAllCountries().find((c) => c.name === formData.country)?.phonecode);
   return (
     <>
       <h2>Registration</h2>
@@ -153,12 +153,10 @@ export const PatientRegistration = () => {
             options={countries}
             placeholder="Select Country"
             value={formData?.country}
-            onChange={(value) => {
-              handleChange({
+            onChange={(value) => handleChange({
               target: { name: "country", value},
             })
-            setFormData({...formData,phoneCode: Country.getAllCountries().find((c) => c.name === value)?.phonecode})
-          }}
+          }
             errorMessage={errors.country}
             required
           />
