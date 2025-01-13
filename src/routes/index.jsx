@@ -62,6 +62,7 @@ import { PatientHelthDetails } from "@/pages/Reception/PatientHealthRecord/Patie
 import { InsuranceBillView } from "@/pages/Admin/BillingAndPayement/InsuranceClaims/InsuranceBillView";
 import CreateBill from "@/components/CreateBill";
 import { PaymentBillView } from "@/pages/Admin/BillingAndPayement/PaymentProcess/PaymentBillView";
+import { NHCard } from "@/components";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -426,7 +427,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "patient-registration",
-                  element: <PatientRegistration />,
+                  element: <NHCard className="p-4"><PatientRegistration /></NHCard>,
                 },
                 {
                   path: "personal-health",
