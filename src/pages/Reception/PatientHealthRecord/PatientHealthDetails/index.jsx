@@ -86,8 +86,7 @@ export const PatientHelthDetails = () => {
   };
   const prescriptions = data?.prescriptions
   const handleViewClick = (record) => {
-    console.log(record,"<<<<<<<<<<<<<<<<<")
-    setSelectedPrescription(record); // Pass the selected prescription data
+    setSelectedPrescription(record);
     setIsModalOpen(true);
   };
 
