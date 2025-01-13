@@ -9,10 +9,10 @@ export const useUpcomingAppoinmentBookings = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const fetchAppointments = async () => {
+  const fetchAppointments = async (role) => {
     try {
       setLoading(true);
-      const response = await penddingAppointmentsForPatient();
+      const response = await penddingAppointmentsForPatient(role);
       if (response.status === 1) {
         setAppointments(response.data.appointments);
       }
@@ -22,8 +22,14 @@ export const useUpcomingAppoinmentBookings = () => {
   };
 
   useEffect(() => {
-    fetchAppointments();
+    const url = window.location.href;
+    if (url.includes("reception")) {
+      fetchAppointments("receptionist");
+    }else{
+      fetchAppointments("patient");
+    }
   }, []);
+
 
   // const filteredAppointments = appointments.filter((appointment) =>
   // (appointment?.patientName?.toLowerCase().includes(searchQuery.toLowerCase()) ||

@@ -21,6 +21,23 @@ export const useCancleTeleconsultation = () => {
             setLoading(false);
         }
     };
+    const rescheduleAppointment = async (selectedDate, selectedTime) => {
+        const payload = {
+          date: selectedDate,
+          appointmentTime: selectedTime,
+        };
+    
+        console.log("Appointment ID:", appointmentId);
+        console.log("Payload:", payload);
+    
+        try {
+          const response = await reschedule(appointmentId, payload);
+          console.log("Response:", response);
+          setIsReshceduleModal(false); // Close modal after successful reschedule
+        } catch (error) {
+          console.error("Error rescheduling appointment:", error);
+        }
+      };
 
     useEffect(() => {
         fetchAppointments();
@@ -63,5 +80,6 @@ export const useCancleTeleconsultation = () => {
         fetchAppointments,
         navigate,
         onSearch,
+        rescheduleAppointment
     };
 };

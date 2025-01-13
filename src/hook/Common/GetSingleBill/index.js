@@ -12,8 +12,14 @@ export const useGetSingleBill = () => {
       console.log(response.data)
       setData(response.data);
     };  
+
     useEffect(() => {
-      fetchBillData();
+      const url = window.location.href;
+      if (url.includes("reception")) {
+        fetchBillData("receptionist");
+      }else{
+        fetchBillData("admin");
+      }
     }, [billId]);
   return { data };
 };

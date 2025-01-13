@@ -150,6 +150,13 @@ export const ReceptionPanelData = [
     ),
   },
   {
+    key: "patientLogin",
+    icon: Icons.Analytics,
+    label: (
+      <Link to="/reception/patient-Login">Patient Login</Link>
+    ),
+  },
+  {
     key: "personalHealth",
     icon: Icons.Analytics,
     label: <Link to="/reception/personal-health">Patient Health Record</Link>,

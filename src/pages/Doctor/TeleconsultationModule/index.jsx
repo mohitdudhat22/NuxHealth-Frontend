@@ -24,11 +24,35 @@ export const Teleconsultation = () => {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [selectedPatientData, setSelectedPatientData] = useState(null);
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
-  const [appointmentId,setAppointmentId] = useState(null);
-  const { data: privousTeleconsultation, loading: privousLoader } = usePrivousTeleconsultation();
+  const [appointmentId, setAppointmentId] = useState(null);
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
+
+  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments, filterAppointments, setIsDateModalOpen,isDateModalOpen } = usePrivousTeleconsultation();
   const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
   const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
   const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
+
+
+  const rescheduleAppointment = async (selectedDate, selectedTime) => {
+    const payload = {
+      date: selectedDate,
+      appointmentTime: selectedTime,
+    };
+
+    console.log("Appointment ID:", appointmentId);
+    console.log("Payload:", payload);
+
+    try {
+      const response = await reschedule(appointmentId, payload);
+      console.log("Response:", response);
+      setIsReshceduleModal(false); // Close modal after successful reschedule
+      fetchAppointments();
+    } catch (error) {
+      console.error("Error rescheduling appointment:", error);
+    }
+  };
 
   const handleViewBill = (record) => {
     setSelectedPatient(record);
@@ -43,17 +67,7 @@ export const Teleconsultation = () => {
   const handelReschedule = (id) => {
     setIsReshceduleModal(true);
     setAppointmentId(id)
-    console.log("Reschedule");
   };
-
-  const rescheduleAppointment = async ()=>{
-    const payload = {
-
-    }
-    console.log(appointmentId)
-    const response = await reschedule(appointmentId, payload);
-    console.log(response);
-  }
   const columns = [
     {
       title: "Patient Name",
@@ -116,12 +130,16 @@ export const Teleconsultation = () => {
             rootClass={"p-0"}
             title="Teleconsultation Module"
             headerContent={
-              <>
-                <NHButton variant="default" className="text-black bg-white">
-                  {Icons.CalenderIcon}2 March,2022 - 13 March, 2022
+              <div className="flex items-center justify-between">
+                <NHButton
+                  variant="default"
+                  className="text-black bg-white"
+                  onClick={() => setIsDateModalOpen(true)}
+                >
+                  {Icons.CalenderIcon} {fromDate ? fromDate : "From"} - {toDate ? toDate : "To"}
                   {Icons.CloseCircle}
                 </NHButton>
-              </>
+              </div>
             }
           >
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -174,10 +192,31 @@ export const Teleconsultation = () => {
             </div>
           </NHCard>
           <RescheduleAppointmentModal
-            open={isReshceduleModal}
-            handleClose={() => setIsReshceduleModal(false)}
             handleOk={rescheduleAppointment}
+            handleClose={() => setIsReshceduleModal(false)}
+            Title="Reschedule Appointment"
+            rescheduleAppo={isReshceduleModal}
           />
+          <CustomDateModal
+            handleOk={filterAppointments} // Apply filter
+            onCancel={() => {
+              setFromDate(null); // Reset fromDate
+              setToDate(null); // Reset toDate
+              setIsDateModalOpen(false); // Close modal without changes
+            }}
+            handleClose={() => {
+              setIsDateModalOpen(false); // Close without applying
+              setFromDate(null); // Reset fromDate
+              setToDate(null); // Reset toDate
+            }}
+            Title="Filter by Date"
+            isRescheduleModal={isDateModalOpen} // Control modal visibility
+            fromDate={fromDate}
+            toDate={toDate}
+            setFromDate={setFromDate} // Update fromDate
+            setToDate={setToDate} // Update toDate
+          />
+
         </>
       ),
     },
@@ -290,7 +329,7 @@ export const Teleconsultation = () => {
                 <NHButton
                   size={"small"}
                   className={"w-full"}
-                  onClick={() => navigate('videoCall?room='+selectedPatientData.key)}
+                  onClick={() => navigate('videoCall?room=' + selectedPatientData.key)}
                 >{console.log(selectedPatientData)}
                   Join
                   {console.log(selectedPatientData._id)}
