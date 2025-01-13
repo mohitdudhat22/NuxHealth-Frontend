@@ -96,9 +96,9 @@ export const PatientRegistration = () => {
             label="Gender"
             name="gender"
             options={[
-              { value: "male", label: "Male" },
-              { value: "female", label: "Female" },
-              { value: "other", label: "Other" },
+              { value: "Male", label: "Male" },
+              { value: "Female", label: "Female" },
+              { value: "Other", label: "Other" },
             ]}
             placeholder="Select Gender"
             value={formData?.gender}

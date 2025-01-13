@@ -183,7 +183,7 @@ export const useRegister = () => {
           age:Number(formData.age),
           fullAddress:formData.address,
           phoneCode: Country.getAllCountries().find((c) => c.name === formData.country).phonecode,
-          phone: String("+" +Country.getAllCountries().find((c) => c.name === formData.country).phonecode)+ " "  + formData.phone
+          phone: String("+" +Country.getAllCountries().find((c) => c.name === formData.country).phonecode) + formData.phone
         };
         await registerPatient(apiRequestData);
         toast.success("Patient registration successful!");
