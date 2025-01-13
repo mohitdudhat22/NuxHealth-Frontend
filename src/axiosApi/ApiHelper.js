@@ -36,6 +36,10 @@ export const SearchHeader = (query, role) => {
   }
   return request("get", endpoint);
 };
+export const SearchPatient = (query) => {
+  let endpoint = `api/receptionist/patientdetails?search=${query}`;
+  return request("get", endpoint);
+};
 
 /* Admin Register Form */
 export const registerAdmin = (data) =>
@@ -92,6 +96,7 @@ export const patientDashboard = () =>
   request("get", "/api/patient/getDashboardData");
 export const patientPrescriptionData = () =>
   request("get", "/api/patient/getPrescription");
+export const getSinglePatientDashboard = (id, role) => request("get", `/api/${role}/getpatientdeshboard?patientId=${id}`);
 
 /* Reception */
 export const CreateReception = (data) =>

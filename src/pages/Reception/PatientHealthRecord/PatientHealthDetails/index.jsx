@@ -10,34 +10,8 @@ import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 export const PatientHelthDetails = () => {
-  const location = useLocation();
-  const response = location.state.patient;
   const [currentView, setCurrentView] = useState("dashboard");
   const { data, loading, error } = usePatientDashboardData();
-
-  // if (loading) return <p>Loading patient data...</p>;
-  // if (error) return <p>Error fetching data: {error}</p>;
-
-  const patientData = response?.patientProfile;
-  const prescriptions = response?.prescriptions || [];
-
-  const prescriptionHeaders = [
-    "Hospital Name",
-    "Date",
-    "Disease Name",
-    "Action",
-  ];
-  const prescriptionRows = prescriptions.map((prescription) => [
-    prescription.hospitalName,
-    new Date(prescription.prescriptionDate).toLocaleDateString(),
-    prescription.DiseaseName,
-    <button
-      key={prescription.prescriptionId}
-      className="text-blue-500 hover:underline"
-    >
-      View
-    </button>,
-  ]);
 
   const medicalHistoryData = [
     {
@@ -103,21 +77,28 @@ export const PatientHelthDetails = () => {
       </div>
     );
   };
-
+  const prescriptions = data?.prescriptions.map((item) => ({
+    key: item.prescriptionId,
+    hospitalName: item.hospitalName,
+    date: new Date(item.prescriptionDate).toLocaleDateString(),
+    diseaseName: item.DiseaseName,
+  }));
   const renderView = () => {
     switch (currentView) {
       case "dashboard":
         return (
           <>
-            <PatientDetailCard
-              patientName={response?.fullName}
+           <PatientDetailCard
+              patientName={data?.patientProfile?.fullName || "N/A"}
               doctorName="Dr. Marcus Philips"
-              patientNumber={response?.phone}
+              patientNumber={data?.patientProfile?.phone || "N/A"}
               patientIssue="Feeling tired"
-              patientGender={response?.gender}
-              patientAge={`${response?.age} Years`}
+              patientGender={data?.patientProfile?.gender || "N/A"}
+              patientAge={`${data?.patientProfile?.age || 0} Years`}
               appointmentType="Online"
-              patientAddress={`${response?.address.fullAddress}, ${response?.address.city}`}
+              patientAddress={`${
+                data?.patientProfile?.address?.fullAddress || "N/A"
+              }, ${data?.patientProfile?.address?.city || ""}`}
               lastAppointmentDate="2 Jan, 2022"
               lastAppointmentTime="4:30 PM"
               onEditProfile={() => {}}

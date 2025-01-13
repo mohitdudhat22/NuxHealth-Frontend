@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
-import { patientDashboard } from "@/axiosApi/ApiHelper";
+import { getSinglePatientDashboard, patientDashboard } from "@/axiosApi/ApiHelper";
+import { useParams } from "react-router-dom";
 
 export const usePatientDashboardData = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const { id } = useParams()
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
                 setLoading(true);
-                const response = await patientDashboard();
+                const url = window.location.href;
+                const role = url.includes("reception") ? "receptionist" : "patient"
+                const response = await getSinglePatientDashboard(id,role);
                 if (response.status === "success") {
                     setData(response.data);
                 } else {
@@ -22,7 +25,6 @@ export const usePatientDashboardData = () => {
                 setLoading(false);
             }
         };
-
         fetchDashboardData();
     }, []);
 
