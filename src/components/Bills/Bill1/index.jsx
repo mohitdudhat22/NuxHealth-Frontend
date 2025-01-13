@@ -27,11 +27,12 @@ export function Bill1({ billData }) {
   };
 
   return (
-    <NHCard>
+   <div className="w-[50%] m-auto">
+     <NHCard>
       {/* Header Section */}
       <div className="flex justify-between pb-5 head">
         <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />
-        <div className="text-3xl font-light text-blue-400">Invoice</div>
+        <div className="text-3xl font-light text-blue-400">Invoice </div>
       </div>
 
       {/* Main Content Section */}
@@ -200,6 +201,7 @@ export function Bill1({ billData }) {
         <p>Call: +00854 22354</p>
         <p>Email: Hello@Gmail.com</p>
       </div>
-    </NHCard>
+     </NHCard>
+   </div>
   );
 }

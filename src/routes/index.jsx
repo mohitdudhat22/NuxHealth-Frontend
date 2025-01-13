@@ -62,6 +62,7 @@ import { PatientHelthDetails } from "@/pages/Reception/PatientHealthRecord/Patie
 import { InsuranceBillView } from "@/pages/Admin/BillingAndPayement/InsuranceClaims/InsuranceBillView";
 import CreateBill from "@/components/CreateBill";
 import { PaymentBillView } from "@/pages/Admin/BillingAndPayement/PaymentProcess/PaymentBillView";
+import { NHCard } from "@/components";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -216,7 +217,7 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <EditDesignInvoice />,
                 },
                 {
-                  path: "bill-view/:id",
+                  path: "bill-view/:billId",
                   element: <BillView />,
                 },
               ],
@@ -229,7 +230,7 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <InsuranceClaims />,
                 },
                 {
-                  path: "insurance-bill-view/:id",
+                  path: "insurance-bill-view/:billId",
                   element: <InsuranceBillView />,
                 },
               ],
@@ -426,7 +427,11 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "patient-registration",
-                  element: <PatientRegistration />,
+                  element: <NHCard className="p-4"><PatientRegistration /></NHCard>,
+                },
+                {
+                  path:"patient-Login",
+                  element:<NHCard className="p-4"> <Login /></NHCard>
                 },
                 {
                   path: "personal-health",
@@ -465,7 +470,7 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <ReceptionBills />,
                 },
                 {
-                  path: "bill-view/:id",
+                  path: "bill-view/:billId",
                   element: <BillView />,
                 },
               ],

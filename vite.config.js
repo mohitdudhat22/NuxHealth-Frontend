@@ -4,6 +4,7 @@ import path from "node:path";
 
 export default defineConfig({
   plugins: [react()],
+  include: ['country-state-city'],
   base: "/",
   resolve: {
     alias: {
