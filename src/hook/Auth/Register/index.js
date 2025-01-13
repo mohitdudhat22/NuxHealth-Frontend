@@ -17,18 +17,22 @@ export const useRegister = () => {
     gender: "",
     hospitalId: [],
     age: "",
-    address: {
       country: "",
       state: "",
       city: "",
-      zipCode: "",
-      fullAddress: "",
-    },
+    address: "",
     password: "",
     confirmPassword: "",
     termsAccepted: false,
+    bloodGroup: "", 
+    dob: "", 
+    height: "",
+    weight: "",
+    phoneCode: ""
   });
-  console.log(errors)
+
+  console.log(errors);
+
   // Fetch hospitals based on zip code
   const fetchHospital = async (zipcode) => {
     try {
@@ -67,7 +71,6 @@ export const useRegister = () => {
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
-
     }));
 
     // Check password match dynamically
@@ -85,6 +88,8 @@ export const useRegister = () => {
   // Validate form data
   const validateForm = () => {
     const newErrors = {};
+
+    // Common fields for both Admin and Patient
     if (!formData.firstName) newErrors.firstName = "First name is required.";
     if (!formData.lastName) newErrors.lastName = "Last name is required.";
     if (!formData.email) newErrors.email = "Email is required.";
@@ -94,11 +99,29 @@ export const useRegister = () => {
     if (!formData.country) newErrors.country = "Country is required.";
     if (!formData.state) newErrors.state = "State is required.";
     if (!formData.city) newErrors.city = "City is required.";
-    if (!formData.zipCode) newErrors.zipCode = "Zip code is required.";
-    if (!formData.fullAddress) newErrors.fullAddress = "Address is required.";
+
+    if (!formData.address) newErrors.fullAddress = "Address is required.";
     if (!formData.password) newErrors.password = "Password is required.";
-    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match.";
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match.";
+    }
     if (!formData.termsAccepted) newErrors.termsAccepted = "You must accept the terms and conditions.";
+
+    // Fields specific to Patient
+    if (window.location.href.includes("reception")) {
+      if (!formData.bloodGroup) newErrors.bloodGroup = "Blood group is required.";
+      if (!formData.dob) newErrors.dob = "Date of birth is required.";
+      if (!formData.height) newErrors.height = "Height is required.";
+      if (!formData.weight) newErrors.weight = "Weight is required.";
+    }
+
+    // Fields specific to Admin
+    if (!window.location.href.includes("reception")) {
+      if (!formData.hospitalId || formData.hospitalId.length === 0) {
+        newErrors.hospitalId = "Hospital is required for admin.";
+      }
+      if (!formData.zipCode) newErrors.zipCode = "Zip code is required.";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -106,22 +129,41 @@ export const useRegister = () => {
 
   // Check if form is valid
   const isFormValid = () => {
-    const requiredFields = [
+    const commonFields = [
       formData.firstName,
       formData.lastName,
       formData.email,
       formData.phone,
       formData.gender,
       formData.age,
-      formData.address?.country,
-      formData.address?.state,
-      formData.address?.city,
-      formData.address?.zipCode,
+      formData.country,
+      formData.state,
+      formData.city,
+      formData.address,
       formData.password,
       formData.confirmPassword,
       formData.termsAccepted,
     ];
-    return requiredFields.every((field) => field) && formData.password === formData.confirmPassword;
+
+    let specificFields = [];
+
+    if (window.location.href.includes("reception")) {
+      specificFields = [
+        formData.bloodGroup,
+        formData.dob,
+        formData.height,
+        formData.weight,
+      ];
+    } else {
+      specificFields = [ formData.zipCode, formData.hospitalId];
+     
+    }
+
+    return (
+      commonFields.every((field) => field) &&
+      specificFields.every((field) => field) &&
+      formData.password === formData.confirmPassword
+    );
   };
 
   const isDisabled = !isFormValid();
@@ -130,34 +172,25 @@ export const useRegister = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    console.log("click")
 
     setIsLoading(true);
     try {
-      const apiRequestData = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        gender: formData.gender,
-        age: formData.age,
-        address: {
-          country: formData.address.country,
-          state: formData.address.state,
-          city: formData.address.city,
-          fullAddress: formData.address.fullAddress,
-          zipCode: formData.address.zipCode,
-        },
-        hospitalId: formData.hospitalId,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword,
-      };
-
       const url = window.location.href;
+
+      let apiRequestData;
       if (url.includes("reception")) {
+        apiRequestData = {
+          ...formData,
+          age:Number(formData.age),
+          fullAddress:formData.address,
+          phone:formData.phoneCode + formData.phone
+        };
         await registerPatient(apiRequestData);
         toast.success("Patient registration successful!");
       } else {
+        apiRequestData = {
+          ...formData,
+        };
         await registerAdmin(apiRequestData);
         toast.success("Admin registration successful!");
         navigate("/login");
@@ -168,7 +201,7 @@ export const useRegister = () => {
       setIsLoading(false);
     }
   };
-
+ 
   return {
     hospitalNames,
     formData,
