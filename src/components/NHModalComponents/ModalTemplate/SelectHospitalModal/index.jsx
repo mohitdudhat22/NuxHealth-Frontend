@@ -1,6 +1,7 @@
 import { useAddHospital } from "@/hook";
 import clsx from "clsx";
 import { NHInput, NHModal, NHUpload } from "@/components/";
+import styles from "../../../../pages/Auth/auth.module.css";
 
 export const SelectHospitalModal = ({ open, onCancel, handleClose }) => {
   const { handleSubmit, handleChange, formData, uploadProps } =

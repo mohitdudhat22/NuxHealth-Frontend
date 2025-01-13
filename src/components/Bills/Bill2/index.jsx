@@ -26,6 +26,7 @@ export function Bill2() {
   };
 
   return (
+    <div className="w-[50%] m-auto">
     <NHCard>
       <div className="flex justify-between pb-5 head">
         <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />
@@ -205,5 +206,6 @@ export function Bill2() {
         <p>Email: Hello@Gmail.com</p>
       </div>
     </NHCard>
+    </div>
   );
 }
