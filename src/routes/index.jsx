@@ -430,6 +430,10 @@ const NuxHealthRoute = createBrowserRouter(
                   element: <NHCard className="p-4"><PatientRegistration /></NHCard>,
                 },
                 {
+                  path:"patient-Login",
+                  element:<NHCard className="p-4"> <Login /></NHCard>
+                },
+                {
                   path: "personal-health",
                   children: [
                     {
