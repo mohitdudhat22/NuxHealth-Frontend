@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
-import { getDashboardAndReport } from "@/axiosApi/ApiHelper";
+import { getDashboardAndReport, getDashboardAndReportForReceptionist } from "@/axiosApi/ApiHelper";
+import { useDecodeToken } from "@/hook/useDecodeToken";
 
 export const useDashboardAndReport = () => {
   const [dashboardData, setDashboardData] = useState(null);
 
-  const fetchData = async () => {
-    const response = await getDashboardAndReport();
-    setDashboardData(response.data);
-  };
-
   useEffect(() => {
-    fetchData();
+    const url = window.location.href;
+    if (url.includes("reception")) {
+      fetchData("receptionist");
+    }else{
+      fetchData("admin");
+    }
   }, []);
+  const fetchData = async (role) => {
+      const response = await getDashboardAndReport(role);
+      setDashboardData(response.data);
+  };
 
   const data = {
     totalPatients: dashboardData?.patientSummary?.totalPatients,

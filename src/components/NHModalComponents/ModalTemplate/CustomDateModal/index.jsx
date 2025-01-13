@@ -1,5 +1,6 @@
-import { NHButton, NHDatePicker, NHModal } from '@/components'
-import React from 'react'
+import { NHButton, NHDatePicker, NHModal } from '@/components';
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 
 export const CustomDateModal = ({
   handleOk,
@@ -14,12 +15,33 @@ export const CustomDateModal = ({
   setToDate,
   ...rest
 }) => {
+  const [selectedFromDate, setSelectedFromDate] = useState(fromDate);
+  const [selectedToDate, setSelectedToDate] = useState(toDate);
+
+  // Reset state when modal closes
+  useEffect(() => {
+    if (!isRescheduleModal) {
+      setSelectedFromDate(null);
+      setSelectedToDate(null);
+    }
+  }, [isRescheduleModal]);
+
+  // Handle confirm button click
+  const handleConfirm = () => {
+    if (selectedFromDate && selectedToDate) {
+      handleOk(selectedFromDate, selectedToDate);
+    } else {
+      alert("Please fill in both date fields.");
+    }
+  };
+
   return (
     <NHModal
-      title={"Custom Date"}
+      title={Title || "Custom Date"}
       open={isRescheduleModal}
       handleClose={handleClose}
       disabledButton={false}
+      confirmLoading={loading}
       {...rest}
     >
       <div>
@@ -27,8 +49,8 @@ export const CustomDateModal = ({
           <div className="date w-[48%]">
             <NHDatePicker
               label={"From Date"}
-              value={fromDate}
-              onChange={setFromDate} // Update fromDate
+              value={selectedFromDate ? moment(selectedFromDate) : null} // Ensure Moment object
+              onChange={(date) => setSelectedFromDate(date)} // Update selectedFromDate
               style={{ padding: "10px" }}
             />
           </div>
@@ -36,8 +58,8 @@ export const CustomDateModal = ({
           <div className="date w-[48%]">
             <NHDatePicker
               label={"To Date"}
-              value={toDate}
-              onChange={setToDate} // Update toDate
+              value={selectedToDate ? moment(selectedToDate) : null} // Ensure Moment object
+              onChange={(date) => setSelectedToDate(date)} // Update selectedToDate
               style={{ padding: "10px" }}
             />
           </div>
@@ -47,15 +69,15 @@ export const CustomDateModal = ({
           <NHButton
             className="bg-white text-[#141414] w-[48%]"
             onClick={() => {
-              setFromDate(null); // Reset fromDate
-              setToDate(null); // Reset toDate
+              setSelectedFromDate(null); // Reset fromDate
+              setSelectedToDate(null); // Reset toDate
             }}
           >
             Reset
           </NHButton>
           <NHButton
             className="bg-[#0EABEB] text-white w-[48%]"
-            onClick={handleOk} // Apply the date filter
+            onClick={handleConfirm} // Apply the date filter
           >
             Apply
           </NHButton>
