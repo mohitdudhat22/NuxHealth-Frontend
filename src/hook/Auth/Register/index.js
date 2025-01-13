@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { getHospitals, registerAdmin, registerPatient } from "@/axiosApi/ApiHelper";
 
 export const useRegister = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [hospital, setHospital] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     firstName: "",
@@ -23,16 +22,14 @@ export const useRegister = () => {
       state: "",
       city: "",
       zipCode: "",
-      fullAddress: "Kamrej",
+      fullAddress: "",
     },
-    gender: "Male",
-    age: 10,
     password: "",
     confirmPassword: "",
     termsAccepted: false,
   });
-
-  // Fetch societies based on zip code
+  console.log(errors)
+  // Fetch hospitals based on zip code
   const fetchHospital = async (zipcode) => {
     try {
       const response = await getHospitals();
@@ -41,16 +38,12 @@ export const useRegister = () => {
       );
       setHospital(filteredHospital);
     } catch (err) {
-      toast.error("Error fetching societies.");
+      toast.error("Error fetching hospitals.");
     }
   };
 
-  // Handle zip code change and fetch societies
+  // Handle zip code change and fetch hospitals
   const handleZipCodeChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      address: { ...prev.address, zipCode: e.target.value },
-    }));
     const { value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -61,14 +54,11 @@ export const useRegister = () => {
     }
   };
 
-  // Map societies for dropdown
-  const hospitalNames = hospital?.map((hospital) => {
-    return (
-      {
-        value: hospital._id,
-        label: hospital.name,
-      })
-  });
+  // Map hospitals for dropdown
+  const hospitalNames = hospital?.map((hospital) => ({
+    value: hospital._id,
+    label: hospital.name,
+  }));
 
   // Handle input change
   const handleChange = (e) => {
@@ -77,6 +67,7 @@ export const useRegister = () => {
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
+
     }));
 
     // Check password match dynamically
@@ -100,12 +91,11 @@ export const useRegister = () => {
     if (!formData.phone) newErrors.phone = "Phone number is required.";
     if (!formData.gender) newErrors.gender = "Gender is required.";
     if (!formData.age) newErrors.age = "Age is required.";
-    if (!formData.address.country) newErrors.country = "Country is required.";
-    if (!formData.address.state) newErrors.state = "State is required.";
-    if (!formData.address.city) newErrors.city = "City is required.";
-    if (!formData.address.zipCode) newErrors.zipCode = "Zip code is required.";
-    if (!formData.address.fullAddress) newErrors.fullAddress = "Address is required.";
-    if (!formData.hospitalId) newErrors.hospitalId = "Hospital is required.";
+    if (!formData.country) newErrors.country = "Country is required.";
+    if (!formData.state) newErrors.state = "State is required.";
+    if (!formData.city) newErrors.city = "City is required.";
+    if (!formData.zipCode) newErrors.zipCode = "Zip code is required.";
+    if (!formData.fullAddress) newErrors.fullAddress = "Address is required.";
     if (!formData.password) newErrors.password = "Password is required.";
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match.";
     if (!formData.termsAccepted) newErrors.termsAccepted = "You must accept the terms and conditions.";
@@ -114,34 +104,33 @@ export const useRegister = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const isFormValid = (data) => {
-    const validateFields = (obj) => {
-      for (let key in obj) {
-        if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
-          if (!validateFields(obj[key])) return false;
-        } else if (
-          obj[key] === "" ||
-          obj[key] === null ||
-          (Array.isArray(obj[key]) && obj[key].length === 0)
-        ) {
-          return false;
-        }
-      }
-      return true;
-    };
-
-    const fieldsValid = validateFields(data);
-    const specificConditions =
-      data.password === data.confirmPassword && data.termsAccepted;
-
-    return fieldsValid && specificConditions;
+  // Check if form is valid
+  const isFormValid = () => {
+    const requiredFields = [
+      formData.firstName,
+      formData.lastName,
+      formData.email,
+      formData.phone,
+      formData.gender,
+      formData.age,
+      formData.address?.country,
+      formData.address?.state,
+      formData.address?.city,
+      formData.address?.zipCode,
+      formData.password,
+      formData.confirmPassword,
+      formData.termsAccepted,
+    ];
+    return requiredFields.every((field) => field) && formData.password === formData.confirmPassword;
   };
 
-  const isDisabled = !isFormValid(formData);
+  const isDisabled = !isFormValid();
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+    console.log("click")
 
     setIsLoading(true);
     try {
@@ -157,22 +146,22 @@ export const useRegister = () => {
           state: formData.address.state,
           city: formData.address.city,
           fullAddress: formData.address.fullAddress,
-          zipCode: formData.address.zipCode
+          zipCode: formData.address.zipCode,
         },
         hospitalId: formData.hospitalId,
         password: formData.password,
         confirmPassword: formData.confirmPassword,
       };
-      console.log(apiRequestData)
 
       const url = window.location.href;
       if (url.includes("reception")) {
         await registerPatient(apiRequestData);
+        toast.success("Patient registration successful!");
       } else {
         await registerAdmin(apiRequestData);
+        toast.success("Admin registration successful!");
         navigate("/login");
       }
-      toast.success("Registration successful!");
     } catch (error) {
       toast.error(error.message || "Registration failed.");
     } finally {
@@ -187,10 +176,8 @@ export const useRegister = () => {
     handleZipCodeChange,
     handleSubmit,
     setFormData,
-    isModalOpen,
-    setIsModalOpen,
-    errors,
     isLoading,
     isDisabled,
+    errors,
   };
 };
