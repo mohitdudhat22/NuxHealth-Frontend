@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchAppointmentsByPatient, fetchDoctorSession } from "@/axiosApi/ApiHelper";
+import { useDecodeToken } from '@/hook';
 
 export const useAppointmentData = () => {
     const [data, setData] = useState({
@@ -13,18 +14,26 @@ export const useAppointmentData = () => {
         appointmentType: '',
         paymentType: '',
         patientIssue: '',
-        diseaseName: ''
+        diseaseName: '',
+        patientList: []
     });
+
+    const { token } = useDecodeToken();
 
     const [filters, setFilters] = useState({});
     const [selectedTime, setSelectedTime] = useState(null);
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [timeSlots, setTimeSlots] = useState(null);
+    const [role, setRole] = useState('')
+
+    useEffect(() => {
+        setRole(token?.userData?.role)
+    }, [token])
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetchAppointmentsByPatient();
+                const response = await fetchAppointmentsByPatient(role);
                 if (response && response.length > 0) {
                     const countries = response.map((item) => ({
                         value: item.country,
@@ -38,7 +47,7 @@ export const useAppointmentData = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [role]);
 
     const handleSelectChange = (value, key) => {
         setFilters((prev) => ({ ...prev, [key]: value }));
@@ -82,7 +91,7 @@ export const useAppointmentData = () => {
                 label: doctor.name,
             })) || [];
             setData((prev) => ({ ...prev, doctors }));
-        } else if (key === "appointmentType" || key === "paymentType") {
+        } else if (key === "appointmentType" || key === "paymentType" || key === "patientList") {
             setData((prev) => ({ ...prev, [key]: value }));
         }
     };
@@ -93,7 +102,7 @@ export const useAppointmentData = () => {
         setSelectedDoctor(doctorId);
         if (doctorId) {
             try {
-                const response = await fetchDoctorSession(doctorId, appointmentDate);
+                const response = await fetchDoctorSession(doctorId, appointmentDate, role);
                 setTimeSlots(response.data);
             } catch (error) {
                 console.error("Error fetching time slots:", error);

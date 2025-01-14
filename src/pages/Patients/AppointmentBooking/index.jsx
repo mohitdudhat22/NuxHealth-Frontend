@@ -195,13 +195,10 @@ export const AppointmentBooking = () => {
                 key={data.id}
                 headerBg={true}
                 headerContent={
-                  <button
-                    className="p-2 bg-white rounded-xl hover:bg-gray-300"
-                    aria-label="View Details"
+                  <NHButton
+                    isView
                     onClick={() => handleViewDetails(data.id)}
-                  >
-                    {Icons.ViewBillIcon}
-                  </button>
+                  ></NHButton>
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">
@@ -268,7 +265,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="">
+              <NHButton variant="default" className="" onClick={() => handleAppointment()}>
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -280,16 +277,13 @@ export const AppointmentBooking = () => {
                 key={data.id}
                 headerBg={true}
                 headerContent={
-                  <button
-                    className="p-2 bg-white rounded-xl hover:bg-gray-300"
-                    aria-label="View Details"
+                  <NHButton
+                    isView
                     onClick={() => handleViewDetails(data.id)}
-                  >
-                    {Icons.ViewBillIcon}
-                  </button>
+                  ></NHButton>
                 }
                 title={
-                  <span className="text-[#030229] text-[18px] font-medium">
+                  <span className="text-[#030229]  text-[18px] font-medium">
                     Dr. {data.doctorName}
                   </span>
                 }
@@ -328,7 +322,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="">
+              <NHButton variant="default" className=""  onClick={() => handleAppointment()}>
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -340,13 +334,10 @@ export const AppointmentBooking = () => {
                 key={data.id}
                 headerBg={true}
                 headerContent={
-                  <button
-                    className="p-2 bg-white rounded-xl hover:bg-gray-300"
-                    aria-label="View Details"
+                  <NHButton
+                    isView
                     onClick={() => handleViewDetails(data.id)}
-                  >
-                    {Icons.ViewBillIcon}
-                  </button>
+                  ></NHButton>
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">
@@ -388,7 +379,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="">
+              <NHButton variant="default" className=""  onClick={() => handleAppointment()}>
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -400,13 +391,10 @@ export const AppointmentBooking = () => {
                 key={data.id}
                 headerBg={true}
                 headerContent={
-                  <button
-                    className="p-2 bg-white rounded-xl hover:bg-gray-300"
-                    aria-label="View Details"
+                  <NHButton
+                    isView
                     onClick={() => handleViewDetails(data.id)}
-                  >
-                    {Icons.ViewBillIcon}
-                  </button>
+                  ></NHButton>
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">

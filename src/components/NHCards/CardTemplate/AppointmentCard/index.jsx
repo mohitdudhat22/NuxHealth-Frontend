@@ -24,7 +24,7 @@ export const AppointmentCard = ({
 
       return (
         <p key={key} className="mb-3">
-          <span className="text-xl inline text-[#818194]">{label}</span>
+          <span className="text-xl inline text-[#818194]">{label} </span>
           <span className="float-right text-xl font-bold text-[#4F4F4F]">
             {value}
           </span>

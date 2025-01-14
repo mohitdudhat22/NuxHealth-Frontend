@@ -6,3 +6,4 @@ export { PrescriptionAccess } from './PrescriptionAccess';
 export { AppointmentTimeSlot } from './AppointmentTimeSlot';
 // export { onFileUpload } from "./TeleconsultationAccess/onFileUpload"
 export { PatientMettingConference } from "./TeleconsultationAccess/PatientMeetingConference"
+export { Invoice } from './Invoice';
