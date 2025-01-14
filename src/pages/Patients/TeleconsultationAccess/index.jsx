@@ -18,6 +18,7 @@ import {
   rescheduleForPatient,
 } from "@/axiosApi/ApiHelper";
 import { AppointmentModal } from "@/components/NHModalComponents/ModalTemplate/AppointmentModal";
+import { AppointmentSchedularPage } from "..";
 
 export const TeleconsultationAccess = () => {
   const [previousAppointments, setPreviousAppointments] = useState([]);
