@@ -204,9 +204,14 @@ export const previousAppointmentForDoctor = () =>
   request("get", "/api/doctor/getAppointment?filter=previous");
 export const cancelAppointmentForDoctor = () =>
   request("get", "/api/doctor/getAppointment?filter=cancel");
-export const editAdminProfile = () => request("post", "/api/admin/editAdmin");
+// ADD ADMIN PASSWORD API
 export const editAdminProfileChangePassword = (data) =>
   request("post", "/api/admin/changePassword", data);
+
+// Change in editadminprofile
+export const editAdminProfile = (data) =>
+  request("post", "/api/admin/editAdmin", data);
+
 export const editDoctorrofileChangePassword = (data) =>
   request("post", "/api/doctor/changePassword", data);
 export const AppointmentWithoutBill = () =>
