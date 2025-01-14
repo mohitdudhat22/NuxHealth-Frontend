@@ -227,19 +227,22 @@ export const getPatientContact = () => request("get", "/api/patient/chatcontect"
 export const getDoctorContact = () => request("get", "/api/doctor/chatcontect");
 
 
-export const fetchAppointmentsByPatient = () =>
-  request("get", "/api/patient/searchAppointment");
+export const fetchAppointmentsByPatient = (role) => {
+  const endpoint = role === "receptionist" ? "/api/receptionist/searchAppointment" : "/api/patient/searchAppointment";
+  return request("get", endpoint);
+};
 
-
-export const fetchDoctorSession = (doctorId, date) => {
-  const url = date
-    ? `/api/patient/getDoctorSession/${doctorId}?date=${date}`
-    : `/api/patient/getDoctorSession/${doctorId}`;
+export const fetchDoctorSession = (doctorId, date, role) => {
+  const baseUrl = role === "receptionist" ? "/api/receptionist/getDoctorSession" : "/api/patient/getDoctorSession";
+  const url = date ? `${baseUrl}/${doctorId}?date=${date}` : `${baseUrl}/${doctorId}`;
   return request("get", url);
 };
 
-export const appointmentBooking = (data) => {
-  request("post", "/api/patient/createAppointment", data)
+export const appointmentBooking = (data, role) => {
+  const endpoint = role === "receptionist" ? "/api/receptionist/createAppointment" : "/api/patient/createAppointment";
+  return request("post", endpoint, data);
 }
 
-export const reschedule = (id,data)=>request("post",`/api/doctor/editAppointment/${id}`,data);
+export const reschedule = (id, data) => request("post", `/api/doctor/editAppointment/${id}`, data);
+
+export const getPatientListForReceptionist = () => request("get", 'api/receptionist/getPatient');
