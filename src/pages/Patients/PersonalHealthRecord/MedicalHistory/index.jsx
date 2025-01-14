@@ -97,7 +97,7 @@ export const MedicalHistory = () => {
                     onClick={() => handlePatientDetails()}
                     className="cursor-pointer"
                   >
-                    {Icons.ViewBillIcon}
+                    {Icons.View}
                   </span>
                 </>
               }

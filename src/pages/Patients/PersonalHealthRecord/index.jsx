@@ -84,7 +84,8 @@ export const PersonalHealthRecord = () => {
       title: "Action",
       key: "action",
       render: () => (
-        <NHButton size={"small"} icon={Icons.View} className="view-btn" />
+        // <NHButton size={"small"} icon={Icons.View} className="view-btn" />
+        <NHButton isView />
       ),
     },
   ];

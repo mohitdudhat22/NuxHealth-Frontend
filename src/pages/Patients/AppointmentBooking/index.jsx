@@ -149,7 +149,7 @@ export const AppointmentBooking = () => {
                     aria-label="View Details"
                     onClick={() => handleViewDetails(data.id)}
                   >
-                    {Icons.ViewBillIcon}
+                    {Icons.View}
                   </button>
                 }
                 title={
@@ -228,7 +228,7 @@ export const AppointmentBooking = () => {
                     aria-label="View Details"
                     onClick={() => handleViewDetails(data.id)}
                   >
-                    {Icons.ViewBillIcon}
+                    {Icons.View}
                   </button>
                 }
                 title={
@@ -288,7 +288,7 @@ export const AppointmentBooking = () => {
                     aria-label="View Details"
                     onClick={() => handleViewDetails(data.id)}
                   >
-                    {Icons.ViewBillIcon}
+                    {Icons.View}
                   </button>
                 }
                 title={
@@ -348,7 +348,7 @@ export const AppointmentBooking = () => {
                     aria-label="View Details"
                     onClick={() => handleViewDetails(data.id)}
                   >
-                    {Icons.ViewBillIcon}
+                    {Icons.View}
                   </button>
                 }
                 title={

@@ -54,7 +54,7 @@ export const PrescriptionAccess = () => {
                       onClick={() => handlePatientDetails()}
                       className="cursor-pointer"
                     >
-                      {Icons.ViewBillIcon}
+                      {Icons.View}
                     </span>
                   </div>
                 </>
