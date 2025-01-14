@@ -7,7 +7,7 @@ import { useUpcomingTeleconsultationModule } from "@/hook/Patients/Teleconsultat
 import { useCancelTeleconsultationModule } from "@/hook/Patients/TeleconsultationModule/CancelTeleconsultationModule";
 import { CustomDateModal } from '@/components/NHModalComponents/ModalTemplate/CustomDateModal';
 import { RescheduleAppointmentModal } from '@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal';
-import { rescheduleForPatient } from '@/axiosApi/ApiHelper';
+import { cancelAppointmentForPatient, rescheduleForPatient } from '@/axiosApi/ApiHelper';
 
 export const TeleconsultationAccess = () => {
     const [previousAppointments, setPreviousAppointments] = useState([]);
@@ -18,6 +18,7 @@ export const TeleconsultationAccess = () => {
     const [isReshceduleModal, setIsReshceduleModal] = useState(false);
     const [toDate, setToDate] = useState(null);
     const [appointmentId, setAppointmentId] = useState(null);
+
     // API Calls
     const { data: previousData } = usePreviousTeleconsultationModule();
     const { data: todaysData, setIsDateModalOpen, isDateModalOpen, filterAppointments } = useTodaysTeleconsultationModule();
@@ -43,6 +44,22 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
     }
   };
 
+     // Handle appointment cancellation
+     const cancelAppointment = async (id) => {
+        console.log("Cancelling appointment with ID:", id);
+        try {
+          const response = await cancelAppointmentForPatient(id, { status: "canceled" });
+          console.log("Appointment canceled successfully:", response);
+      
+          // Update the state
+          setCanceledAppointments((prev) => [...prev, { id }]);
+          setTodaysAppointments((prev) =>
+            prev.filter((appointment) => appointment._id !== id)
+          );
+        } catch (error) {
+          console.error("Error canceling appointment:", error);
+        }
+      };
   const handelReschedule = (id) => {
     setIsReshceduleModal(true);
     setAppointmentId(id)
@@ -109,9 +126,9 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                                             </button>
                                         </>
                                     }
-                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId.fullName}</span>}
+                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId?.fullName}</span>}
                                     appointmentType={<span className='text-[#FFC313]'>{type}</span>}
-                                    hospitalName={hospitalId.name}
+                                    hospitalName={hospitalId?.name}
                                     appointmentDate={date}
                                     appointmentTime={appointmentTime}
                                     patientIssue={patient_issue}
@@ -204,9 +221,9 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                                             {Icons.ViewBillIcon}
                                         </button>
                                     }
-                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId.fullName}</span>}
+                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId?.fullName}</span>}
                                     appointmentType={<span className='text-[#FFC313]'>{type}</span>}
-                                    hospitalName={hospitalId.name}
+                                    hospitalName={hospitalId?.name}
                                     appointmentDate={date}
                                     appointmentTime={appointmentTime}
                                     patientIssue={patient_issue}
@@ -261,9 +278,9 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                                             {Icons.ViewBillIcon}
                                         </button>
                                     }
-                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId.fullName}</span>}
+                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId?.fullName}</span>}
                                     appointmentType={<span className='text-[#FFC313]'>{type}</span>}
-                                    hospitalName={hospitalId.name}
+                                    hospitalName={hospitalId?.name}
                                     appointmentDate={date}
                                     appointmentTime={appointmentTime}
                                     patientIssue={patient_issue}
@@ -319,9 +336,9 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                                             {Icons.ViewBillIcon}
                                         </button>
                                     }
-                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId.fullName}</span>}
+                                    title={<span className='text-[#030229] text-[18px] font-medium'>Dr. {doctorId?.fullName}</span>}
                                     appointmentType={<span className='text-[#FFC313]'>{type}</span>}
-                                    hospitalName={hospitalId.name}
+                                    hospitalName={hospitalId?.name}
                                     appointmentDate={date}
                                     appointmentTime={appointmentTime}
                                     patientIssue={patient_issue}
@@ -330,7 +347,7 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                                             <NHButton
                                                 size={"small"}
                                                 className={"w-full"}
-                                                onClick={() => handleJoinCall(data)}
+                                                onClick={() => cancelAppointment(data?._id)} 
                                             >
                                                 cancel
                                             </NHButton>

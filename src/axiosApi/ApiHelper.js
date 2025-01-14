@@ -252,3 +252,6 @@ export const getAppointmentsTeleconsultationWithFromAndTo = (startDate, endDate)
 export const getAppointmentsTeleconsultationWithFromAndToForPatient = (startDate, endDate) => request("get", `/api/patient/getAppointmentsTeleconcsultation?startDate=${startDate}&endDate=${endDate}`);
 export const getDashboardAndReportForReceptionist = () =>
   request("get", "/api/receptionist/getDashboardDataDemo");
+
+export const cancelAppointmentForPatient = (appointmentId, data) => 
+  request("put", `api/patient/editAppointment/${appointmentId}`, data);
