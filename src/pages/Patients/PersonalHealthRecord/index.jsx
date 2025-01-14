@@ -4,6 +4,7 @@ import {
   NHInput,
   NHTable,
   PatientDetailCard,
+  PrescriptionCard,
 } from "@/components";
 import Icons from "@/constants/icons";
 import { usePatientDashboardData } from "@/hook/Patients";
@@ -16,30 +17,8 @@ import { useNavigate } from "react-router-dom";
 export const PersonalHealthRecord = () => {
   const [currentView, setCurrentView] = useState("dashboard");
   const { data, loading, error } = usePatientDashboardData();
-  const navigate = useNavigate();
-
-  // if (loading) return <p>Loading patient data...</p>;
-  // if (error) return <p>Error fetching data: {error}</p>;
-
-  const patientData = data?.patientProfile;
-  const prescriptions = data?.prescriptions || [];
-
-  // const prescriptionRows = prescriptions.map((prescription) => [
-  //   prescription.hospitalName,
-
-  //   new Date(prescription.prescriptionDate).toLocaleDateString(),
-  //   prescription.DiseaseName,
-
-  //   <button
-  //     key={prescription.prescriptionId}
-  //     className="text-blue-500 hover:underline"
-  //   >
-  //     View
-  //   </button>,
-  // ]);
-
-  console.log(prescriptions);
-
+  const [selectedPrescription, setSelectedPrescription] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const medicalHistoryData = [
     {
       title: "Dulce Schleifer",
@@ -83,9 +62,13 @@ export const PersonalHealthRecord = () => {
     {
       title: "Action",
       key: "action",
-      render: () => (
-        // <NHButton size={"small"} icon={Icons.View} className="view-btn" />
-        <NHButton isView />
+      render: (_, record) => (
+        <NHButton
+          size={"small"}
+          icon={Icons.ViewBillIcon}
+          className="view-btn"
+          onClick={() => handleViewClick(record)}
+        />
       ),
     },
   ];
@@ -105,21 +88,32 @@ export const PersonalHealthRecord = () => {
       </div>
     );
   };
+  const prescriptions = data?.prescriptions
+  const handleViewClick = (record) => {
+    setSelectedPrescription(record);
+    setIsModalOpen(true);
+  };
 
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedPrescription(null);
+  };
   const renderView = () => {
     switch (currentView) {
       case "dashboard":
         return (
           <>
-            <PatientDetailCard
-              patientName={patientData?.fullName}
+           <PatientDetailCard
+              patientName={data?.patientProfile?.fullName || "N/A"}
               doctorName="Dr. Marcus Philips"
-              patientNumber={patientData?.phone}
+              patientNumber={data?.patientProfile?.phone || "N/A"}
               patientIssue="Feeling tired"
-              patientGender={patientData?.gender}
-              patientAge={`${patientData?.age} Years`}
+              patientGender={data?.patientProfile?.gender || "N/A"}
+              patientAge={`${data?.patientProfile?.age || 0} Years`}
               appointmentType="Online"
-              patientAddress={`${patientData?.address.fullAddress}, ${patientData?.address.city}`}
+              patientAddress={`${
+                data?.patientProfile?.address?.fullAddress || "N/A"
+              }, ${data?.patientProfile?.address?.city || ""}`}
               lastAppointmentDate="2 Jan, 2022"
               lastAppointmentTime="4:30 PM"
               onEditProfile={() => {}}
@@ -133,22 +127,22 @@ export const PersonalHealthRecord = () => {
                 className={"max-h-[200px] overflow-auto"}
                 headerContent={
                   <button
-                    className="text-sm text-blue-500"
+                    className="text-blue-500 text-sm"
                     onClick={() => setCurrentView("medical-history")}
                   >
                     View All
                   </button>
                 }
               >
-                <div className="grid grid-cols-1 space-y-1 md:grid-cols-3">
+                <div className="space-y-1 grid grid-cols-1 md:grid-cols-3">
                   {medicalHistoryData.map((medicalData, index) => {
                     return (
                       <NHCard className={"border border-[#F4F4F4] rounded-xl "}>
                         <div className="flex justify-between bg-[#F6F8FB] rounded-lg p-3">
-                          <h3 className="text-sm font-medium text-gray-900 ">
+                          <h3 className="text-gray-900 font-medium text-sm ">
                             {medicalData.title}
                           </h3>
-                          <span className="px-4 py-1 text-sm text-blue-600 rounded-full bg-blue-50">
+                          <span className="px-4 py-1 bg-blue-50 text-blue-600 rounded-full text-sm">
                             {medicalData.date}
                           </span>
                         </div>
@@ -185,7 +179,7 @@ export const PersonalHealthRecord = () => {
                   headerContent={
                     <span
                       className="text-[#5678E9] text-xl"
-                      onClick={() => navigate("/patient/prescription-access")}
+                      onClick={() => setCurrentView("prescriptions")}
                     >
                       View All Prescription
                     </span>
@@ -229,12 +223,24 @@ export const PersonalHealthRecord = () => {
         return <MedicalHistory />;
       case "prescriptions":
         return <Prescriptions />;
-      case "test-reports":
-        return <TestReports />;
+      // case "test-reports":
+      //   return <TestReports />;
       default:
         return null;
     }
   };
 
-  return <div>{renderView()}</div>;
+  return <div>{renderView()}
+  
+  
+  {selectedPrescription && (
+        <PrescriptionCard
+        isModalOpen={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        handleClose={() => setIsModalOpen(false)}
+        Title="Prescription"
+        handleOk={() => setIsModalOpen(false)}
+        patientData={selectedPrescription}
+      />
+      )}</div>;
 };
