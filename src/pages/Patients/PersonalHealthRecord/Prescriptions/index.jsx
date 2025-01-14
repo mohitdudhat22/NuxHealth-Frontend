@@ -1,4 +1,10 @@
-import { AppointmentCard, NHButton, NHCard, NHInput, PrescriptionCard } from "@/components";
+import {
+  AppointmentCard,
+  NHButton,
+  NHCard,
+  NHInput,
+  PrescriptionCard,
+} from "@/components";
 import Icons from "@/constants/icons";
 import { usePatientPrescriptionData } from "@/hook/Patients";
 import React, { useEffect, useState } from "react";
@@ -10,11 +16,16 @@ export const Prescriptions = () => {
   const handlePatientDetails = (data) => {
     setPrescriptionData(data);
     setIsModalOpen(true);
-  }
+  };
+
   return (
     <>
       <NHCard
-        title={<span className='text-[#030229] text-[26px] font-semibold'>Prescriptions</span>}
+        title={
+          <span className="text-[#030229] text-[26px] font-semibold">
+            Prescriptions
+          </span>
+        }
         headerContent={
           <>
             <div className="me-10">
@@ -29,16 +40,18 @@ export const Prescriptions = () => {
               key={prescriptions.prescriptionId}
               headerContent={
                 <>
-                  <span
+                  <NHButton
+                    isView
                     onClick={() => handlePatientDetails(prescriptions)}
-                    className="cursor-pointer"
-                  >
-                    {Icons.ViewBillIcon}
-                  </span>
+                  />
                 </>
               }
               headerBg={true}
-              title={<span className="font-semibold text-[18px]">{prescriptions.DoctorName}</span>}
+              title={
+                <span className="font-semibold text-[#030229] text-[18px]">
+                  {prescriptions.DoctorName}
+                </span>
+              }
               hospitalName={prescriptions.hospitalName}
               diseaseName={prescriptions.DiseaseName}
               date={prescriptions.prescriptionDate}

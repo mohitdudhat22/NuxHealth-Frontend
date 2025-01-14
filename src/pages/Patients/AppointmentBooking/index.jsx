@@ -144,13 +144,10 @@ export const AppointmentBooking = () => {
                 key={data.id}
                 headerBg={true}
                 headerContent={
-                  <button
-                    className="p-2 bg-white rounded-xl hover:bg-gray-300"
-                    aria-label="View Details"
+                  <NHButton
+                    isView
                     onClick={() => handleViewDetails(data.id)}
-                  >
-                    {Icons.View}
-                  </button>
+                  ></NHButton>
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">
@@ -223,13 +220,10 @@ export const AppointmentBooking = () => {
                 key={data.id}
                 headerBg={true}
                 headerContent={
-                  <button
-                    className="p-2 bg-white rounded-xl hover:bg-gray-300"
-                    aria-label="View Details"
+                  <NHButton
+                    isView
                     onClick={() => handleViewDetails(data.id)}
-                  >
-                    {Icons.View}
-                  </button>
+                  ></NHButton>
                 }
                 title={
                   <span className="text-[#030229]  text-[18px] font-medium">
@@ -283,13 +277,10 @@ export const AppointmentBooking = () => {
                 key={data.id}
                 headerBg={true}
                 headerContent={
-                  <button
-                    className="p-2 bg-white rounded-xl hover:bg-gray-300"
-                    aria-label="View Details"
+                  <NHButton
+                    isView
                     onClick={() => handleViewDetails(data.id)}
-                  >
-                    {Icons.View}
-                  </button>
+                  ></NHButton>
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">
@@ -343,13 +334,10 @@ export const AppointmentBooking = () => {
                 key={data.id}
                 headerBg={true}
                 headerContent={
-                  <button
-                    className="p-2 bg-white rounded-xl hover:bg-gray-300"
-                    aria-label="View Details"
+                  <NHButton
+                    isView
                     onClick={() => handleViewDetails(data.id)}
-                  >
-                    {Icons.View}
-                  </button>
+                  ></NHButton>
                 }
                 title={
                   <span className="text-[#030229] text-[18px] font-medium">
