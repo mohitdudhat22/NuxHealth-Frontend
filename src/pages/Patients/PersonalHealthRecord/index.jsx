@@ -63,12 +63,7 @@ export const PersonalHealthRecord = () => {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <NHButton
-          size={"small"}
-          icon={Icons.ViewBillIcon}
-          className="view-btn"
-          onClick={() => handleViewClick(record)}
-        />
+        <NHButton isView onClick={() => handleViewClick(record)} />
       ),
     },
   ];
@@ -88,7 +83,7 @@ export const PersonalHealthRecord = () => {
       </div>
     );
   };
-  const prescriptions = data?.prescriptions
+  const prescriptions = data?.prescriptions;
   const handleViewClick = (record) => {
     setSelectedPrescription(record);
     setIsModalOpen(true);
@@ -103,7 +98,7 @@ export const PersonalHealthRecord = () => {
       case "dashboard":
         return (
           <>
-           <PatientDetailCard
+            <PatientDetailCard
               patientName={data?.patientProfile?.fullName || "N/A"}
               doctorName="Dr. Marcus Philips"
               patientNumber={data?.patientProfile?.phone || "N/A"}
@@ -230,17 +225,20 @@ export const PersonalHealthRecord = () => {
     }
   };
 
-  return <div>{renderView()}
-  
-  
-  {selectedPrescription && (
+  return (
+    <div>
+      {renderView()}
+
+      {selectedPrescription && (
         <PrescriptionCard
-        isModalOpen={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        handleClose={() => setIsModalOpen(false)}
-        Title="Prescription"
-        handleOk={() => setIsModalOpen(false)}
-        patientData={selectedPrescription}
-      />
-      )}</div>;
+          isModalOpen={isModalOpen}
+          onCancel={() => setIsModalOpen(false)}
+          handleClose={() => setIsModalOpen(false)}
+          Title="Prescription"
+          handleOk={() => setIsModalOpen(false)}
+          patientData={selectedPrescription}
+        />
+      )}
+    </div>
+  );
 };

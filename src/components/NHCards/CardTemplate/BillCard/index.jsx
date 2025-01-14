@@ -1,4 +1,4 @@
-import { NHCard } from "@/components";
+import { NHButton, NHCard } from "@/components";
 import Icons from "@/constants/icons";
 
 export const BillCard = ({
@@ -39,14 +39,7 @@ export const BillCard = ({
       }
       rootClass={className}
       headerBg={headerBg}
-      headerContent={
-        <button
-          className="p-2 bg-white rounded-xl hover:bg-gray-300"
-          aria-label="View Details"
-        >
-          {Icons.View}
-        </button>
-      }
+      headerContent={headerContent}
     >
       {/* Appointment Details */}
       {reminder && (
