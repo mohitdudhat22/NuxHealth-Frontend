@@ -8,6 +8,7 @@ import { useCancelTeleconsultationModule } from "@/hook/Patients/Teleconsultatio
 import { CustomDateModal } from '@/components/NHModalComponents/ModalTemplate/CustomDateModal';
 import { RescheduleAppointmentModal } from '@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal';
 import { cancelAppointmentForPatient, rescheduleForPatient } from '@/axiosApi/ApiHelper';
+import { AppointmentSchedularPage } from '..';
 
 export const TeleconsultationAccess = () => {
     const [previousAppointments, setPreviousAppointments] = useState([]);
@@ -18,7 +19,8 @@ export const TeleconsultationAccess = () => {
     const [isReshceduleModal, setIsReshceduleModal] = useState(false);
     const [toDate, setToDate] = useState(null);
     const [appointmentId, setAppointmentId] = useState(null);
-
+    const [bookAppoinment, setBookAppointment] = useState(false);
+    
     // API Calls
     const { data: previousData } = usePreviousTeleconsultationModule();
     const { data: todaysData, setIsDateModalOpen, isDateModalOpen, filterAppointments } = useTodaysTeleconsultationModule();
@@ -64,6 +66,9 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
     setIsReshceduleModal(true);
     setAppointmentId(id)
   };
+  const handleAppointment = () => {
+    setBookAppointment(true);
+  };
     // Use Effect to Update States
     useEffect(() => {
         if (previousData) setPreviousAppointments(previousData);
@@ -85,7 +90,7 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                         <>
                             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
                             <NHButton variant="default" className="text-black bg-white" onClick={() => setIsDateModalOpen(true)}>{Icons.CalenderIcon} {fromDate ? fromDate : "From"} - {toDate ? toDate : "To"}{Icons.CloseCircle}</NHButton>
-                            <NHButton variant="default" className="">{Icons.CalenderIcon}Book Appointment</NHButton>
+                            <NHButton variant="default" className="" onClick={() => handleAppointment()}>{Icons.CalenderIcon}Book Appointment</NHButton>
                         </>
                     }
                 >
@@ -188,7 +193,7 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                     headerContent={
                         <>
                             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-                            <NHButton variant="default" className="">{Icons.CalenderIcon}Book Appointment</NHButton>
+                            <NHButton variant="default" className="" onClick={() => handleAppointment()}>{Icons.CalenderIcon}Book Appointment</NHButton>
                         </>
                     }
                 >
@@ -245,7 +250,7 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                     headerContent={
                         <>
                             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-                            <NHButton variant="default" className="">{Icons.CalenderIcon}Book Appointment</NHButton>
+                            <NHButton variant="default" className="" onClick={() => handleAppointment()}>{Icons.CalenderIcon}Book Appointment</NHButton>
                         </>
                     }
                 >
@@ -302,7 +307,7 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                     headerContent={
                         <>
                           <NHButton variant="default" className="text-black bg-white" onClick={() => setIsDateModalOpen(true)}>{Icons.CalenderIcon} {fromDate ? fromDate : "From"} - {toDate ? toDate : "To"}{Icons.CloseCircle}</NHButton>
-                            <NHButton variant="default" className="">{Icons.CalenderIcon}Book Appointment</NHButton>
+                            <NHButton variant="default" className="" onClick={() => handleAppointment()}>{Icons.CalenderIcon}Book Appointment</NHButton>
                         </>
                     }
                 >
@@ -378,7 +383,9 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
     ];
 
     return (
-        <>
+        <>  {bookAppoinment ?(
+                <AppointmentSchedularPage />
+              ): (
             <NHCard
                 headerContent={
                     <NHInput
@@ -391,7 +398,7 @@ const rescheduleAppointment = async (selectedDate, selectedTime) => {
                     items={tabItems}
                     defaultActiveKey="upcoming"
                 />
-            </NHCard>
+            </NHCard>)}
         </>
     );
 };
