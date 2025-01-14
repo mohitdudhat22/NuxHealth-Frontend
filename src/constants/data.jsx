@@ -150,21 +150,14 @@ export const ReceptionPanelData = [
     ),
   },
   {
-    key: "patientLogin",
-    icon: Icons.Analytics,
-    label: (
-      <Link to="/reception/patient-Login">Patient Login</Link>
-    ),
-  },
-  {
     key: "personalHealth",
     icon: Icons.Analytics,
-    label: <Link to="/reception/personal-health">Patient Health Record</Link>,
+    label: <Link to="/reception/personal-health">Patients List</Link>,
   },
   {
     key: "appointment",
     icon: Icons.Analytics,
-    label: <Link to="/reception/appointment">Appointment Booking</Link>,
+    label: <Link to="/reception/appointment">All Appointments</Link>,
   },
   {
     key: "bills",
