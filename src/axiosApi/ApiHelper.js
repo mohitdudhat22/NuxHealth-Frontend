@@ -36,6 +36,10 @@ export const SearchHeader = (query, role) => {
   }
   return request("get", endpoint);
 };
+export const SearchPatient = (query) => {
+  let endpoint = `api/receptionist/patientdetails?search=${query}`;
+  return request("get", endpoint);
+};
 
 /* Admin Register Form */
 export const registerAdmin = (data) =>
@@ -90,8 +94,9 @@ export const getCancleTeleconsultation = () =>
 /* Patient */
 export const patientDashboard = () =>
   request("get", "/api/patient/getDashboardData");
-export const patientPrescriptionData = () =>
-  request("get", "/api/patient/getPrescription");
+export const patientPrescriptionData = (role = "patient") =>
+  request("get", `/api/${role}/getPrescription`);
+export const getSinglePatientDashboard = (id, role) => request("get", `/api/${role}/getpatientdeshboard?patientId=${id}`);
 
 /* Reception */
 export const CreateReception = (data) =>
@@ -249,4 +254,7 @@ export const rescheduleForPatient = (id,data)=>request("post",`/api/patient/edit
 export const getAppointmentsTeleconsultationWithFromAndTo = (startDate, endDate) => request("get", `/api/doctor/getAppointmentsTeleconcsultation?startDate=${startDate}&endDate=${endDate}`);
 export const getAppointmentsTeleconsultationWithFromAndToForPatient = (startDate, endDate) => request("get", `/api/patient/getAppointmentsTeleconcsultation?startDate=${startDate}&endDate=${endDate}`);
 export const getDashboardAndReportForReceptionist = () =>
-  request("get", "/api/receptionist/getDashboardDataDemo");
+  request("get", "/api/receptionist/getDashboardData");
+
+export const cancelAppointmentForPatient = (appointmentId, data) =>
+  request("put", `api/patient/editAppointment/${appointmentId}`, data);

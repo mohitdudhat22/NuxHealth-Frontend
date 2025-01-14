@@ -3,22 +3,22 @@ import Icons from "@/constants/icons";
 import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import { Avatar } from "antd";
 import { useEffect, useRef, useState } from "react";
-import { SearchHeader } from "@/axiosApi/ApiHelper";
 import { useNavigate } from "react-router-dom";
+import { SearchPatient } from "@/axiosApi/ApiHelper";
 
 export const PatientHealthRecord = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [data, setData] = useState([]);
-
-  const [filteredData, setFilteredData] = useState(data);
+  const [filteredData, setFilteredData] = useState([]);
   const debounceTimeout = useRef(null);
 
   const handleSearch = async (value) => {
     setLoading(true);
     try {
-      const response = await SearchHeader(value, "patient");
+      const url = window.location.href;
+      let role = url.includes("reception") ? "receptionist" : "patient";
+      const response = await SearchPatient(value, role);
       const searchResults = response.data;
       setFilteredData(searchResults);
     } catch (error) {
@@ -34,48 +34,44 @@ export const PatientHealthRecord = () => {
     }
 
     debounceTimeout.current = setTimeout(() => {
-      if (!searchValue) {
-        setFilteredData(data);
-      } else {
-        handleSearch(searchValue);
-      }
+      handleSearch(searchValue);
     }, 1000);
 
     return () => {
       clearTimeout(debounceTimeout.current);
     };
-  }, [searchValue, data]);
+  }, [searchValue]);
 
   const columns = [
     {
       title: "Patient Name",
-      dataIndex: "fullName",
+      dataIndex: "patientName",
       key: "fullName",
       render: (fullName, record) => (
         <Space>
-          <Avatar src={record.avatar} alt={name} size={40} />
+          <Avatar src={record.avatar} alt={fullName} size={40} />
           <span>{fullName}</span>
         </Space>
       ),
     },
     {
       title: "Email",
-      dataIndex: "email",
+      dataIndex: "patientEmail",
       key: "email",
     },
     {
       title: "Phone",
-      dataIndex: "phone",
+      dataIndex: "patientNumber",
       key: "phone",
     },
     {
       title: "Gender",
-      dataIndex: "gender",
+      dataIndex: "patientGender",
       key: "gender",
     },
     {
       title: "Age",
-      dataIndex: "age",
+      dataIndex: "patientAge",
       key: "age",
     },
     {
@@ -88,8 +84,7 @@ export const PatientHealthRecord = () => {
             icon={Icons.View}
             className="view-btn"
             onClick={() => {
-              console.log("r",record)
-              return navigate(`view-patient/${record._id}`, {
+              navigate(`view-patient/${record._id}`, {
                 state: { patient: record },
               });
             }}

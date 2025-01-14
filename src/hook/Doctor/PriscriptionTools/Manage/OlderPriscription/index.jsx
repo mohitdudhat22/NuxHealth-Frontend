@@ -22,7 +22,7 @@ export const useOlderManagePrescription = (id) => {
     };
 
     fetchData();
-  }, [id]); // Include `id` if it's a dependency.
+  }, [id]);
 
   return { data, error };
 };

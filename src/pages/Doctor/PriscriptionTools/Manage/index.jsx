@@ -84,7 +84,6 @@ export const Manage = () => {
     appointmentTime: content?.appointmentTime,
     age: content?.age,
     gender: content?.gender,
-    // Add other necessary fields for PrescriptionCard
     hospitalName: content?.hospitalName,
     prescriptionDate: content?.prescriptionDate,
     medications: content?.medications,
@@ -99,7 +98,6 @@ export const Manage = () => {
     appointmentTime: content?.appointmentTime,
     age: content?.age,
     gender: content?.gender,
-    // Add other necessary fields for PrescriptionCard
     hospitalName: content?.hospitalName,
     prescriptionDate: content?.prescriptionDate,
     medications: content?.medications,
