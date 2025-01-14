@@ -230,14 +230,12 @@ export const getOldMessages = (doctorId, patientId) =>
 export const getbillForReception = () =>
   request("get", "/api/receptionist/getBillsMonitor");
 
-
-export const getPatientContact = () => request("get", "/api/patient/chatcontect");
+export const getPatientContact = () =>
+  request("get", "/api/patient/chatcontect");
 export const getDoctorContact = () => request("get", "/api/doctor/chatcontect");
-
 
 export const fetchAppointmentsByPatient = () =>
   request("get", "/api/patient/searchAppointment");
-
 
 export const fetchDoctorSession = (doctorId, date) => {
   const url = date
@@ -247,8 +245,8 @@ export const fetchDoctorSession = (doctorId, date) => {
 };
 
 export const appointmentBooking = (data) => {
-  request("post", "/api/patient/createAppointment", data)
-}
+  request("post", "/api/patient/createAppointment", data);
+};
 
 export const reschedule = (id,data)=>request("post",`/api/doctor/editAppointment/${id}`,data);
 export const rescheduleForPatient = (id,data)=>request("post",`/api/patient/editAppointment/${id}`,data);
@@ -258,5 +256,5 @@ export const getAppointmentsTeleconsultationWithFromAndToForPatient = (startDate
 export const getDashboardAndReportForReceptionist = () =>
   request("get", "/api/receptionist/getDashboardData");
 
-export const cancelAppointmentForPatient = (appointmentId, data) => 
+export const cancelAppointmentForPatient = (appointmentId, data) =>
   request("put", `api/patient/editAppointment/${appointmentId}`, data);

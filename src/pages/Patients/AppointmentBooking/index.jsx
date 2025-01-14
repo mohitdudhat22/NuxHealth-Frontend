@@ -15,7 +15,12 @@ import maleIcon from "../../../assets/images/cover/male_icon.svg";
 import doctorLogo from "../../../assets/images/cover/Avatar_6.png";
 import { useNavigate } from "react-router-dom";
 import { AppointmentSchedularPage } from "..";
-import { useCancelAppoinmentBookings, usePreviousAppoinmentBookings, useTodaysAppoinmentBookings, useUpcomingAppoinmentBookings } from "@/hook/Patients";
+import {
+  useCancelAppoinmentBookings,
+  usePreviousAppoinmentBookings,
+  useTodaysAppoinmentBookings,
+  useUpcomingAppoinmentBookings,
+} from "@/hook/Patients";
 
 export const AppointmentBooking = () => {
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
@@ -30,10 +35,10 @@ export const AppointmentBooking = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [activeTab, setActiveTab] = useState("Scheduled");
 
-  const { data: todayAppointments } = useTodaysAppoinmentBookings()
-  const { data: previousAppointments } = usePreviousAppoinmentBookings()
-  const { data: upcomingAppointments } = useUpcomingAppoinmentBookings()
-  const { data: cancelAppointments } = useCancelAppoinmentBookings()
+  const { data: todayAppointments } = useTodaysAppoinmentBookings();
+  const { data: previousAppointments } = usePreviousAppoinmentBookings();
+  const { data: upcomingAppointments } = useUpcomingAppoinmentBookings();
+  const { data: cancelAppointments } = useCancelAppoinmentBookings();
 
   const navigate = useNavigate();
 
@@ -144,7 +149,7 @@ export const AppointmentBooking = () => {
                     aria-label="View Details"
                     onClick={() => handleViewDetails(data.id)}
                   >
-                    {Icons.ViewBillIcon}
+                    {Icons.View}
                   </button>
                 }
                 title={
@@ -164,7 +169,7 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                    //   onClick={() => handleJoinCall(data)}
+                      //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -223,11 +228,11 @@ export const AppointmentBooking = () => {
                     aria-label="View Details"
                     onClick={() => handleViewDetails(data.id)}
                   >
-                    {Icons.ViewBillIcon}
+                    {Icons.View}
                   </button>
                 }
                 title={
-                  <span className="text-[#030229] text-[18px] font-medium">
+                  <span className="text-[#030229]  text-[18px] font-medium">
                     Dr. {data.doctorName}
                   </span>
                 }
@@ -283,7 +288,7 @@ export const AppointmentBooking = () => {
                     aria-label="View Details"
                     onClick={() => handleViewDetails(data.id)}
                   >
-                    {Icons.ViewBillIcon}
+                    {Icons.View}
                   </button>
                 }
                 title={
@@ -343,7 +348,7 @@ export const AppointmentBooking = () => {
                     aria-label="View Details"
                     onClick={() => handleViewDetails(data.id)}
                   >
-                    {Icons.ViewBillIcon}
+                    {Icons.View}
                   </button>
                 }
                 title={
@@ -363,7 +368,7 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                    //   onClick={() => handleJoinCall(data)}
+                      //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -397,7 +402,11 @@ export const AppointmentBooking = () => {
               <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
             }
           >
-            <NHTabs items={tabItems} defaultActiveKey="Scheduled" onChange={handleTabChange} />
+            <NHTabs
+              items={tabItems}
+              defaultActiveKey="Scheduled"
+              onChange={handleTabChange}
+            />
           </NHCard>
 
           <CustomDateModal
