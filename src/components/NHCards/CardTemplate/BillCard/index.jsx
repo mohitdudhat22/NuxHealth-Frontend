@@ -32,7 +32,11 @@ export const BillCard = ({
 
   return (
     <NHCard
-      title={patientName || doctorName || title}
+      title={
+        <span className="text-[#030229] text-[18px] font-medium">
+          {patientName || doctorName || title}
+        </span>
+      }
       rootClass={className}
       headerBg={headerBg}
       headerContent={
@@ -40,7 +44,7 @@ export const BillCard = ({
           className="p-2 bg-white rounded-xl hover:bg-gray-300"
           aria-label="View Details"
         >
-          {Icons.ViewBillIcon}
+          {Icons.View}
         </button>
       }
     >

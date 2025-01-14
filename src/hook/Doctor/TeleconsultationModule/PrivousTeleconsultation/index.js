@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getPrivousTeleconsultation } from '@/axiosApi/ApiHelper';
+import { getAppointmentsTeleconsultationWithFromAndTo, getPrivousTeleconsultation } from '@/axiosApi/ApiHelper';
 import { useNavigate } from 'react-router-dom';
 
 export const usePrivousTeleconsultation = () => {
@@ -8,6 +8,8 @@ export const usePrivousTeleconsultation = () => {
     const [isDrawerVisible, setDrawerVisible] = useState(false);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
+
 
     const fetchAppointments = async () => {
         try {
@@ -21,7 +23,20 @@ export const usePrivousTeleconsultation = () => {
             setLoading(false);
         }
     };
+    const filterAppointments = async(fromDate, toDate) => {
+        if (fromDate && toDate) {
+          const startDate = new Date(fromDate).toISOString().split('T')[0];
+          const endDate = new Date(toDate).toISOString().split('T')[0];
 
+          const response = await getAppointmentsTeleconsultationWithFromAndTo(startDate, endDate);
+          console.log(response);
+          setAppointments(response.data.appointments);
+        } else {
+            fetchAppointments();
+        }
+        setIsDateModalOpen(false);
+      };
+      
     useEffect(() => {
         fetchAppointments();
     }, []);
@@ -35,6 +50,7 @@ export const usePrivousTeleconsultation = () => {
     const onSearch = (query) => {
         setSearchQuery(query);
     };
+
 
     const data = appointments?.map((appointment) => ({
         key: appointment?._id,
@@ -63,5 +79,8 @@ export const usePrivousTeleconsultation = () => {
         fetchAppointments,
         navigate,
         onSearch,
+        filterAppointments,
+        isDateModalOpen,
+        setIsDateModalOpen
     };
 };

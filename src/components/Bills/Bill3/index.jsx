@@ -10,7 +10,8 @@ export function Bill3() {
   }
 
   return (
-    <NHCard>
+    <div className="w-[50%] m-auto">
+      <NHCard>
       <div className="flex justify-between pb-5 head">
         <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />
         <div className="text-3xl font-light text-blue-400">Invoice</div>
@@ -165,5 +166,6 @@ export function Bill3() {
         <p>Email: Hello@Gmail.com</p>
       </div>
     </NHCard>
+    </div>
   );
 }

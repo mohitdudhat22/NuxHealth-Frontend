@@ -36,10 +36,17 @@ export const SearchHeader = (query, role) => {
   }
   return request("get", endpoint);
 };
+export const SearchPatient = (query) => {
+  let endpoint = `api/receptionist/patientdetails?search=${query}`;
+  return request("get", endpoint);
+};
 
 /* Admin Register Form */
 export const registerAdmin = (data) =>
   request("post", "/api/registerAdmin", data);
+export const registerPatient = (data) =>
+  request("post", "api/registerPatient", data);
+
 
 /* Hospital Add And Get */
 export const addHospitals = (data) =>
@@ -87,8 +94,9 @@ export const getCancleTeleconsultation = () =>
 /* Patient */
 export const patientDashboard = () =>
   request("get", "/api/patient/getDashboardData");
-export const patientPrescriptionData = () =>
-  request("get", "/api/patient/getPrescription");
+export const patientPrescriptionData = (role = "patient") =>
+  request("get", `/api/${role}/getPrescription`);
+export const getSinglePatientDashboard = (id, role) => request("get", `/api/${role}/getpatientdeshboard?patientId=${id}`);
 
 /* Reception */
 export const CreateReception = (data) =>
@@ -111,15 +119,15 @@ export const ReceptionistSingleBill = (id) =>
   request("get", `/receptionist/singlebill/${id}`);
 
 //priyanka //admin
-export const getDashboardAndReport = () =>
-  request("get", "/api/admin/getDashboardDataDemo");
+export const getDashboardAndReport = (role) =>
+  request("get", `/api/${role}/getDashboardData`);
 export const getbill = () => request("get", "/api/admin/getBillsMonitor");
 export const getInsuranceClaimBills = () =>
   request("get", "/api/admin/getBillsMonitor?type=Insurance");
 export const getReportandAnalytics = () =>
   request("get", "/api/admin/reportandanalysis");
-export const getbillbyNo = (id) =>
-  request("get", `/api/admin/getBill?id=${id}`);
+export const getbillbyNo = (id, role = "admin") =>
+  request("get", `/api/${role}/getBill?id=${id}`);
 export const todaysAppointmentForAdmin = () =>
   request("get", "/api/admin/getAppointment?filter=today");
 export const upcomingAppointmentForAdmin = () =>
@@ -173,14 +181,14 @@ export const cancelAppointments = () =>
 export const getAllUnpaidBills = (id) =>
   request("get", `/api/admin/getbillbystatus?status=Unpaid`);
 // export const scheduledAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=today");
-export const scheduledAppointmentsForPatient = () =>
-  request("get", "/api/patient/getAppointment");
-export const penddingAppointmentsForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=upcoming");
-export const previousAppointmentsForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=previous");
-export const cancelAppointmentsForPatient = () =>
-  request("get", "/api/patient/getAppointment?filter=cancel");
+export const scheduledAppointmentsForPatient = (role = "patient") =>
+  request("get", `/api/${role}/getAppointment?filter=today`);
+export const penddingAppointmentsForPatient = (role = "patient") =>
+  request("get", `/api/${role}/getAppointment?filter=upcoming`);
+export const previousAppointmentsForPatient = (role = "patient") =>
+  request("get", `/api/${role}/getAppointment?filter=previous`);
+export const cancelAppointmentsForPatient = (role = "patient") =>
+  request("get", `/api/${role}/getAppointment?filter=cancel`);
 export const todayManagePriscription = () =>
   request("get", "/api/doctor/getPrescription?dateFilter=today");
 export const olderManagePriscription = () =>
@@ -222,8 +230,8 @@ export const getOldMessages = (doctorId, patientId) =>
 export const getbillForReception = () =>
   request("get", "/api/receptionist/getBillsMonitor");
 
-
-export const getPatientContact = () => request("get", "/api/patient/chatcontect");
+export const getPatientContact = () =>
+  request("get", "/api/patient/chatcontect");
 export const getDoctorContact = () => request("get", "/api/doctor/chatcontect");
 
 
@@ -246,3 +254,13 @@ export const appointmentBooking = (data, role) => {
 export const reschedule = (id, data) => request("post", `/api/doctor/editAppointment/${id}`, data);
 
 export const getPatientListForReceptionist = () => request("get", 'api/receptionist/getPatient');
+
+export const rescheduleForPatient = (id, data) => request("post", `/api/patient/editAppointment/${id}`, data);
+
+export const getAppointmentsTeleconsultationWithFromAndTo = (startDate, endDate) => request("get", `/api/doctor/getAppointmentsTeleconcsultation?startDate=${startDate}&endDate=${endDate}`);
+export const getAppointmentsTeleconsultationWithFromAndToForPatient = (startDate, endDate) => request("get", `/api/patient/getAppointmentsTeleconcsultation?startDate=${startDate}&endDate=${endDate}`);
+export const getDashboardAndReportForReceptionist = () =>
+  request("get", "/api/receptionist/getDashboardData");
+
+export const cancelAppointmentForPatient = (appointmentId, data) =>
+  request("put", `api/patient/editAppointment/${appointmentId}`, data);
