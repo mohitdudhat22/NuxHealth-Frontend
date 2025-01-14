@@ -208,7 +208,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="">
+              <NHButton variant="default" className="" onClick={() => handleAppointment()}>
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -265,7 +265,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="">
+              <NHButton variant="default" className=""  onClick={() => handleAppointment()}>
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -322,7 +322,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="">
+              <NHButton variant="default" className=""  onClick={() => handleAppointment()}>
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>

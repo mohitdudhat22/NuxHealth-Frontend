@@ -28,7 +28,7 @@ export const TeleconsultationAccess = () => {
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [toDate, setToDate] = useState(null);
   const [appointmentId, setAppointmentId] = useState(null);
-
+   const [bookAppoinment, setBookAppointment] = useState(false);
   // API Calls
   const { data: previousData } = usePreviousTeleconsultationModule();
   const {
@@ -97,7 +97,9 @@ export const TeleconsultationAccess = () => {
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
-
+  const handleAppointment = () => {
+    setBookAppointment(true);
+  };
   const tabItems = [
     {
       key: "Scheduled",
@@ -122,7 +124,11 @@ export const TeleconsultationAccess = () => {
                 {toDate ? toDate : "To"}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="">
+              <NHButton
+                variant="default"
+                className=""
+                onClick={() => handleAppointment()}
+              >
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -240,7 +246,11 @@ export const TeleconsultationAccess = () => {
           headerContent={
             <>
               <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-              <NHButton variant="default" className="">
+              <NHButton
+                variant="default"
+                className=""
+                onClick={() => handleAppointment()}
+              >
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -311,7 +321,11 @@ export const TeleconsultationAccess = () => {
           headerContent={
             <>
               <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-              <NHButton variant="default" className="">
+              <NHButton
+                variant="default"
+                className=""
+                onClick={() => handleAppointment()}
+              >
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -390,7 +404,11 @@ export const TeleconsultationAccess = () => {
                 {toDate ? toDate : "To"}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="">
+              <NHButton
+                variant="default"
+                className=""
+                onClick={() => handleAppointment()}
+              >
                 {Icons.CalenderIcon}Book Appointment
               </NHButton>
             </>
@@ -477,13 +495,19 @@ export const TeleconsultationAccess = () => {
 
   return (
     <>
-      <NHCard
-        headerContent={
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-        }
-      >
-        <NHTabs items={tabItems} defaultActiveKey="upcoming" />
-      </NHCard>
+      <>
+        {bookAppoinment ? (
+          <AppointmentSchedularPage />
+        ) : (
+          <NHCard
+            headerContent={
+              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            }
+          >
+            <NHTabs items={tabItems} defaultActiveKey="upcoming" />
+          </NHCard>
+        )}
+      </>
     </>
   );
 };
