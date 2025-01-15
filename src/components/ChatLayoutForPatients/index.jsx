@@ -12,13 +12,12 @@ import { useDecodeToken } from "@/hook";
 
 export const ChatLayoutForPatient = () => {
   const { token } = useDecodeToken();
-  const userId = "677047f308067157dc712f80"; // Patient's user ID
+  const userId = "677047f308067157dc712f80";
   const [users, setUsers] = useState([]);
   const [chats, setChats] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
   const [isOnline, setIsOnline] = useState(false);
-  console.log(isOnline,"<<<<<<<<<<<<<<<<< other person")
   const fetchContact = async () => {
     try {
       const response = await getPatientContact();
