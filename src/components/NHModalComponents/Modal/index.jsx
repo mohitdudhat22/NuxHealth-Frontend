@@ -71,7 +71,10 @@ export const NHModal = ({
       }
       closeIcon={
         IsCloseIcon && (
-          <div className={clsx(styles.closeBtn, "clr-black flex items-center")}>
+          <div
+            onClick={handleClose}
+            className={clsx(styles.closeBtn, "clr-black flex items-center")}
+          >
             {Icons.CloseCircle}
           </div>
         )

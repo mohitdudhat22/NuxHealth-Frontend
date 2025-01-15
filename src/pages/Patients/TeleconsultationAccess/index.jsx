@@ -29,7 +29,7 @@ export const TeleconsultationAccess = () => {
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [toDate, setToDate] = useState(null);
   const [appointmentId, setAppointmentId] = useState(null);
-   const [bookAppoinment, setBookAppointment] = useState(false);
+  const [bookAppoinment, setBookAppointment] = useState(false);
   // API Calls
   const { data: previousData } = usePreviousTeleconsultationModule();
   const {
@@ -98,6 +98,11 @@ export const TeleconsultationAccess = () => {
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleAppointment = () => {
     setBookAppointment(true);
   };
@@ -226,10 +231,7 @@ export const TeleconsultationAccess = () => {
             setToDate={setToDate} // Update toDate
           />
 
-          <AppointmentModal
-            open={isModalOpen}
-            handleClose={() => setIsModalOpen(false)}
-          />
+          <AppointmentModal open={isModalOpen} handleClose={handleCloseModal} />
         </NHCard>
       ),
     },
