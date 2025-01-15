@@ -18,10 +18,7 @@ export const Login = () => {
   return (
     <>
       <h2>Login </h2>
-      <form
-        className="gap-5 mt-5 flex flex-col"
-        onSubmit={handleSubmit}
-      >
+      <form className="gap-5 mt-5 flex flex-col" onSubmit={handleSubmit}>
         <div className="gap-2 flex flex-col">
           <NHInput
             label={"Email or Phone"}
@@ -47,16 +44,29 @@ export const Login = () => {
           </div>
         </div>
         <NHButton type="submit" variant={"primary"} block loading={isLoading}>
-          Login
+          <Link to="/reception/appointment" className="text-[#5678E9]">
+            Login
+          </Link>
         </NHButton>
-        <h6 className="text-center fw-normal">
-          Don't have an account? {" "}
-          <Link to={"/register"}>Registration</Link>
+
+        <h6 className="text-center  fw-normal">
+          Don't have an account?{" "}
+          <Link
+            to={"/reception/patient-registration"}
+            className="text-[#5678E9]"
+          >
+            Registration
+          </Link>
         </h6>
 
         <h6 className="text-center fw-normal">
-          Don't have an account Admin? {" "}
-          <Link to={"/admin/register"}>Registration</Link>
+          Don't have an account Admin?{" "}
+          <Link
+            to={"/reception/patient-registration"}
+            className="text-[#5678E9]"
+          >
+            Registration
+          </Link>
         </h6>
       </form>
     </>
