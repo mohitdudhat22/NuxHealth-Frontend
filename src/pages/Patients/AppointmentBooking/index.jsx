@@ -65,7 +65,6 @@ export const AppointmentBooking = () => {
     setTempToDate(null);
   };
 
-  // Function to format dates into a readable string (e.g., "2 March,2022 - 13 March, 2022")
   const formatDateRange = (fromDate, toDate) => {
     if (!fromDate || !toDate) return "Select Date Range";
     const options = { day: "numeric", month: "long", year: "numeric" };
@@ -74,24 +73,10 @@ export const AppointmentBooking = () => {
     return `${fromDateStr} - ${toDateStr}`;
   };
 
-  // Function to handle "View Details" button click
-  const handleViewDetails = (id) => {
-    // Determine which array to search based on the active tab
-    let appointment;
-    if (activeTab === "Scheduled") {
-      appointment = todayAppointments.find((item) => item.id === id);
-    } else if (activeTab === "Previous") {
-      appointment = previousAppointments.find((item) => item.id === id);
-    } else if (activeTab === "Cancel") {
-      appointment = cancelAppointments.find((item) => item.id === id);
-    } else if (activeTab === "Pending") {
-      appointment = upcomingAppointments.find((item) => item.id === id);
-    }
-
-    if (appointment) {
-      setSelectedAppointment(appointment);
-      setIsOffCanvasVisible(true); // Show OffCanvas
-    }
+  const handleViewDetails = (data) => {
+    console.log(data)
+      setSelectedAppointment(data);
+      setIsOffCanvasVisible(true);
   };
 
   const handleTabChange = (key) => {
@@ -146,7 +131,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -222,7 +207,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -279,7 +264,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -336,7 +321,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -424,17 +409,17 @@ export const AppointmentBooking = () => {
                 >
                   <div className="flex items-center">
                     <img
-                      src={doctorLogo}
+                      src={selectedAppointment.doctorImage || doctorLogo}
                       alt="Doctor"
-                      className="rounded-full"
+                      className="rounded-full w-[65px]"
                     />
                     <div className="ml-4">
                       <h3 className="text-[18px] font-semibold text-white">
-                        {selectedAppointment.title}
+                        {selectedAppointment.doctorFullName}
                       </h3>
                       <div className="text-white bg-[#718EBF] rounded-full px-5 py-3 inline-flex items-center">
                         {/* Conditionally render gender icon */}
-                        {selectedAppointment.gender === "male" ? (
+                        {selectedAppointment.doctorGender === "male" ? (
                           <img
                             src={maleIcon} // Replace with your male icon import
                             alt="Male"
@@ -448,7 +433,7 @@ export const AppointmentBooking = () => {
                           />
                         )}
                         <span className="ml-4 font-bold">
-                          {selectedAppointment.gender}
+                          {selectedAppointment.doctorGender}
                         </span>
                       </div>
                     </div>
@@ -476,18 +461,18 @@ export const AppointmentBooking = () => {
                   <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
                     <div className="flex flex-col">
                       <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
-                        Break Time
+                       Evening Session
                       </h4>
                       <p className="text-[#141414] font-medium text-[16px] mt-1">
-                        {selectedAppointment.breakTime}
+                        {selectedAppointment.doctorEveningSession}
                       </p>
                     </div>
                     <div className="flex flex-col">
                       <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
-                        Working Time
+                        Morning Session
                       </h4>
                       <p className="text-[#141414] font-medium text-[16px] mt-1">
-                        {selectedAppointment.workingTime}
+                        {selectedAppointment.doctorMorningSession}
                       </p>
                     </div>
                   </div>
@@ -497,15 +482,15 @@ export const AppointmentBooking = () => {
                         Years Of Experience
                       </h4>
                       <p className="text-[#141414] font-medium text-[16px] mt-1">
-                        {selectedAppointment.yearsOfExperience}
+                        {selectedAppointment.doctorExperience}
                       </p>
                     </div>
                     <div className="flex flex-col">
                       <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
-                        Emergency Contact Number{" "}
+                        Emergency Number{" "}
                       </h4>
                       <p className="text-[#141414] font-medium text-[16px] mt-1">
-                        {selectedAppointment.emergencyContactNumber}
+                        {selectedAppointment.doctorEmergencyContactNo}
                       </p>
                     </div>
                   </div>
@@ -515,7 +500,7 @@ export const AppointmentBooking = () => {
                         Specialty Type
                       </h4>
                       <p className="text-[#141414] font-medium text-[16px] mt-1">
-                        {selectedAppointment.specialtyType}
+                        {selectedAppointment.doctorSpeciality}
                       </p>
                     </div>
                   </div>
@@ -525,7 +510,7 @@ export const AppointmentBooking = () => {
                         Description{" "}
                       </h4>
                       <p className="text-[#141414] font-medium text-[16px] mt-1">
-                        {selectedAppointment.description}
+                        {selectedAppointment.doctorDescription}
                       </p>
                     </div>
                   </div>

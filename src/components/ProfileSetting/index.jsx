@@ -1,37 +1,61 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./EditProfile.module.css";
 import { NHButton, NHCard, NHInput, NHPasswordInput, NHSelect } from "..";
-import { useDecodeToken } from "@/hook";
 import user from "@/assets/images/user/user.png";
-import { useChangePassword } from "@/hook/Doctor/DoctorEditProfile/ChangePassword";
+import { useChangePassword } from "@/hook/Admin/AdminEditProfile/ChangePassword";
+import { useDecodeToken } from "@/hook";
+import axios from "axios";
+import { editAdminProfile } from "@/axiosApi/ApiHelper";
+import toast from "react-hot-toast";
 
 export const ProfileSetting = () => {
   const { token } = useDecodeToken();
   const [activeTab, setActiveTab] = useState("profile");
-
   const [userdetail, setUserDetail] = useState({
     firstName: "",
     lastName: "",
+    fullName: "",
     phoneNumber: "",
     email: "",
-    societyName: "",
     country: "",
     state: "",
     city: "",
+    gender: "",
     profileImage: "",
   });
 
   const fileUpload = useRef(null);
 
   useEffect(() => {
-    // Fetch user data from API
-    fetch("/api/user")
-      .then((res) => res.json())
-      .then((data) => {
-        setUserDetail(data);
-      })
-      .catch((error) => console.error("Error fetching user data:", error));
-  }, []);
+    if (token?.userData) {
+      const {
+        fullName = "",
+        email = "",
+        phone = "",
+        profilePicture = "",
+        gender = "",
+        role = "",
+        address = {},
+      } = token.userData;
+      const { country = "", state = "", city = "" } = address;
+      const [firstName = "", lastName = ""] = fullName.split(" ");
+
+      setUserDetail({
+        fullName: fullName || "",
+        firstName: firstName || "",
+        lastName: lastName || "",
+        phoneNumber: phone || "",
+        email: email || "",
+        country: country || "",
+        state: state || "",
+        city: city || "",
+        profileImage: profilePicture || "",
+        gender: gender || "",
+        role: role || "",
+      });
+    }
+  }, [token]);
+  console.log("User Details :: ", userdetail);
 
   const handleEditImage = () => {
     fileUpload.current.click();
@@ -41,11 +65,11 @@ export const ProfileSetting = () => {
     const file = e.target.files[0];
     if (file) {
       if (!["image/jpeg", "image/png"].includes(file.type)) {
-        alert("Only JPG and PNG files are allowed");
+        toast.error("Only JPG and PNG files are allowed.");
         return;
       }
       if (file.size > 2 * 1024 * 1024) {
-        alert("File size should not exceed 2MB");
+        toast.error("File size should not exceed 2MB.");
         return;
       }
 
@@ -67,13 +91,69 @@ export const ProfileSetting = () => {
       [name]: value,
     }));
   };
-
-  const handleSubmitData = (e) => {
-    e.preventDefault();
-    // Add validation or API call here
-    console.log("Submitting Data:", userdetail);
+  const handleSubmitData = async (e) => {
+    if (e) e.preventDefault(); 
+  
+    const payload = {
+      firstName: userdetail.firstName || "",
+      lastName: userdetail.lastName || "",
+      email: userdetail.email,
+      phone: userdetail.phoneNumber,
+      address: {
+        country: userdetail.country,
+        state: userdetail.state,
+        city: userdetail.city,
+      },
+      gender: userdetail.gender,
+      profilePicture: userdetail.profileImage,
+    };
+  
+    console.log("Payload being sent to API:", payload);
+  
+    try {
+      const response = await editAdminProfile(payload);
+      console.log("API Response:", response.data);
+  
+      if (response.status === 1) {
+        const {
+          firstName = "",
+          lastName = "",
+          email,
+          phone,
+          address = {},
+          gender,
+          profilePicture,
+        } = response.data;
+  
+        setUserDetail((prev) => ({
+          ...prev,
+          fullName: `${firstName} ${lastName}`.trim(), 
+          phoneNumber: phone || "",
+          email: email || "",
+          country: address.country || "",
+          state: address.state || "",
+          city: address.city || "",
+          profileImage: profilePicture || "",
+          gender: gender || "",
+        }));
+  
+        toast.success("Profile updated successfully!");
+        return true; // Indicate success
+      } else {
+        toast.error(`Failed to update profile: ${response.message}`);
+        return false; // Indicate failure
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error.response?.data || error);
+      toast.error(
+        `An error occurred while updating the profile: ${
+          error.response?.data?.message || error.message
+        }`
+      );
+      return false; // Indicate failure
+    }
   };
-
+  
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
@@ -83,13 +163,12 @@ export const ProfileSetting = () => {
       <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative h-[35%] min-h-[40vh]">
         <div
           className={
-            (styles.profileCard, "w-full h-full absolute top-1/4 left-[17.5%]")
+            (styles.profileCard, "w-full h-full absolute top-1/4 left-[10.5%]")
           }
         >
-          <div className={(styles.profile, "w-[990px] flex flex-col")}>
+          <div className={(styles.profile, "w-[1200px] flex flex-col")}>
             <form action="" onSubmit={handleSubmitData}>
-              <h3 className="mb-10 text-5xl text-white">Profile Setting</h3>
-
+              <h3 className="mb-10 text-4xl text-white">Profile Setting</h3>
               <NHCard className="p-0 bg-white">
                 <div className="flex">
                   <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
@@ -97,10 +176,10 @@ export const ProfileSetting = () => {
                       <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB]">
                         <img
                           src={
-                            token?.userdetail?.profilePicture ||
+                            userdetail?.profileImage ||
                             "https://i.pravatar.cc/300"
                           }
-                          alt={"Profile picture"}
+                          alt="Profile"
                           className="w-[150px] rounded-full"
                         />
                       </div>
@@ -116,7 +195,7 @@ export const ProfileSetting = () => {
                           <li>
                             <button
                               onClick={() => handleTabChange("profile")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                              className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${
                                 activeTab === "profile"
                                   ? "bg-white text-blue-600 shadow-sm font-medium"
                                   : "text-gray-600 hover:bg-gray-50"
@@ -167,7 +246,13 @@ export const ProfileSetting = () => {
                   </div>
 
                   <div className="w-3/4 p-6">
-                    {activeTab === "profile" && <Profile />}
+                    {activeTab === "profile" && (
+                      <Profile
+                        userDetail={userdetail}
+                        setUserDetail={setUserDetail}
+                        handleSubmit={handleSubmitData}
+                      />
+                    )}
                     {activeTab === "changePassword" && <ChangePassword />}
                     {activeTab === "terms" && <Terms />}
                     {activeTab === "privacy" && <Privacy />}
@@ -181,31 +266,14 @@ export const ProfileSetting = () => {
     </>
   );
 };
-
-const Profile = () => {
-  const { token } = useDecodeToken();
+const Profile = ({ userDetail, setUserDetail, handleSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [profileData, setProfileData] = useState({
-    fullName: token?.userData?.fullName,
-    email: "lincoln@example.com",
-    phoneNumber: "",
-    hospitalName: "New York Medical Center",
-    country: "",
-    state: "",
-    city: "",
-  });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProfileData((prev) => ({
+    setUserDetail((prev) => ({
       ...prev,
       [name]: value,
     }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsEditing(false);
   };
 
   return (
@@ -214,14 +282,27 @@ const Profile = () => {
         <h2 className="text-xl font-semibold">Edit Profile</h2>
         <div className="space-x-4">
           {isEditing && (
-            <NHButton variant="default" onClick={() => setIsEditing(false)}>
+            <NHButton
+              variant="default"
+              onClick={() => {
+                setIsEditing(false);
+              }}
+            >
               Cancel
             </NHButton>
           )}
           <NHButton
             variant={isEditing ? "primary" : "default"}
-            onClick={() => (isEditing ? handleSubmit() : setIsEditing(true))}
-          >
+            onClick={
+              isEditing
+                ? async () => {
+                    const updateSuccessful = await handleSubmit();
+                    if (updateSuccessful) {
+                      setIsEditing(false); 
+                    }
+                  }
+                : () => setIsEditing(true)
+            }>
             {isEditing ? "Save" : "Edit Profile"}
           </NHButton>
         </div>
@@ -232,7 +313,7 @@ const Profile = () => {
           <NHInput
             label="First Name"
             name="firstName"
-            value={profileData.fullName}
+            value={userDetail.firstName}
             onChange={handleChange}
             disabled={!isEditing}
             required
@@ -240,16 +321,14 @@ const Profile = () => {
           <NHInput
             label="Last Name"
             name="lastName"
-            value={profileData.fullName}
+            value={userDetail.lastName}
             onChange={handleChange}
             disabled={!isEditing}
-            required
           />
           <NHInput
             label="Email Address"
             name="email"
-            type="email"
-            value={profileData.email}
+            value={userDetail.email}
             onChange={handleChange}
             disabled={!isEditing}
             required
@@ -260,45 +339,45 @@ const Profile = () => {
           <NHInput
             label="Phone Number"
             name="phoneNumber"
-            value={profileData.phoneNumber}
+            value={userDetail.phoneNumber}
             onChange={handleChange}
             disabled={!isEditing}
-          />
-          <NHInput
-            label="Hospital Name"
-            name="hospitalName"
-            value={profileData.hospitalName}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHSelect
-            label="Gender"
-            name="gender"
-            value={profileData.gender}
-            onChange={handleChange}
-            disabled={!isEditing}
-            required
           />
           <NHInput
             label="Country"
             name="country"
-            value={profileData.city}
+            value={userDetail.country}
             onChange={handleChange}
             disabled={!isEditing}
           />
           <NHInput
             label="State"
             name="state"
-            value={profileData.state}
+            value={userDetail.state}
             onChange={handleChange}
             disabled={!isEditing}
           />
           <NHInput
             label="City"
             name="city"
-            value={profileData.city}
+            value={userDetail.city}
             onChange={handleChange}
             disabled={!isEditing}
+          />
+          <NHSelect
+            label="Gender"
+            name="gender"
+            value={userDetail.gender}
+            onChange={(value) =>
+              setUserDetail((prev) => ({ ...prev, gender: value }))
+            }
+            disabled={!isEditing}
+            options={[
+              { label: "Male", value: "male" },
+              { label: "Female", value: "female" },
+              // { label: "Other", value: "other" },
+            ]}
+            placeholder="Select Gender"
           />
         </div>
       </form>
@@ -342,34 +421,28 @@ const ChangePassword = () => {
     handleSubmit,
     isFormValid,
   } = useChangePassword();
+  
 
   return (
     <NHCard
       title="Change Password"
-      // headerContent={
-      //   <>
-      //     <NHButton
-      //       variant="primary"
-      //       onClick={handleSubmit}
-      //       disabled={loading || !isFormValid}
-      //     >
-      //       {loading ? "Saving..." : "Save"}
-      //     </NHButton>
-      //   </>
-      // }
+      headerContent={
+        <>
+          <NHButton
+            variant="primary"
+            onClick={handleSubmit}
+            disabled={loading || !isFormValid}
+          >
+            {loading ? "Saving..." : "Save"}
+          </NHButton>
+        </>
+      }
     >
-      <p className="text-[#A7A7A7] text-[16px] my-3">
-        To change your password, please fill in the fields below. Your password
-        must contain at least 8 characters, it must also include at least one
-        upper case letter, one lower case letter, one number and one special
-        character.
-      </p>
       <form onSubmit={handleSubmit} className="space-y-6">
         <NHPasswordInput
           label="Current Password"
           name="currentPassword"
           type="password"
-          placeholder={"Enter Current Password"}
           value={currentPassword}
           onChange={handleInputChange}
           required
@@ -378,7 +451,6 @@ const ChangePassword = () => {
           label="New Password"
           name="newPassword"
           type="password"
-          placeholder={"Enter New Password"}
           value={newPassword}
           onChange={handleInputChange}
           required
@@ -387,20 +459,10 @@ const ChangePassword = () => {
           label="Confirm New Password"
           name="confirmPassword"
           type="password"
-          placeholder={"Enter Conform Password"}
           value={confirmPassword}
           onChange={handleInputChange}
           required
         />
-
-        <NHButton
-          variant="primary"
-          onClick={handleSubmit}
-          disabled={loading || !isFormValid}
-          className={"w-full !bg-[#0EABEB] !text-white"}
-        >
-          {loading ? "Saving..." : "Change Password"}
-        </NHButton>
       </form>
     </NHCard>
   );
