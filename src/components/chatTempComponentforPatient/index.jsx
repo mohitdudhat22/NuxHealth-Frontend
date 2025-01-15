@@ -88,5 +88,3 @@ export const ChatTempComponentforPatient = () => {
     </div>
   );
 };
-
-export default ChatempComponentforPateint;

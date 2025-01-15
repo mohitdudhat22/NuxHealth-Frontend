@@ -52,8 +52,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import { BillView } from "@/pages/Admin/BillingAndPayement/MonitorBilling/BillView";
 import { PatientBills } from "@/pages/Patients/PatientsBills";
 import { AppointmentBooking } from "@/pages/Patients/AppointmentBooking";
-import ChattempComponentforDoctor from "@/components/ChatTempComponentforDoctor";
-import ChatempComponentforPateint from "@/components/ChatTempComponentforPatient";
+import ChatTempComponentforDoctor from "@/components/ChatTempComponentforDoctor";
+import ChatTempComponentforPatient from "@/components/ChatTempComponentforPatient";
 import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
 import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
 import { PatientMettingConference } from "@/pages/Patients";
@@ -80,11 +80,11 @@ const NuxHealthRoute = createBrowserRouter(
         /*temp*/
         {
           path: "tempDoctor",
-          element: <ChattempComponentforDoctor />,
+          element: <ChatTempComponentforDoctor />,
         },
         {
           path: "tempPatient",
-          element: <ChatempComponentforPateint />,
+          element: <ChatTempComponentforPatient />,
         },
         /* AuthCation */
         {

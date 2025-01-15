@@ -92,5 +92,3 @@ export const ChatTempComponentforDoctor = () => {
     </div>
   );
 };
-
-export default ChattempComponentforDoctor;
