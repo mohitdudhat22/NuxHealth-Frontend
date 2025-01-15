@@ -7,7 +7,7 @@ import 'tailwindcss/tailwind.css';
 const { TextArea } = Input;
 const { Title } = Typography;
 
-export const ChattempComponentforDoctor = () => {
+export const ChatTempComponentforDoctor = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [onlineUsers, setOnlineUsers] = useState({});
