@@ -76,6 +76,7 @@ export const AppointmentBooking = () => {
 
   // Function to handle "View Details" button click
   const handleViewDetails = (id) => {
+    console.log(id,"<<<<<<<<<<<<<<<<< this is id")
     // Determine which array to search based on the active tab
     let appointment;
     if (activeTab === "Scheduled") {
@@ -146,7 +147,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -222,7 +223,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -279,7 +280,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -336,7 +337,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={

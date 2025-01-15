@@ -52,6 +52,15 @@ export const useCancelAppoinmentBookings = () => {
     hospitalName: appointment?.hospitalId?.name,
     appointmentTime: appointment?.appointmentTime,
     status: appointment?.status,
+    doctorQualification : appointment?.doctorId?.metaData?.doctorData?.qualification,
+    doctorEveningSession : appointment?.doctorId?.metaData?.doctorData?.eveningSession,
+    doctorEveningSession : appointment?.doctorId?.metaData?.doctorData?.morningSession,
+    doctorExperience : appointment?.doctorId?.metaData?.doctorData?.experience,
+    doctorSpeciality : appointment?.doctorId?.metaData?.doctorData?.speciality,
+    doctorEmergencyContactNo : appointment?.doctorId?.metaData?.doctorData?.emergencyContactNo,
+    doctorGender: appointment?.doctorId?.gender,
+    doctorFullName : appointment?.doctorId?.fullName,
+    doctorDescription : appointment?.doctorId?.metaData?.doctorData?.description
   }));
 
   const openDrawer = () => setDrawerVisible(true);
