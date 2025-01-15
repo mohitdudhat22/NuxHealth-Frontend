@@ -52,8 +52,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { BillView } from "@/pages/Admin/BillingAndPayement/MonitorBilling/BillView";
 import { PatientBills } from "@/pages/Patients/PatientsBills";
 import { AppointmentBooking } from "@/pages/Patients/AppointmentBooking";
-import { ChatTempComponentforDoctor } from "@/components/ChatTempComponentforDoctor";
-import { ChatTempComponentforPatient } from "@/components/ChatTempComponentforPatient";
+
 import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
 import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
 import { PatientMettingConference } from "@/pages/Patients";
@@ -77,15 +76,6 @@ const NuxHealthRoute = createBrowserRouter(
           element: <NavLink to={"/login"}>Login</NavLink>,
         },
 
-        /*temp*/
-        {
-          path: "tempDoctor",
-          element: <ChatTempComponentforDoctor />,
-        },
-        {
-          path: "tempPatient",
-          element: <ChatTempComponentforPatient />,
-        },
         /* AuthCation */
         {
           element: (
