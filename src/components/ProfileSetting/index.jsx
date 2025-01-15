@@ -1,10 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./EditProfile.module.css";
 import { NHButton, NHCard, NHInput, NHPasswordInput, NHSelect } from "..";
-import user from "@/assets/images/user/user.png";
 import { useChangePassword } from "@/hook/Admin/AdminEditProfile/ChangePassword";
 import { useDecodeToken } from "@/hook";
-import axios from "axios";
 import { editAdminProfile } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 import { identifyRole } from "@/utils/identifyRole";
@@ -448,10 +446,6 @@ const ChangePassword = () => {
     handleSubmit,
     isFormValid,
   } = useChangePassword();
-
-
-
-
 
   return (
     <div className="space-y-6">

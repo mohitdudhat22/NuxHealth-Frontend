@@ -213,7 +213,8 @@ export const editAdminProfileChangePassword = (data) =>
 // Change in editadminprofile
 export const editAdminProfile = (data) =>
   request("post", "/api/admin/editAdmin", data);
-
+// export const editAdminProfile = (data,role) =>
+//   request("post", `/api/${role}/edit`, data);
 export const editDoctorrofileChangePassword = (data) =>
   request("post", "/api/doctor/changePassword", data);
 export const AppointmentWithoutBill = () =>
