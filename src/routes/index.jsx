@@ -59,7 +59,7 @@ import { PatientMettingConference } from "@/pages/Patients";
 import { PatientHealthRecord } from "@/pages/Reception/PatientHealthRecord";
 import { PatientHelthDetails } from "@/pages/Reception/PatientHealthRecord/PatientHealthDetails";
 import { InsuranceBillView } from "@/pages/Admin/BillingAndPayement/InsuranceClaims/InsuranceBillView";
-import {CreateBill} from "@/components/CreateBill";
+import { CreateBill } from "@/components/CreateBill";
 import { PaymentBillView } from "@/pages/Admin/BillingAndPayement/PaymentProcess/PaymentBillView";
 import { NHCard } from "@/components";
 import { PatientBillView } from "@/pages/Patients/PatientsBills/BillView";
@@ -75,7 +75,6 @@ const NuxHealthRoute = createBrowserRouter(
           index: true,
           element: <NavLink to={"/login"}>Login</NavLink>,
         },
-
         /* AuthCation */
         {
           element: (

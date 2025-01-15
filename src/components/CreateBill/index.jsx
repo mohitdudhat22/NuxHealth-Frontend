@@ -5,7 +5,6 @@ import {
   getPatientForAdminBill,
   createBillForAdmin,
 } from "@/axiosApi/ApiHelper";
-import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 // Custom Hook
