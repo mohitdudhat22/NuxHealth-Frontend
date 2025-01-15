@@ -58,6 +58,7 @@ export const useEditProfile = () => {
                 weight: metaData?.patientData?.weight,
                 fullAddress: address?.fullAddress,
                 bloodGroup: metaData?.patientData?.bloodGroup,
+                hospitalName: metaData?.doctorData?.hospitalName,
                 age,
             });
 
@@ -153,6 +154,7 @@ export const useEditProfile = () => {
                     weight: metaData?.patientData?.weight,
                     fullAddress: address?.fullAddress,
                     bloodGroup: metaData?.patientData?.bloodGroup,
+                    hospitalName: metaData?.doctorData?.hospitalName,
                     age : age,
                 });
                 console.log({
@@ -190,7 +192,10 @@ export const useEditProfile = () => {
                         gender: gender || "",
                         profilePicture: profilePicture || "",
                         metaData:{
-                            patientData:{...metaData?.patientData}
+                           patientData:{...metaData?.patientData},
+                           doctorData:{
+                            ...metaData?.doctorData
+                           }
                         },
                         address:address,
                         age:age
