@@ -22,8 +22,8 @@ export const PatientRegistration = () => {
   } = useRegister();
 
   const countries = Country.getAllCountries().map((country) => ({
-    value: country.name, // Use the name as the value
-    label: country.name, // Display the name as the label
+    value: country.name,
+    label: country.name,
   }));
   const states = formData.country
     ? State.getStatesOfCountry(
