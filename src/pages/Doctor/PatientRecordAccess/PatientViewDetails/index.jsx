@@ -1,6 +1,5 @@
 import { NHButton, NHCard, NHTable } from "@/components";
 import { usePatientViewDetails } from "@/hook/Doctor";
-import { Space, Tag } from "antd";
 
 export const PatientViewDetails = () => {
   const { data, error, columns, staticData } = usePatientViewDetails();
@@ -51,7 +50,7 @@ export const PatientViewDetails = () => {
             <p className="font-medium">{data.weight} kg</p>
           </div>
           <div>
-            <p className="text-sm font-bold text text-gray-500">Blood Group</p>
+            <p className="text-sm font-bold text-gray-500 text">Blood Group</p>
             <p className="font-medium">{data.bloodGroup}</p>
           </div>
           <div>

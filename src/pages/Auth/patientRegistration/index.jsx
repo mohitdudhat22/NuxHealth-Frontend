@@ -21,26 +21,26 @@ export const PatientRegistration = () => {
   }));
   const states = formData.country
     ? State.getStatesOfCountry(
-        Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
-      ).map((state) => ({
-        value: state.name, // Use the state name as the value
-        label: state.name, // Display the state name as the label
-      }))
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
+    ).map((state) => ({
+      value: state.name, // Use the state name as the value
+      label: state.name, // Display the state name as the label
+    }))
     : [];
-  
+
   const cities = formData.state
     ? City.getCitiesOfState(
-        Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode,
-        State.getStatesOfCountry(
-          Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode
-        ).find((s) => s.name === formData.state)?.isoCode
-      ).map((city) => ({
-        value: city.name,
-        label: city.name, 
-      }))
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode,
+      State.getStatesOfCountry(
+        Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode
+      ).find((s) => s.name === formData.state)?.isoCode
+    ).map((city) => ({
+      value: city.name,
+      label: city.name,
+    }))
     : [];
-  
-    console.log(Country.getAllCountries().find((c) => c.name === formData.country)?.phonecode);
+
+  console.log(Country.getAllCountries().find((c) => c.name === formData.country)?.phonecode);
   return (
     <>
       <h2>Registration</h2>
@@ -154,9 +154,9 @@ export const PatientRegistration = () => {
             options={countries}
             value={formData?.country}
             onChange={(value) => handleChange({
-              target: { name: "country", value},
+              target: { name: "country", value },
             })
-          }
+            }
             errorMessage={errors.country}
             required
           />
@@ -168,7 +168,7 @@ export const PatientRegistration = () => {
             placeholder="Select State"
             value={formData?.state}
             onChange={(value) => handleChange({
-              target: { name: "state", value},
+              target: { name: "state", value },
             })}
             errorMessage={errors.state}
             required
@@ -181,7 +181,7 @@ export const PatientRegistration = () => {
             placeholder="Select City"
             value={formData?.city}
             onChange={(value) => handleChange({
-              target: { name: "city", value},
+              target: { name: "city", value },
             })}
             errorMessage={errors.city}
             required
@@ -196,7 +196,7 @@ export const PatientRegistration = () => {
             parentClassName="col-span-2"
             required
           />
-           <NHInput
+          <NHInput
             label="ZipCode"
             name="zipCode"
             type="number"
@@ -207,10 +207,10 @@ export const PatientRegistration = () => {
             parentClassName="col-span-2"
             required
           />
-           <NHInput
+          <NHInput
             label="Height"
             name="height"
-            type = "number"
+            type="number"
             placeholder="Enter height"
             value={formData?.height}
             onChange={handleChange}
@@ -218,10 +218,10 @@ export const PatientRegistration = () => {
             parentClassName="col-span-2"
             required
           />
-              <NHInput
+          <NHInput
             label="Weight"
             name="weight"
-            type = "number"
+            type="number"
             placeholder="Enter weight"
             value={formData?.weight}
             onChange={handleChange}

@@ -180,7 +180,7 @@ export const AppointmentSchedularPage = () => {
 
   return (
     <>
-      {!showInvoice ?
+      {showInvoice ?
         <Invoice billData={billData} />
         :
         <div>
