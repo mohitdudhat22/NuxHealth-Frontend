@@ -218,7 +218,7 @@ export const CreatePrescription = ({
               whenToTake: row.whenToTake,
             })),
           }}
-          handleOk={handleSendPrescription}
+          handlePrescription={handleSendPrescription}
           Title="Prescription Preview"
           isSendButton={true}
         />

@@ -161,16 +161,15 @@ export const Manage = () => {
         <NHTabs items={tabItems} defaultActiveKey="today" />
       </NHCard>
 
-      <div className="prescription-tool">
-        <PrescriptionCard
-          isModalOpen={isModalOpen}
-          onCancel={() => setIsModalOpen(false)}
-          handleClose={() => setIsModalOpen(false)}
-          Title="Prescription"
-          handleOk={() => setIsModalOpen(false)}
-          patientData={selectedPatient}
-        />
-      </div>
+      <PrescriptionCard
+        isModalOpen={isModalOpen}
+        clickEvent={true}
+        onCancel={() => setIsModalOpen(false)}
+        handleClose={() => setIsModalOpen(false)}
+        Title="Prescription"
+        handleOk={() => setIsModalOpen(false)}
+        patientData={selectedPatient}
+      />
     </>
   );
 };
