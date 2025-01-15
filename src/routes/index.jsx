@@ -63,6 +63,7 @@ import { InsuranceBillView } from "@/pages/Admin/BillingAndPayement/InsuranceCla
 import CreateBill from "@/components/CreateBill";
 import { PaymentBillView } from "@/pages/Admin/BillingAndPayement/PaymentProcess/PaymentBillView";
 import { NHCard } from "@/components";
+import { PatientBillView } from "@/pages/Patients/PatientsBills/BillView";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -339,6 +340,10 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                   ],
                 },
+                {
+                  path: "profile",
+                  element: <ProfileSetting />,
+                }
               ],
             },
           ],
@@ -403,8 +408,21 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: <PatientBills />,
+                  children: [
+                    {
+                      index: true,
+                      element: <PatientBills />,
+                    },
+                    {
+                      path: "bill-view",
+                      element: <PatientBillView />,
+                    },
+                  ],
                 },
+                {
+                  path: "profile",
+                  element: <ProfileSetting />,
+                }
               ],
             },
           ],
@@ -427,11 +445,20 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "patient-registration",
-                  element: <NHCard className="p-4"><PatientRegistration /></NHCard>,
+                  element: (
+                    <NHCard className="p-4">
+                      <PatientRegistration />
+                    </NHCard>
+                  ),
                 },
                 {
-                  path:"patient-Login",
-                  element:<NHCard className="p-4"> <Login /></NHCard>
+                  path: "patient-Login",
+                  element: (
+                    <NHCard className="p-4">
+                      {" "}
+                      <Login />
+                    </NHCard>
+                  ),
                 },
                 {
                   path: "personal-health",
@@ -473,6 +500,10 @@ const NuxHealthRoute = createBrowserRouter(
                   path: "bill-view/:billId",
                   element: <BillView />,
                 },
+                {
+                  path: "profile",
+                  element: <ProfileSetting />,
+                }
               ],
             },
           ],

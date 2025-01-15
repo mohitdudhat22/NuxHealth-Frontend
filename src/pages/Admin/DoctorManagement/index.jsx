@@ -17,10 +17,8 @@ import DoctorDrawer from "@/components/NHModalComponents/ModalTemplate/DoctorDra
 export const DoctorManagement = () => {
   const { data, loading, fetchDoctors, navigate, onSearch } =
     useDoctorManagement();
-
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-
   const { deleteData, isDelete, setDelete } = useDeleteModal(fetchDoctors);
 
   const showDrawer = (doctor) => {

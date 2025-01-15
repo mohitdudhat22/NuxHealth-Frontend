@@ -12,8 +12,14 @@ import { useRegister } from "@/hook/";
 import { Country, State, City } from "country-state-city";
 
 export const PatientRegistration = () => {
-  const { formData, handleChange, handleSubmit, isLoading, errors, setFormData } =
-    useRegister();
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    isLoading,
+    errors,
+    setFormData,
+  } = useRegister();
 
   const countries = Country.getAllCountries().map((country) => ({
     value: country.name, // Use the name as the value
@@ -265,12 +271,12 @@ export const PatientRegistration = () => {
         </NHCheckbox>
 
         <NHButton variant="primary" block type="submit" loading={isLoading}>
-          Register
+          <Link to="/reception/appointment" className="text-[#5678E9]"> Register</Link>
         </NHButton>
 
         <h6 className="text-center fw-normal">
           Already have an account?{" "}
-          <Link to="/login" className="text-[#5678E9]">
+          <Link to="/reception/patient-Login" className="text-[#5678E9]">
             Login
           </Link>
         </h6>

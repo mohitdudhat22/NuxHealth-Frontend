@@ -93,12 +93,7 @@ export const MedicalHistory = () => {
               key={index}
               headerContent={
                 <>
-                  <span
-                    onClick={() => handlePatientDetails()}
-                    className="cursor-pointer"
-                  >
-                    {Icons.View}
-                  </span>
+                  <NHButton isView onClick={() => handlePatientDetails()} />
                 </>
               }
               headerBg={true}
