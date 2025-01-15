@@ -37,6 +37,9 @@ export const useChangePassword = () => {
 
       if (response && response.message) {
         toast.success(response.message || "Password changed successfully!");
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
       } else {
         toast.error(response.data?.message || "Failed to change password.");
       }

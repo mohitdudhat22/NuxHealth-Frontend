@@ -1,18 +1,23 @@
-import { AppointmentCard, NHButton, NHCard, NHInput } from "@/components";
+import {
+  AppointmentCard,
+  NHButton,
+  NHCard,
+  NHInput,
+  PrescriptionCard,
+} from "@/components";
 import Icons from "@/constants/icons";
 import { usePatientPrescriptionData } from "@/hook/Patients";
-import { Tag } from "antd";
 import React, { useEffect, useState } from "react";
 
 export const Prescriptions = () => {
   const { loading, data, error } = usePatientPrescriptionData();
   const [prescriptionData, setPrescriptionData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handlePatientDetails = (data) => {
+    setPrescriptionData(data);
+    setIsModalOpen(true);
+  };
 
-  useEffect(() => {
-    if (data) {
-      setPrescriptionData(data);
-    }
-  }, [data]);
   return (
     <>
       <NHCard
@@ -30,22 +35,20 @@ export const Prescriptions = () => {
         }
       >
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {prescriptionData.map((prescriptions, index) => (
+          {data?.map((prescriptions, index) => (
             <AppointmentCard
               key={prescriptions.prescriptionId}
               headerContent={
                 <>
-                  <span
-                    onClick={() => handlePatientDetails()}
-                    className="cursor-pointer"
-                  >
-                    {Icons.ViewBillIcon}
-                  </span>
+                  <NHButton
+                    isView
+                    onClick={() => handlePatientDetails(prescriptions)}
+                  />
                 </>
               }
               headerBg={true}
               title={
-                <span className="font-semibold text-[18px]">
+                <span className="font-semibold text-[#030229] text-[18px]">
                   {prescriptions.DoctorName}
                 </span>
               }
@@ -56,6 +59,16 @@ export const Prescriptions = () => {
             />
           ))}
         </div>
+        {prescriptionData && (
+          <PrescriptionCard
+            isModalOpen={isModalOpen}
+            onCancel={() => setIsModalOpen(false)}
+            handleClose={() => setIsModalOpen(false)}
+            Title="Prescription"
+            handleOk={() => setIsModalOpen(false)}
+            patientData={prescriptionData}
+          />
+        )}
       </NHCard>
     </>
   );

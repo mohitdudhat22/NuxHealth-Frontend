@@ -15,6 +15,7 @@ import Icons from "@/constants/icons";
 import { usePatientPaidBills } from "@/hook/Patients/PatientBills";
 import { usePatientUnpaidBills } from "@/hook/Patients/PatientBills/Unpaid";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const PatientBills = () => {
   const { data: paidData } = usePatientPaidBills();
@@ -22,6 +23,7 @@ export const PatientBills = () => {
   const [selectPaymentType, setSelectPaymentType] = useState(false);
   const [cardOption, setCardOption] = useState(false);
   const [payType, setPayType] = useState(false);
+  const navigate = useNavigate();
   const payMethod = () => {
     console.log("payMethod :-");
     setPayType(true);
@@ -30,6 +32,7 @@ export const PatientBills = () => {
     console.log("payMethod Proccess :-");
     setSelectPaymentType(true);
   };
+
   const tabItems = [
     {
       key: "Unpaid Bills",
@@ -61,11 +64,17 @@ export const PatientBills = () => {
                     totalAmount={totalAmount}
                     status={status}
                     patientName={patientName}
+                    headerContent={
+                      <NHButton
+                        isView
+                        onClick={() => navigate(`/patient/bills/bill-view`)}
+                      ></NHButton>
+                    }
                     footerContent={
                       <NHButton
                         size={"small"}
                         className={"w-full"}
-                        onClick={() => selectPayType()}
+                        onClick={() => navigate()}
                       >
                         Pay Now
                       </NHButton>
@@ -110,6 +119,12 @@ export const PatientBills = () => {
                     status={status}
                     patientName={patientName}
                     className="border border-slate-200"
+                    headerContent={
+                      <NHButton
+                        isView
+                        onClick={() => navigate(`/patient/bills/bill-view`)}
+                      ></NHButton>
+                    }
                   />
                 );
               })}

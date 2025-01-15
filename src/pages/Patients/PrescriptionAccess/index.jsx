@@ -1,4 +1,10 @@
-import { AppointmentCard, NHButton, NHCard, NHInput } from "@/components";
+import {
+  AppointmentCard,
+  NHButton,
+  NHCard,
+  NHInput,
+  PrescriptionCard,
+} from "@/components";
 import Icons from "@/constants/icons";
 import { usePatientPrescriptionData } from "@/hook/Patients";
 import { Tag } from "antd";
@@ -8,13 +14,21 @@ import "./PrescriptionAccess.css";
 export const PrescriptionAccess = () => {
   const { loading, data, error } = usePatientPrescriptionData();
   console.log("🚀 ~ PrescriptionAccess ~ data:", data);
+
   const [prescriptionData, setPrescriptionData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (data) {
       setPrescriptionData(data);
     }
   }, [data]);
+
+  const handlePresctiptionDetails = (data) => {
+    setPrescriptionData(data);
+    setIsModalOpen(true);
+  };
+
   return (
     <>
       <NHCard
@@ -32,7 +46,7 @@ export const PrescriptionAccess = () => {
         }
       >
         <div className="prescriptions-card grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {prescriptionData.map((prescriptions, index) => (
+          {data?.map((prescriptions, index) => (
             <AppointmentCard
               key={index}
               title={
@@ -42,20 +56,18 @@ export const PrescriptionAccess = () => {
               }
               headerContent={
                 <>
-                  <div className="flex gap-x-3">
+                  <div className="flex items-center gap-x-3">
                     <span
-                      onClick={() => handlePatientDetails()}
+                      onClick={() => handleDownload()}
                       className="cursor-pointer"
                     >
                       {Icons.Download}
                     </span>
 
-                    <span
-                      onClick={() => handlePatientDetails()}
-                      className="cursor-pointer"
-                    >
-                      {Icons.View}
-                    </span>
+                    <NHButton
+                      isView
+                      onClick={() => handlePresctiptionDetails(prescriptions)}
+                    ></NHButton>
                   </div>
                 </>
               }
@@ -73,6 +85,16 @@ export const PrescriptionAccess = () => {
             />
           ))}
         </div>
+        {prescriptionData && (
+          <PrescriptionCard
+            isModalOpen={isModalOpen}
+            onCancel={() => setIsModalOpen(false)}
+            handleClose={() => setIsModalOpen(false)}
+            Title="Prescription"
+            handleOk={() => setIsModalOpen(false)}
+            patientData={prescriptionData}
+          />
+        )}
       </NHCard>
     </>
   );
