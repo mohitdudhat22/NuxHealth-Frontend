@@ -340,6 +340,10 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                   ],
                 },
+                {
+                  path: "profile",
+                  element: <ProfileSetting />,
+                }
               ],
             },
           ],
@@ -415,6 +419,10 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                   ],
                 },
+                {
+                  path: "profile",
+                  element: <ProfileSetting />,
+                }
               ],
             },
           ],
@@ -492,6 +500,10 @@ const NuxHealthRoute = createBrowserRouter(
                   path: "bill-view/:billId",
                   element: <BillView />,
                 },
+                {
+                  path: "profile",
+                  element: <ProfileSetting />,
+                }
               ],
             },
           ],
