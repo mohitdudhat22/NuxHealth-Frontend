@@ -117,7 +117,6 @@ export const AppointmentBooking = () => {
     setTempToDate(null);
   };
 
-  // Function to format dates into a readable string (e.g., "2 March,2022 - 13 March, 2022")
   const formatDateRange = (fromDate, toDate) => {
     if (!fromDate || !toDate) return "Select Date Range";
     const options = { day: "numeric", month: "long", year: "numeric" };
@@ -126,23 +125,10 @@ export const AppointmentBooking = () => {
     return `${fromDateStr} - ${toDateStr}`;
   };
 
-  // Function to handle "View Details" button click
-  const handleViewDetails = (id) => {
-    let appointment;
-    if (activeTab === "Scheduled") {
-      appointment = todayAppointments.find((item) => item.id === id);
-    } else if (activeTab === "Previous") {
-      appointment = previousAppointments.find((item) => item.id === id);
-    } else if (activeTab === "Cancel") {
-      appointment = cancelAppointments.find((item) => item.id === id);
-    } else if (activeTab === "Pending") {
-      appointment = upcomingAppointments.find((item) => item.id === id);
-    }
-
-    if (appointment) {
-      setSelectedAppointment(appointment);
-      setIsOffCanvasVisible(true); // Show OffCanvas
-    }
+  const handleViewDetails = (data) => {
+    console.log(data)
+      setSelectedAppointment(data);
+      setIsOffCanvasVisible(true);
   };
 
   const handleTabChange = (key) => {
@@ -197,7 +183,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -279,7 +265,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -336,7 +322,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -393,7 +379,7 @@ export const AppointmentBooking = () => {
                 headerContent={
                   <NHButton
                     isView
-                    onClick={() => handleViewDetails(data.id)}
+                    onClick={() => handleViewDetails(data)}
                   ></NHButton>
                 }
                 title={
@@ -456,43 +442,137 @@ export const AppointmentBooking = () => {
         </div>
       )}
 
-      <Drawer
-        title="Doctor Management"
-        placement="right"
-        onClose={() => setIsOffCanvasVisible(false)} // Close OffCanvas
-        open={isOffCanvasVisible} // Control visibility
-        width={400} // Set width of the OffCanvas
-      >
-        {selectedAppointment && (
-          <div>
-            <div
-              className="bg-cover bg-no-repeat rounded-[10px] w-full py-6 px-5"
-              style={{ backgroundImage: `url(${modalImg})` }}
-            >
-              <div className="flex items-center">
-                <img src={doctorLogo} alt="Doctor" className="rounded-full" />
-                <div className="ml-4">
-                  <h3 className="text-[18px] font-semibold text-white">
-                    {selectedAppointment.doctorName}
-                  </h3>
-                  <div className="text-white bg-[#718EBF] rounded-full px-5 py-3 inline-flex items-center">
-                    {/* Conditionally render gender icon */}
-                    {selectedAppointment.gender === "male" ? (
-                      <img
-                        src={maleIcon} // Replace with your male icon import
-                        alt="Male"
-                        className="inline-block mr-1"
-                      />
-                    ) : (
-                      <img
-                        src={maleIcon} // Replace with your female icon import
-                        alt="Female"
-                        className="inline-block mr-1"
-                      />
-                    )}
-                    <span className="ml-4 font-bold">
-                      {selectedAppointment.gender}
-                    </span>
+          <CustomDateModal
+            isReshceduleModal={isReshceduleModal}
+            handleClose={handleCloseModal}
+            handleOk={handleOk}
+            fromDate={tempFromDate} // Use temporary state for modal
+            toDate={tempToDate}
+            setFromDate={setTempFromDate} // Update temporary state
+            setToDate={setTempToDate}
+            handleReset={handleReset}
+          />
+
+          {/* Ant Design OffCanvas (Drawer) */}
+          <Drawer
+            title="Doctor Management"
+            placement="right"
+            onClose={() => setIsOffCanvasVisible(false)} // Close OffCanvas
+            open={isOffCanvasVisible} // Control visibility
+            width={400} // Set width of the OffCanvas
+          >
+            {selectedAppointment && (
+              <div>
+                <div
+                  className="bg-cover bg-no-repeat rounded-[10px] w-full py-6 px-5"
+                  style={{ backgroundImage: `url(${modalImg})` }}
+                >
+                  <div className="flex items-center">
+                    <img
+                      src={selectedAppointment.doctorImage || doctorLogo}
+                      alt="Doctor"
+                      className="rounded-full w-[65px]"
+                    />
+                    <div className="ml-4">
+                      <h3 className="text-[18px] font-semibold text-white">
+                        {selectedAppointment.doctorFullName}
+                      </h3>
+                      <div className="text-white bg-[#718EBF] rounded-full px-5 py-3 inline-flex items-center">
+                        {/* Conditionally render gender icon */}
+                        {selectedAppointment.doctorGender === "male" ? (
+                          <img
+                            src={maleIcon} // Replace with your male icon import
+                            alt="Male"
+                            className="inline-block mr-1"
+                          />
+                        ) : (
+                          <img
+                            src={maleIcon} // Replace with your female icon import
+                            alt="Female"
+                            className="inline-block mr-1"
+                          />
+                        )}
+                        <span className="ml-4 font-bold">
+                          {selectedAppointment.doctorGender}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-5 bg-[#F6F8FB] p-5 rounded-xl">
+                  <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
+                    <div className="flex flex-col">
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Hospital Name
+                      </h4>
+                      <p className="text-[#141414] font-medium text-[16px] mt-1">
+                        {selectedAppointment.hospitalName}
+                      </p>
+                    </div>
+                    <div className="flex flex-col">
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Doctor Qualification
+                      </h4>
+                      <p className="text-[#141414] font-medium text-[16px] mt-1">
+                        {selectedAppointment.doctorQualification}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
+                    <div className="flex flex-col">
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                       Evening Session
+                      </h4>
+                      <p className="text-[#141414] font-medium text-[16px] mt-1">
+                        {selectedAppointment.doctorEveningSession}
+                      </p>
+                    </div>
+                    <div className="flex flex-col">
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Morning Session
+                      </h4>
+                      <p className="text-[#141414] font-medium text-[16px] mt-1">
+                        {selectedAppointment.doctorMorningSession}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
+                    <div className="flex flex-col">
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Years Of Experience
+                      </h4>
+                      <p className="text-[#141414] font-medium text-[16px] mt-1">
+                        {selectedAppointment.doctorExperience}
+                      </p>
+                    </div>
+                    <div className="flex flex-col">
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Emergency Number{" "}
+                      </h4>
+                      <p className="text-[#141414] font-medium text-[16px] mt-1">
+                        {selectedAppointment.doctorEmergencyContactNo}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 mb-4">
+                    <div className="flex flex-col">
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Specialty Type
+                      </h4>
+                      <p className="text-[#141414] font-medium text-[16px] mt-1">
+                        {selectedAppointment.doctorSpeciality}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 mb-4">
+                    <div className="flex flex-col">
+                      <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
+                        Description{" "}
+                      </h4>
+                      <p className="text-[#141414] font-medium text-[16px] mt-1">
+                        {selectedAppointment.doctorDescription}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
