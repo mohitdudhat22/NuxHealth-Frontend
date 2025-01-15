@@ -1,8 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./EditProfile.module.css";
-import { NHButton, NHCard, NHInput, NHPasswordInput, NHSelect } from "..";
+import { NHButton, NHCard, NHDatePicker, NHInput, NHNumberInput, NHPasswordInput, NHSelect } from "..";
 import { useChangePassword } from "@/hook/Admin/AdminEditProfile/ChangePassword";
 import { useEditProfile } from "@/hook/Admin/ProfileSetting";
+import { identifyRole } from "@/utils/identifyRole";
+import moment from "moment";
 
 export const ProfileSetting = () => {
   const {
@@ -18,6 +20,182 @@ export const ProfileSetting = () => {
     handleSubmitData,
     handleTabChange,
   } = useEditProfile();
+
+  const renderForm = () => {
+    const role = identifyRole();
+    switch (role) {
+      case "admin":
+        return (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="First Name"
+                name="firstName"
+                value={userDetail?.firstName}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Last Name"
+                name="lastName"
+                value={userDetail?.lastName}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Email Address"
+                name="email"
+                value={userDetail?.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Phone Number"
+                name="phoneNumber"
+                value={userDetail?.phoneNumber}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Country"
+                name="country"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="State"
+                name="state"
+                value={userDetail?.state}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="City"
+                name="city"
+                value={userDetail?.city}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHSelect
+                label="Gender"
+                name="gender"
+                value={userDetail?.gender}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, gender: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { label: "Male", value: "male" },
+                  { label: "Female", value: "female" },
+                ]}
+                placeholder="Select Gender"
+              />
+            </div>
+          </form>
+        )
+      case "patient":
+        return (
+          <NHCard className="p-0 bg-white">
+            <div className="flex">
+              <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
+                <div className="flex flex-col items-center px-4 py-8">
+                  <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB] relative flex flex-col items-center">
+                    <img
+                      src={userDetail?.profileImage || "https://i.pravatar.cc/300"}
+                      alt="Profile"
+                      className="w-[150px] rounded-full"
+                    />
+                    {isEditing && (
+                      <>
+                        <input
+                          type="file"
+                          ref={fileUpload}
+                          style={{ display: "none" }}
+                          onChange={handleFileChange}
+                        />
+                        <button
+                          type="button"
+                          onClick={handleEditImage}
+                          className="mt-4 bg-blue-500 text-white p-2 rounded-full"
+                        >
+                          Edit
+                        </button>
+                      </>
+                    )}
+                  </div>
+
+
+                  <h2 className="text-xl font-semibold">
+                    {userDetail?.firstName || "Lincoln"}{" "}
+                    {userDetail?.lastName || "Phillips"}
+                  </h2>
+                </div>
+
+                <div className="px-4">
+                  <nav className="p-2 bg-gray-100 rounded-lg">
+                    <ul className="space-y-1">
+                      <li>
+                        <button
+                          onClick={() => handleTabChange("profile")}
+                          className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${activeTab === "profile" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                        >
+                          Profile
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => handleTabChange("changePassword")}
+                          className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "changePassword" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                        >
+                          Change Password
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => handleTabChange("terms")}
+                          className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "terms" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                        >
+                          Terms & Condition
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => handleTabChange("privacy")}
+                          className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "privacy" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                        >
+                          Privacy Policy
+                        </button>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+
+              <div className="w-3/4 p-6">
+                {activeTab === "profile" && (
+                  <Profile
+                    userDetail={userDetail}
+                    setUserDetail={setUserDetail}
+                    handleSubmit={handleSubmitData}
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                  />
+                )}
+                {activeTab === "changePassword" && <ChangePassword />}
+                {activeTab === "terms" && <Terms />}
+                {activeTab === "privacy" && <Privacy />}
+              </div>
+            </div>
+          </NHCard>
+        )
+    }
+  }
   return (
     <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative h-[35%] min-h-[40vh]">
       <div className={styles.profileCard + " w-full h-full absolute top-1/4 left-[10.5%]"}>
@@ -55,8 +233,8 @@ export const ProfileSetting = () => {
 
 
                     <h2 className="text-xl font-semibold">
-                      {userDetail.firstName || "Lincoln"}{" "}
-                      {userDetail.lastName || "Phillips"}
+                      {userDetail?.firstName || "Lincoln"}{" "}
+                      {userDetail?.lastName || "Phillips"}
                     </h2>
                   </div>
 
@@ -131,7 +309,376 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
       [name]: value,
     }));
   };
+  const renderFormFields = () => {
+    const role = identifyRole();
+    switch (role) {
+      case 'admin':
+        return (
+          <>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="First Name"
+                name="firstName"
+                value={userDetail?.firstName}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Last Name"
+                name="lastName"
+                value={userDetail?.lastName}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Email Address"
+                name="email"
+                value={userDetail?.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+            </div>
 
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Phone Number"
+                name="phoneNumber"
+                value={userDetail?.phoneNumber}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Country"
+                name="country"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="State"
+                name="state"
+                value={userDetail?.state}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="City"
+                name="city"
+                value={userDetail?.city}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHSelect
+                label="Gender"
+                name="gender"
+                value={userDetail?.gender}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, gender: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { label: "Male", value: "male" },
+                  { label: "Female", value: "female" },
+                ]}
+                placeholder="Select Gender"
+              />
+            </div>
+          </>
+        );
+
+      case 'doctor':
+        return (
+          <>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="First Name"
+                name="firstName"
+                value={userDetail?.firstName}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Last Name"
+                name="lastName"
+                value={userDetail?.lastName}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Email Address"
+                name="email"
+                value={userDetail?.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Phone Number"
+                name="phoneNumber"
+                value={userDetail?.phoneNumber}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Hospital Name"
+                name="hospiitalName"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHSelect
+                label="Gender"
+                name="gender"
+                value={userDetail?.gender}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, gender: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { label: "Male", value: "male" },
+                  { label: "Female", value: "female" },
+                ]}
+                placeholder="Select Gender"
+              />
+              <NHInput
+                label="Country"
+                name="country"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="State"
+                name="state"
+                value={userDetail?.state}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="City"
+                name="city"
+                value={userDetail?.city}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+
+            </div>
+          </>
+        );
+
+      case 'patient':
+        return (
+          <>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Name"
+                name="firstName"
+                value={userDetail?.firstName}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Last Name"
+                name="lastName"
+                value={userDetail?.lastName}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Email Address"
+                name="email"
+                value={userDetail?.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-7">
+              <NHSelect
+                label="Gender"
+                name="gender"
+                value={userDetail?.gender}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, gender: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { label: "Male", value: "male" },
+                  { label: "Female", value: "female" },
+                ]}
+                placeholder="Select Gender"
+              />
+              <NHDatePicker
+                label={"DOB"}
+                name="dob"
+                value={moment(userDetail?.dob)}
+                onChange={(date) => setSelectedToDate(date)} // Update selectedToDate
+                style={{ padding: "10px" }}
+              />
+              <NHInput
+                label="Age"
+                name="age"
+                value={userDetail?.age}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-7">
+            <NHInput
+                label="Height"
+                name="height"
+                value={userDetail?.height}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+                 <NHInput
+                label="Weight"
+                name="weight"
+                value={userDetail?.weight}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />    
+                  <NHSelect
+                label="Blood Group"
+                name="bloodGroup"
+                value={userDetail?.bloodGroup}
+                onChange={handleChange}
+                disabled={!isEditing}
+                options={[
+                  { value: "A+", label: "A+" },
+                  { value: "A-", label: "A-" },
+                  { value: "B+", label: "B+" },
+                  { value: "B-", label: "B-" },
+                  { value: "O+", label: "O+" },
+                  { value: "O-", label: "O-" },
+                  { value: "AB+", label: "AB+" },
+                  { value: "AB-", label: "AB-" },
+                ]}
+              />   
+            </div>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Country"
+                name="country"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="State"
+                name="state"
+                value={userDetail?.state}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="City"
+                name="city"
+                value={userDetail?.city}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+            </div>
+            <div>
+            <NHInput
+                label="Address"
+                name="fullAddress"
+                value={userDetail?.fullAddress}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+            </div>
+          </>
+        );
+
+      case 'receptionist':
+        return (
+          <>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="First Name"
+                name="firstName"
+                value={userDetail?.firstName}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Last Name"
+                name="lastName"
+                value={userDetail?.lastName}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Email Address"
+                name="email"
+                value={userDetail?.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Phone Number"
+                name="phoneNumber"
+                value={userDetail?.phoneNumber}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Country"
+                name="country"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="State"
+                name="state"
+                value={userDetail?.state}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="City"
+                name="city"
+                value={userDetail?.city}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHSelect
+                label="Gender"
+                name="gender"
+                value={userDetail?.gender}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, gender: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { label: "Male", value: "male" },
+                  { label: "Female", value: "female" },
+                ]}
+                placeholder="Select Gender"
+              />
+            </div>
+          </>
+        );
+
+      default:
+        return null;
+    }
+  };
   return (
     <NHCard>
       <div className="flex items-center justify-between mb-6">
@@ -166,76 +713,7 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-3 gap-7">
-          <NHInput
-            label="First Name"
-            name="firstName"
-            value={userDetail.firstName}
-            onChange={handleChange}
-            disabled={!isEditing}
-            required
-          />
-          <NHInput
-            label="Last Name"
-            name="lastName"
-            value={userDetail.lastName}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHInput
-            label="Email Address"
-            name="email"
-            value={userDetail.email}
-            onChange={handleChange}
-            disabled={!isEditing}
-            required
-          />
-        </div>
-
-        <div className="grid grid-cols-3 gap-7">
-          <NHInput
-            label="Phone Number"
-            name="phoneNumber"
-            value={userDetail.phoneNumber}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHInput
-            label="Country"
-            name="country"
-            value={userDetail.country}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHInput
-            label="State"
-            name="state"
-            value={userDetail.state}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHInput
-            label="City"
-            name="city"
-            value={userDetail.city}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHSelect
-            label="Gender"
-            name="gender"
-            value={userDetail.gender}
-            onChange={(value) =>
-              setUserDetail((prev) => ({ ...prev, gender: value }))
-            }
-            disabled={!isEditing}
-            options={[
-              { label: "Male", value: "male" },
-              { label: "Female", value: "female" },
-            ]}
-            placeholder="Select Gender"
-          />
-        </div>
+        {renderFormFields()}
       </form>
     </NHCard>
   );

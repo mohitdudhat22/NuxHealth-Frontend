@@ -1,13 +1,13 @@
 import { useDecodeToken } from "@/hook/useDecodeToken";
 import { useEffect, useRef, useState } from "react";
 import { identifyRole } from "@/utils/identifyRole";
-import { editAdminProfile } from "@/axiosApi/ApiHelper";
+import { editProfile } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 
 export const useEditProfile = () => {
     const [activeTab, setActiveTab] = useState("profile");
     const [isEditing, setIsEditing] = useState(false);
-    const { token } = useDecodeToken();
+    const { token, setDecodedToken } = useDecodeToken();
 
     const [userDetail, setUserDetail] = useState({
         firstName: "",
@@ -24,7 +24,7 @@ export const useEditProfile = () => {
 
     const fileUpload = useRef(null);
     const [file, setFile] = useState(null); // New state to store the selected file
-
+    console.log(token, "<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     useEffect(() => {
         if (token?.userData) {
             const {
@@ -35,6 +35,8 @@ export const useEditProfile = () => {
                 gender = "",
                 role = "",
                 address = {},
+                metaData,
+                age,
             } = token.userData;
             const { country = "", state = "", city = "" } = address;
             const [firstName = "", lastName = ""] = fullName.split(" ");
@@ -51,6 +53,12 @@ export const useEditProfile = () => {
                 profileImage: profilePicture || "",
                 gender: gender || "",
                 role: role || "",
+                dob: metaData?.patientData?.dob,
+                height : metaData?.patientData?.height,
+                weight: metaData?.patientData?.weight,
+                fullAddress: address?.fullAddress,
+                bloodGroup: metaData?.patientData?.bloodGroup,
+                age,
             });
 
 
@@ -100,12 +108,18 @@ export const useEditProfile = () => {
         formData.append("country", userDetail.country);
         formData.append("state", userDetail.state);
         formData.append("city", userDetail.city);
+        formData.append("dob", userDetail?.dob || "");
+        formData.append("height", userDetail.height || "");
+        formData.append("weight", userDetail.weight || "");
+        formData.append("fullAddress", userDetail.fullAddress || "");
+        formData.append("bloodGroup", userDetail.bloodGroup || "");
+        formData.append("age", userDetail.age || "");
         if (file) {
             formData.append("profilePicture", file);
         }
 
         try {
-            const response = await editAdminProfile(formData, identifyRole());
+            const response = await editProfile(formData, identifyRole());
 
             if (response.status === 1) {
                 const {
@@ -116,10 +130,12 @@ export const useEditProfile = () => {
                     gender = "",
                     role = "",
                     address = {},
+                    metaData,
+                    age,
                 } = response.data;
                 const { country = "", state = "", city = "" } = address;
                 const [firstName = "", lastName = ""] = fullName.split(" ");
-    
+
                 setUserDetail({
                     fullName: fullName || "",
                     firstName: firstName || "",
@@ -132,8 +148,55 @@ export const useEditProfile = () => {
                     profileImage: profilePicture || "",
                     gender: gender || "",
                     role: role || "",
+                    dob: metaData?.patientData?.dob,
+                    height : metaData?.patientData?.height,
+                    weight: metaData?.patientData?.weight,
+                    fullAddress: address?.fullAddress,
+                    bloodGroup: metaData?.patientData?.bloodGroup,
+                    age : age,
                 });
-            
+                console.log({
+                    fullName: fullName || "",
+                    firstName: firstName || "",
+                    lastName: lastName || "",
+                    phoneNumber: phone || "",
+                    email: email || "",
+                    country: country || "",
+                    state: state || "",
+                    city: city || "",
+                    profileImage: profilePicture || "",
+                    gender: gender || "",
+                    role: role || "",
+                    dob: metaData?.patientData?.dob,
+                    height : metaData?.patientData?.height,
+                    weight: metaData?.patientData?.weight,
+                    fullAddress: address?.fullAddress,
+                    bloodGroup: metaData?.patientData?.bloodGroup,
+                    age : age,
+                    metaData:{
+                        patientData:{...metaData?.patientData}
+                    }
+                })
+                setDecodedToken((prev) => ({
+                    ...prev,
+                    userData: {
+                        ...prev.userData,
+                        fullName: fullName || "",
+                        email: email || "",
+                        phone: phone || "",
+                        country: country || "",
+                        state: state || "",
+                        city: city || "",
+                        gender: gender || "",
+                        profilePicture: profilePicture || "",
+                        metaData:{
+                            patientData:{...metaData?.patientData}
+                        },
+                        address:address,
+                        age:age
+                    }
+                }))
+
                 toast.success("Profile updated successfully!");
                 return true;
             } else {
