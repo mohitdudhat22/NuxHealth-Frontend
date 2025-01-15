@@ -1,0 +1,25 @@
+.appointment_time-slot .rbc-day-slot .rbc-events-container {
+    margin-right: 0 !important;
+}
+
+.appointment_time-slot .rbc-allday-cell {
+    display: none;
+}
+
+.appointment_time-slot .rbc-header {
+    border-bottom: none !important;
+}
+
+.appointment_time-slot .rbc-time-content .rbc-time-gutter .rbc-timeslot-group .rbc-time-slot .rbc-label {
+    color: #0EABEB;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.appointment_time-slot .rbc-time-view .rbc-time-header .rbc-time-header-gutter {
+    width: 83.4844px !important;
+}
+
+.appointment_time-slot .rbc-day-slot .rbc-event, .appointment_time-slot .rbc-day-slot .rbc-background-event {
+    min-height: fit-content;
+}

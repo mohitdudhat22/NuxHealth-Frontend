@@ -1,0 +1,4 @@
+.tabs :global .ant-tabs-tab-btn {
+  display: flex;
+  align-items: center;
+}

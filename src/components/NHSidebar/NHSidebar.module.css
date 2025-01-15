@@ -1,0 +1,65 @@
+.sider :global .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu :global .ant-menu-submenu-title {
+  padding-right: calc(var(--space-md) + 2px);
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
+  margin-inline: 0px;
+}
+
+.menu :global .ant-menu-item {
+  font-weight: 500;
+  overflow: visible;
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+.menu
+  :global
+  .ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-selected
+  .ant-menu-submenu-title,
+.menu :global .ant-menu-item-selected,
+.menu :global .ant-menu-submenu-open .ant-menu-submenu-title,
+.menu :global .ant-menu-item:hover {
+  background: var(--clr-primary-gradient);
+  background-size: 150px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-color: transparent !important;
+  border-radius: 0;
+  margin-left: 0;
+}
+
+.menu :global .ant-menu-submenu-open {
+  color: var(--clr-white);
+}
+
+.menu :global .ant-menu-item span {
+  font-size: var(--text-lg);
+}
+
+.menu :global .ant-menu-item:hover::after {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.menu :global .ant-menu-item::after {
+  height: 100%;
+  width: 7px;
+  border-radius: 5px 0 0 5px;
+  background-color: var(--clr-primary);
+  top: 0;
+  right: 0;
+  transition: 0.5s opacity;
+}
+
+.SidebarBottom {
+  padding: 15px 0 0;
+  margin: 3.4rem;
+  border-top: 1px solid red;
+}

@@ -1,0 +1,7 @@
+.table:global.ant-table-wrapper .ant-table-thead th {
+  padding: var(--space-md) var(--space-xl);
+}
+
+.table:global.ant-table-wrapper .ant-table-tbody td {
+  padding: var(--space-md) var(--space-xl);
+}
