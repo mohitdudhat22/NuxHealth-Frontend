@@ -68,7 +68,7 @@ export const createReceptionist = (data) =>
 
 /* Doctor */
 export const todayAppointment = () =>
-  request("get", "/api/doctor/getappointmentforprescription");
+  request("get", "/api/doctor/getappointmentforprescription"); //?date=today
 export const getPrivousTeleconsultation = () =>
   request(
     "get",
@@ -89,8 +89,12 @@ export const getCancleTeleconsultation = () =>
     "get",
     "/api/doctor/getAppointmentsTeleconcsultation?filter=cancel&type=online"
   );
-export const createPrescription = () =>
-  request("post", "/api/doctor/createPrescription/appointmentId");
+export const createPrescription = (payload) =>
+  request(
+    "post",
+    `/api/doctor/createPrescription/${payload.appointmentId}`,
+    payload
+  );
 
 /* Patient */
 export const patientDashboard = () =>
