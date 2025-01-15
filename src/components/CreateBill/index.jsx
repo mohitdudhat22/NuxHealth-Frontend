@@ -179,7 +179,7 @@ const useBillForm = () => {
   };
 };
 
-const CreateBill = () => {
+export const CreateBill = () => {
   const location = useLocation();
   //   const record = location.state?.record;
   const { record } = location.state || {};
@@ -502,4 +502,3 @@ const CreateBill = () => {
   );
 };
 
-export default CreateBill;
