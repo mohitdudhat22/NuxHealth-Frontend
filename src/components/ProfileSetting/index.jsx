@@ -7,10 +7,13 @@ import { useDecodeToken } from "@/hook";
 import axios from "axios";
 import { editAdminProfile } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
+import { identifyRole } from "@/utils/identifyRole";
 
 export const ProfileSetting = () => {
   const { token } = useDecodeToken();
   const [activeTab, setActiveTab] = useState("profile");
+  const [isEditing, setIsEditing] = useState(false);
+
   const [userdetail, setUserDetail] = useState({
     firstName: "",
     lastName: "",
@@ -55,7 +58,6 @@ export const ProfileSetting = () => {
       });
     }
   }, [token]);
-  console.log("User Details :: ", userdetail);
 
   const handleEditImage = () => {
     fileUpload.current.click();
@@ -91,9 +93,10 @@ export const ProfileSetting = () => {
       [name]: value,
     }));
   };
+
   const handleSubmitData = async (e) => {
-    if (e) e.preventDefault(); 
-  
+    if (e) e.preventDefault();
+
     const payload = {
       firstName: userdetail.firstName || "",
       lastName: userdetail.lastName || "",
@@ -107,13 +110,16 @@ export const ProfileSetting = () => {
       gender: userdetail.gender,
       profilePicture: userdetail.profileImage,
     };
-  
+
+
     console.log("Payload being sent to API:", payload);
-  
+
+
+    console.log("Payload being sent to API:", payload);
+
     try {
-      const response = await editAdminProfile(payload);
-      console.log("API Response:", response.data);
-  
+      const response = await editAdminProfile(payload, identifyRole());
+
       if (response.status === 1) {
         const {
           firstName = "",
@@ -124,10 +130,10 @@ export const ProfileSetting = () => {
           gender,
           profilePicture,
         } = response.data;
-  
+
         setUserDetail((prev) => ({
           ...prev,
-          fullName: `${firstName} ${lastName}`.trim(), 
+          fullName: `${firstName} ${lastName}`.trim(),
           phoneNumber: phone || "",
           email: email || "",
           country: address.country || "",
@@ -136,144 +142,166 @@ export const ProfileSetting = () => {
           profileImage: profilePicture || "",
           gender: gender || "",
         }));
-  
+
         toast.success("Profile updated successfully!");
-        return true; // Indicate success
+        return true;
       } else {
         toast.error(`Failed to update profile: ${response.message}`);
-        return false; // Indicate failure
+        return false;
       }
     } catch (error) {
-      console.error("Error updating profile:", error.response?.data || error);
-      toast.error(
-        `An error occurred while updating the profile: ${
-          error.response?.data?.message || error.message
-        }`
-      );
-      return false; // Indicate failure
+      toast.error(`An error occurred while updating the profile: ${error.message}`);
+      return false;
     }
   };
-  
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
   return (
-    <>
-      <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative h-[35%] min-h-[40vh]">
-        <div
-          className={
-            (styles.profileCard, "w-full h-full absolute top-1/4 left-[10.5%]")
-          }
-        >
-          <div className={(styles.profile, "w-[1200px] flex flex-col")}>
-            <form action="" onSubmit={handleSubmitData}>
-              <h3 className="mb-10 text-4xl text-white">Profile Setting</h3>
-              <NHCard className="p-0 bg-white">
-                <div className="flex">
-                  <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
-                    <div className="flex flex-col items-center px-4 py-8">
-                      <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB]">
-                        <img
-                          src={
-                            userdetail?.profileImage ||
-                            "https://i.pravatar.cc/300"
-                          }
-                          alt="Profile"
-                          className="w-[150px] rounded-full"
-                        />
-                      </div>
-                      <h2 className="text-xl font-semibold">
-                        {userdetail.firstName || "Lincoln"}{" "}
-                        {userdetail.lastName || "Phillips"}
-                      </h2>
+    <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative h-[35%] min-h-[40vh]">
+      <div className={styles.profileCard + " w-full h-full absolute top-1/4 left-[10.5%]"}>
+        <div className={styles.profile + " w-[1200px] flex flex-col"}>
+          <form action="" onSubmit={handleSubmitData}>
+            <h3 className="mb-10 text-4xl text-white">Profile Setting</h3>
+            <NHCard className="p-0 bg-white">
+              <div className="flex">
+                <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
+                  <div className="flex flex-col items-center px-4 py-8">
+                    <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB] relative flex flex-col items-center">
+                      <img
+                        src={userdetail?.profileImage || "https://i.pravatar.cc/300"}
+                        alt="Profile"
+                        className="w-[150px] rounded-full"
+                      />
+                      {isEditing && (
+                        <>
+                          <input
+                            type="file"
+                            ref={fileUpload}
+                            style={{ display: "none" }}
+                            onChange={handleFileChange}
+                          />
+                          <button
+                            type="button"
+                            onClick={handleEditImage}
+                            className="mt-4 bg-blue-500 text-white p-2 rounded-full"
+                          >
+                            Edit
+                          </button>
+                        </>
+                      )}
                     </div>
 
-                    <div className="px-4">
-                      <nav className="p-2 bg-gray-100 rounded-lg">
-                        <ul className="space-y-1">
-                          <li>
-                            <button
-                              onClick={() => handleTabChange("profile")}
-                              className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${
-                                activeTab === "profile"
-                                  ? "bg-white text-blue-600 shadow-sm font-medium"
-                                  : "text-gray-600 hover:bg-gray-50"
-                              }`}
-                            >
-                              Profile
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              onClick={() => handleTabChange("changePassword")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                                activeTab === "changePassword"
-                                  ? "bg-white text-blue-600 shadow-sm font-medium"
-                                  : "text-gray-600 hover:bg-gray-50"
-                              }`}
-                            >
-                              Change Password
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              onClick={() => handleTabChange("terms")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                                activeTab === "terms"
-                                  ? "bg-white text-blue-600 shadow-sm font-medium"
-                                  : "text-gray-600 hover:bg-gray-50"
-                              }`}
-                            >
-                              Terms & Condition
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              onClick={() => handleTabChange("privacy")}
-                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                                activeTab === "privacy"
-                                  ? "bg-white text-blue-600 shadow-sm font-medium"
-                                  : "text-gray-600 hover:bg-gray-50"
-                              }`}
-                            >
-                              Privacy Policy
-                            </button>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
+
+                    <h2 className="text-xl font-semibold">
+                      {userdetail.firstName || "Lincoln"}{" "}
+                      {userdetail.lastName || "Phillips"}
+                    </h2>
                   </div>
 
-                  <div className="w-3/4 p-6">
-                    {activeTab === "profile" && (
-                      <Profile
-                        userDetail={userdetail}
-                        setUserDetail={setUserDetail}
-                        handleSubmit={handleSubmitData}
-                      />
-                    )}
-                    {activeTab === "changePassword" && <ChangePassword />}
-                    {activeTab === "terms" && <Terms />}
-                    {activeTab === "privacy" && <Privacy />}
+                  <div className="px-4">
+                    <nav className="p-2 bg-gray-100 rounded-lg">
+                      <ul className="space-y-1">
+                        <li>
+                          <button
+                            onClick={() => handleTabChange("profile")}
+                            className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${activeTab === "profile" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                          >
+                            Profile
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => handleTabChange("changePassword")}
+                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "changePassword" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                          >
+                            Change Password
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => handleTabChange("terms")}
+                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "terms" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                          >
+                            Terms & Condition
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => handleTabChange("privacy")}
+                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "privacy" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                          >
+                            Privacy Policy
+                          </button>
+                        </li>
+                      </ul>
+                    </nav>
                   </div>
                 </div>
-              </NHCard>
-            </form>
-          </div>
+
+                <div className="w-3/4 p-6">
+                  {activeTab === "profile" && (
+                    <Profile
+                      userDetail={userdetail}
+                      setUserDetail={setUserDetail}
+                      handleSubmit={handleSubmitData}
+                      isEditing={isEditing}
+                      setIsEditing={setIsEditing}
+                    />
+                  )}
+                  {activeTab === "changePassword" && <ChangePassword />}
+                  {activeTab === "terms" && <Terms />}
+                  {activeTab === "privacy" && <Privacy />}
+                </div>
+              </div>
+            </NHCard>
+          </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
-const Profile = ({ userDetail, setUserDetail, handleSubmit }) => {
-  const [isEditing, setIsEditing] = useState(false);
+
+const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEditing }) => {
+  const fileUpload = useRef(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserDetail((prev) => ({
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (!["image/jpeg", "image/png"].includes(file.type)) {
+        toast.error("Only JPG and PNG files are allowed.");
+        return;
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        toast.error("File size should not exceed 2MB.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setUserDetail((prev) => ({
+          ...prev,
+          profileImage: event.target.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleEditImage = () => {
+    if (isEditing) {
+      fileUpload.current.click();
+    }
   };
 
   return (
@@ -296,13 +324,14 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit }) => {
             onClick={
               isEditing
                 ? async () => {
-                    const updateSuccessful = await handleSubmit();
-                    if (updateSuccessful) {
-                      setIsEditing(false); 
-                    }
+                  const updateSuccessful = await handleSubmit();
+                  if (updateSuccessful) {
+                    setIsEditing(false);
                   }
+                }
                 : () => setIsEditing(true)
-            }>
+            }
+          >
             {isEditing ? "Save" : "Edit Profile"}
           </NHButton>
         </div>
@@ -375,7 +404,6 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit }) => {
             options={[
               { label: "Male", value: "male" },
               { label: "Female", value: "female" },
-              // { label: "Other", value: "other" },
             ]}
             placeholder="Select Gender"
           />
@@ -386,26 +414,25 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit }) => {
 };
 
 const Terms = () => (
-  <div className="space-y-6 ">
+  <div className="space-y-6">
     <h3 className="fw-semibold lh-base text-[26px] pl-5">Terms & Conditions</h3>
     <div className="prose max-w-none bg-white p-6 rounded-lg overflow-y-auto h-[calc(100vh-400px)] gap-4 grid">
       <p className="text-base">
-        The terms and conditions outline the rules and regulations for using the
-        website and the services provided. By accessing this website, we assume
-        you accept these terms and conditions.
+        The terms and conditions outline the rules and regulations for using the website and the services
+        provided. By accessing this website, we assume you accept these terms and conditions.
       </p>
     </div>
   </div>
 );
 
 const Privacy = () => (
-  <div className="space-y-6 ">
+  <div className="space-y-6">
     <h3 className="fw-semibold lh-base text-[26px] pl-5">Privacy Policy</h3>
     <div className="prose max-w-none bg-white p-6 rounded-lg overflow-y-auto h-[calc(100vh-400px)] gap-4 grid">
       <p className="text-base">
-        We value your privacy. The policy explains how we collect, use, and
-        protect your personal data when using our services. By using this site,
-        you consent to the processing of your data as described in this policy.
+        We value your privacy. The policy explains how we collect, use, and protect your personal data when
+        using our services. By using this site, you consent to the processing of your data as described in
+        this policy.
       </p>
     </div>
   </div>
@@ -421,28 +448,18 @@ const ChangePassword = () => {
     handleSubmit,
     isFormValid,
   } = useChangePassword();
-  
+
+
+
+
 
   return (
-    <NHCard
-      title="Change Password"
-      headerContent={
-        <>
-          <NHButton
-            variant="primary"
-            onClick={handleSubmit}
-            disabled={loading || !isFormValid}
-          >
-            {loading ? "Saving..." : "Save"}
-          </NHButton>
-        </>
-      }
-    >
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="space-y-6">
+      <h3 className="fw-semibold lh-base text-[26px] pl-5">Change Password</h3>
+      <div className="max-w-none space-y-6 grid">
         <NHPasswordInput
           label="Current Password"
           name="currentPassword"
-          type="password"
           value={currentPassword}
           onChange={handleInputChange}
           required
@@ -450,7 +467,6 @@ const ChangePassword = () => {
         <NHPasswordInput
           label="New Password"
           name="newPassword"
-          type="password"
           value={newPassword}
           onChange={handleInputChange}
           required
@@ -458,12 +474,18 @@ const ChangePassword = () => {
         <NHPasswordInput
           label="Confirm New Password"
           name="confirmPassword"
-          type="password"
           value={confirmPassword}
           onChange={handleInputChange}
           required
         />
-      </form>
-    </NHCard>
+        <NHButton
+          variant="primary"
+          onClick={handleSubmit}
+          disabled={!isFormValid() || loading}
+        >
+          Change Password
+        </NHButton>
+      </div>
+    </div>
   );
 };
