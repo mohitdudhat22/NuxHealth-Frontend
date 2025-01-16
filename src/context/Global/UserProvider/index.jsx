@@ -1,13 +1,14 @@
 import { setAuthHeader } from "@/axiosApi";
 import { useDecodeToken } from "@/hook";
 import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
 import React, { createContext, useState, useContext, useEffect } from "react";
 
 const UserContext = createContext();
 const getCookie = (name) => {
-    const cookieMatch = document.cookie.match("(?:^|; )" + name + "=([^;]*)");
-    return cookieMatch ? decodeURIComponent(cookieMatch[1]) : "";
-  };
+  const cookieMatch = document.cookie.match("(?:^|; )" + name + "=([^;]*)");
+  return cookieMatch ? decodeURIComponent(cookieMatch[1]) : "";
+};
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [role, setRole] = useState("");
