@@ -95,9 +95,9 @@ export const TodayAppointments = () => {
     setIsDateModalOpen(false);
   };
 
-  useEffect(() => {
-    setFilteredAppointments(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setFilteredAppointments(data);
+  // }, [data]);
 
   return (
     <>
@@ -116,7 +116,7 @@ export const TodayAppointments = () => {
           loading={loading}
           showPagination={true}
           tableColumn={columns}
-          tableDataSource={filteredAppointments}
+          tableDataSource={data}
         />
       </NHCard>
 
@@ -142,7 +142,7 @@ export const TodayAppointments = () => {
 
       <CustomDateModal
         Title="Select Custom Date Range"
-        handleOk={handleApplyDateFilter}
+        // handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}
         customDate={isDateModalOpen}

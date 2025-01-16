@@ -8,11 +8,9 @@ import {
 } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
-import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { useTodayManagePriscription } from "@/hook/Doctor/PriscriptionTools/Manage/TodayPriscription";
 import { useOlderManagePrescription } from "@/hook/Doctor/PriscriptionTools/Manage/OlderPriscription";
-import { user } from "@/assets/images";
 import CustomEmpty from "@/components/CustomEmpty/CustomEmpty";
 
 export const Manage = () => {
