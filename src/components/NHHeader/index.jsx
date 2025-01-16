@@ -33,7 +33,6 @@ export const NHHeader = () => {
   } = useHeader(); 
 
   const navigate = useNavigate();
-  const { token } = useDecodeToken();
   const {userData} = useUserData();
   console.log(userData,"<<<<<<<<<<<header")
   return (

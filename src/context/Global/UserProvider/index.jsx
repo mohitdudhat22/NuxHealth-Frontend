@@ -26,6 +26,7 @@ export const UserProvider = ({ children }) => {
 
     try {
       const decoded = jwtDecode(token);
+      console.log("new token--------------",token)
       setDecodedToken(decoded);
       setUserData(decoded)
     } catch (error) {
@@ -39,7 +40,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ userData, setUserData, role, setRole }}
+      value={{ userData, setUserData, role, setRole, decodeToken }}
     >
       {children}
     </UserContext.Provider>

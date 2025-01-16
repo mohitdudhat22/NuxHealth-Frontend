@@ -5,12 +5,13 @@ import { editProfile } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 import { setAuthHeader } from "@/axiosApi";
 import Cookies from "js-cookie";
+import { useUserData } from "@/context";
 
 export const useEditProfile = () => {
     const [activeTab, setActiveTab] = useState("profile");
     const [isEditing, setIsEditing] = useState(false);
     const { token, setDecodedToken } = useDecodeToken();
-
+      const {decodeToken} = useUserData();
     const [userDetail, setUserDetail] = useState({
         firstName: "",
         lastName: "",
@@ -209,6 +210,7 @@ export const useEditProfile = () => {
                         secure: process.env.NODE_ENV === "production",
                     });
                     setAuthHeader(token);
+                    decodeToken()
                 }
                     toast.success("Profile updated successfully!");
                     return true;
