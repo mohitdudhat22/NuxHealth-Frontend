@@ -82,6 +82,7 @@ export const PatientHealthRecord = () => {
           <NHButton
             isView
             onClick={() => {
+              console.log(record)
               navigate(`view-patient/${record._id}`, {
                 state: { patient: record },
               });
