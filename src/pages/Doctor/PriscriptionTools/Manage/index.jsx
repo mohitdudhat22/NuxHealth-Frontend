@@ -117,15 +117,11 @@ export const Manage = () => {
           }
           rootClass={"p-0"}
         >
-          {todayData.length !== 0 ? (
-            <NHTable
-              columns={columns}
-              dataSource={todayData}
-              showPagination={true}
-            />
-          ) : (
-            <CustomEmpty route={"/doctor"} />
-          )}
+          <NHTable
+            columns={columns}
+            dataSource={todayData}
+            showPagination={true}
+          />
         </NHCard>
       ),
     },

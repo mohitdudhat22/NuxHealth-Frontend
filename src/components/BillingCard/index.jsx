@@ -70,7 +70,6 @@ export const BillingCard = ({ data }) => {
         showPagination={true}
         columns={columns}
         dataSource={data}
-        route="/admin"
         defaultPageSize="5"
       />
     </NHCard>
