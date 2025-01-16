@@ -91,11 +91,9 @@ const NotificationBox = () => {
       rootClass="p-0 w-[400px]"
       headerContent={
         <NHButton
-          type="text"
           icon={<CloseOutlined />}
           onClick={() => setVisible(false)}
           size="small"
-          className="text-gray-500"
         />
       }
     >

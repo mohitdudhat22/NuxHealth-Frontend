@@ -12,7 +12,12 @@ import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
-import { useCancleTeleconsultation, usePrivousTeleconsultation, useTodayTeleconsultation, useUpcomingTeleconsultation } from "@/hook/Doctor";
+import {
+  useCancleTeleconsultation,
+  usePrivousTeleconsultation,
+  useTodayTeleconsultation,
+  useUpcomingTeleconsultation,
+} from "@/hook/Doctor";
 import { useNavigate } from "react-router-dom";
 import { reschedule } from "@/axiosApi/ApiHelper";
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
@@ -29,11 +34,20 @@ export const Teleconsultation = () => {
   const [toDate, setToDate] = useState(null);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
 
-  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments, filterAppointments, setIsDateModalOpen, isDateModalOpen } = usePrivousTeleconsultation();
-  const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
-  const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
-  const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
-
+  const {
+    data: privousTeleconsultation,
+    loading: privousLoader,
+    fetchAppointments,
+    filterAppointments,
+    setIsDateModalOpen,
+    isDateModalOpen,
+  } = usePrivousTeleconsultation();
+  const { data: upcomingTeleconsultation, loading: upcomingLoader } =
+    useUpcomingTeleconsultation();
+  const { data: todayTeleconsultation, loading: todayLoader } =
+    useTodayTeleconsultation();
+  const { data: cancleTeleconsultation, loading: cancleLoader } =
+    useCancleTeleconsultation();
 
   const rescheduleAppointment = async (selectedDate, selectedTime) => {
     const payload = {
@@ -66,7 +80,7 @@ export const Teleconsultation = () => {
 
   const handelReschedule = (id) => {
     setIsReshceduleModal(true);
-    setAppointmentId(id)
+    setAppointmentId(id);
   };
   const columns = [
     {
@@ -136,13 +150,14 @@ export const Teleconsultation = () => {
                   className="text-black bg-white"
                   onClick={() => setIsDateModalOpen(true)}
                 >
-                  {Icons.CalenderIcon} {fromDate ? fromDate : "From"} - {toDate ? toDate : "To"}
+                  {Icons.CalenderIcon} {fromDate ? fromDate : "From"} -{" "}
+                  {toDate ? toDate : "To"}
                   {Icons.CloseCircle}
                 </NHButton>
               </div>
             }
           >
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-lg">
               {privousTeleconsultation.map((data, index) => {
                 const {
                   name,
@@ -154,14 +169,17 @@ export const Teleconsultation = () => {
                   patientName,
                   doctorId,
                   hospitalId,
-                  patientId
-
+                  patientId,
                 } = data;
                 return (
                   <AppointmentCard
                     key={index}
                     headerBg={true}
-                    title={<span className="font-semibold text-[#030229] text-2xl">{patientName}</span>}
+                    title={
+                      <span className="font-semibold text-[#030229] text-2xl">
+                        {patientName}
+                      </span>
+                    }
                     patientIssue={patientIssue}
                     diseaseName={diseaseName}
                     appointmentDate={appointmentDate || date}
@@ -216,7 +234,6 @@ export const Teleconsultation = () => {
             setFromDate={setFromDate} // Update fromDate
             setToDate={setToDate} // Update toDate
           />
-
         </>
       ),
     },
@@ -237,7 +254,12 @@ export const Teleconsultation = () => {
             </>
           }
         >
-          <NHTable columns={columns} dataSource={upcomingTeleconsultation} loading={upcomingLoader} showPagination={true} />
+          <NHTable
+            columns={columns}
+            dataSource={upcomingTeleconsultation}
+            loading={upcomingLoader}
+            showPagination={true}
+          />
         </NHCard>
       ),
     },
@@ -252,7 +274,12 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={privousTeleconsultation} loading={privousLoader} showPagination={true} />
+          <NHTable
+            columns={columns}
+            dataSource={privousTeleconsultation}
+            loading={privousLoader}
+            showPagination={true}
+          />
         </NHCard>
       ),
     },
@@ -267,7 +294,12 @@ export const Teleconsultation = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTable columns={columns} dataSource={cancleTeleconsultation} loading={cancleLoader} showPagination={true} />
+          <NHTable
+            columns={columns}
+            dataSource={cancleTeleconsultation}
+            loading={cancleLoader}
+            showPagination={true}
+          />
         </NHCard>
       ),
     },
@@ -329,8 +361,11 @@ export const Teleconsultation = () => {
                 <NHButton
                   size={"small"}
                   className={"w-full"}
-                  onClick={() => navigate('videoCall?room=' + selectedPatientData.key)}
-                >{console.log(selectedPatientData)}
+                  onClick={() =>
+                    navigate("videoCall?room=" + selectedPatientData.key)
+                  }
+                >
+                  {console.log(selectedPatientData)}
                   Join
                   {console.log(selectedPatientData._id)}
                 </NHButton>
