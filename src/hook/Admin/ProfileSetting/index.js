@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { identifyRole } from "@/utils/identifyRole";
 import { editProfile } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
+import { setAuthHeader } from "@/axiosApi";
+import Cookies from "js-cookie";
 
 export const useEditProfile = () => {
     const [activeTab, setActiveTab] = useState("profile");
@@ -24,7 +26,6 @@ export const useEditProfile = () => {
 
     const fileUpload = useRef(null);
     const [file, setFile] = useState(null); // New state to store the selected file
-    console.log(token, "<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     useEffect(() => {
         if (token?.userData) {
             const {
@@ -54,15 +55,13 @@ export const useEditProfile = () => {
                 gender: gender || "",
                 role: role || "",
                 dob: metaData?.patientData?.dob,
-                height : metaData?.patientData?.height,
+                height: metaData?.patientData?.height,
                 weight: metaData?.patientData?.weight,
                 fullAddress: address?.fullAddress,
                 bloodGroup: metaData?.patientData?.bloodGroup,
                 hospitalName: metaData?.doctorData?.hospitalName,
                 age,
             });
-
-
         }
     }, [token]);
 
@@ -133,6 +132,7 @@ export const useEditProfile = () => {
                     address = {},
                     metaData,
                     age,
+                    token
                 } = response.data;
                 const { country = "", state = "", city = "" } = address;
                 const [firstName = "", lastName = ""] = fullName.split(" ");
@@ -150,12 +150,12 @@ export const useEditProfile = () => {
                     gender: gender || "",
                     role: role || "",
                     dob: metaData?.patientData?.dob,
-                    height : metaData?.patientData?.height,
+                    height: metaData?.patientData?.height,
                     weight: metaData?.patientData?.weight,
                     fullAddress: address?.fullAddress,
                     bloodGroup: metaData?.patientData?.bloodGroup,
                     hospitalName: metaData?.doctorData?.hospitalName,
-                    age : age,
+                    age: age,
                 });
                 console.log({
                     fullName: fullName || "",
@@ -170,13 +170,13 @@ export const useEditProfile = () => {
                     gender: gender || "",
                     role: role || "",
                     dob: metaData?.patientData?.dob,
-                    height : metaData?.patientData?.height,
+                    height: metaData?.patientData?.height,
                     weight: metaData?.patientData?.weight,
                     fullAddress: address?.fullAddress,
                     bloodGroup: metaData?.patientData?.bloodGroup,
-                    age : age,
-                    metaData:{
-                        patientData:{...metaData?.patientData}
+                    age: age,
+                    metaData: {
+                        patientData: { ...metaData?.patientData }
                     }
                 })
                 setDecodedToken((prev) => ({
@@ -191,23 +191,31 @@ export const useEditProfile = () => {
                         city: city || "",
                         gender: gender || "",
                         profilePicture: profilePicture || "",
-                        metaData:{
-                           patientData:{...metaData?.patientData},
-                           doctorData:{
-                            ...metaData?.doctorData
-                           }
+                        metaData: {
+                            patientData: { ...metaData?.patientData },
+                            doctorData: {
+                                ...metaData?.doctorData
+                            }
                         },
-                        address:address,
-                        age:age
+                        address: address,
+                        age: age
                     }
                 }))
 
-                toast.success("Profile updated successfully!");
-                return true;
-            } else {
-                toast.error(`Failed to update profile: ${response.message}`);
-                return false;
-            }
+                if (token) {
+                    Cookies.set(import.meta.env.VITE_TOKEN_NAME, token, {
+                        path: `/`,
+                        expires: 7,
+                        secure: process.env.NODE_ENV === "production",
+                    });
+                    setAuthHeader(token);
+                }
+                    toast.success("Profile updated successfully!");
+                    return true;
+                } else {
+                    toast.error(`Failed to update profile: ${response.message}`);
+                    return false;
+                }
         } catch (error) {
             toast.error(`An error occurred while updating the profile: ${error.message}`);
             return false;
