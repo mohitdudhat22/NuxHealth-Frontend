@@ -37,6 +37,7 @@ import {
   DoctorMeetingConference,
   PrescriptionAccess,
   ReceptionBills,
+  Record,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/BillingAndPayement/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -295,8 +296,16 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "patientviewdetails/:id",
-                      element: <PatientViewDetails />,
-                    },
+                      children: [
+                        {
+                          index: true,
+                          element: <PatientViewDetails />,
+                        },
+                        {
+                          path: "record",
+                          element: <Record />
+                        }]
+                    }
                   ],
                 },
                 {

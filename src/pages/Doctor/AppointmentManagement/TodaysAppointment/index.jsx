@@ -108,7 +108,7 @@ export const TodayAppointments = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
             <NHButton onClick={handleOpenDateModal} icon={Icons?.CalenderIcon}>
               Any Date
-            </NHButton>\
+            </NHButton>
           </>
         }
       >
