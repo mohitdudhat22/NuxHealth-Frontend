@@ -343,7 +343,7 @@ const NuxHealthRoute = createBrowserRouter(
                 {
                   path: "profile",
                   element: <ProfileSetting />,
-                }
+                },
               ],
             },
           ],
@@ -422,7 +422,7 @@ const NuxHealthRoute = createBrowserRouter(
                 {
                   path: "profile",
                   element: <ProfileSetting />,
-                }
+                },
               ],
             },
           ],
@@ -475,7 +475,6 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "appointment",
-                  // element: <AppointmentBooking />,
                   children: [
                     {
                       index: true,
@@ -503,7 +502,7 @@ const NuxHealthRoute = createBrowserRouter(
                 {
                   path: "profile",
                   element: <ProfileSetting />,
-                }
+                },
               ],
             },
           ],
