@@ -37,6 +37,7 @@ import {
   DoctorMeetingConference,
   PrescriptionAccess,
   ReceptionBills,
+  AppointmentSchedularPageForReception,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/BillingAndPayement/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -483,7 +484,7 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "scheduler",
-                      element: <AppointmentSchedularPage />,
+                      element: <AppointmentSchedularPageForReception />,
                     },
                     {
                       path: "reschedule",

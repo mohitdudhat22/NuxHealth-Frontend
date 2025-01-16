@@ -4,9 +4,9 @@ import { appointmentBooking, getPatientListForReceptionist } from "@/axiosApi/Ap
 import toast from "react-hot-toast";
 import { useDecodeToken } from "@/hook";
 import { useAppointmentData } from "./useAppointmentData";
-import { Invoice } from "..";
 import { useNavigate } from "react-router-dom";
 import { identifyRole } from "@/utils/identifyRole";
+import { Invoice } from "@/pages/Patients";
 
 export const AppointmentSchedularPage = () => {
   const {
@@ -26,31 +26,29 @@ export const AppointmentSchedularPage = () => {
   const navigate = useNavigate();
 
   const [isAppointmentModal, setIsAppointmentModal] = useState(false);
-  const [role, setRole] = useState(false);
+  const [role, setRole] = useState('');
   const [patientList, setPatientList] = useState([]);
   const [showInvoice, setShowInvoice] = useState(false);
   const [billData, setBillData] = useState(null);
-  const fetchData = async () => {
-    if (role === "receptionist") {
-      try {
-        const response = await getPatientListForReceptionist();
-        setPatientList(
-          response.data.map((patient) => ({
-            value: patient._id,
-            label: patient.fullName,
-          }))
-        );
-      } catch (error) {
-        console.error("Error fetching Patient List:", error);
-      }
-    }
-  };
   useEffect(() => {
     setRole(token?.userData?.role);
-}, [])
-  useEffect(() => {
-    role && fetchData();
-  }, [role]);
+    const fetchData = async () => {
+      if (role === "receptionist") {
+        try {
+          const response = await getPatientListForReceptionist();
+          setPatientList(
+            response.data.map((patient) => ({
+              value: patient._id,
+              label: patient.fullName,
+            }))
+          );
+        } catch (error) {
+          console.error("Error fetching Patient List:", error);
+        }
+      }
+    };
+    fetchData();
+  }, [token, role]);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -144,7 +142,7 @@ export const AppointmentSchedularPage = () => {
   const handleBooking = async () => {
     const payload = {
       doctorId: selectedDoctor,
-      patientId: data.patientList,
+      patientId: data.patientList.length == 0 ? data.patientId : data.patientList,
       date: data.appointmentDate,
       appointmentTime: selectedTime,
       type: data.appointmentType,
@@ -154,7 +152,7 @@ export const AppointmentSchedularPage = () => {
       state: filters.state,
       country: filters.country,
       paymentType: data.paymentType,
-      paymentStatus: data.paymentType === 'Cash' ? false : true
+      paymentStatus: data.paymentType === 'Cash' ? false : true,
     };
 
     try {
@@ -188,34 +186,6 @@ export const AppointmentSchedularPage = () => {
         <div>
           <NHCard className="p-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              <NHSelect
-                label="Country"
-                name="country"
-                placeholder="Select Country"
-                onChange={(value) => handleSelectChange(value, "country")}
-                options={data.countries}
-              />
-              <NHSelect
-                label="State"
-                name="state"
-                placeholder="Select State"
-                onChange={(value) => handleSelectChange(value, "state")}
-                options={data.states}
-              />
-              <NHSelect
-                label="City"
-                name="city"
-                placeholder="Select City"
-                onChange={(value) => handleSelectChange(value, "city")}
-                options={data.cities}
-              />
-              <NHSelect
-                label="Hospital"
-                name="hospital"
-                placeholder="Select Hospital"
-                onChange={(value) => handleSelectChange(value, "hospital")}
-                options={data.hospitals}
-              />
               <NHSelect
                 label="Speciality"
                 name="speciality"
@@ -255,14 +225,14 @@ export const AppointmentSchedularPage = () => {
                 placeholder="Disease Name"
                 onChange={(e) => handleInputChanges(e.target.value, "diseaseName")}
               />
-              {role === "receptionist" &&
+              {/* {role === "receptionist" &&
                 <NHSelect
                   label="Patient List"
                   name="patientList"
                   placeholder="Patient List"
                   onChange={(value) => handleSelectChange(value, "patientList")}
                   options={patientList}
-                />}
+                />} */}
             </div>
           </NHCard>
 

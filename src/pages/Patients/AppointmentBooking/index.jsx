@@ -15,7 +15,7 @@ import "./AppointmentBooking.css";
 import modalImg from "../../../assets/images/cover/view_modal_bg.png";
 import maleIcon from "../../../assets/images/cover/male_icon.svg";
 import doctorLogo from "../../../assets/images/cover/Avatar_6.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   cancelAppointmentForPatient,
   rescheduleForPatient,
@@ -29,6 +29,7 @@ import {
 } from "@/hook/Patients";
 
 export const AppointmentBooking = () => {
+
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
@@ -40,7 +41,7 @@ export const AppointmentBooking = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [activeTab, setActiveTab] = useState("Scheduled");
 
-  const { data: todayAppointments } = useTodaysAppoinmentBookings();
+  const { data: todayAppointments, patientId } = useTodaysAppoinmentBookings();
   const { data: previousAppointments } = usePreviousAppoinmentBookings();
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings();
   const { data: cancelAppointments } = useCancelAppoinmentBookings();
@@ -113,7 +114,6 @@ export const AppointmentBooking = () => {
     setTempToDate(null);
   };
 
-  // Function to format dates into a readable string (e.g., "2 March,2022 - 13 March, 2022")
   const formatDateRange = (fromDate, toDate) => {
     if (!fromDate || !toDate) return "Select Date Range";
     const options = { day: "numeric", month: "long", year: "numeric" };
@@ -122,7 +122,6 @@ export const AppointmentBooking = () => {
     return `${fromDateStr} - ${toDateStr}`;
   };
 
-  // Function to handle "View Details" button click
   const handleViewDetails = (id) => {
     let appointment;
     if (activeTab === "Scheduled") {
@@ -175,7 +174,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {window.location.pathname !== "/reception/appointment" && (
+              {patientId && (
                 <NHButton
                   variant="default"
                   className=""
@@ -263,7 +262,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {window.location.pathname !== "/reception/appointment" && (
+              {patientId &&(
                 <NHButton
                   variant="default"
                   className=""
@@ -327,7 +326,7 @@ export const AppointmentBooking = () => {
                 {Icons.CloseCircle}
               </NHButton>
 
-              {window.location.pathname !== "/reception/appointment" && (
+              {patientId && (
                 <NHButton
                   variant="default"
                   className=""
@@ -390,7 +389,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {window.location.pathname !== "/reception/appointment" && (
+              {patientId && (
                 <NHButton
                   variant="default"
                   className=""

@@ -53,14 +53,13 @@ export const TeleconsultationAccess = () => {
     try {
       const response = await rescheduleForPatient(appointmentId, payload);
       console.log("Response:", response);
-      setIsReshceduleModal(false); // Close modal after successful reschedule
+      setIsReshceduleModal(false);
       fetchAppointments();
     } catch (error) {
       console.error("Error rescheduling appointment:", error);
     }
   };
 
-  // Handle appointment cancellation
   const cancelAppointment = async (id) => {
     console.log("Cancelling appointment with ID:", id);
     try {
@@ -69,7 +68,6 @@ export const TeleconsultationAccess = () => {
       });
       console.log("Appointment canceled successfully:", response);
 
-      // Update the state
       setCanceledAppointments((prev) => [...prev, { id }]);
       setTodaysAppointments((prev) =>
         prev.filter((appointment) => appointment._id !== id)
@@ -82,7 +80,6 @@ export const TeleconsultationAccess = () => {
     setIsReshceduleModal(true);
     setAppointmentId(id);
   };
-  // Use Effect to Update States
   useEffect(() => {
     if (previousData) setPreviousAppointments(previousData);
     if (todaysData) setTodaysAppointments(todaysData);
@@ -90,8 +87,6 @@ export const TeleconsultationAccess = () => {
     if (canceledData) setCanceledAppointments(canceledData);
   }, [previousData, todaysData, upcomingData, canceledData]);
   console.log("🚀 ~ useEffect ~ previousData:", previousData);
-
-  // modal open
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

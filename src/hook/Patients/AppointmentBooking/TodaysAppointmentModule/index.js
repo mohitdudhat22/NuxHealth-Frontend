@@ -1,18 +1,20 @@
 import { scheduledAppointmentsForPatient } from "@/axiosApi/ApiHelper";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const useTodaysAppoinmentBookings = () => {
   let navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const [patientId] = useState(queryParams.get("patientId") || false)
   const [appointments, setAppointments] = useState([]);
   const [isDrawerVisible, setDrawerVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-
   const fetchAppointments = async (role) => {
     try {
       setLoading(true);
-      const response = await scheduledAppointmentsForPatient(role);
+      const response = await scheduledAppointmentsForPatient(role, patientId);
       if (response.status === 1) {
         setAppointments(response.data.appointments);
       }
@@ -54,16 +56,16 @@ export const useTodaysAppoinmentBookings = () => {
     hospitalName: appointment?.hospitalId?.name,
     appointmentTime: appointment?.appointmentTime,
     status: appointment?.status,
-    doctorQualification : appointment?.doctorId?.metaData?.doctorData?.qualification,
-    doctorEveningSession : appointment?.doctorId?.metaData?.doctorData?.eveningSession,
-    doctorMorningSession : appointment?.doctorId?.metaData?.doctorData?.morningSession,
-    doctorExperience : appointment?.doctorId?.metaData?.doctorData?.experience,
-    doctorSpeciality : appointment?.doctorId?.metaData?.doctorData?.speciality,
-    doctorEmergencyContactNo : appointment?.doctorId?.metaData?.doctorData?.emergencyContactNo,
+    doctorQualification: appointment?.doctorId?.metaData?.doctorData?.qualification,
+    doctorEveningSession: appointment?.doctorId?.metaData?.doctorData?.eveningSession,
+    doctorMorningSession: appointment?.doctorId?.metaData?.doctorData?.morningSession,
+    doctorExperience: appointment?.doctorId?.metaData?.doctorData?.experience,
+    doctorSpeciality: appointment?.doctorId?.metaData?.doctorData?.speciality,
+    doctorEmergencyContactNo: appointment?.doctorId?.metaData?.doctorData?.emergencyContactNo,
     doctorGender: appointment?.doctorId?.gender,
-    doctorFullName : appointment?.doctorId?.fullName,
-    doctorDescription : appointment?.doctorId?.metaData?.doctorData?.description,
-    doctorImage : appointment?.doctorId?.profilePicture
+    doctorFullName: appointment?.doctorId?.fullName,
+    doctorDescription: appointment?.doctorId?.metaData?.doctorData?.description,
+    doctorImage: appointment?.doctorId?.profilePicture
   }));
 
   const openDrawer = () => setDrawerVisible(true);
@@ -79,5 +81,6 @@ export const useTodaysAppoinmentBookings = () => {
     fetchAppointments,
     navigate,
     onSearch,
+    patientId
   };
 };
