@@ -29,9 +29,6 @@ export const AppointmentManagement = () => {
     },
   ];
 
-  const { token } = useDecodeToken();
-  console.log(token);
-
   return (
     <>
       <NHHead title="Appointment Management" />
