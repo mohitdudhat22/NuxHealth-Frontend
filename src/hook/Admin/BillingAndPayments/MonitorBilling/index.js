@@ -45,8 +45,6 @@ export const useBillingAndPayments = () => {
     time: bill?.time,
   }));
 
-  console.log(data, "data>>>>>>>>>>>>");
-
   return {
     bills,
     loading,

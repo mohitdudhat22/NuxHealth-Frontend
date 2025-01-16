@@ -4,29 +4,7 @@ import { AppointmentCard } from "../AppointmentCard";
 import NoDataFoundImage from "@/assets/images/cover/no-appointment-found.png";
 
 export const AppointmentsList = ({ data }) => {
-  const appointments = data || [
-    {
-      patientName: "Roger Lubin",
-      doctorName: "Leo Geidt",
-      diseaseName: "Meningococcal Disease",
-      appointmentTime: "10:00 AM",
-      type: "Online",
-    },
-    {
-      patientName: "Jakob Kongsaard",
-      doctorName: "Leo Geidt",
-      diseaseName: "Meningococcal Disease",
-      appointmentTime: "10:00 AM",
-      type: "Online",
-    },
-    {
-      patientName: "Roger Lubin",
-      doctorName: "Leo Geidt",
-      diseaseName: "Meningococcal Disease",
-      appointmentTime: "10:00 AM",
-      type: "Online",
-    },
-  ];
+  const appointments = data;
 
   return (
     <NHCard
@@ -36,9 +14,9 @@ export const AppointmentsList = ({ data }) => {
         <button className="text-blue-500 text-sm">View All</button>
       }
     >
-      {appointments.length > 0 ? (
+      {appointments?.length > 0 ? (
         <div className="space-y-1 grid grid-cols-1 md:grid-cols-3 gap-3">
-          {appointments.map((appointment, index) => (
+          {appointments?.map((appointment, index) => (
             <AppointmentCard key={index} appointment={appointment} />
           ))}
         </div>

@@ -121,32 +121,31 @@ const useBillForm = () => {
   const handleChange = (e) => {
     if (e.target) {
       const { name, value } = e.target;
-  
+
       setFormData((prev) => {
         let updatedFormData = { ...prev, [name]: value };
-  
+
         if (["amount", "tax", "discount"].includes(name)) {
           const amount = parseFloat(updatedFormData.amount) || 0;
           const tax = parseFloat(updatedFormData.tax) || 0;
           const discount = parseFloat(updatedFormData.discount) || 0;
-  
+
           // Formula: Total Amount = (Amount + Tax) - Discount (% of Amount)
           const discountValue = (discount / 100) * amount;
-          updatedFormData.totalAmount = (amount + tax - discountValue).toFixed(2);
+          updatedFormData.totalAmount = (amount + tax - discountValue).toFixed(
+            2
+          );
         }
-  
+
         return updatedFormData;
       });
     }
   };
-  
 
   const fetchPatient = async (value) => {
     try {
-      console.log("formData.selectAppointment:", value);
       const response = await getPatientForAdminBill(value);
       const patientData = response.data.appointment;
-      console.log("Patient data:", patientData);
       if (patientData) {
         setFormData((prev) => ({
           ...prev,
@@ -181,10 +180,7 @@ const useBillForm = () => {
 
 const CreateBill = () => {
   const location = useLocation();
-  //   const record = location.state?.record;
   const { record } = location.state || {};
-
-  console.log("record:", record);
 
   const {
     formData,
@@ -270,7 +266,6 @@ const CreateBill = () => {
 
     try {
       const response = await createBillForAdmin(payload);
-      console.log("Bill created successfully:", response.data);
       setFormData({});
     } catch (error) {
       console.error("Error creating bill:", error);

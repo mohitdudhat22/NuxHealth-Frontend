@@ -41,28 +41,6 @@ const columns = (handleViewPatient) => [
       <Tag color={type === "online" ? "blue" : "orange"}>{type}</Tag>
     ),
   },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.RedCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.BlueCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-      </Space>
-    ),
-  },
 ];
 
 export const CancelAppointments = () => {
@@ -73,7 +51,6 @@ export const CancelAppointments = () => {
 
   useEffect(() => {
     if (data && !loading && !error) {
-      // Ensure initial data is loaded when the component is mounted
       console.log("Appointments data loaded:", data);
     }
   }, [data, loading, error]);
@@ -96,8 +73,6 @@ export const CancelAppointments = () => {
     setModalType(null);
   };
 
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
     <>
       <NHCard
@@ -106,7 +81,6 @@ export const CancelAppointments = () => {
           <>
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
             <NHButton>{Icons.CalenderIcon} Any Date</NHButton>
-            <NHButton>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
           </>
         }
       >
@@ -114,8 +88,7 @@ export const CancelAppointments = () => {
           loading={loading}
           showPagination={true}
           tableColumn={columns(handleViewPatient)}
-          tableDataSource={data} // Directly bind data here
-          route="/doctor"
+          tableDataSource={data}
         />
       </NHCard>
 

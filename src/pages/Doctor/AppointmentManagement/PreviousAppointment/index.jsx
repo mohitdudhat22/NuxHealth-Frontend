@@ -43,28 +43,6 @@ const columns = (handleViewPatient) => [
       <Tag color={type === "online" ? "blue" : "orange"}>{type}</Tag>
     ),
   },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.RedCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.BlueCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-      </Space>
-    ),
-  },
 ];
 
 export const PreviousAppointments = () => {
@@ -78,11 +56,11 @@ export const PreviousAppointments = () => {
   const [toDate, setToDate] = useState(null);
 
   // Update filteredAppointments when data changes
-  useEffect(() => {
-    if (data) {
-      setFilteredAppointments(data); // Set data initially
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     setFilteredAppointments(data); // Set data initially
+  //   }
+  // }, [data]);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
@@ -135,7 +113,6 @@ export const PreviousAppointments = () => {
             <NHButton onClick={handleOpenDateModal}>
               {Icons.CalenderIcon} Any Date
             </NHButton>
-            <NHButton>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
           </>
         }
       >
@@ -143,7 +120,7 @@ export const PreviousAppointments = () => {
           showPagination={true}
           loading={loading}
           tableColumn={columns(handleViewPatient)}
-          tableDataSource={filteredAppointments}
+          tableDataSource={data}
           route="/doctor"
         />
       </NHCard>
@@ -169,7 +146,7 @@ export const PreviousAppointments = () => {
       )}
 
       <CustomDateModal
-        handleOk={handleApplyDateFilter}
+        // handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}
         customDate={isDateModalOpen}

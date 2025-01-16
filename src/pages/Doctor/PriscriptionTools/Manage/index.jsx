@@ -8,11 +8,9 @@ import {
 } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
-import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { useTodayManagePriscription } from "@/hook/Doctor/PriscriptionTools/Manage/TodayPriscription";
 import { useOlderManagePrescription } from "@/hook/Doctor/PriscriptionTools/Manage/OlderPriscription";
-import { user } from "@/assets/images";
 import CustomEmpty from "@/components/CustomEmpty/CustomEmpty";
 
 export const Manage = () => {
@@ -115,17 +113,13 @@ export const Manage = () => {
           headerContent={
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
-          rootClass={'p-0'}
-
+          rootClass={"p-0"}
         >
-          {todayData.length !== 0 ?
-            <NHTable
-              columns={columns}
-              dataSource={todayData}
-              showPagination={true}
-            /> :
-            <CustomEmpty route={'/doctor'} />
-          }
+          <NHTable
+            columns={columns}
+            dataSource={todayData}
+            showPagination={true}
+          />
         </NHCard>
       ),
     },
@@ -138,8 +132,7 @@ export const Manage = () => {
           headerContent={
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
-          rootClass={'p-0'}
-
+          rootClass={"p-0"}
         >
           <NHTable
             columns={columns}

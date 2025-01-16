@@ -8,7 +8,6 @@ export const useInsuranceClaims = () => {
   const [claims, setClaims] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setSearchQuery] = useState('');
-  console.log(claims)
 
   const fetchClaims = async () => {
     try {

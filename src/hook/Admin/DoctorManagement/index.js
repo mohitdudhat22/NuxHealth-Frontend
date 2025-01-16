@@ -49,8 +49,6 @@ export const useDoctorManagement = () => {
     eveningSession: doctor?.metaData?.doctorData?.eveningSession,
   }));
 
-  console.log(data);
-
   const openDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);
 
