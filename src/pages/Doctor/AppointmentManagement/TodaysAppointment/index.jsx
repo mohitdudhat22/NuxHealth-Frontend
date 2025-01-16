@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
-import { Space, Tag } from "antd";
+import { Space } from "antd";
 import Icons from "@/constants/icons";
 import { useTodayAppointment } from "@/hook/Doctor/AppointmentManagement/TodaysAppointment";
 import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
@@ -10,56 +10,13 @@ import moment from "moment";
 
 export const TodayAppointments = () => {
   const { data, loading } = useTodayAppointment();
-  console.log("🚀 ~ TodayAppointments ~ data:", data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-  // const [filteredAppointments, setFilteredAppointments] = useState(data);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-  const [filteredAppointments, setFilteredAppointments] = useState([
-    {
-      key: "1",
-      patientName: "John Doe",
-      diseaseName: "Flu",
-      patientIssue: "Fever and cough",
-      appointmentTime: "10:00 AM",
-      appointmentType: "Consultation",
-    },
-    {
-      key: "2",
-      patientName: "Jane Smith",
-      diseaseName: "Diabetes",
-      patientIssue: "High blood sugar",
-      appointmentTime: "11:00 AM",
-      appointmentType: "Follow-up",
-    },
-    {
-      key: "3",
-      patientName: "Alice Johnson",
-      diseaseName: "Hypertension",
-      patientIssue: "High blood pressure",
-      appointmentTime: "12:00 PM",
-      appointmentType: "Consultation",
-    },
-    {
-      key: "4",
-      patientName: "Bob Brown",
-      diseaseName: "Asthma",
-      patientIssue: "Shortness of breath",
-      appointmentTime: "01:00 PM",
-      appointmentType: "Consultation",
-    },
-    {
-      key: "5",
-      patientName: "Charlie Davis",
-      diseaseName: "Allergy",
-      patientIssue: "Skin rash",
-      appointmentTime: "02:00 PM",
-      appointmentType: "Consultation",
-    },
-  ]);
+  const [filteredAppointments, setFilteredAppointments] = useState(data);
 
   const columns = [
     {

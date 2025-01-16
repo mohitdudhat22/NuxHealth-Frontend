@@ -9,7 +9,6 @@ export const useUpcomingAppointments = () => {
   const fetchAppointments = async () => {
     try {
       const response = await upcomingAppointmentForDoctor();
-      console.log("API Response:", response);
 
       if (response && response?.data) {
         setAppointments(response?.data?.appointments);
@@ -29,7 +28,6 @@ export const useUpcomingAppointments = () => {
     appointmentTime: appointment?.appointmentTime,
     appointmentType: appointment?.type,
   }));
-
 
   useEffect(() => {
     fetchAppointments();

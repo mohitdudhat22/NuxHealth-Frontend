@@ -73,15 +73,9 @@ export const UpcomingAppointments = () => {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-  const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const [filteredAppointments, setFilteredAppointments] = useState(data);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-
-  useEffect(() => {
-    if (data) {
-      setFilteredAppointments(data);
-    }
-  }, []);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
