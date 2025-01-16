@@ -125,6 +125,7 @@ export const PrescriptionCard = ({
   Title,
   handleOk,
   isSendButton = false,
+  handlePrescription,
 }) => {
   const columns = [
     { title: "Medicine Name", dataIndex: "medicineName", key: "medicineName" },

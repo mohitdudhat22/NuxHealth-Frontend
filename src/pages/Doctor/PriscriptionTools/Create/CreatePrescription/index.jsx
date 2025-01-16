@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   NHInput,
   NHTable,
@@ -8,6 +8,7 @@ import {
   PrescriptionCard,
 } from "@/components";
 import Icons from "@/constants/icons";
+import { createPrescription } from "@/axiosApi/ApiHelper";
 
 export const CreatePrescription = ({
   appointment = {},
@@ -30,6 +31,7 @@ export const CreatePrescription = ({
     },
   ]);
   const [additionalNote, setAdditionalNote] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   // Function to handle changes in the Medicine field
   const handleMedicineChange = (index, value) => {
@@ -63,9 +65,45 @@ export const CreatePrescription = ({
     setTableData((prevData) => prevData.filter((_, i) => i !== index));
   };
 
+  // Function to handle sending the prescription
   const handleSendPrescription = () => {
-    console.log("Prescription sent!");
+    console.log("Send Prescription button clicked!");
+    setIsSending(true);
   };
+
+  // useEffect to handle the API call when isSending is true
+  useEffect(() => {
+    if (isSending) {
+      console.log("Preparing payload...");
+
+      const payload = {
+        patientId: patientId._id,
+        appointmentId: appointment._id,
+        medications: tableData.map((row) => ({
+          medicineName: row.medicine,
+          strength: row.strength,
+          dose: row.dose,
+          duration: row.duration,
+          whenToTake: row.whenToTake,
+        })),
+        additionalNote: additionalNote,
+      };
+
+      console.log("Payload:", payload);
+
+      createPrescription(payload)
+        .then((response) => {
+          console.log("Prescription sent successfully!", response);
+          setIsSending(false);
+
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error("Failed to send prescription:", error);
+          setIsSending(false);
+        });
+    }
+  }, [isSending, tableData, additionalNote, patientId, appointment]);
 
   // Table columns with delete functionality
   const columns = [
@@ -87,9 +125,12 @@ export const CreatePrescription = ({
       key: "strength",
       render: (_, record, index) => (
         <NHInput
-          placeholder="100 Mg"
+          placeholder="100"
           value={record.strength}
-          onChange={(e) => handleFieldChange(index, "strength", e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value.replace(/[^0-9]/g, "");
+            handleFieldChange(index, "strength", value);
+          }}
         />
       ),
     },
@@ -101,7 +142,24 @@ export const CreatePrescription = ({
         <NHInput
           placeholder="1-0-1"
           value={record.dose}
-          onChange={(e) => handleFieldChange(index, "dose", e.target.value)}
+          onChange={(e) => {
+            let value = e.target.value.replace(/[^0-9]/g, "");
+            let formattedValue = "";
+
+            // Insert dashes after every single digit (for 1-1-1 format)
+            for (let i = 0; i < value.length; i++) {
+              if (i > 0 && i % 1 === 0 && i < 3) {
+                formattedValue += "-";
+              }
+              formattedValue += value[i];
+            }
+
+            if (formattedValue.length > 5) {
+              formattedValue = formattedValue.slice(0, 5);
+            }
+
+            handleFieldChange(index, "dose", formattedValue);
+          }}
         />
       ),
     },
@@ -111,9 +169,12 @@ export const CreatePrescription = ({
       key: "duration",
       render: (_, record, index) => (
         <NHInput
-          placeholder="2 Days"
+          placeholder="2"
           value={record.duration}
-          onChange={(e) => handleFieldChange(index, "duration", e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value.replace(/[^0-9]/g, "");
+            handleFieldChange(index, "duration", value);
+          }}
         />
       ),
     },
@@ -187,7 +248,7 @@ export const CreatePrescription = ({
               Additional Note
             </label>
             <textarea
-              className="w-full p-2 mt-1 border border-[rgb(211,211,211)] rounded-md"
+              className="w-full p-2 mt-1 border border-[rgb(211,211,211)]  rounded-md"
               rows="3"
               placeholder="Additional notes"
               value={additionalNote}
@@ -212,9 +273,9 @@ export const CreatePrescription = ({
           patientData={{
             medications: tableData.map((row) => ({
               medicineName: row.medicine,
-              strength: row.strength,
+              strength: row.strength ? `${row.strength} mg` : "",
               dose: row.dose,
-              duration: row.duration,
+              duration: row.duration ? `${row.duration} days` : "",
               whenToTake: row.whenToTake,
             })),
           }}
