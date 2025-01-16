@@ -43,28 +43,6 @@ const columns = (handleViewPatient) => [
       <Tag color={type === "online" ? "blue" : "orange"}>{type}</Tag>
     ),
   },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.RedCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.BlueCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-      </Space>
-    ),
-  },
 ];
 
 export const PreviousAppointments = () => {
@@ -135,7 +113,6 @@ export const PreviousAppointments = () => {
             <NHButton onClick={handleOpenDateModal}>
               {Icons.CalenderIcon} Any Date
             </NHButton>
-            <NHButton>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
           </>
         }
       >
@@ -144,7 +121,6 @@ export const PreviousAppointments = () => {
           loading={loading}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={filteredAppointments}
-          route="/doctor"
         />
       </NHCard>
 
