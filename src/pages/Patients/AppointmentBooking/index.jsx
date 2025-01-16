@@ -4,6 +4,7 @@ import {
   NHCard,
   NHInput,
   NHTabs,
+  PatientDetailCard,
 } from "@/components";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
@@ -177,13 +178,15 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton
-                variant="default"
-                className=""
-                onClick={() => handleAppointment()}
-              >
-                {Icons.CalenderIcon}Book Appointment
-              </NHButton>
+              {window.location.pathname !== "/reception/appointment" && (
+                <NHButton
+                  variant="default"
+                  className=""
+                  onClick={() => handleAppointment()}
+                >
+                  {Icons.CalenderIcon}Book Appointment
+                </NHButton>
+              )}
             </>
           }
         >
@@ -263,9 +266,15 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className="" onClick={() => handleAppointment()}>
-                {Icons.CalenderIcon}Book Appointment
-              </NHButton>
+              {window.location.pathname !== "/reception/appointment" && (
+                <NHButton
+                  variant="default"
+                  className=""
+                  onClick={() => handleAppointment()}
+                >
+                  {Icons.CalenderIcon}Book Appointment
+                </NHButton>
+              )}
             </>
           }
         >
@@ -320,9 +329,16 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className=""  onClick={() => handleAppointment()}>
-                {Icons.CalenderIcon}Book Appointment
-              </NHButton>
+
+              {window.location.pathname !== "/reception/appointment" && (
+                <NHButton
+                  variant="default"
+                  className=""
+                  onClick={() => handleAppointment()}
+                >
+                  {Icons.CalenderIcon}Book Appointment
+                </NHButton>
+              )}
             </>
           }
         >
@@ -377,9 +393,15 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              <NHButton variant="default" className=""  onClick={() => handleAppointment()}>
-                {Icons.CalenderIcon}Book Appointment
-              </NHButton>
+              {window.location.pathname !== "/reception/appointment" && (
+                <NHButton
+                  variant="default"
+                  className=""
+                  onClick={() => handleAppointment()}
+                >
+                  {Icons.CalenderIcon}Book Appointment
+                </NHButton>
+              )}
             </>
           }
         >

@@ -271,13 +271,16 @@ export const PatientRegistration = () => {
         </NHCheckbox>
 
         <NHButton variant="primary" block type="submit" loading={isLoading}>
-          <Link to="/reception/appointment" className="text-[#5678E9]"> Register</Link>
+          <Link to="/reception/appointment" className="text-[#5678E9]">
+            {" "}
+            Register
+          </Link>
         </NHButton>
 
         <h6 className="text-center fw-normal">
           Already have an account?{" "}
-          <Link to="/reception/patient-Login" className="text-[#5678E9]">
-            Login
+          <Link to="/reception/personal-health" className="text-[#5678E9]">
+            Click Hear
           </Link>
         </h6>
       </form>
