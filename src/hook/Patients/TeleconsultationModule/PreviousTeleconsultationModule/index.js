@@ -13,7 +13,6 @@ export const usePreviousTeleconsultationModule = () => {
 
         if (response && response?.data) {
           setData(response?.data?.appointments);
-          console.log(response.data.appointments);
         }
       } catch (error) {
         console.log(error);

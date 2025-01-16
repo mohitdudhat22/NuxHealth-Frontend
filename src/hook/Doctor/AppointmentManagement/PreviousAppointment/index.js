@@ -13,7 +13,6 @@ export const usePreviousAppointments = () => {
 
       if (response && response?.data) {
         setAppointments(response?.data?.appointments);
-        console.log(response.data.appointments);
       }
     } finally {
       setLoading(false);
