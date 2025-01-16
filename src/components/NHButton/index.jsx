@@ -18,6 +18,7 @@ export const NHButton = ({
   name,
   variant,
   shape,
+  title,
   ...rest
 }) => {
   if (isEdit || isView || isDelete || isCancel || isReschedule) {
@@ -51,6 +52,7 @@ export const NHButton = ({
       htmlType={type}
       type={variant}
       onClick={onClick}
+      title={title}
       danger={isDelete || isCancel}
       className={clsx(
         className,
@@ -60,7 +62,7 @@ export const NHButton = ({
             isView || isEdit || isDelete || isCancel || isReschedule,
           "text-success": isEdit,
           "text-primary": isView,
-          "text-link": isReschedule,
+          "text-[#49bfef]": isReschedule,
         }
       )}
       {...rest}

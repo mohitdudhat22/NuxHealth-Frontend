@@ -57,7 +57,7 @@ export const Create = () => {
                                     </div>
                                 }
                                 headerBg={true}
-                                title={<span className="font-semibold text-[18px]">{appointment.patientId.fullName}</span>}
+                                title={<span className="font-semibold text-[#030229] text-2xl">{appointment.patientId.fullName}</span>}
                                 appointmentType={appointment.type}
                                 patientAge={<>{appointment.patientId.age} Years</>}
                                 PatientGender={appointment.patientId.gender}
