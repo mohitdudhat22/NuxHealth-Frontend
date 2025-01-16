@@ -1,3 +1,4 @@
+import { setAuthHeader } from "@/axiosApi";
 import { useDecodeToken } from "@/hook";
 import { jwtDecode } from "jwt-decode";
 import React, { createContext, useState, useContext, useEffect } from "react";
@@ -29,6 +30,7 @@ export const UserProvider = ({ children }) => {
       console.log("new token--------------",token)
       setDecodedToken(decoded);
       setUserData(decoded)
+      setAuthHeader()
     } catch (error) {
       console.error("Error decoding token:", error);
       setDecodedToken(null);

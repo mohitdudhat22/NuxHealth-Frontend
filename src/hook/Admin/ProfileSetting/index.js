@@ -209,7 +209,7 @@ export const useEditProfile = () => {
                         expires: 7,
                         secure: process.env.NODE_ENV === "production",
                     });
-                    setAuthHeader(token);
+                    setAuthHeader();
                     decodeToken()
                 }
                     toast.success("Profile updated successfully!");
