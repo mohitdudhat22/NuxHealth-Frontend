@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { useDecodeToken } from "@/hook";
 import { useAppointmentData } from "./useAppointmentData";
 import { useNavigate } from "react-router-dom";
-import { identifyRole } from "@/utils/identifyRole";
 import { Invoice } from "@/pages/Patients";
 
 export const AppointmentSchedularPage = () => {
@@ -15,21 +14,27 @@ export const AppointmentSchedularPage = () => {
     selectedTime,
     selectedDoctor,
     timeSlots,
+    isAppointmentModal,
     setSelectedTime,
     handleSelectChange,
     handleDoctorChange,
     handleDateChange,
     handleInputChanges,
+    appointmentTypes,
+    paymentTypes,
+    handleTimeSelect,
+    handleBookAppointment,
+    handleCloseModal,
+    razorPay,
+    showInvoice,
+    billData,
   } = useAppointmentData();
 
   const { token } = useDecodeToken();
-  const navigate = useNavigate();
 
-  const [isAppointmentModal, setIsAppointmentModal] = useState(false);
   const [role, setRole] = useState('');
   const [patientList, setPatientList] = useState([]);
-  const [showInvoice, setShowInvoice] = useState(false);
-  const [billData, setBillData] = useState(null);
+
   useEffect(() => {
     setRole(token?.userData?.role);
     const fetchData = async () => {
@@ -56,127 +61,6 @@ export const AppointmentSchedularPage = () => {
     script.async = true;
     document.body.appendChild(script);
   }, []);
-
-  const handleTimeSelect = (time) => {
-    setSelectedTime(time);
-  };
-
-  const handleBookAppointment = () => {
-    if (selectedTime) {
-      setIsAppointmentModal(true);
-    } else {
-      toast.error("Please choose doctor and time slot.");
-    }
-  };
-
-  const handleCloseModal = () => {
-    setIsAppointmentModal(false);
-  };
-
-  const razorPay = async () => {
-    if (data.paymentType === 'Cash') {
-      await handleBooking();
-      return;
-    }
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/payment/create-order`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          appointmentType: data.appointmentType,
-          doctorId: selectedDoctor
-        })
-      });
-      const order = await response.json();
-
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: "INR",
-        name: "Your Company Name",
-        description: "Test Transaction",
-        order_id: order.id,
-        handler: async function (response) {
-          const verifyResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/payment/verify-payment`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature
-            })
-          });
-
-          const data = await verifyResponse.json();
-          if (data.verified) {
-            toast.success("Payment successful!");
-            await handleBooking();
-            toast.success("Appointment successfully booked!");
-          } else {
-            toast.error("Payment verification failed!");
-          }
-        },
-        prefill: {
-          name: "Customer Name",
-          email: "customer@example.com",
-          contact: "9999999999"
-        },
-        theme: {
-          color: "#3399cc"
-        }
-      };
-
-      const rzp1 = new window.Razorpay(options);
-      rzp1.open();
-    } catch (error) {
-      console.error("Payment error:", error);
-      toast.error("Payment failed!");
-    }
-  };
-
-  const handleBooking = async () => {
-    const payload = {
-      doctorId: selectedDoctor,
-      patientId: data.patientList.length == 0 ? data.patientId : data.patientList,
-      date: data.appointmentDate,
-      appointmentTime: selectedTime,
-      type: data.appointmentType,
-      patient_issue: data.patientIssue,
-      dieseas_name: data.diseaseName,
-      city: filters.city,
-      state: filters.state,
-      country: filters.country,
-      paymentType: data.paymentType,
-      paymentStatus: data.paymentType === 'Cash' ? false : true,
-    };
-
-    try {
-      const response = await appointmentBooking(payload, role);
-      toast.success("Appointment booked successfully!");
-      handleCloseModal();
-      setBillData(response.data);
-      setShowInvoice(true);
-    } catch (error) {
-      console.error("Error booking appointment:", error);
-      toast.error("Failed to book appointment. Please try again.");
-    }
-  };
-
-  const appointmentTypes = [
-    { value: "onsite", label: "OnSite" },
-    { value: "online", label: "Online" },
-  ];
-
-  const paymentTypes = [
-    { value: "Cash", label: "Cash" },
-    { value: "Online", label: "Online" },
-    { value: "Insurance", label: "Insurance" },
-  ];
 
   return (
     <>

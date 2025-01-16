@@ -262,14 +262,14 @@ export const fetchDoctorSession = (doctorId, date, role) => {
 };
 
 
-export const reschedule = (id, data) =>
-  request("post", `/api/doctor/editAppointment/${id}`, data);
+export const reschedule = (id, data, role="doctor") =>
+  request("post", `/api/${role}/editAppointment/${id}`, data);
+export const rescheduleForPatient = (id, data) =>
+  request("post", `/api/patient/editAppointment/${id}`, data);
 
 export const getPatientListForReceptionist = () =>
   request("get", "api/receptionist/getPatient");
 
-export const rescheduleForPatient = (id, data) =>
-  request("post", `/api/patient/editAppointment/${id}`, data);
 
 export const getAppointmentsTeleconsultationWithFromAndTo = (
   startDate,

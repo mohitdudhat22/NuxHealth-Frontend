@@ -18,6 +18,7 @@ import doctorLogo from "../../../assets/images/cover/Avatar_6.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   cancelAppointmentForPatient,
+  reschedule,
   rescheduleForPatient,
 } from "@/axiosApi/ApiHelper";
 import { AppointmentSchedularPage } from "..";
@@ -28,6 +29,7 @@ import {
   useUpcomingAppoinmentBookings,
 } from "@/hook/Patients";
 import { AppointmentSchedularPageForReception } from "@/pages/Reception";
+import { identifyRole } from "@/utils/identifyRole";
 
 export const AppointmentBooking = () => {
 
@@ -40,35 +42,29 @@ export const AppointmentBooking = () => {
   const [canceledAppointments, setCanceledAppointments] = useState([]);
   const [isOffCanvasVisible, setIsOffCanvasVisible] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [selectedAppointmentForModal, setSelectedAppointmentForModal] = useState(null);
   const [activeTab, setActiveTab] = useState("Scheduled");
-
+  
   const { data: todayAppointments, patientId } = useTodaysAppoinmentBookings();
-  const { data: previousAppointments } = usePreviousAppoinmentBookings();
+  const { data: previousAppointments, fetchAppointments} = usePreviousAppoinmentBookings();
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings();
   const { data: cancelAppointments } = useCancelAppoinmentBookings();
 
   const navigate = useNavigate();
 
-  const rescheduleAppointment = async (
-    appointmentId,
-    selectedDate,
-    selectedTime
-  ) => {
-    const payload = {
-      date: selectedDate,
-      appointmentTime: selectedTime,
-    };
-
-    try {
-      const response = await rescheduleForPatient(appointmentId, payload);
-      console.log("Response:", response);
-      setIsReshceduleModal(false); // Close modal after successful reschedule
-      fetchAppointments(); // Refresh the appointment list if needed
-    } catch (error) {
-      console.error("Error rescheduling appointment:", error);
-    }
-  };
-
+   const rescheduleAppointment = async (selectedDate, selectedTime) => {
+     const payload = {
+       date: selectedDate,
+       appointmentTime: selectedTime,
+     };
+     try {
+       const response = await reschedule(selectedAppointmentForModal, payload, identifyRole());
+       setIsReshceduleModal(false); 
+       fetchAppointments();
+     } catch (error) {
+       console.error("Error rescheduling appointment:", error);
+     }
+   };
   // Handle appointment cancellation
   const cancelAppointment = async (id) => {
     try {
@@ -137,7 +133,7 @@ export const AppointmentBooking = () => {
 
     if (appointment) {
       setSelectedAppointment(appointment);
-      setIsOffCanvasVisible(true); // Show OffCanvas
+      setIsOffCanvasVisible(true);
     }
   };
 
@@ -150,7 +146,10 @@ export const AppointmentBooking = () => {
   };
 
   const handleReschedule = (appointment) => {
-    navigate("/patient/appointment/reschedule", { state: { appointment } });
+    // navigate("/patient/appointment/reschedule", { state: { appointment } });
+    setIsReshceduleModal(true)
+    console.log(appointment);
+    setSelectedAppointmentForModal(appointment.key);
   };
 
   const tabItems = [

@@ -35,19 +35,15 @@ export const Teleconsultation = () => {
   const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
 
 
-  const rescheduleAppointment = async (selectedDate, selectedTime) => {
+  const rescheduleAppointment = async (selectedDate, selectedTime, appointmentId) => {
     const payload = {
       date: selectedDate,
       appointmentTime: selectedTime,
     };
-
-    console.log("Appointment ID:", appointmentId);
-    console.log("Payload:", payload);
-
     try {
       const response = await reschedule(appointmentId, payload);
       console.log("Response:", response);
-      setIsReshceduleModal(false); // Close modal after successful reschedule
+      setIsReshceduleModal(false); 
       fetchAppointments();
     } catch (error) {
       console.error("Error rescheduling appointment:", error);
