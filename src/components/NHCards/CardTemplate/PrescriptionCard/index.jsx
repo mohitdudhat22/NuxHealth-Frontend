@@ -17,6 +17,7 @@ const PrescriptionDetails = ({
   patientData,
   columns,
   isSendButton,
+  handlePrescription,
 }) => (
   <NHCard className="min-h-full">
     <div className="p-6 mb-8 rounded-lg bg-slate-100">
@@ -100,7 +101,11 @@ const PrescriptionDetails = ({
 
     <div className="flex items-center justify-between mt-6">
       <p className="text-sm text-gray-500">Doctor Signature</p>
-      {isSendButton && <NHButton variant="primary">Send</NHButton>}
+      {isSendButton && (
+        <NHButton variant="primary" onClick={handlePrescription}>
+          Send
+        </NHButton>
+      )}
     </div>
   </NHCard>
 );
@@ -122,6 +127,7 @@ export const PrescriptionCard = ({
   Title,
   handleOk,
   isSendButton = false,
+  handlePrescription,
 }) => {
   const columns = [
     { title: "Medicine Name", dataIndex: "medicineName", key: "medicineName" },
@@ -162,6 +168,7 @@ export const PrescriptionCard = ({
             patientData={patientData}
             columns={columns}
             isSendButton={isSendButton}
+            handlePrescription={handlePrescription}
           />
         </Modal>
       ) : (
@@ -178,6 +185,7 @@ export const PrescriptionCard = ({
           patientData={patientData}
           columns={columns}
           isSendButton={isSendButton}
+          handlePrescription={handlePrescription}
         />
       )}
     </>
