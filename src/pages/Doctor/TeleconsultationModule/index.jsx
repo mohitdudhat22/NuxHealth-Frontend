@@ -29,7 +29,7 @@ export const Teleconsultation = () => {
   const [toDate, setToDate] = useState(null);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
 
-  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments, filterAppointments, setIsDateModalOpen,isDateModalOpen } = usePrivousTeleconsultation();
+  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments, filterAppointments, setIsDateModalOpen, isDateModalOpen } = usePrivousTeleconsultation();
   const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
   const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
   const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
@@ -161,13 +161,13 @@ export const Teleconsultation = () => {
                   <AppointmentCard
                     key={index}
                     headerBg={true}
-                    title={<span className="font-semibold text-[18px]">{patientName}</span>}
+                    title={<span className="font-semibold text-[#030229] text-2xl">{patientName}</span>}
                     patientIssue={patientIssue}
                     diseaseName={diseaseName}
                     appointmentDate={appointmentDate || date}
                     appointmentTime={appointmentTime}
                     footerContent={
-                      <div className="flex justify-between gap-4 w-full">
+                      <div className="flex justify-between w-full gap-4">
                         <NHButton
                           size={"small"}
                           className={"w-full py-3 px-4"}
@@ -336,7 +336,7 @@ export const Teleconsultation = () => {
                 </NHButton>
               </div>
             }
-            className="p-0 "
+            className="p-0"
           />
         )}
       </NHModal>

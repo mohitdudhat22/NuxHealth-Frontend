@@ -10,7 +10,6 @@ import moment from "moment";
 
 export const TodayAppointments = () => {
   const { data, loading } = useTodayAppointment();
-  console.log("🚀 ~ TodayAppointments ~ data:", data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);

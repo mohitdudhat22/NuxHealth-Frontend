@@ -1,80 +1,36 @@
-import { NHButton, NHCard, NHTable } from "@/components";
+import { NHCard, NHTable, PatientDetailCard } from "@/components";
 import { usePatientViewDetails } from "@/hook/Doctor";
-import { Space, Tag } from "antd";
 
 export const PatientViewDetails = () => {
-  const { data, error, columns, staticData } = usePatientViewDetails();
+  const { data, error, columns } = usePatientViewDetails();
+
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <div className="text-red-500">{"error"}</div>;
   }
 
   if (!data) {
     return <div>Loading...</div>;
   }
 
-  const PatientDetailsSection = () => (
-    <div className="mb-6">
-      <div className="flex items-start gap-6">
-        <img
-          src={data?.profilePicture}
-          alt="Patient"
-          className="w-20 h-20 rounded-full"
-        />
-        <div className="grid flex-1 grid-cols-3 gap-4">
-          <div>
-            <p className="text-sm font-bold text-gray-500">Patient Name</p>
-            <p className="font-medium">{data.patientFullName}</p>
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-500">Patient Number</p>
-            <p className="font-medium">{data.phone}</p>
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-500">Patient Gender</p>
-            <p className="font-medium">{data.gender}</p>
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-500">Patient Age</p>
-            <p className="font-medium">{data.age}</p>
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-500">Patient Address</p>
-            <p className="font-medium">{data.address}</p>
-          </div>
-
-          <div>
-            <p className="text-sm font-bold text-gray-500">Height</p>
-            <p className="font-medium">{data.height} cm</p>
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-500">Weight</p>
-            <p className="font-medium">{data.weight} kg</p>
-          </div>
-          <div>
-            <p className="text-sm font-bold text text-gray-500">Blood Group</p>
-            <p className="font-medium">{data.bloodGroup}</p>
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-500">Date of Birth</p>
-            <p className="font-medium">{data.dob}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   return (
     <>
       <div className="mb-[20px]">
-        <NHCard
-          title="Patient Details"
-          headerContent={<NHButton type="primary">Add Record</NHButton>}
-        >
-          <PatientDetailsSection />
-        </NHCard>
+        <PatientDetailCard
+          patientName={data?.patientFullName || "Marcus Philips"}
+          doctorName={data?.doctorName || "Dr. Marcus Philips"}
+          patientNumber={data?.phone || "99130 44537"}
+          patientIssue={data?.patientIssue || "Feeling tired"}
+          patientGender={data?.gender || "Male"}
+          patientAge={data?.age || "20 Years"}
+          appointmentType="Online"
+          patientAddress={data?.address || "B-408 Swastik society, mota varacha rajkot."}
+          lastAppointmentDate={data?.lastAppointmentDate || "2 Jan, 2022"}
+          lastAppointmentTime={data?.lastAppointmentTime || "4:30 PM"}
+        // onAddRecord={handleAddRecord}
+        />
       </div>
       <NHCard>
-        <NHTable loading={loading} showPagination={true} columns={columns} dataSource={data?.allAppointments || staticData} />
+        <NHTable showPagination={true} columns={columns} dataSource={data?.allAppointments} />
       </NHCard>
     </>
   );
