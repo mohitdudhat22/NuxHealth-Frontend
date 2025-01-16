@@ -13,6 +13,7 @@ import {
 import NotificationBox from "../NotificationBox";
 import { useHeader } from "@/hook/Global";
 import { headerDropdownItems } from "@/constants/data";
+import { useUserData } from "@/context";
 
 const { Header } = Layout;
 
@@ -33,7 +34,8 @@ export const NHHeader = () => {
 
   const navigate = useNavigate();
   const { token } = useDecodeToken();
-
+  const {userData} = useUserData();
+  console.log(userData,"<<<<<<<<<<<header")
   return (
     <Header
       className={clsx(
@@ -91,9 +93,9 @@ export const NHHeader = () => {
         </div>
         <NHDropDownImg
           items={headerDropdownItems}
-          name={token?.userData?.fullName}
-          image={token?.userData?.profilePicture}
-          position={token?.userData?.role}
+          name={userData?.userData?.fullName }
+          image={userData?.userData?.profilePicture }
+          position={userData?.userData?.role}
           imageAlt={"fakeImg"}
           onClick={() => navigate("profile")}
           arrow
