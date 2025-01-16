@@ -199,12 +199,7 @@ export const CreatePrescription = ({
       dataIndex: "actions",
       key: "actions",
       render: (_, record, index) => (
-        <NHButton
-          size={"small"}
-          icon={Icons.Delete}
-          className="delete-btn"
-          onClick={() => handleDelete(index)}
-        />
+        <NHButton isDelete onClick={() => handleDelete(index)} />
       ),
     },
   ];
