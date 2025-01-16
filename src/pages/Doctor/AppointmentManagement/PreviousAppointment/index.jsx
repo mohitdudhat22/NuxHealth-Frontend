@@ -56,11 +56,11 @@ export const PreviousAppointments = () => {
   const [toDate, setToDate] = useState(null);
 
   // Update filteredAppointments when data changes
-  useEffect(() => {
-    if (data) {
-      setFilteredAppointments(data); // Set data initially
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     setFilteredAppointments(data); // Set data initially
+  //   }
+  // }, [data]);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
@@ -120,7 +120,8 @@ export const PreviousAppointments = () => {
           showPagination={true}
           loading={loading}
           tableColumn={columns(handleViewPatient)}
-          tableDataSource={filteredAppointments}
+          tableDataSource={data}
+          route="/doctor"
         />
       </NHCard>
 
@@ -145,7 +146,7 @@ export const PreviousAppointments = () => {
       )}
 
       <CustomDateModal
-        handleOk={handleApplyDateFilter}
+        // handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}
         customDate={isDateModalOpen}
