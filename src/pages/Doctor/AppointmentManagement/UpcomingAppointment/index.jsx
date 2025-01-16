@@ -114,9 +114,6 @@ export const UpcomingAppointments = () => {
     setIsDateModalOpen(false);
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
     <>
       <NHCard
@@ -127,7 +124,6 @@ export const UpcomingAppointments = () => {
             <NHButton onClick={handleOpenDateModal}>
               {Icons.CalenderIcon} Any Date
             </NHButton>
-            <NHButton>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
           </>
         }
       >
@@ -136,7 +132,6 @@ export const UpcomingAppointments = () => {
           showPagination={true}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={filteredAppointments}
-          route="/doctor"
         />
       </NHCard>
 
