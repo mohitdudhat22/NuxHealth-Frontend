@@ -11,8 +11,8 @@ npm run dev
 
 ## Project Setup
 
-npm install
-Set up environment variables                          
+- npm install
+- Set up environment variables                          
 
 🛠 Technologies Used
 
@@ -35,7 +35,7 @@ ZegoCloud: Real-time, high-quality video calling.
 
 ## Key Features
 
-### User Panels
+### All Usable Panels
 
 1. **Admin Panel**:
    - Manage users (doctors, patients, receptionists).
