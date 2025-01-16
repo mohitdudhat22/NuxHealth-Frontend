@@ -95,9 +95,9 @@ export const TodayAppointments = () => {
     setIsDateModalOpen(false);
   };
 
-  useEffect(() => {
-    setFilteredAppointments(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setFilteredAppointments(data);
+  // }, [data]);
 
   return (
     <>
@@ -109,9 +109,6 @@ export const TodayAppointments = () => {
             <NHButton onClick={handleOpenDateModal} icon={Icons?.CalenderIcon}>
               Any Date
             </NHButton>
-            <NHButton icon={Icons?.CalenderIcon}>
-              Appointment Time Slot
-            </NHButton>
           </>
         }
       >
@@ -119,7 +116,7 @@ export const TodayAppointments = () => {
           loading={loading}
           showPagination={true}
           tableColumn={columns}
-          tableDataSource={filteredAppointments}
+          tableDataSource={data}
         />
       </NHCard>
 

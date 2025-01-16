@@ -13,7 +13,6 @@ export const useTodayAppointment = () => {
 
       if (response && response?.data) {
         setAppointments(response?.data?.appointments);
-        console.log(response.data.appointments);
       }
     } finally {
       setLoading(false);
@@ -25,6 +24,7 @@ export const useTodayAppointment = () => {
     avatar: appointment?.profilePicture || user,
     diseaseName: appointment?.dieseas_name,
     patientName: appointment?.patientId?.fullName || "N/A",
+    patientIssue: appointment?.patient_issue || "N/A",
     doctorName: appointment?.doctorId?.fullName || "N/A",
     appointmentTime: appointment?.appointmentTime,
     appointmentType: appointment?.type,
