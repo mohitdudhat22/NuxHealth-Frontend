@@ -174,7 +174,8 @@ export const getUnpaidBills = () =>
 export const getSinglePatientForAdmin = (id) =>
   request("get", `/api/admin/getSinglepatients?${id}`);
 export const getSinglePatientForDoctor = (id) =>
-  request("get", `/api/doctor/getSinglepatients?${id}`);
+  request("get", `/api/doctor/getSinglepatients?id=${id}`);
+
 export const todaysAppointments = () =>
   request("get", "/api/doctor/getAppointment?filter=today");
 export const upcomingAppointments = () =>
