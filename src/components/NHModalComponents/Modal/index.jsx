@@ -19,7 +19,7 @@ export const NHModal = ({
   danger,
   loading,
   IsBtnLoading,
-  IsCloseIcon = false,
+  IsCloseIcon = true,
   IsFooter = false,
   disabledButton = true,
   ...rest
