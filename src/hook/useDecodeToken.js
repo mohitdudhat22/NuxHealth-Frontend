@@ -10,7 +10,7 @@ const getCookie = (name) => {
 
 export const useDecodeToken = () => {
   const [decodedToken, setDecodedToken] = useState(null);
-  const {setUserData} = useUserData();
+  const { setUserData } = useUserData();
   const decodeToken = () => {
     let token =
       localStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
@@ -27,7 +27,6 @@ export const useDecodeToken = () => {
       const decoded = jwtDecode(token);
       setDecodedToken(decoded);
       setUserData(decoded);
-      console.log("-----------new token seted",decoded)
     } catch (error) {
       console.error("Error decoding token:", error);
       setDecodedToken(null);

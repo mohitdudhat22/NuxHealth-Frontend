@@ -157,28 +157,6 @@ export const useEditProfile = () => {
                     hospitalName: metaData?.doctorData?.hospitalName,
                     age: age,
                 });
-                console.log({
-                    fullName: fullName || "",
-                    firstName: firstName || "",
-                    lastName: lastName || "",
-                    phoneNumber: phone || "",
-                    email: email || "",
-                    country: country || "",
-                    state: state || "",
-                    city: city || "",
-                    profileImage: profilePicture || "",
-                    gender: gender || "",
-                    role: role || "",
-                    dob: metaData?.patientData?.dob,
-                    height: metaData?.patientData?.height,
-                    weight: metaData?.patientData?.weight,
-                    fullAddress: address?.fullAddress,
-                    bloodGroup: metaData?.patientData?.bloodGroup,
-                    age: age,
-                    metaData: {
-                        patientData: { ...metaData?.patientData }
-                    }
-                })
                 setDecodedToken((prev) => ({
                     ...prev,
                     userData: {

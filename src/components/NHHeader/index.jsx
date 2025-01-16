@@ -30,12 +30,12 @@ export const NHHeader = () => {
     isDoctor,
     searchValue,
     isPatient,
-  } = useHeader(); 
+  } = useHeader();
 
   const navigate = useNavigate();
   const { token } = useDecodeToken();
-  const {userData} = useUserData();
-  console.log(userData,"<<<<<<<<<<<header")
+  const { userData } = useUserData();
+
   return (
     <Header
       className={clsx(
@@ -93,8 +93,8 @@ export const NHHeader = () => {
         </div>
         <NHDropDownImg
           items={headerDropdownItems}
-          name={userData?.userData?.fullName }
-          image={userData?.userData?.profilePicture }
+          name={userData?.userData?.fullName}
+          image={userData?.userData?.profilePicture}
           position={userData?.userData?.role}
           imageAlt={"fakeImg"}
           onClick={() => navigate("profile")}
