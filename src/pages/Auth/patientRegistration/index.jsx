@@ -27,32 +27,26 @@ export const PatientRegistration = () => {
   }));
   const states = formData.country
     ? State.getStatesOfCountry(
-        Country.getAllCountries().find((c) => c.name === formData.country)
-          ?.isoCode // Get states using the country name
-      ).map((state) => ({
-        value: state.name, // Use the state name as the value
-        label: state.name, // Display the state name as the label
-      }))
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
+    ).map((state) => ({
+      value: state.name, // Use the state name as the value
+      label: state.name, // Display the state name as the label
+    }))
     : [];
 
   const cities = formData.state
     ? City.getCitiesOfState(
-        Country.getAllCountries().find((c) => c.name === formData.country)
-          ?.isoCode,
-        State.getStatesOfCountry(
-          Country.getAllCountries().find((c) => c.name === formData.country)
-            ?.isoCode
-        ).find((s) => s.name === formData.state)?.isoCode
-      ).map((city) => ({
-        value: city.name,
-        label: city.name,
-      }))
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode,
+      State.getStatesOfCountry(
+        Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode
+      ).find((s) => s.name === formData.state)?.isoCode
+    ).map((city) => ({
+      value: city.name,
+      label: city.name,
+    }))
     : [];
 
-  console.log(
-    Country.getAllCountries().find((c) => c.name === formData.country)
-      ?.phonecode
-  );
+  console.log(Country.getAllCountries().find((c) => c.name === formData.country)?.phonecode);
   return (
     <>
       <h2>Registration</h2>
@@ -165,10 +159,9 @@ export const PatientRegistration = () => {
             placeholder="Select Country"
             options={countries}
             value={formData?.country}
-            onChange={(value) =>
-              handleChange({
-                target: { name: "country", value },
-              })
+            onChange={(value) => handleChange({
+              target: { name: "country", value },
+            })
             }
             errorMessage={errors.country}
             required
@@ -180,11 +173,9 @@ export const PatientRegistration = () => {
             options={states}
             placeholder="Select State"
             value={formData?.state}
-            onChange={(value) =>
-              handleChange({
-                target: { name: "state", value },
-              })
-            }
+            onChange={(value) => handleChange({
+              target: { name: "state", value },
+            })}
             errorMessage={errors.state}
             required
           />
@@ -195,11 +186,9 @@ export const PatientRegistration = () => {
             options={cities}
             placeholder="Select City"
             value={formData?.city}
-            onChange={(value) =>
-              handleChange({
-                target: { name: "city", value },
-              })
-            }
+            onChange={(value) => handleChange({
+              target: { name: "city", value },
+            })}
             errorMessage={errors.city}
             required
           />

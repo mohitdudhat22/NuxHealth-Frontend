@@ -4,7 +4,6 @@ import moment from "moment";
 import React from "react";
 
 export const Invoice = ({ billData }) => {
-    console.log("🚀 ~ Invoice ~ billData:", billData)
     const { bill } = billData;
 
     // Table data and headers for the description section

@@ -36,5 +36,5 @@ export const useDecodeToken = () => {
     decodeToken();
   }, []);
 
-  return { token: decodedToken };
+  return { token: decodedToken, setDecodedToken };
 };

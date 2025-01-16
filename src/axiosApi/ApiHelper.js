@@ -174,7 +174,8 @@ export const getUnpaidBills = () =>
 export const getSinglePatientForAdmin = (id) =>
   request("get", `/api/admin/getSinglepatients?${id}`);
 export const getSinglePatientForDoctor = (id) =>
-  request("get", `/api/doctor/getSinglepatients?${id}`);
+  request("get", `/api/doctor/getSinglepatients?id=${id}`);
+
 export const todaysAppointments = () =>
   request("get", "/api/doctor/getAppointment?filter=today");
 export const upcomingAppointments = () =>
@@ -215,8 +216,8 @@ export const editAdminProfileChangePassword = (data) =>
   request("post", "/api/admin/changePassword", data);
 
 // Change in editadminprofile
-export const editAdminProfile = (data) =>
-  request("post", "/api/admin/editAdmin", data);
+export const editProfile = (data, role) =>
+  request("put", `/api/${role}/editUser`, data);
 // export const editAdminProfile = (data,role) =>
 //   request("post", `/api/${role}/edit`, data);
 export const editDoctorrofileChangePassword = (data) =>
