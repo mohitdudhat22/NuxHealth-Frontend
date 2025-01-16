@@ -125,7 +125,6 @@ export const UpcomingAppointments = () => {
             <NHButton onClick={handleOpenDateModal}>
               {Icons.CalenderIcon} Any Date
             </NHButton>
-            <NHButton>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
           </>
         }
       >

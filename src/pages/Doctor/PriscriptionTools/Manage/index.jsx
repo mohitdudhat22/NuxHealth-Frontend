@@ -113,17 +113,13 @@ export const Manage = () => {
           headerContent={
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
-          rootClass={'p-0'}
-
+          rootClass={"p-0"}
         >
-          {todayData.length !== 0 ?
-            <NHTable
-              columns={columns}
-              dataSource={todayData}
-              showPagination={true}
-            /> :
-            <CustomEmpty route={'/doctor'} />
-          }
+          <NHTable
+            columns={columns}
+            dataSource={todayData}
+            showPagination={true}
+          />
         </NHCard>
       ),
     },
@@ -136,8 +132,7 @@ export const Manage = () => {
           headerContent={
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
-          rootClass={'p-0'}
-
+          rootClass={"p-0"}
         >
           <NHTable
             columns={columns}
