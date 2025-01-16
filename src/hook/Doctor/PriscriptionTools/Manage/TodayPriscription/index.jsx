@@ -12,7 +12,6 @@ export const useTodayManagePriscription = (id) => {
 
         if (response && response.data) {
           setData(response.data);
-          console.log("Appointments:", response.data.appointments);
         }
       } catch (err) {
         console.error("Error fetching data:", err);

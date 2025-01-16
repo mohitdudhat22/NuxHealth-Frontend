@@ -13,8 +13,6 @@ import "./PrescriptionAccess.css";
 
 export const PrescriptionAccess = () => {
   const { loading, data, error } = usePatientPrescriptionData();
-  console.log("🚀 ~ PrescriptionAccess ~ data:", data);
-
   const [prescriptionData, setPrescriptionData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

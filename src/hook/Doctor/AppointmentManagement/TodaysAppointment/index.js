@@ -9,8 +9,6 @@ export const useTodayAppointment = () => {
   const fetchAppointments = async () => {
     try {
       const response = await todaysAppointmentForDoctor();
-      console.log("API Response:", response);
-
       if (response && response?.data) {
         setAppointments(response?.data?.appointments);
       }

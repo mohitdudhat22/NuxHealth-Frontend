@@ -27,7 +27,6 @@ export const UserProvider = ({ children }) => {
 
     try {
       const decoded = jwtDecode(token);
-      console.log("new token--------------",token)
       setDecodedToken(decoded);
       setUserData(decoded)
       setAuthHeader()

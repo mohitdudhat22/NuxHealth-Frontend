@@ -15,7 +15,6 @@ export const useCancleTeleconsultation = () => {
             const response = await getCancleTeleconsultation();
             if (response.status === 1) {
                 setAppointments(response.data.appointments);
-                console.log('Today’s Appointments:', response.data.length);
             }
         } finally {
             setLoading(false);
@@ -27,13 +26,9 @@ export const useCancleTeleconsultation = () => {
           appointmentTime: selectedTime,
         };
     
-        console.log("Appointment ID:", appointmentId);
-        console.log("Payload:", payload);
-    
         try {
           const response = await reschedule(appointmentId, payload);
-          console.log("Response:", response);
-          setIsReshceduleModal(false); // Close modal after successful reschedule
+          setIsReshceduleModal(false);
         } catch (error) {
           console.error("Error rescheduling appointment:", error);
         }

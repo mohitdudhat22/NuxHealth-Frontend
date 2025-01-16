@@ -15,7 +15,6 @@ export const useTodayAppointments = () => {
       const response = await todayAppointment();
       if (response.success === true) {
         setAppointments(response.data);
-        console.log("Today's Appointments:", response.data.length);
       }
     } finally {
       setLoading(false);

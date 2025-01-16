@@ -26,12 +26,9 @@ export const PaymentProcess = () => {
 
   const handleCashPayment = (record) => {
     setIsCashPaymentModalOpen(true);
-    // You can also set any record-specific data here if needed
   };
 
   const handlePay = () => {
-    // Handle the payment logic here
-    console.log("Payment processed");
     setIsCashPaymentModalOpen(false);
   };
 

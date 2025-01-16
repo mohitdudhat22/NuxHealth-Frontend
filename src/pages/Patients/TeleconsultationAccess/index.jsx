@@ -61,13 +61,10 @@ export const TeleconsultationAccess = () => {
   };
 
   const cancelAppointment = async (id) => {
-    console.log("Cancelling appointment with ID:", id);
     try {
       const response = await cancelAppointmentForPatient(id, {
         status: "canceled",
       });
-      console.log("Appointment canceled successfully:", response);
-
       setCanceledAppointments((prev) => [...prev, { id }]);
       setTodaysAppointments((prev) =>
         prev.filter((appointment) => appointment._id !== id)
@@ -428,7 +425,6 @@ export const TeleconsultationAccess = () => {
                 patientId,
                 patient_issue,
               } = data;
-              console.log(data, "<<<<<<<<<<<<<");
               return (
                 <AppointmentCard
                   key={"1"}

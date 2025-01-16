@@ -48,7 +48,6 @@ export const usePaymentProcess = () => {
   };
 
   const onEdit = (record) => {
-    console.log("Edit record:", record);
     navigate(`/admin/payment-process/edit-bill/${record.key}`);
   };
 
@@ -57,7 +56,6 @@ export const usePaymentProcess = () => {
   };
 
   const onPayment = (record) => {
-    console.log("Payment record:", record);
     setIsModalOpen(true);
   };
 

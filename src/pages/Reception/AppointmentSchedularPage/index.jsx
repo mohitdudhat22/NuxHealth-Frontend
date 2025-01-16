@@ -31,7 +31,6 @@ export const AppointmentSchedularPage = () => {
   } = useAppointmentData();
 
   const { token } = useDecodeToken();
-
   const [role, setRole] = useState('');
   const [patientList, setPatientList] = useState([]);
 

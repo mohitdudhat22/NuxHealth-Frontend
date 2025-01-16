@@ -8,7 +8,6 @@ export const DoctorMeetingConference = () => {
   const sidebarRef = useRef(null);
   const location = useLocation();
   const { token } = useDecodeToken();
-  console.log(token,"<<<<<<<<<<<token");
   const user = {firstName:"Mohit",lastName:"Dudhat"};
   const getQueryParam = (param) => {
     return new URLSearchParams(location.search).get(param);
@@ -44,7 +43,6 @@ export const DoctorMeetingConference = () => {
     const roomID = room;
     const userID = "1";
     const userName = token?.userData?.fullName;
-    console.log(userName)
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,

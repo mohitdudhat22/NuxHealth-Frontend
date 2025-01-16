@@ -148,7 +148,6 @@ export const AppointmentBooking = () => {
   const handleReschedule = (appointment) => {
     // navigate("/patient/appointment/reschedule", { state: { appointment } });
     setIsReshceduleModal(true)
-    console.log(appointment);
     setSelectedAppointmentForModal(appointment.key);
   };
 

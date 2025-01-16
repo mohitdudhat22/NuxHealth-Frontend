@@ -42,8 +42,7 @@ export const Teleconsultation = () => {
     };
     try {
       const response = await reschedule(appointmentId, payload);
-      console.log("Response:", response);
-      setIsReshceduleModal(false); 
+      setIsReshceduleModal(false);
       fetchAppointments();
     } catch (error) {
       console.error("Error rescheduling appointment:", error);
@@ -326,9 +325,8 @@ export const Teleconsultation = () => {
                   size={"small"}
                   className={"w-full"}
                   onClick={() => navigate('videoCall?room=' + selectedPatientData.key)}
-                >{console.log(selectedPatientData)}
+                >
                   Join
-                  {console.log(selectedPatientData._id)}
                 </NHButton>
               </div>
             }
