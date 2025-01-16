@@ -24,7 +24,7 @@ export const ProfileSetting = () => {
     <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative h-[35%] min-h-[40vh]">
       <div className={styles.profileCard + " w-full h-full absolute top-1/4 left-[10.5%]"}>
         <div className={styles.profile + " w-[1200px] flex flex-col"}>
-          <form action="" onSubmit={handleSubmitData}>
+          <form action="">
             <h3 className="mb-10 text-4xl text-white">Profile Setting</h3>
             <NHCard className="p-0 bg-white">
               <div className="flex">

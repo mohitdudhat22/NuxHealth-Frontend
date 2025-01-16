@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { AppointmentScheduler, NHButton, NHCard, NHDatePicker, NHInput, NHModal, NHSelect } from "@/components";
+import { AppointmentScheduler, NHButton, NHCard, NHDatePicker, NHInput, NHModal, NHSelect, PatientDetailCard } from "@/components";
 import { appointmentBooking, getPatientListForReceptionist } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 import { useDecodeToken } from "@/hook";
 import { useAppointmentData } from "./useAppointmentData";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Invoice } from "@/pages/Patients";
+import { usePatientDashboardData } from "@/hook/Patients";
 
 export const AppointmentSchedularPage = () => {
   const {
@@ -29,7 +30,10 @@ export const AppointmentSchedularPage = () => {
     showInvoice,
     billData,
   } = useAppointmentData();
-
+   const { data:patientData, loading, error } = usePatientDashboardData();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const patientId = queryParams.get('patientId');
   const { token } = useDecodeToken();
   const [role, setRole] = useState('');
   const [patientList, setPatientList] = useState([]);
@@ -66,8 +70,25 @@ export const AppointmentSchedularPage = () => {
       {showInvoice ?
         <Invoice billData={billData} />
         :
-        <div>
-          <NHCard className="p-6">
+
+        <>
+           <PatientDetailCard
+                      patientName={patientData?.patientProfile?.fullName || "N/A"}
+                      doctorName="Dr. Marcus Philips"
+                      patientNumber={patientData?.patientProfile?.phone || "N/A"}
+                      patientIssue="Feeling tired"
+                      patientGender={patientData?.patientProfile?.gender || "N/A"}
+                      patientAge={`${patientData?.patientProfile?.age || 0} Years`}
+                      appointmentType="Online"
+                      patientAddress={`${
+                        patientData?.patientProfile?.address?.fullAddress || "N/A"
+                      }, ${patientData?.patientProfile?.address?.city || ""}`}
+                      lastAppointmentDate="2 Jan, 2022"
+                      lastAppointmentTime="4:30 PM"
+                      onEditProfile={() => {}}
+                    />
+        <div className="mt-9">
+       { patientId && (<NHCard className="p-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               <NHSelect
                 label="Speciality"
@@ -117,7 +138,7 @@ export const AppointmentSchedularPage = () => {
                   options={patientList}
                 />} */}
             </div>
-          </NHCard>
+          </NHCard>)}
 
           <div className="mt-10">
             <NHCard>
@@ -222,6 +243,7 @@ export const AppointmentSchedularPage = () => {
             </NHModal>
           </div>
         </div>
+        </>
       }
     </>
   );
