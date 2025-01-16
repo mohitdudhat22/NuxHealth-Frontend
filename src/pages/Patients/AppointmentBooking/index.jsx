@@ -27,6 +27,7 @@ import {
   useTodaysAppoinmentBookings,
   useUpcomingAppoinmentBookings,
 } from "@/hook/Patients";
+import { AppointmentSchedularPageForReception } from "@/pages/Reception";
 
 export const AppointmentBooking = () => {
 
@@ -455,7 +456,7 @@ export const AppointmentBooking = () => {
   return (
     <>
       {bookAppoinment ? (
-        <AppointmentSchedularPage />
+        patientId? (<AppointmentSchedularPageForReception />):(<AppointmentSchedularPage />)
       ) : (
         <div className="appo_booking_sec">
           <NHCard
