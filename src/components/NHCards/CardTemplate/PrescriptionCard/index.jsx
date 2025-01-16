@@ -147,9 +147,9 @@ export const PrescriptionCard = ({
             <NHButton key="back" onClick={onCancel}>
               Close
             </NHButton>,
-            <NHButton key="submit" variant="primary" onClick={handleOk}>
-              Send
-            </NHButton>,
+            // <NHButton key="submit" variant="primary" onClick={handleOk}>
+            //   Send
+            // </NHButton>,
           ]}
         >
           <PrescriptionDetails
