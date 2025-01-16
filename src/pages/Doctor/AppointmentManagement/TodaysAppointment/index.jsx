@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space } from "antd";
 import Icons from "@/constants/icons";
@@ -16,7 +16,7 @@ export const TodayAppointments = () => {
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-  const [filteredAppointments, setFilteredAppointments] = useState(data);
+  const [filteredAppointments, setFilteredAppointments] = useState();
 
   const columns = [
     {
@@ -94,6 +94,10 @@ export const TodayAppointments = () => {
     setFilteredAppointments(filtered);
     setIsDateModalOpen(false);
   };
+
+  useEffect(() => {
+    setFilteredAppointments(data);
+  }, [data]);
 
   return (
     <>

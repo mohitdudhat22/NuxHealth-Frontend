@@ -75,9 +75,7 @@ export const DoctorPanelData = [
   {
     key: "createPrescriptionTools",
     icon: Icons.Analytics,
-    label: (
-      <Link to="/doctor/create-prescriptionTools">Prescription Tools</Link>
-    ),
+    label: "Prescription Tools",
     children: [
       {
         key: "create",
