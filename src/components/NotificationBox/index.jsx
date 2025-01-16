@@ -39,19 +39,17 @@ const NotificationBox = () => {
 
   useEffect(() => {
     if (!userData?.id) return;
-    console.log(userData.id);
 
     //aa even per socket regeter thashe socket.id -> userId
     socket.emit("register-user", userData.id);
 
     const handleNewNotification = (notification) => {
-      console.log("Received new notification:", notification);
       alert("got new message");
       setNotifications((prev) => [notification, ...prev]);
       setUnreadCount((prev) => prev + 1);
     };
 
-    // new notification aa userId-> socket ne mokalshu 
+    // new notification aa userId-> socket ne mokalshu
     socket.on("new-notification", handleNewNotification);
 
     return () => {

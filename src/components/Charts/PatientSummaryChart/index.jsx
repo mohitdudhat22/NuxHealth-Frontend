@@ -8,7 +8,6 @@ export function PatientSummaryChart({
   title = "Patients Summary",
   height = 350,
 }) {
-  console.log(data, "----");
   const [viewMode, setViewMode] = useState("week");
   const [activeSeries, setActiveSeries] = useState([
     "New Patient",

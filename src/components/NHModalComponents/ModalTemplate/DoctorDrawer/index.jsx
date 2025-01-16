@@ -12,7 +12,6 @@ import hospitalLoc from "../../../../assets/images/cover/hospital_loc.svg";
 import rightNav from "../../../../assets/images/cover/right_nav_icon.svg";
 
 const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
-  console.log(doctor,"<<<<<<<<<<<<")
   const dummyDoctor = {
     doctorName: "Dr. Cristofer Pasquinades",
     avatar: doctorLogo, // Assuming doctorLogo is imported

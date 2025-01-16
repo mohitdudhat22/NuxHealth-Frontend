@@ -11,11 +11,9 @@ export const useTodaysAppointment = () => {
   const fetchAppointments = async () => {
     try {
       const response = await todaysAppointmentForAdmin();
-      console.log("API Response:", response);
 
       if (response && response?.data) {
         setAppointments(response?.data?.appointments);
-        console.log(response.data.appointments);
       }
     } finally {
       setLoading(false);
@@ -26,7 +24,7 @@ export const useTodaysAppointment = () => {
     "patientId.fullName",
     "dieseas_name",
     "doctorId.fullName",
-    "type"
+    "type",
   ]);
 
   const onSearch = (query) => {
@@ -47,5 +45,6 @@ export const useTodaysAppointment = () => {
     fetchAppointments();
   }, []);
 
+  console.log("🚀 ~ useTodaysAppointment ~ data:", data);
   return { data, loading, onSearch };
 };
