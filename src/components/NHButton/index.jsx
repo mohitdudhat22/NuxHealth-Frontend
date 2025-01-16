@@ -22,8 +22,8 @@ export const NHButton = ({
   ...rest
 }) => {
   if (isEdit || isView || isDelete || isCancel || isReschedule) {
-    variant = "primary";
-    size = "small";
+    variant = variant || "primary";
+    size = size || "small";
   }
 
   if (isView) {
@@ -56,7 +56,7 @@ export const NHButton = ({
       danger={isDelete || isCancel}
       className={clsx(
         className,
-        "shadow-none inline-flex items-center justify-center min-h-[40px] gap-md button",
+        "shadow-none inline-flex items-center justify-center min-w-[40px] min-h-[40px] gap-md button",
         {
           "bg-[#F6F8FB]":
             isView || isEdit || isDelete || isCancel || isReschedule,

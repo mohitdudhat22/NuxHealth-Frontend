@@ -13,7 +13,7 @@ export const NHModal = ({
   handleClose,
   handleOk,
   contentClassName,
-  closeOnOutsideClick,
+  closeOnOutsideClick = true,
   handleCancel,
   handleContent,
   danger,
