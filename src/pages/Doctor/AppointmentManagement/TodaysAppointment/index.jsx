@@ -142,9 +142,10 @@ export const TodayAppointments = () => {
 
       <CustomDateModal
         Title="Select Custom Date Range"
-        // handleOk={handleApplyDateFilter}
+        open={isDateModalOpen}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}
+        handleOk={handleApplyDateFilter}
         customDate={isDateModalOpen}
         fromDate={fromDate}
         toDate={toDate}
