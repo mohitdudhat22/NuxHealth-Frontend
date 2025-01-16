@@ -29,7 +29,6 @@ export const AppointmentSchedularPage = () => {
   const [patientList, setPatientList] = useState([]);
   const [showInvoice, setShowInvoice] = useState(false);
   const [billData, setBillData] = useState(null);
-
   useEffect(() => {
     setRole(token?.userData?.role);
     const fetchData = async () => {
