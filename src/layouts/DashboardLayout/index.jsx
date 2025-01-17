@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Layout } from "antd";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { NHHeader, NHSidebar } from "@/components";
 import clsx from "clsx";
-import styles from "./DashboardLayout.module.css";
 import { useSearch } from "@/context";
 import { GlobalSearch } from "@/pages";
+import styles from "./DashboardLayout.module.css";
 
 const { Content } = Layout;
 
@@ -14,15 +14,18 @@ export const DashboardLayout = ({ items }) => {
   const [show, setShow] = useState(false);
   const { searchValue } = useSearch();
 
-
   return (
     <Layout className={styles.main}>
-      <NHSidebar items={items} className={clsx(show ? styles.Sidebar : "")} />
+      <NHSidebar
+        collapsed={collapsed}
+        items={items}
+        className={clsx(show ? styles.Sidebar : "")}
+      />
       <Layout>
         <NHHeader
           collapsed={collapsed}
           collapseHandle={() => setCollapsed(!collapsed)}
-          mobileShow={() => setShow(!show)}
+          // mobileShow={() => setShow(!show)}
           show={show}
         />
         <Content className={styles.content}>

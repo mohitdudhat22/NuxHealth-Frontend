@@ -48,7 +48,7 @@ import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
 
 import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
-import NotificationBox from "@/components/NotificationBox";
+import NotificationBox from "@/components/NHHeader/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
 import { BillView } from "@/pages/Admin/BillingAndPayement/MonitorBilling/BillView";
 import { PatientBills } from "@/pages/Patients/PatientsBills";
@@ -303,9 +303,10 @@ const NuxHealthRoute = createBrowserRouter(
                         },
                         {
                           path: "record",
-                          element: <Record />
-                        }]
-                    }
+                          element: <Record />,
+                        },
+                      ],
+                    },
                   ],
                 },
                 {

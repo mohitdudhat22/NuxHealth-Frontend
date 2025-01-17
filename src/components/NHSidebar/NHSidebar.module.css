@@ -18,7 +18,6 @@
   margin-right: 0;
   width: 100%;
 }
-
 .menu
   :global
   .ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-selected
