@@ -13,7 +13,7 @@ export const useTodayAppointments = () => {
     try {
       setLoading(true);
       const response = await todayAppointment();
-      if (response.success === true) {
+      if (response.status === 1) {
         setAppointments(response.data);
       }
     } finally {
@@ -37,13 +37,14 @@ export const useTodayAppointments = () => {
 
   const data = appointments?.map((appointment) => ({
     key: appointment?._id,
-    patientName: appointment?.patientName,
+    patientName: appointment?.patientId?.fullName,
     appointmentType: appointment?.type,
     patientAge: appointment?.patientId?.age,
     patientGender: appointment?.patientId?.gender,
     appointmentTime: appointment?.appointmentTime,
     status: appointment?.status,
   }));
+
 
   const openDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);

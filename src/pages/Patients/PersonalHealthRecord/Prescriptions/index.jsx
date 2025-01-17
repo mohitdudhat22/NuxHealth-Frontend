@@ -62,6 +62,7 @@ export const Prescriptions = () => {
         {prescriptionData && (
           <PrescriptionCard
             isModalOpen={isModalOpen}
+            clickEvent={true}
             onCancel={() => setIsModalOpen(false)}
             handleClose={() => setIsModalOpen(false)}
             Title="Prescription"
