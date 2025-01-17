@@ -3,6 +3,7 @@ import {
   NHButton,
   NHCard,
   NHInput,
+  NHModal,
   PrescriptionCard,
 } from "@/components";
 import Icons from "@/constants/icons";
@@ -11,12 +12,13 @@ import React, { useEffect, useState } from "react";
 
 export const Prescriptions = () => {
   const { loading, data, error } = usePatientPrescriptionData();
-  const [prescriptionData, setPrescriptionData] = useState([]);
+  const [prescriptionData, setPrescriptionData] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handlePatientDetails = (data) => {
     setPrescriptionData(data);
     setIsModalOpen(true);
   };
+  console.log(prescriptionData, "------------------------");
 
   return (
     <>
@@ -62,6 +64,7 @@ export const Prescriptions = () => {
         {prescriptionData && (
           <PrescriptionCard
             isModalOpen={isModalOpen}
+            clickEvent={true}
             onCancel={() => setIsModalOpen(false)}
             handleClose={() => setIsModalOpen(false)}
             Title="Prescription"

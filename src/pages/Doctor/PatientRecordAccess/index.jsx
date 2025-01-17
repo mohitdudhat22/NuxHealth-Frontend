@@ -3,7 +3,7 @@ import Icons from "@/constants/icons";
 import { usePatientRecordAccess } from "@/hook/Doctor/PatientRecordAccess";
 
 export const PatientRecordAccess = () => {
-  const { data, handleSelectChange, columns, filter } =
+  const { data, handleSelectChange, columns, filter, handleSearch } =
     usePatientRecordAccess();
 
   return (
@@ -11,11 +11,15 @@ export const PatientRecordAccess = () => {
       title="Patient Record Access"
       headerContent={
         <div className="flex items-center gap-4">
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+          <NHInput
+            prefix={Icons.SearchIcon}
+            placeholder="Search Patient"
+            onChange={(e) => handleSearch(e.target.value)}
+          />
           <NHSelect
             name="filter"
             value={filter}
-            onChange={(value) => handleSelectChange(value, "filter")}
+            onChange={(value) => handleSelectChange(value)}
             placeholder="Select Filter"
             options={[
               { value: "day", label: "Day" },
