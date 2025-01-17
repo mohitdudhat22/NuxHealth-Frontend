@@ -45,7 +45,7 @@ export const PrescriptionAccess = () => {
           </>
         }
       >
-        <div className="prescriptions-card grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 prescriptions-card sm:grid-cols-2 lg:grid-cols-4">
           {data?.map((prescriptions, index) => (
             <AppointmentCard
               key={index}
@@ -88,6 +88,7 @@ export const PrescriptionAccess = () => {
         {prescriptionData && (
           <PrescriptionCard
             isModalOpen={isModalOpen}
+            clickEvent={true}
             onCancel={() => setIsModalOpen(false)}
             handleClose={() => setIsModalOpen(false)}
             Title="Prescription"
