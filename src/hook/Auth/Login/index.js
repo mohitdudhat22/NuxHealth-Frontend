@@ -53,7 +53,7 @@ export const useLogin = () => {
     setIsLoading(true);
 
     try {
-      const response = await login({ email, password });
+      const response = await login({ identifier:email, password });
       toast.success(response.message);
 
       const token = response.data;
@@ -71,7 +71,7 @@ export const useLogin = () => {
 
       if (rememberMe) {
         const encryptedCredentials = encryptData(
-          { email, password },
+          { identifier:email, password },
           import.meta.env.VITE_SECRET_KEY
         );
         localStorage.setItem("rememberMe", encryptedCredentials);
