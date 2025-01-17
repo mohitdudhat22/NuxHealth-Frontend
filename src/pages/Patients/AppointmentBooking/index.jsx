@@ -24,6 +24,7 @@ import {
 import { AppointmentSchedularPage } from "..";
 import {
   useCancelAppoinmentBookings,
+  usePatientDashboardData,
   usePreviousAppoinmentBookings,
   useTodaysAppoinmentBookings,
   useUpcomingAppoinmentBookings,
@@ -44,27 +45,27 @@ export const AppointmentBooking = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [selectedAppointmentForModal, setSelectedAppointmentForModal] = useState(null);
   const [activeTab, setActiveTab] = useState("Scheduled");
-  
+   const { data:patientData, loading, error } = usePatientDashboardData();
   const { data: todayAppointments, patientId } = useTodaysAppoinmentBookings();
-  const { data: previousAppointments, fetchAppointments} = usePreviousAppoinmentBookings();
+  const { data: previousAppointments, fetchAppointments } = usePreviousAppoinmentBookings();
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings();
   const { data: cancelAppointments } = useCancelAppoinmentBookings();
 
   const navigate = useNavigate();
 
-   const rescheduleAppointment = async (selectedDate, selectedTime) => {
-     const payload = {
-       date: selectedDate,
-       appointmentTime: selectedTime,
-     };
-     try {
-       const response = await reschedule(selectedAppointmentForModal, payload, identifyRole());
-       setIsReshceduleModal(false); 
-       fetchAppointments();
-     } catch (error) {
-       console.error("Error rescheduling appointment:", error);
-     }
-   };
+  const rescheduleAppointment = async (selectedDate, selectedTime) => {
+    const payload = {
+      date: selectedDate,
+      appointmentTime: selectedTime,
+    };
+    try {
+      const response = await reschedule(selectedAppointmentForModal, payload, identifyRole());
+      setIsReshceduleModal(false);
+      fetchAppointments();
+    } catch (error) {
+      console.error("Error rescheduling appointment:", error);
+    }
+  };
   // Handle appointment cancellation
   const cancelAppointment = async (id) => {
     try {
@@ -261,7 +262,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {patientId &&(
+              {patientId && (
                 <NHButton
                   variant="default"
                   className=""
@@ -453,8 +454,25 @@ export const AppointmentBooking = () => {
 
   return (
     <>
+
+      {patientId &&
+        <PatientDetailCard
+          patientName={patientData?.patientProfile?.fullName || "N/A"}
+          doctorName="Dr. Marcus Philips"
+          patientNumber={patientData?.patientProfile?.phone || "N/A"}
+          patientIssue="Feeling tired"
+          patientGender={patientData?.patientProfile?.gender || "N/A"}
+          patientAge={`${patientData?.patientProfile?.age || 0} Years`}
+          appointmentType="Online"
+          patientAddress={`${patientData?.patientProfile?.address?.fullAddress || "N/A"
+            }, ${patientData?.patientProfile?.address?.city || ""}`}
+          lastAppointmentDate="2 Jan, 2022"
+          lastAppointmentTime="4:30 PM"
+          onEditProfile={() => { }}
+        />
+      }
       {bookAppoinment ? (
-        patientId? (<AppointmentSchedularPageForReception />):(<AppointmentSchedularPage />)
+        patientId ? (<AppointmentSchedularPageForReception />) : (<AppointmentSchedularPage />)
       ) : (
         <div className="appo_booking_sec">
           <NHCard
