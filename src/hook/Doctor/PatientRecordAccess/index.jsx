@@ -3,22 +3,69 @@ import { Space } from "antd";
 import { getPatientRecordAccess } from "@/axiosApi/ApiHelper";
 import { NHButton } from "@/components";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export const usePatientRecordAccess = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [filter, setFilter] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+
   const fetchData = async () => {
-    const data = await getPatientRecordAccess();
-    setData(data.data);
+    try {
+      const response = await getPatientRecordAccess();
+      setData(response.data);
+      setFilteredData(response.data);
+    } catch (error) {
+      console.error("Error fetching patient records:", error);
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const [filter, setFilter] = useState("month");
+  useEffect(() => {
+    const now = moment();
+    let filtered = data;
+
+    // Apply time filter
+    switch (filter) {
+      case "day":
+        filtered = filtered.filter((record) =>
+          moment(record.lastAppointmentDate).isSame(now, "day")
+        );
+        break;
+      case "month":
+        filtered = filtered.filter((record) =>
+          moment(record.lastAppointmentDate).isSame(now, "month")
+        );
+        break;
+      case "year":
+        filtered = filtered.filter((record) =>
+          moment(record.lastAppointmentDate).isSame(now, "year")
+        );
+        break;
+      default:
+        filtered = data;
+    }
+
+    if (searchQuery) {
+      filtered = filtered.filter((record) =>
+        record.patientName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredData(filtered);
+  }, [filter, data, searchQuery]);
+
   const handleSelectChange = (value) => {
     setFilter(value);
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
   };
 
   const columns = [
@@ -80,5 +127,11 @@ export const usePatientRecordAccess = () => {
     },
   ];
 
-  return { data, columns, handleSelectChange, filter };
+  return {
+    data: filteredData,
+    columns,
+    handleSelectChange,
+    filter,
+    handleSearch,
+  };
 };
