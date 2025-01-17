@@ -183,6 +183,7 @@ export const TodayAppointments = () => {
         setFromDate={setFromDate}
         setToDate={setToDate}
       />
+
       <RescheduleAppointmentModal
         timeSlote={timeSlote}
         handleOk={rescheduleAppointment}
