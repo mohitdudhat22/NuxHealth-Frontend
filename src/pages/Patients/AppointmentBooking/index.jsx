@@ -66,7 +66,6 @@ export const AppointmentBooking = () => {
       console.error("Error rescheduling appointment:", error);
     }
   };
-  // Handle appointment cancellation
   const cancelAppointment = async (id) => {
     try {
       const response = await cancelAppointmentForPatient(id, {
@@ -492,9 +491,9 @@ export const AppointmentBooking = () => {
       <Drawer
         title="Doctor Management"
         placement="right"
-        onClose={() => setIsOffCanvasVisible(false)} // Close OffCanvas
-        open={isOffCanvasVisible} // Control visibility
-        width={400} // Set width of the OffCanvas
+        onClose={() => setIsOffCanvasVisible(false)}
+        open={isOffCanvasVisible}
+        width={400}
       >
         {selectedAppointment && (
           <div>
