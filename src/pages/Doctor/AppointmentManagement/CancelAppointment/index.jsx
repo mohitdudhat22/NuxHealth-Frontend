@@ -45,17 +45,11 @@ const columns = (handleViewPatient) => [
 ];
 
 export const CancelAppointments = () => {
-  const { data, loading, error } = useCancelAppointments();
+  const { data, loading, searchQuery, onSearch } = useCancelAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-
-  useEffect(() => {
-    if (data && !loading && !error) {
-      console.log("Appointments data loaded:", data);
-    }
-  }, [data, loading, error]);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
@@ -69,6 +63,12 @@ export const CancelAppointments = () => {
     setIsModalOpen(true);
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedPatient(null);
+    setModalType(null);
+  };
+
   const handleOpenDateModal = () => {
     setIsDateModalOpen(true);
   };
@@ -77,10 +77,8 @@ export const CancelAppointments = () => {
     setIsDateModalOpen(false);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedPatient(null);
-    setModalType(null);
+  const handleSearch = (e) => {
+    onSearch(e.target.value);
   };
 
   return (
@@ -89,7 +87,12 @@ export const CancelAppointments = () => {
         title="Cancel Appointments"
         headerContent={
           <>
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
             <NHButton onClick={handleOpenDateModal}>
               {Icons.CalenderIcon} Any Date
             </NHButton>

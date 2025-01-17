@@ -26,17 +26,23 @@ export const useTodayAppointments = () => {
     fetchAppointments();
   }, []);
 
-  // const filteredAppointments = appointments.filter((appointment) =>
-  // (appointment?.patientName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //     appointment?.appointmentType?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //     appointment?.status?.toLowerCase().includes(searchQuery.toLowerCase()))
-  // );
+  const filteredAppointments = appointments.filter((appointment) => {
+    const patientName = appointment?.patientId?.fullName || "";
+    const appointmentType = appointment?.type || "";
+    const status = appointment?.status || "";
+
+    return (
+      patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      appointmentType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      status.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
 
   const onSearch = (query) => {
     setSearchQuery(query);
   };
 
-  const data = appointments?.map((appointment) => ({
+  const data = filteredAppointments?.map((appointment) => ({
     key: appointment?._id,
     patientName: appointment?.patientId?.fullName,
     appointmentType: appointment?.type,
@@ -46,12 +52,11 @@ export const useTodayAppointments = () => {
     status: appointment?.status,
   }));
 
-
   const openDrawer = () => setDrawerVisible(true);
   const closeDrawer = () => setDrawerVisible(false);
 
   return {
-    appointments,
+    appointments: filteredAppointments,
     isDrawerVisible,
     loading,
     openDrawer,
@@ -60,5 +65,6 @@ export const useTodayAppointments = () => {
     fetchAppointments,
     navigate,
     onSearch,
+    searchQuery,
   };
 };

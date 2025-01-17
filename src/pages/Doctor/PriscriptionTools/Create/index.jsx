@@ -5,8 +5,6 @@ import { useState } from "react";
 import { CreatePrescription, PatientDetails } from "../..";
 import { useTodayAppointments } from "@/hook/Doctor";
 
-// import PatientDetails from "./PatientDetails"; // Import your PatientDetails component
-
 export const Create = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [viewingPatientDetails, setViewingPatientDetails] = useState(null);
@@ -21,6 +19,7 @@ export const Create = () => {
     fetchAppointments,
     navigate,
     onSearch,
+    searchQuery,
   } = useTodayAppointments();
 
   const appointmentData = appointments || [];
@@ -44,6 +43,8 @@ export const Create = () => {
                 <NHInput
                   prefix={Icons.SearchIcon}
                   placeholder="Search Patient"
+                  value={searchQuery}
+                  onChange={(e) => onSearch(e.target.value)}
                 />
               </div>
               <NHButton variant="default" className="text-black bg-white">
