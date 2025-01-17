@@ -8,6 +8,7 @@ import { CancelOnsiteAppointmentModal } from "@/components/NHModalComponents/Mod
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import moment from "moment";
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
+import { doctorSession, rescheduleAppointement } from "@/axiosApi/ApiHelper";
 
 export const TodayAppointments = () => {
   const { data, loading } = useTodayAppointment();
@@ -19,6 +20,8 @@ export const TodayAppointments = () => {
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [toDate, setToDate] = useState(null);
   const [filteredAppointments, setFilteredAppointments] = useState();
+  const [timeSlote, setTimeSlote] = useState([]);
+  const [appointmentId, setAppointmentId] = useState();
 
   const columns = [
     {
@@ -75,10 +78,14 @@ export const TodayAppointments = () => {
     setSelectedPatient(null);
     setModalType(null);
   };
-  const handelReschedule = (id) => {
-    console.log("🚀 ~ handelReschedule ~ id:", id);
+  const handelReschedule = async (record) => {
+    // console.log("🚀 ~ handelReschedule ~ id:", id);
     setIsReshceduleModal(true);
-    // setAppointmentId(id)
+    setAppointmentId(record.key);
+    try {
+      const response = await doctorSession();
+      setTimeSlote(response.data);
+    } catch (error) {}
   };
   const handleOpenDateModal = () => {
     setIsDateModalOpen(true);
@@ -114,8 +121,8 @@ export const TodayAppointments = () => {
     console.log("Payload:", payload);
 
     try {
-      // const response = await reschedule(appointmentId, payload);
-      // console.log("Response:", response);
+      const response = await rescheduleAppointement(appointmentId, payload);
+      console.log("Response:", response);
       setIsReshceduleModal(false);
       fetchAppointments();
     } catch (error) {
@@ -178,6 +185,7 @@ export const TodayAppointments = () => {
       />
 
       <RescheduleAppointmentModal
+        timeSlote={timeSlote}
         handleOk={rescheduleAppointment}
         handleClose={() => setIsReshceduleModal(false)}
         Title="Reschedule Appointment"

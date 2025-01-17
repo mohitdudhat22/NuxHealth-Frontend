@@ -18,7 +18,7 @@ export const Prescriptions = () => {
     setPrescriptionData(data);
     setIsModalOpen(true);
   };
-  console.log(prescriptionData,"------------------------")
+  console.log(prescriptionData, "------------------------");
 
   return (
     <>
@@ -61,14 +61,17 @@ export const Prescriptions = () => {
             />
           ))}
         </div>
-            <PrescriptionCard
-              isModalOpen={isModalOpen}
-              onCancel={() => setIsModalOpen(false)}
-              handleClose={() => setIsModalOpen(false)}
-              Title="Prescription"
-              handleOk={() => setIsModalOpen(false)}
-              patientData={prescriptionData}
-            />
+        {prescriptionData && (
+          <PrescriptionCard
+            isModalOpen={isModalOpen}
+            clickEvent={true}
+            onCancel={() => setIsModalOpen(false)}
+            handleClose={() => setIsModalOpen(false)}
+            Title="Prescription"
+            handleOk={() => setIsModalOpen(false)}
+            patientData={prescriptionData}
+          />
+        )}
       </NHCard>
     </>
   );
