@@ -69,7 +69,7 @@ const columns = (handleViewPatient) => [
 
 export const UpcomingAppointments = () => {
   const { data, loading, error } = useUpcomingAppointments();
-  console.log("🚀 ~ UpcomingAppointments ~ data:", data)
+  console.log("🚀 ~ UpcomingAppointments ~ data:", data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
@@ -158,6 +158,7 @@ export const UpcomingAppointments = () => {
       )}
 
       <CustomDateModal
+        open={isDateModalOpen}
         handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}

@@ -46,21 +46,13 @@ const columns = (handleViewPatient) => [
 ];
 
 export const PreviousAppointments = () => {
-  const { data, loading, error } = usePreviousAppointments();
+  const { data, loading, searchQuery, onSearch } = usePreviousAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-  const [filteredAppointments, setFilteredAppointments] = useState([]); // Initialize with empty array
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-
-  // Update filteredAppointments when data changes
-  // useEffect(() => {
-  //   if (data) {
-  //     setFilteredAppointments(data); // Set data initially
-  //   }
-  // }, [data]);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
@@ -101,7 +93,9 @@ export const PreviousAppointments = () => {
     setIsDateModalOpen(false);
   };
 
-  if (error) return <div>Error: {error.message}</div>;
+  const handleSearch = (e) => {
+    onSearch(e.target.value);
+  };
 
   return (
     <>
@@ -109,7 +103,12 @@ export const PreviousAppointments = () => {
         title="Previous Appointments"
         headerContent={
           <>
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
             <NHButton onClick={handleOpenDateModal}>
               {Icons.CalenderIcon} Any Date
             </NHButton>
@@ -146,7 +145,8 @@ export const PreviousAppointments = () => {
       )}
 
       <CustomDateModal
-        // handleOk={handleApplyDateFilter}
+        open={isDateModalOpen}
+        handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}
         customDate={isDateModalOpen}

@@ -5,6 +5,7 @@ import { user } from "@/assets/images";
 export const useTodayAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchAppointments = async () => {
     try {
@@ -19,7 +20,16 @@ export const useTodayAppointment = () => {
     }
   };
 
-  const data = appointments?.map((appointment) => ({
+  const onSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredAppointments = appointments.filter((appointment) => {
+    const patientName = appointment?.patientId?.fullName || "N/A";
+    return patientName.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
+  const data = filteredAppointments?.map((appointment) => ({
     key: appointment?._id,
     avatar: appointment?.profilePicture || user,
     diseaseName: appointment?.dieseas_name,
@@ -34,5 +44,5 @@ export const useTodayAppointment = () => {
     fetchAppointments();
   }, []);
 
-  return { data, loading };
+  return { data, loading, searchQuery, setSearchQuery, onSearch };
 };

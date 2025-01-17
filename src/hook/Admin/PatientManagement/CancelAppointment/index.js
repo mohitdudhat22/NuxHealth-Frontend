@@ -24,12 +24,12 @@ export const useCancelAppointments = () => {
     "patientId.fullName",
     "dieseas_name",
     "doctorId.fullName",
-    "type"
+    "type",
   ]);
 
   const onSearch = (query) => {
     setSearchQuery(query);
-  }
+  };
 
   const data = filteredAppointments?.map((appointment) => ({
     key: appointment?._id,
