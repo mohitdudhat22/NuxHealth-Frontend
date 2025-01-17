@@ -76,7 +76,7 @@ export const TodayAppointments = () => {
     setModalType(null);
   };
   const handelReschedule = (id) => {
-    console.log("🚀 ~ handelReschedule ~ id:", id)
+    console.log("🚀 ~ handelReschedule ~ id:", id);
     setIsReshceduleModal(true);
     // setAppointmentId(id)
   };
@@ -176,6 +176,7 @@ export const TodayAppointments = () => {
         setFromDate={setFromDate}
         setToDate={setToDate}
       />
+
       <RescheduleAppointmentModal
         handleOk={rescheduleAppointment}
         handleClose={() => setIsReshceduleModal(false)}

@@ -5,6 +5,7 @@ import Icons from "@/constants/icons";
 import { useCancelAppointments } from "@/hook/Doctor/AppointmentManagement/CancelAppointment";
 import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
 import { CancelOnsiteAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnsiteAppointmentModal";
+import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 
 const columns = (handleViewPatient) => [
   {
@@ -48,6 +49,7 @@ export const CancelAppointments = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
 
   useEffect(() => {
     if (data && !loading && !error) {
@@ -67,6 +69,14 @@ export const CancelAppointments = () => {
     setIsModalOpen(true);
   };
 
+  const handleOpenDateModal = () => {
+    setIsDateModalOpen(true);
+  };
+
+  const handleCloseDateModal = () => {
+    setIsDateModalOpen(false);
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedPatient(null);
@@ -80,7 +90,9 @@ export const CancelAppointments = () => {
         headerContent={
           <>
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-            <NHButton>{Icons.CalenderIcon} Any Date</NHButton>
+            <NHButton onClick={handleOpenDateModal}>
+              {Icons.CalenderIcon} Any Date
+            </NHButton>
           </>
         }
       >
@@ -94,7 +106,7 @@ export const CancelAppointments = () => {
 
       {modalType === "online" && selectedPatient && (
         <CancelOnlineAppointmentModal
-          isModalOpen={isModalOpen}
+          open={isModalOpen}
           onCancel={handleCloseModal}
           handleClose={handleCloseModal}
           Title="Cancel Online Appointment"
@@ -104,6 +116,7 @@ export const CancelAppointments = () => {
 
       {modalType === "onsite" && selectedPatient && (
         <CancelOnsiteAppointmentModal
+          open={isModalOpen}
           isModalOpen={isModalOpen}
           onCancel={handleCloseModal}
           handleClose={handleCloseModal}
@@ -111,6 +124,13 @@ export const CancelAppointments = () => {
           patientData={selectedPatient}
         />
       )}
+
+      <CustomDateModal
+        Title="Select Custom Date Range"
+        open={isDateModalOpen}
+        onCancel={handleCloseDateModal}
+        handleClose={handleCloseDateModal}
+      />
     </>
   );
 };
