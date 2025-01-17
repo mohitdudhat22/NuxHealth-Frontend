@@ -41,13 +41,23 @@ export const Teleconsultation = () => {
     filterAppointments,
     setIsDateModalOpen,
     isDateModalOpen,
+    onSearch: onPreviousSearch,
+    searchQuery: previousSearchQuery,
   } = usePrivousTeleconsultation();
-  const { data: upcomingTeleconsultation, loading: upcomingLoader } =
-    useUpcomingTeleconsultation();
+  const {
+    data: upcomingTeleconsultation,
+    loading: upcomingLoader,
+    onSearch: onUpcomingSearch,
+    searchQuery: upcomingSearchQuery,
+  } = useUpcomingTeleconsultation();
   const { data: todayTeleconsultation, loading: todayLoader } =
     useTodayTeleconsultation();
-  const { data: cancleTeleconsultation, loading: cancleLoader } =
-    useCancleTeleconsultation();
+  const {
+    data: cancleTeleconsultation,
+    loading: cancleLoader,
+    onSearch: onCancelSearch,
+    searchQuery: cancelSearchQuery,
+  } = useCancleTeleconsultation();
 
   const rescheduleAppointment = async (selectedDate, selectedTime, appointmentId) => {
     const payload = {
@@ -77,6 +87,7 @@ export const Teleconsultation = () => {
     setIsReshceduleModal(true);
     setAppointmentId(id);
   };
+
   const columns = [
     {
       title: "Patient Name",
@@ -126,8 +137,6 @@ export const Teleconsultation = () => {
       ),
     },
   ];
-
-  // const patientData = appointments.appointments || [];
 
   const tabItems = [
     {
@@ -241,7 +250,12 @@ export const Teleconsultation = () => {
           rootClass={"p-0"}
           headerContent={
             <>
-              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+              <NHInput
+                prefix={Icons.SearchIcon}
+                placeholder="Search Patient"
+                value={upcomingSearchQuery}
+                onChange={(e) => onUpcomingSearch(e.target.value)}
+              />
               <NHButton variant="default" className="text-black bg-white">
                 {Icons.CalenderIcon}2 March,2022 - 13 March, 2022
                 {Icons.CloseCircle}
@@ -266,7 +280,12 @@ export const Teleconsultation = () => {
           title="Previous Appointment"
           rootClass={"p-0"}
           headerContent={
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={previousSearchQuery}
+              onChange={(e) => onPreviousSearch(e.target.value)}
+            />
           }
         >
           <NHTable
@@ -286,7 +305,12 @@ export const Teleconsultation = () => {
           title="Cancel Appointment"
           rootClass={"p-0"}
           headerContent={
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={cancelSearchQuery}
+              onChange={(e) => onCancelSearch(e.target.value)}
+            />
           }
         >
           <NHTable
