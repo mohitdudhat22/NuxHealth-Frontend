@@ -68,7 +68,11 @@ export const createReceptionist = (data) =>
 
 /* Doctor */
 export const todayAppointment = () =>
-  request("get", "/api/doctor/getappointmentforprescription"); //?date=today
+  request("get", "/api/doctor/getappointmentforprescription?date=today");
+export const doctorSession = () =>
+  request("get", "api/doctor/getDoctorSession");
+export const rescheduleAppointement = (id, data) =>
+  request("post", `/api/doctor/editAppointment/appointmentid/${id}`, data);
 export const getPrivousTeleconsultation = () =>
   request(
     "get",
