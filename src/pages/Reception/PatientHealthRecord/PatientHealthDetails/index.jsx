@@ -174,12 +174,12 @@ export const PatientHelthDetails = () => {
                     </span>
                   }
                   headerContent={
-                    <span
+                    <button
                       className="text-[#5678E9] text-xl"
                       onClick={() => setCurrentView("prescriptions")}
                     >
                       View All Prescription
-                    </span>
+                    </button>
                   }
                 >
                   <NHTable

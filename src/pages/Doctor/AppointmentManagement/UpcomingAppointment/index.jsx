@@ -157,6 +157,7 @@ export const UpcomingAppointments = () => {
       )}
 
       <CustomDateModal
+        open={isDateModalOpen}
         handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}

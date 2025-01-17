@@ -146,7 +146,8 @@ export const PreviousAppointments = () => {
       )}
 
       <CustomDateModal
-        // handleOk={handleApplyDateFilter}
+        open={isDateModalOpen}
+        handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}
         customDate={isDateModalOpen}

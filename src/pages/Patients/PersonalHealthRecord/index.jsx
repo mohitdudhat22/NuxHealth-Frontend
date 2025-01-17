@@ -171,12 +171,12 @@ export const PersonalHealthRecord = () => {
                     </span>
                   }
                   headerContent={
-                    <span
+                    <button
                       className="text-[#5678E9] text-xl"
                       onClick={() => setCurrentView("prescriptions")}
                     >
                       View All Prescription
-                    </span>
+                    </button>
                   }
                 >
                   <NHTable
@@ -230,6 +230,7 @@ export const PersonalHealthRecord = () => {
 
       {selectedPrescription && (
         <PrescriptionCard
+          open={isModalOpen}
           isModalOpen={isModalOpen}
           clickEvent={true}
           onCancel={() => setIsModalOpen(false)}
