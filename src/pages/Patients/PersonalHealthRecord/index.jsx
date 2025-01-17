@@ -225,6 +225,8 @@ export const PersonalHealthRecord = () => {
     }
   };
 
+
+  console.log(selectedPrescription);
   return (
     <div>
       {renderView()}
