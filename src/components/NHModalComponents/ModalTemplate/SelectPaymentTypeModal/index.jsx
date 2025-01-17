@@ -18,7 +18,6 @@ export const SelectPaymentTypeModal = ({
   const handleOk = () => {
     if (paymentType === 'online') {
       setPayType(true);
-      console.log('online should open', payType);
     } else {
       setPayType(false);
     }

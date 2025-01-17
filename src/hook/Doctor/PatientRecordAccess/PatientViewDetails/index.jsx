@@ -1,5 +1,5 @@
 // Api is not available so I have used static data for now.
-// import { getSinglePatientForDoctor } from "@/axiosApi/ApiHelper";
+import { getSinglePatient, getSinglePatientForDoctor } from "@/axiosApi/ApiHelper";
 import { NHButton } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
@@ -14,8 +14,8 @@ export const usePatientViewDetails = () => {
 
   const fetchData = async () => {
     try {
-      // const response = await getSinglePatientForDoctor(id);
-      setData(response);
+      const response = await getSinglePatient(id);
+      setData(response.data);
     } catch (err) {
       setError("Failed to fetch patient data.");
     }
@@ -59,47 +59,11 @@ export const usePatientViewDetails = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton isView onClick={() => navigate("patientrecordaccess")} />
+          <NHButton isView onClick={() => navigate("record")} />
         </Space>
       ),
     },
   ];
 
-  const staticData = [
-    {
-      key: "1",
-      patientName: "Marcus Phillips",
-      profilePicture: "https://i.prprofilePicture.cc/300",
-      diseaseName: "Viral Infection",
-      doctorName: "Dr. Matthew Best",
-      appointmentTime: "4:30 PM",
-      type: "Online",
-      date: "2 Jun, 2022",
-      phoneNumber: "92584 58475",
-      age: "27",
-      gender: "Male",
-      issue: "Stomach ache",
-      address: "B-408 Swastik society, Shivaji marg mota varacha rajkot",
-    },
-    {
-      key: "2",
-      patientName: "Landyn Sheffey",
-      profilePicture: "https://i.prprofilePicture.cc/300",
-      diseaseName: "Blood Pressure",
-      doctorName: "Dr. Annabella Porter",
-      appointmentTime: "5:00 AM",
-      type: "Onsite",
-    },
-    {
-      key: "3",
-      patientName: "Leslie Murray",
-      profilePicture: "https://i.prprofilePicture.cc/300",
-      diseaseName: "Diabetes",
-      doctorName: "Dr. Steven Ralph",
-      appointmentTime: "7:30 PM",
-      type: "Online",
-    },
-  ];
-
-  return { data, error, columns, staticData };
+  return { data, error, columns };
 };

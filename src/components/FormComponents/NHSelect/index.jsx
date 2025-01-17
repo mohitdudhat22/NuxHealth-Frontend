@@ -22,8 +22,21 @@ export const NHSelect = ({
   mode,
   require,
   key = "select",
+  timeSlote,
   ...rest
 }) => {
+  // Merge morning and evening time slots into dropdown options
+  const timeSlotOptions = [
+    ...(timeSlote?.morningSlots?.map(({ start }) => ({
+      label: `Morning: ${start}`,
+      value: start,
+    })) || []),
+    ...(timeSlote?.eveningSlots?.map(({ start }) => ({
+      label: `Evening: ${start}`,
+      value: start,
+    })) || []),
+  ];
+
   return (
     <div className={clsx(styles.parent, parentClassName, "w-full")} key={key}>
       {label && (
@@ -37,13 +50,14 @@ export const NHSelect = ({
       <Select
         id={id}
         name={name}
-        options={options}
+        options={options || timeSlotOptions}
         value={value}
         onChange={onChange}
         status={isInvalid && "error"}
         className={clsx(styles.select, "w-full", rootClassName)}
-        placeholder={placeholder ? placeholder : '"Select a value"'}
+        placeholder={placeholder || "Select a time slot"}
         mode={mode}
+        allowClear={allowClear}
         popupClassName={styles.selectPopup}
         suffixIcon={<span className="clr-black">{Icons.AltArrowDown}</span>}
         disabled={disabled}

@@ -8,11 +8,10 @@ import {
 } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
-import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { useTodayManagePriscription } from "@/hook/Doctor/PriscriptionTools/Manage/TodayPriscription";
 import { useOlderManagePrescription } from "@/hook/Doctor/PriscriptionTools/Manage/OlderPriscription";
-import { user } from "@/assets/images";
+import CustomEmpty from "@/components/CustomEmpty/CustomEmpty";
 
 export const Manage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -114,6 +113,7 @@ export const Manage = () => {
           headerContent={
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
+          rootClass={"p-0"}
         >
           <NHTable
             columns={columns}
@@ -132,6 +132,7 @@ export const Manage = () => {
           headerContent={
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
+          rootClass={"p-0"}
         >
           <NHTable
             columns={columns}
@@ -153,16 +154,15 @@ export const Manage = () => {
         <NHTabs items={tabItems} defaultActiveKey="today" />
       </NHCard>
 
-      <div className="prescription-tool">
       <PrescriptionCard
         isModalOpen={isModalOpen}
+        clickEvent={true}
         onCancel={() => setIsModalOpen(false)}
         handleClose={() => setIsModalOpen(false)}
         Title="Prescription"
         handleOk={() => setIsModalOpen(false)}
         patientData={selectedPatient}
       />
-      </div>
     </>
   );
 };

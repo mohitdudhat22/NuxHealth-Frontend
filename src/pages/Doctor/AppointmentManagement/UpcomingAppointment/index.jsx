@@ -53,14 +53,14 @@ const columns = (handleViewPatient) => [
           size="small"
           icon={Icons.RedCalenderIcon}
           onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
+          className="bg-white view-btn"
         />
         <NHButton
           type="primary"
           size="small"
           icon={Icons.BlueCalenderIcon}
           onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
+          className="bg-white view-btn"
         />
       </Space>
     ),
@@ -69,19 +69,14 @@ const columns = (handleViewPatient) => [
 
 export const UpcomingAppointments = () => {
   const { data, loading, error } = useUpcomingAppointments();
+  console.log("🚀 ~ UpcomingAppointments ~ data:", data)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-  const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const [filteredAppointments, setFilteredAppointments] = useState(data);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-
-  useEffect(() => {
-    if (data) {
-      setFilteredAppointments(data);
-    }
-  }, []);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
@@ -120,9 +115,6 @@ export const UpcomingAppointments = () => {
     setIsDateModalOpen(false);
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
     <>
       <NHCard
@@ -133,7 +125,6 @@ export const UpcomingAppointments = () => {
             <NHButton onClick={handleOpenDateModal}>
               {Icons.CalenderIcon} Any Date
             </NHButton>
-            <NHButton>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
           </>
         }
       >
@@ -141,7 +132,7 @@ export const UpcomingAppointments = () => {
           loading={loading}
           showPagination={true}
           tableColumn={columns(handleViewPatient)}
-          tableDataSource={filteredAppointments}
+          tableDataSource={data}
           route="/doctor"
         />
       </NHCard>

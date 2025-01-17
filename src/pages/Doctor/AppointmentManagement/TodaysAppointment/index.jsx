@@ -1,65 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
-import { Space, Tag } from "antd";
+import { Space } from "antd";
 import Icons from "@/constants/icons";
 import { useTodayAppointment } from "@/hook/Doctor/AppointmentManagement/TodaysAppointment";
 import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
 import { CancelOnsiteAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnsiteAppointmentModal";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import moment from "moment";
+import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
+import { doctorSession, rescheduleAppointement } from "@/axiosApi/ApiHelper";
 
 export const TodayAppointments = () => {
   const { data, loading } = useTodayAppointment();
-  console.log("🚀 ~ TodayAppointments ~ data:", data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-  // const [filteredAppointments, setFilteredAppointments] = useState(data);
   const [fromDate, setFromDate] = useState(null);
+  const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [toDate, setToDate] = useState(null);
-  const [filteredAppointments, setFilteredAppointments] = useState([
-    {
-      key: "1",
-      patientName: "John Doe",
-      diseaseName: "Flu",
-      patientIssue: "Fever and cough",
-      appointmentTime: "10:00 AM",
-      appointmentType: "Consultation",
-    },
-    {
-      key: "2",
-      patientName: "Jane Smith",
-      diseaseName: "Diabetes",
-      patientIssue: "High blood sugar",
-      appointmentTime: "11:00 AM",
-      appointmentType: "Follow-up",
-    },
-    {
-      key: "3",
-      patientName: "Alice Johnson",
-      diseaseName: "Hypertension",
-      patientIssue: "High blood pressure",
-      appointmentTime: "12:00 PM",
-      appointmentType: "Consultation",
-    },
-    {
-      key: "4",
-      patientName: "Bob Brown",
-      diseaseName: "Asthma",
-      patientIssue: "Shortness of breath",
-      appointmentTime: "01:00 PM",
-      appointmentType: "Consultation",
-    },
-    {
-      key: "5",
-      patientName: "Charlie Davis",
-      diseaseName: "Allergy",
-      patientIssue: "Skin rash",
-      appointmentTime: "02:00 PM",
-      appointmentType: "Consultation",
-    },
-  ]);
+  const [filteredAppointments, setFilteredAppointments] = useState();
+  const [timeSlote, setTimeSlote] = useState([]);
+  const [appointmentId, setAppointmentId] = useState();
 
   const columns = [
     {
@@ -94,7 +56,7 @@ export const TodayAppointments = () => {
       width: 150,
       render: (_, record) => (
         <Space size="middle">
-          <NHButton isReschedule onClick={() => handleViewPatient(record)} />
+          <NHButton isReschedule onClick={() => handelReschedule(record)} />
           <NHButton isCancel onClick={() => handleViewPatient(record)} />
         </Space>
       ),
@@ -116,7 +78,15 @@ export const TodayAppointments = () => {
     setSelectedPatient(null);
     setModalType(null);
   };
-
+  const handelReschedule = async (record) => {
+    // console.log("🚀 ~ handelReschedule ~ id:", id);
+    setIsReshceduleModal(true);
+    setAppointmentId(record.key);
+    try {
+      const response = await doctorSession();
+      setTimeSlote(response.data);
+    } catch (error) {}
+  };
   const handleOpenDateModal = () => {
     setIsDateModalOpen(true);
   };
@@ -138,6 +108,28 @@ export const TodayAppointments = () => {
     setIsDateModalOpen(false);
   };
 
+  // useEffect(() => {
+  //   setFilteredAppointments(data);
+  // }, [data]);
+
+  const rescheduleAppointment = async (selectedDate, selectedTime) => {
+    const payload = {
+      date: selectedDate,
+      appointmentTime: selectedTime,
+    };
+
+    console.log("Payload:", payload);
+
+    try {
+      const response = await rescheduleAppointement(appointmentId, payload);
+      console.log("Response:", response);
+      setIsReshceduleModal(false);
+      fetchAppointments();
+    } catch (error) {
+      console.error("Error rescheduling appointment:", error);
+    }
+  };
+
   return (
     <>
       <NHCard
@@ -148,9 +140,6 @@ export const TodayAppointments = () => {
             <NHButton onClick={handleOpenDateModal} icon={Icons?.CalenderIcon}>
               Any Date
             </NHButton>
-            <NHButton icon={Icons?.CalenderIcon}>
-              Appointment Time Slot
-            </NHButton>
           </>
         }
       >
@@ -158,7 +147,7 @@ export const TodayAppointments = () => {
           loading={loading}
           showPagination={true}
           tableColumn={columns}
-          tableDataSource={filteredAppointments}
+          tableDataSource={data}
         />
       </NHCard>
 
@@ -184,14 +173,22 @@ export const TodayAppointments = () => {
 
       <CustomDateModal
         Title="Select Custom Date Range"
-        handleOk={handleApplyDateFilter}
+        open={isDateModalOpen}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}
+        handleOk={handleApplyDateFilter}
         customDate={isDateModalOpen}
         fromDate={fromDate}
         toDate={toDate}
         setFromDate={setFromDate}
         setToDate={setToDate}
+      />
+      <RescheduleAppointmentModal
+        timeSlote={timeSlote}
+        handleOk={rescheduleAppointment}
+        handleClose={() => setIsReshceduleModal(false)}
+        Title="Reschedule Appointment"
+        rescheduleAppo={isReshceduleModal}
       />
     </>
   );

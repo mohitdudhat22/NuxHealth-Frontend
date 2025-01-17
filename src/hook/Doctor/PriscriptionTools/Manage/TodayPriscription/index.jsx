@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 export const useTodayManagePriscription = (id) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  console.log("today", data);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -9,11 +9,9 @@ export const useCancelAppointments = () => {
   const fetchAppointments = async () => {
     try {
       const response = await cancelAppointmentForDoctor();
-      console.log("API Response:", response);
 
       if (response && response?.data) {
         setAppointments(response?.data?.appointments);
-        console.log(response.data.appointments);
       }
     } finally {
       setLoading(false);

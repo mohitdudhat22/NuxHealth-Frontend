@@ -86,7 +86,7 @@ export const PatientHelthDetails = () => {
       </div>
     );
   };
-  const prescriptions = data?.prescriptions
+  const prescriptions = data?.prescriptions;
   const handleViewClick = (record) => {
     setSelectedPrescription(record);
     setIsModalOpen(true);
@@ -101,7 +101,7 @@ export const PatientHelthDetails = () => {
       case "dashboard":
         return (
           <>
-           <PatientDetailCard
+            <PatientDetailCard
               patientName={data?.patientProfile?.fullName || "N/A"}
               doctorName="Dr. Marcus Philips"
               patientNumber={data?.patientProfile?.phone || "N/A"}
@@ -228,17 +228,20 @@ export const PatientHelthDetails = () => {
     }
   };
 
-  return <div>{renderView()}
-  
-  
-  {selectedPrescription && (
+  return (
+    <div>
+      {renderView()}
+
+      {selectedPrescription && (
         <PrescriptionCard
-        isModalOpen={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        handleClose={() => setIsModalOpen(false)}
-        Title="Prescription"
-        handleOk={() => setIsModalOpen(false)}
-        patientData={selectedPrescription}
-      />
-      )}</div>;
+          isModalOpen={isModalOpen}
+          onCancel={() => setIsModalOpen(false)}
+          handleClose={() => setIsModalOpen(false)}
+          Title="Prescription"
+          handleOk={() => setIsModalOpen(false)}
+          patientData={selectedPrescription}
+        />
+      )}
+    </div>
+  );
 };

@@ -68,7 +68,11 @@ export const createReceptionist = (data) =>
 
 /* Doctor */
 export const todayAppointment = () =>
-  request("get", "/api/doctor/getappointmentforprescription");
+  request("get", "/api/doctor/getappointmentforprescription?date=today");
+export const doctorSession = () =>
+  request("get", "api/doctor/getDoctorSession");
+export const rescheduleAppointement = (id, data) =>
+  request("post", `/api/doctor/editAppointment/appointmentid/${id}`, data);
 export const getPrivousTeleconsultation = () =>
   request(
     "get",
@@ -89,8 +93,12 @@ export const getCancleTeleconsultation = () =>
     "get",
     "/api/doctor/getAppointmentsTeleconcsultation?filter=cancel&type=online"
   );
-export const createPrescription = () =>
-  request("post", "/api/doctor/createPrescription/appointmentId");
+export const createPrescription = (payload) =>
+  request(
+    "post",
+    `/api/doctor/createPrescription/${payload.appointmentId}`,
+    payload
+  );
 
 /* Patient */
 export const patientDashboard = () =>
@@ -170,7 +178,8 @@ export const getUnpaidBills = () =>
 export const getSinglePatientForAdmin = (id) =>
   request("get", `/api/admin/getSinglepatients?${id}`);
 export const getSinglePatientForDoctor = (id) =>
-  request("get", `/api/doctor/getSinglepatients?${id}`);
+  request("get", `/api/doctor/getSinglepatients?id=${id}`);
+
 export const todaysAppointments = () =>
   request("get", "/api/doctor/getAppointment?filter=today");
 export const upcomingAppointments = () =>
@@ -211,8 +220,8 @@ export const editAdminProfileChangePassword = (data) =>
   request("post", "/api/admin/changePassword", data);
 
 // Change in editadminprofile
-export const editAdminProfile = (data) =>
-  request("post", "/api/admin/editAdmin", data);
+export const editProfile = (data, role) =>
+  request("put", `/api/${role}/editUser`, data);
 // export const editAdminProfile = (data,role) =>
 //   request("post", `/api/${role}/edit`, data);
 export const editDoctorrofileChangePassword = (data) =>

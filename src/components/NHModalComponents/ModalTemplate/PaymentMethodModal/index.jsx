@@ -18,7 +18,6 @@ export const PaymentMethodModal = ({
     const handleOk = () => {
         if (paymentType === 'master') {
             setCardOption(true);
-            console.log('online should open', cardOption);
         } else {
             setCardOption(false);
         }
