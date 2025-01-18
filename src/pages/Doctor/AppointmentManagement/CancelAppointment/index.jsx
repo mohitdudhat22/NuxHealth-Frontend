@@ -104,6 +104,7 @@ export const CancelAppointments = () => {
           showPagination={true}
           tableColumn={columns(handleViewPatient)}
           tableDataSource={data}
+          scroll={{x: 800}}
         />
       </NHCard>
 

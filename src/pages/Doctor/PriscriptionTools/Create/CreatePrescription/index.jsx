@@ -236,6 +236,7 @@ export const CreatePrescription = ({
             columns={columns}
             dataSource={tableData}
             pagination={false}
+            scroll={{x: 800}}
           />
 
           <div className="mt-6">
