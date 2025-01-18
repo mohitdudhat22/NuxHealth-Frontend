@@ -22,11 +22,11 @@ export const AdminAsideData = [
     icon: Icons.DoctorUser,
     label: <Link to="/admin/reception-management">Reception Management</Link>,
   },
-  {
-    key: "medicalManagement",
-    icon: Icons.DoctorUser,
-    label: <Link to="/admin/medical-management">Medical Management</Link>,
-  },
+  // {
+  //   key: "medicalManagement",
+  //   icon: Icons.DoctorUser,
+  //   label: <Link to="/admin/medical-management">Medical Management</Link>,
+  // },
   {
     key: "BillingPayments",
     icon: Icons.Wallet,
@@ -54,11 +54,11 @@ export const AdminAsideData = [
 
   // temp all-modal
 
-  {
-    key: "all-modal",
-    icon: Icons.Analytics,
-    label: <Link to="/admin/all-modal">All Modal</Link>,
-  },
+  // {
+  //   key: "all-modal",
+  //   icon: Icons.Analytics,
+  //   label: <Link to="/admin/all-modal">All Modal</Link>,
+  // },
 ];
 
 export const DoctorPanelData = [
@@ -242,3 +242,6 @@ export const headerDropdownItems = [
 ];
 
 /* Common Table Columns */
+
+
+
