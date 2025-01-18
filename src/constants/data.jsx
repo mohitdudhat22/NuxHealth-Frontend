@@ -244,4 +244,39 @@ export const headerDropdownItems = [
 /* Common Table Columns */
 
 
+/* staticData */
+export const appointmentDataReportAndAnalytics = [
+  { year: 2020, onlineConsultation: 30, otherAppointment: 40 },
+  { year: 2021, onlineConsultation: 45, otherAppointment: 35 },
+  { year: 2022, onlineConsultation: 50, otherAppointment: 45 },
+  { year: 2023, onlineConsultation: 55, otherAppointment: 50 },
+];
+
+export const patientDepartmentDataReportAndAnalytics = [
+  { key: "1", name: "Cardiology", count: "105" },
+  { key: "2", name: "Endocrinologist", count: "254" },
+  { key: "3", name: "Gastroenterologist", count: "657" },
+  { key: "4", name: "Anesthesiologist", count: "02" },
+  { key: "5", name: "Pediatrician", count: "784" },
+  { key: "6", name: "Ophthalmologist", count: "254" },
+];
+
+export const doctorDepartmentDataReportAndAnalytics = [
+  { key: "1", name: "Cardiology", count: "08" },
+  { key: "2", name: "Endocrinologist", count: "22" },
+  { key: "3", name: "Gastroenterologist", count: "15" },
+  { key: "4", name: "Anesthesiologist", count: "11" },
+  { key: "5", name: "Pediatrician", count: "10" },
+  { key: "6", name: "Ophthalmologist", count: "08" },
+];
+export const PatientDataReportAndAnalytics = [
+  { age: "0-2 Years", value: 8, color: "#E91E63" },
+  { age: "3-12 Years", value: 12, color: "#3F51B5" },
+  { age: "13-19 Years", value: 20, color: "#03A9F4" },
+  { age: "20-39 Years", value: 18, color: "#FFC107" },
+  { age: "40-59 Years", value: 8, color: "#009688" },
+  { age: "60 And Above", value: 34, color: "#FF9F83" },
+];
+
+
 
