@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Button, Popover, List, Empty, Badge } from "antd";
 import { CloseOutlined, BellOutlined } from "@ant-design/icons";
-import NoNotificationFound from "../../assets/images/cover/no-notification-found.png";
 import socket from "@/services/socketService";
 import {
   GetUserNotifications,
   MarkNotificationAsRead,
 } from "@/axiosApi/ApiHelper";
 import "./NotificationBox.css";
-import { NHButton, NHCard } from "..";
+import { NHButton, NHCard } from "../..";
 import { useDecodeToken } from "@/hook";
+import { NoNotificationFound } from "@/assets/images";
+import clsx from "clsx";
 
 const NotificationBox = () => {
   const [visible, setVisible] = useState(false);
@@ -103,9 +104,10 @@ const NotificationBox = () => {
           dataSource={notifications}
           renderItem={(item) => (
             <List.Item
-              className={`px-4 py-3 hover:bg-gray-50 cursor-pointer border-b ${
-                !item.isRead ? "bg-gray-100" : ""
-              }`}
+              className={clsx(
+                "px-4 py-3 hover:bg-gray-50 cursor-pointer border-b",
+                { "bg-gray-100": !item.isRead }
+              )}
               onClick={() => handleNotificationClick(item)}
             >
               <div className="flex items-start gap-3 w-full">
