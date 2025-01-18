@@ -106,11 +106,12 @@ export const PersonalHealthRecord = () => {
               patientGender={data?.patientProfile?.gender || "N/A"}
               patientAge={`${data?.patientProfile?.age || 0} Years`}
               appointmentType="Online"
-              patientAddress={`${data?.patientProfile?.address?.fullAddress || "N/A"
-                }, ${data?.patientProfile?.address?.city || ""}`}
+              patientAddress={`${
+                data?.patientProfile?.address?.fullAddress || "N/A"
+              }, ${data?.patientProfile?.address?.city || ""}`}
               lastAppointmentDate="2 Jan, 2022"
               lastAppointmentTime="4:30 PM"
-              onEditProfile={() => { }}
+              onEditProfile={() => {}}
             />
 
             <div className="grid grid-cols-[3fr_2fr] mt-8 grid-rows-1 gap-8">
