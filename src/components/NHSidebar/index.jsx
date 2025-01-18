@@ -2,7 +2,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Link, useNavigate } from "react-router-dom";
 import { Layout, Menu } from "antd";
-import { FullLogo } from "@/assets/images";
+import { FullLogo, ShortLogo } from "@/assets/images";
 import { useAside } from "@/hook";
 import { AppointmentCard, NHButton } from "..";
 import Icons from "@/constants/Icons";
@@ -30,13 +30,23 @@ export const NHSidebar = ({ collapsed, className, items }) => {
     <Sider
       trigger={null}
       width={"var(--sidebar-width)"}
+      breakpoint="lg"
       collapsible
       collapsed={collapsed}
       className={clsx(styles.sider, className, "z-10")}
     >
-      <div className="flex items-center justify-center leading-normal py-md px-[3rem] flex-[0_0_auto] h-[var(--header-height)]">
+      <div
+        className={clsx(
+          !collapsed && "py-md px-[3rem]",
+          "flex items-center justify-center leading-normal flex-[0_0_auto] h-[var(--header-height)]"
+        )}
+      >
         <Link className="d-inline-block h2 font-secondary" to="">
-          <img src={FullLogo} alt="logo" className="" />
+          {!collapsed ? (
+            <img src={FullLogo} alt="logo" />
+          ) : (
+            <img src={ShortLogo} alt="logo" className="w-10" />
+          )}
         </Link>
       </div>
       <Menu
