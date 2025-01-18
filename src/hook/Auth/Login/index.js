@@ -53,7 +53,7 @@ export const useLogin = () => {
     setIsLoading(true);
 
     try {
-      const response = await login({ identifier: email, password });
+      const response = await login({ identifier:email, password });
       toast.success(response.message);
 
       const token = response.data;
