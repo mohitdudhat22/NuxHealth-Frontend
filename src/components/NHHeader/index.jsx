@@ -1,7 +1,6 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Layout } from "antd";
 import clsx from "clsx";
-import { useDecodeToken } from "@/hook";
 import Icons from "@/constants/Icons";
 import {
   NHButton,
@@ -10,14 +9,15 @@ import {
   NHInput,
   NHSelect,
 } from "@/components/";
-import NotificationBox from "../NotificationBox";
+import NotificationBox from "./NotificationBox";
 import { useHeader } from "@/hook/Global";
 import { headerDropdownItems } from "@/constants/data";
 import { useUserData } from "@/context";
+import styles from "./NHHeader.module.css";
 
 const { Header } = Layout;
 
-export const NHHeader = () => {
+export const NHHeader = ({ collapsed, collapseHandle }) => {
   const {
     notificationVisible,
     setNotificationVisible,
@@ -33,7 +33,8 @@ export const NHHeader = () => {
   } = useHeader();
 
   const navigate = useNavigate();
-  const {userData} = useUserData();
+  const { userData } = useUserData();
+
   return (
     <Header
       className={clsx(
@@ -41,19 +42,78 @@ export const NHHeader = () => {
       )}
     >
       <div className="flex items-center justify-content-center gap-xl">
-        {BreadCrumb ? (
-          <div className="flex flex-col items-start">
-            <h3 className="font-bold capitalize">
-              Good Morning! {isDoctor && "Dr."}
-              {firstName}
-            </h3>
-            <p className="mt-1 font-semibold h6 text-silver">
-              Hope you have a good day
-            </p>
-          </div>
-        ) : (
-          <NHBreadCrumb />
-        )}
+        <NHButton
+          size="small"
+          variant={"primary"}
+          className={clsx(
+            styles.menu,
+            collapsed && styles.menuOpen,
+            "xl:hidden"
+          )}
+          icon={
+            <svg
+              width="24px"
+              height="24px"
+              viewBox="0 0 48 48"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g>
+                <line
+                  x1="0"
+                  y1="17"
+                  x2="48"
+                  y2="17"
+                  stroke="currentColor"
+                  stroke-width="5"
+                />
+                <line
+                  x1="0"
+                  y1="31"
+                  x2="48"
+                  y2="31"
+                  stroke="currentColor"
+                  stroke-width="5"
+                />
+              </g>
+
+              <g>
+                <line
+                  x1="0"
+                  y1="24"
+                  x2="48"
+                  y2="24"
+                  stroke="currentColor"
+                  stroke-width="5"
+                />
+                <line
+                  x1="0"
+                  y1="24"
+                  x2="48"
+                  y2="24"
+                  stroke="currentColor"
+                  stroke-width="5"
+                />
+              </g>
+            </svg>
+          }
+          onClick={collapseHandle}
+        />
+        <div>
+          {BreadCrumb ? (
+            <div className="flex flex-col items-start">
+              <h3 className="font-bold capitalize">
+                Good Morning! {isDoctor && "Dr."}
+                {firstName}
+              </h3>
+              <p className="mt-1 font-semibold h6 text-silver">
+                Hope you have a good day
+              </p>
+            </div>
+          ) : (
+            <NHBreadCrumb />
+          )}
+        </div>
       </div>
       <div className={clsx("flex items-center justify-content-center gap-xl")}>
         <NHInput
