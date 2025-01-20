@@ -42,11 +42,7 @@ export const NHSidebar = ({ collapsed, className, items }) => {
         )}
       >
         <Link className="d-inline-block h2 font-secondary" to="">
-          {!collapsed ? (
-            <img src={FullLogo} alt="logo" />
-          ) : (
-            <img src={ShortLogo} alt="logo" className="w-10" />
-          )}
+          <img src={FullLogo} alt="logo" />
         </Link>
       </div>
       <Menu
@@ -67,7 +63,7 @@ export const NHSidebar = ({ collapsed, className, items }) => {
         <NHButton
           block
           className={clsx("justify-content-start rounded-none")}
-          icon={Icons.Logout}
+          icon={Icons?.Logout}
           danger
           variant="primary"
           onClick={handleLogout}
