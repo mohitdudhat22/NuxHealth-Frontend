@@ -47,7 +47,10 @@ export const NHHeader = ({ collapsed, collapseHandle }) => {
           variant={"primary"}
           className={clsx(
             styles.menu,
-            collapsed && styles.menuOpen,
+            {
+              [styles.menuOpen]: collapsed,
+              "absolute left-[calc(var(--sidebar-width)_+_11px)]": collapsed,
+            },
             "xl:hidden"
           )}
           icon={
