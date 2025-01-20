@@ -11,7 +11,6 @@ const { Content } = Layout;
 
 export const DashboardLayout = ({ items }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const [show, setShow] = useState(false);
   const { searchValue } = useSearch();
 
   return (
@@ -19,14 +18,15 @@ export const DashboardLayout = ({ items }) => {
       <NHSidebar
         collapsed={collapsed}
         items={items}
-        className={clsx(show ? styles.Sidebar : "")}
+        className={clsx(
+          // collapsed ? "translate-x-0" : "-translate-x-full",
+          // "!fixed left-0 top-0 h-full"
+        )}
       />
       <Layout>
         <NHHeader
           collapsed={collapsed}
           collapseHandle={() => setCollapsed(!collapsed)}
-          // mobileShow={() => setShow(!show)}
-          show={show}
         />
         <Content className={styles.content}>
           {searchValue?.length > 0 ? <GlobalSearch /> : <Outlet />}

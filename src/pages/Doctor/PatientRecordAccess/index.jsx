@@ -1,12 +1,14 @@
 import { NHCard, NHInput, NHSelect, NHTable } from "@/components";
 import Icons from "@/constants/icons";
 import { usePatientRecordAccess } from "@/hook/Doctor/PatientRecordAccess";
+import "./DoctorPatientRecord.css"
 
 export const PatientRecordAccess = () => {
   const { data, handleSelectChange, columns, filter, handleSearch } =
     usePatientRecordAccess();
 
   return (
+    <div className="doc-patient-record">
     <NHCard
       title="Patient Record Access"
       headerContent={
@@ -30,7 +32,8 @@ export const PatientRecordAccess = () => {
         </div>
       }
     >
-      <NHTable columns={columns} showPagination={true} dataSource={data} />
+      <NHTable columns={columns} showPagination={true} dataSource={data} scroll={{x: 800}} />
     </NHCard>
+    </div>
   );
 };

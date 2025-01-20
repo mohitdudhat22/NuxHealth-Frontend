@@ -133,6 +133,7 @@ export const UpcomingAppointments = () => {
           tableColumn={columns(handleViewPatient)}
           tableDataSource={data}
           route="/doctor"
+          scroll={{x: 800}}
         />
       </NHCard>
 

@@ -23,7 +23,7 @@ export const PatientViewDetails = () => {
         />
       </div>
       <NHCard>
-        <NHTable showPagination={true} loading={true} columns={columns} dataSource={data?.allAppointments} />
+        <NHTable showPagination={true} loading={true} columns={columns} dataSource={data?.allAppointments} scroll={{x: 800}} />
       </NHCard>
     </>
   );
