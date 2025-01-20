@@ -190,7 +190,7 @@ export const AppointmentBooking = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {todayAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
@@ -278,7 +278,7 @@ export const AppointmentBooking = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {previousAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
@@ -342,7 +342,7 @@ export const AppointmentBooking = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {cancelAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
@@ -405,7 +405,7 @@ export const AppointmentBooking = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {upcomingAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
