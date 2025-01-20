@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useLocation } from "react-router-dom";
+import "./VideoCall.css";
 import { useDecodeToken } from "@/hook";
 
 export const DoctorMeetingConference = () => {
