@@ -1,6 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./EditProfile.module.css";
-import { NHButton, NHCard, NHDatePicker, NHInput, NHNumberInput, NHPasswordInput, NHSelect } from "..";
+import {
+  NHButton,
+  NHCard,
+  NHDatePicker,
+  NHInput,
+  NHNumberInput,
+  NHPasswordInput,
+  NHSelect,
+} from "..";
 import { useChangePassword } from "@/hook/Admin/AdminEditProfile/ChangePassword";
 import { useEditProfile } from "@/hook/Admin/ProfileSetting";
 import { identifyRole } from "@/utils/identifyRole";
@@ -22,19 +30,31 @@ export const ProfileSetting = () => {
   } = useEditProfile();
   return (
     <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative h-[35%] min-h-[40vh]">
-      <div className={styles.profileCard + " w-full h-full absolute top-1/4 left-[10.5%]"}>
-        <div className={styles.profile + " w-[1200px] flex flex-col"}>
+      <div
+        className={
+          // styles.profileCard + " w-full h-full absolute top-1/4 left-[10.5%]"
+          styles.profileCard + " w-full h-full"
+        }
+      >
+        <div
+          className={
+            styles.profile + " w-full xxl:w-[1200px] flex flex-col m-auto"
+          }
+        >
           <form action="" onSubmit={handleSubmitData}>
             <h3 className="mb-10 text-4xl text-white">Profile Setting</h3>
-            <NHCard className="p-0 bg-white">
-              <div className="flex">
-                <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
+            <NHCard className="p-0 bg-white ">
+              <div className="flex flex-wrap">
+                <div className="w-full lg:w-1/4 border-r min-h-[calc(100vh-400px)]">
                   <div className="flex flex-col items-center px-4 py-8">
                     <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB] relative flex flex-col items-center">
                       <img
-                        src={userDetail?.profileImage || "https://i.pravatar.cc/300"}
+                        src={
+                          userDetail?.profileImage ||
+                          "https://i.pravatar.cc/300"
+                        }
                         alt="Profile"
-                        className="w-[150px] rounded-full"
+                        className="w-[150px] h-[150px] rounded-full"
                       />
                       {isEditing && (
                         <>
@@ -47,14 +67,13 @@ export const ProfileSetting = () => {
                           <button
                             type="button"
                             onClick={handleEditImage}
-                            className="mt-4 bg-blue-500 text-white p-2 rounded-full"
+                            className="mt-4 bg-blue-500 text-white px-2 sm:px-4 rounded-full absolute top-[50px] sm:top-[60px]"
                           >
                             Edit
                           </button>
                         </>
                       )}
                     </div>
-
 
                     <h2 className="text-xl font-semibold">
                       {userDetail?.firstName || "Lincoln"}{" "}
@@ -64,11 +83,15 @@ export const ProfileSetting = () => {
 
                   <div className="px-4">
                     <nav className="p-2 bg-gray-100 rounded-lg">
-                      <ul className="space-y-1">
+                      <ul className="space-y-1 sm:flex flex-wrap justify-around lg:block">
                         <li>
                           <button
                             onClick={() => handleTabChange("profile")}
-                            className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${activeTab === "profile" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                            className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${
+                              activeTab === "profile"
+                                ? "bg-white text-blue-600 shadow-sm font-medium"
+                                : "text-gray-600 hover:bg-gray-50"
+                            }`}
                           >
                             Profile
                           </button>
@@ -76,7 +99,11 @@ export const ProfileSetting = () => {
                         <li>
                           <button
                             onClick={() => handleTabChange("changePassword")}
-                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "changePassword" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                              activeTab === "changePassword"
+                                ? "bg-white text-blue-600 shadow-sm font-medium"
+                                : "text-gray-600 hover:bg-gray-50"
+                            }`}
                           >
                             Change Password
                           </button>
@@ -84,7 +111,11 @@ export const ProfileSetting = () => {
                         <li>
                           <button
                             onClick={() => handleTabChange("terms")}
-                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "terms" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                              activeTab === "terms"
+                                ? "bg-white text-blue-600 shadow-sm font-medium"
+                                : "text-gray-600 hover:bg-gray-50"
+                            }`}
                           >
                             Terms & Condition
                           </button>
@@ -92,7 +123,11 @@ export const ProfileSetting = () => {
                         <li>
                           <button
                             onClick={() => handleTabChange("privacy")}
-                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "privacy" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
+                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                              activeTab === "privacy"
+                                ? "bg-white text-blue-600 shadow-sm font-medium"
+                                : "text-gray-600 hover:bg-gray-50"
+                            }`}
                           >
                             Privacy Policy
                           </button>
@@ -102,7 +137,7 @@ export const ProfileSetting = () => {
                   </div>
                 </div>
 
-                <div className="w-3/4 p-6">
+                <div className="w-full lg:w-3/4 p-6">
                   {activeTab === "profile" && (
                     <Profile
                       userDetail={userDetail}
@@ -125,7 +160,13 @@ export const ProfileSetting = () => {
   );
 };
 
-const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEditing }) => {
+const Profile = ({
+  userDetail,
+  setUserDetail,
+  handleSubmit,
+  isEditing,
+  setIsEditing,
+}) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserDetail((prev) => ({
@@ -136,10 +177,10 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
   const renderFormFields = () => {
     const role = identifyRole();
     switch (role) {
-      case 'admin':
+      case "admin":
         return (
           <>
-            <div className="grid grid-cols-3 gap-7">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-7">
               <NHInput
                 label="First Name"
                 name="firstName"
@@ -163,9 +204,6 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
                 disabled={!isEditing}
                 required
               />
-            </div>
-
-            <div className="grid grid-cols-3 gap-7">
               <NHInput
                 label="Phone Number"
                 name="phoneNumber"
@@ -212,7 +250,7 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
           </>
         );
 
-      case 'doctor':
+      case "doctor":
         return (
           <>
             <div className="grid grid-cols-3 gap-7">
@@ -291,12 +329,11 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
                 onChange={handleChange}
                 disabled={!isEditing}
               />
-
             </div>
           </>
         );
 
-      case 'patient':
+      case "patient":
         return (
           <>
             <div className="grid grid-cols-3 gap-7">
@@ -356,21 +393,21 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
               />
             </div>
             <div className="grid grid-cols-3 gap-7">
-            <NHInput
+              <NHInput
                 label="Height"
                 name="height"
                 value={userDetail?.height}
                 onChange={handleChange}
                 disabled={!isEditing}
               />
-                 <NHInput
+              <NHInput
                 label="Weight"
                 name="weight"
                 value={userDetail?.weight}
                 onChange={handleChange}
                 disabled={!isEditing}
-              />    
-                  <NHSelect
+              />
+              <NHSelect
                 label="Blood Group"
                 name="bloodGroup"
                 value={userDetail?.bloodGroup}
@@ -386,7 +423,7 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
                   { value: "AB+", label: "AB+" },
                   { value: "AB-", label: "AB-" },
                 ]}
-              />   
+              />
             </div>
             <div className="grid grid-cols-3 gap-7">
               <NHInput
@@ -412,7 +449,7 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
               />
             </div>
             <div>
-            <NHInput
+              <NHInput
                 label="Address"
                 name="fullAddress"
                 value={userDetail?.fullAddress}
@@ -423,7 +460,7 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
           </>
         );
 
-      case 'receptionist':
+      case "receptionist":
         return (
           <>
             <div className="grid grid-cols-3 gap-7">
@@ -523,11 +560,11 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
             onClick={
               isEditing
                 ? async () => {
-                  const updateSuccessful = await handleSubmit();
-                  if (updateSuccessful) {
-                    setIsEditing(false);
+                    const updateSuccessful = await handleSubmit();
+                    if (updateSuccessful) {
+                      setIsEditing(false);
+                    }
                   }
-                }
                 : () => setIsEditing(true)
             }
           >
@@ -547,9 +584,10 @@ const Terms = () => (
   <div className="space-y-6">
     <h3 className="fw-semibold lh-base text-[26px] pl-5">Terms & Conditions</h3>
     <div className="prose max-w-none bg-white p-6 rounded-lg overflow-y-auto h-[calc(100vh-400px)] gap-4 grid">
-      <p className="text-base">
-        The terms and conditions outline the rules and regulations for using the website and the services
-        provided. By accessing this website, we assume you accept these terms and conditions.
+      <p className="text-base text-lg leading-normal">
+        The terms and conditions outline the rules and regulations for using the
+        website and the services provided. By accessing this website, we assume
+        you accept these terms and conditions.
       </p>
     </div>
   </div>
@@ -559,10 +597,10 @@ const Privacy = () => (
   <div className="space-y-6">
     <h3 className="fw-semibold lh-base text-[26px] pl-5">Privacy Policy</h3>
     <div className="prose max-w-none bg-white p-6 rounded-lg overflow-y-auto h-[calc(100vh-400px)] gap-4 grid">
-      <p className="text-base">
-        We value your privacy. The policy explains how we collect, use, and protect your personal data when
-        using our services. By using this site, you consent to the processing of your data as described in
-        this policy.
+      <p className="text-base text-lg leading-normal">
+        We value your privacy. The policy explains how we collect, use, and
+        protect your personal data when using our services. By using this site,
+        you consent to the processing of your data as described in this policy.
       </p>
     </div>
   </div>

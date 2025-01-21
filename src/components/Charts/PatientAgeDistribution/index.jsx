@@ -1,88 +1,90 @@
-import React from 'react'
-import ReactApexChart from 'react-apexcharts'
-import { NHCard } from '@/components'
+import React from "react";
+import ReactApexChart from "react-apexcharts";
+import { NHCard } from "@/components";
 
 export const PatientAgeDistribution = ({
-  title = 'Patients Age',
+  title = "Patients Age",
   data,
-  height = 350
+  height = 350,
 }) => {
-
-  const chartData = data || defaultData
+  const chartData = data || defaultData;
 
   const chartOptions = {
     chart: {
-      type: 'donut',
+      type: "donut",
     },
-    colors: chartData.map(item => item.color),
-    labels: chartData.map(item => item.age),
+    colors: chartData.map((item) => item.color),
+    labels: chartData.map((item) => item.age),
     stroke: {
-      width: 0
+      width: 0,
     },
     plotOptions: {
       pie: {
         donut: {
-          size: '75%',
+          size: "75%",
           labels: {
             show: true,
             name: {
-              show: false
+              show: false,
             },
             value: {
               show: true,
-              fontSize: '24px',
+              fontSize: "24px",
               fontWeight: 600,
-              color: '#3F51B5',
+              color: "#3F51B5",
               offsetY: 8,
-              formatter: () => '100'
+              formatter: () => "100",
             },
             total: {
               show: true,
-              label: 'Total Patients',
-              fontSize: '12px',
-              color: '#6B7280'
-            }
-          }
-        }
-      }
+              label: "Total Patients",
+              fontSize: "12px",
+              color: "#6B7280",
+            },
+          },
+        },
+      },
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
     legend: {
       show: true,
-      position: 'right',
-      fontSize: '14px',
-      fontFamily: 'inherit',
+      position: "right",
+      fontSize: "14px",
+      fontFamily: "inherit",
       markers: {
         width: 8,
         height: 8,
-        radius: 12
+        radius: 12,
       },
       formatter: function (seriesName, opts) {
         return [
           seriesName,
-          `<span style="margin-left: 10px; color: ${chartData[opts.seriesIndex].color
+          `<span style="margin-left: 10px; color: ${
+            chartData[opts.seriesIndex].color
           }; font-weight: bold">
             ${chartData[opts.seriesIndex].value}%
-          </span>`
-        ]
+          </span>`,
+        ];
       },
       itemMargin: {
-        vertical: 8
-      }
+        vertical: 8,
+      },
     },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'center'
-        }
-      }
-    }]
-  }
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          legend: {
+            position: "center",
+          },
+        },
+      },
+    ],
+  };
 
-  const series = chartData.map(item => item.value)
+  const series = chartData.map((item) => item.value);
 
   return (
     <NHCard title={title}>
@@ -95,5 +97,5 @@ export const PatientAgeDistribution = ({
         />
       </div>
     </NHCard>
-  )
-} 
+  );
+};

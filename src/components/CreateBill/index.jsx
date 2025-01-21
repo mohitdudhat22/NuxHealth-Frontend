@@ -313,7 +313,7 @@ const CreateBill = () => {
 
       <NHCard className="p-6" title={record ? "Edit Bill" : "Create Bill"}>
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             <NHInput
               label="Patient Name"
               name="patientName"
@@ -347,9 +347,6 @@ const CreateBill = () => {
               onChange={handleChange}
               placeholder="22 Years"
             />
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <NHInput
               label="Address"
               name="address"
@@ -383,9 +380,6 @@ const CreateBill = () => {
                 { value: "card", label: "Card" },
               ]}
             />
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <NHInput
               label="Discount (%)"
               name="discount"
@@ -415,9 +409,6 @@ const CreateBill = () => {
               readOnly
               placeholder="2750"
             />
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <NHSelect
               label="Bill Status"
               name="billStatus"
