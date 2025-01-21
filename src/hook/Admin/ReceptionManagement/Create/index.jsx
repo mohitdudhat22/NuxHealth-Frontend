@@ -57,6 +57,11 @@ export const useCreateReceptionist = () => {
         data.append(key, formData[key]);
       }
     });
+    
+    data.append("phoneCode", Country.getAllCountries().find((c) => c.name === formData.country).phonecode);
+    data.delete("phone");
+    data.append("phone", String("+" +Country.getAllCountries().find((c) => c.name === formData.country).phonecode + formData.phone) );
+   
 
     const response = await createReceptionist(data);
     if (response.status === 1) {

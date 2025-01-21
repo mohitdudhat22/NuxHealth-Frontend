@@ -1,6 +1,7 @@
 import { NHCard, NHInput, NHSelect, NHButton, NHHead } from "@/components";
 import { useCreateReceptionist } from "@/hook";
 import { Upload } from "antd";
+import { City, Country, State } from "country-state-city";
 
 export const AddNewReceptionist = () => {
   const {
@@ -10,12 +11,36 @@ export const AddNewReceptionist = () => {
     handleFileChange,
     handleSubmit,
   } = useCreateReceptionist();
+  const countries = Country.getAllCountries().map((country) => ({
+    value: country.name, 
+    label: country.name,
+  }));
+  const states = formData.country
+    ? State.getStatesOfCountry(
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
+    ).map((state) => ({
+      value: state.name,
+      label: state.name, 
+    }))
+    : [];
 
+  const cities = formData.state
+    ? City.getCitiesOfState(
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode,
+      State.getStatesOfCountry(
+        Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode
+      ).find((s) => s.name === formData.state)?.isoCode
+    ).map((city) => ({
+      value: city.name,
+      label: city.name,
+    }))
+    : [];
+  console.log(formData)
   return (
     <>
       <NHHead title="Add New Receptionist" />
       <NHCard title="Add New Receptionist" className="p-6">
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="flex flex-wrap justify-between gap-7">
             {/* Profile Photo Section */}
             <div className="w-full lg:w-[17%]">
@@ -140,34 +165,31 @@ export const AddNewReceptionist = () => {
                   label="Country"
                   name="country"
                   placeholder="Select Country"
-                  value={formData.country}
-                  onChange={(value) => handleSelectChange(value, "country")}
-                  options={[
-                    { value: "India", label: "India" },
-                    { value: "USA", label: "USA" },
-                  ]}
+                  options={countries}
+                  value={formData?.country}
+                  onChange={(value) => handleChange({
+                    target: { name: "country", value },
+                  })
+                  }
                 />
                 <NHSelect
                   label="State"
                   name="state"
                   placeholder="Select State"
-                  value={formData.state}
-                  onChange={(value) => handleSelectChange(value, "state")}
-                  options={[
-                    { value: "Gujarat", label: "Gujarat" },
-                    { value: "Maharashtra", label: "Maharashtra" },
-                  ]}
+                  options={states}
+                  value={formData?.state}
+                  onChange={(value) => handleChange({
+                    target: { name: "state", value },
+                  })}
                 />
                 <NHSelect
                   label="City"
                   name="city"
                   placeholder="Select City"
-                  value={formData.city}
-                  onChange={(value) => handleSelectChange(value, "city")}
-                  options={[
-                    { value: "Ahmedabad", label: "Ahmedabad" },
-                    { value: "Mumbai", label: "Mumbai" },
-                  ]}
+                  options={cities}
+                  onChange={(value) => handleChange({
+                    target: { name: "city", value },
+                  })}
                 />
                 <NHInput
                   label="Zip code"
@@ -216,7 +238,7 @@ export const AddNewReceptionist = () => {
           </div>
 
           <div className="flex justify-end mt-6">
-            <NHButton type="submit" variant="primary">
+            <NHButton variant="primary" onClick={handleSubmit}>
               Add Receptionist
             </NHButton>
           </div>

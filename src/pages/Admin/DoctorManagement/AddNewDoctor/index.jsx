@@ -14,15 +14,15 @@ export const AddNewDoctor = () => {
     isEditing,
   } = useCreateDoctor();
   const countries = Country.getAllCountries().map((country) => ({
-    value: country.name, // Use the name as the value
-    label: country.name, // Display the name as the label
+    value: country.name, 
+    label: country.name,
   }));
   const states = formData.country
     ? State.getStatesOfCountry(
       Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
     ).map((state) => ({
-      value: state.name, // Use the state name as the value
-      label: state.name, // Display the state name as the label
+      value: state.name,
+      label: state.name, 
     }))
     : [];
 
