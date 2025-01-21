@@ -30,9 +30,6 @@ export const NHSidebar = ({ collapsed, className, items }) => {
     <Sider
       trigger={null}
       width={"var(--sidebar-width)"}
-      breakpoint="lg"
-      collapsible
-      collapsed={collapsed}
       className={clsx(styles.sider, className, "z-10")}
     >
       <div
