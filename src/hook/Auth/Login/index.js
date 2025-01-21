@@ -71,7 +71,7 @@ export const useLogin = () => {
 
       if (rememberMe) {
         const encryptedCredentials = encryptData(
-          { identifier:email, password },
+          { identifier: email, password },
           import.meta.env.VITE_SECRET_KEY
         );
         localStorage.setItem("rememberMe", encryptedCredentials);

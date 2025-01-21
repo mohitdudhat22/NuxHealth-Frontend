@@ -1,20 +1,30 @@
-import React from "react";
-import ReactApexChart from "react-apexcharts";
-import { NHCard } from "@/components";
+import React from 'react'
+import ReactApexChart from 'react-apexcharts'
+import { NHCard } from '@/components'
+import { Spin } from 'antd';
 
 export const PatientAgeDistribution = ({
   title = "Patients Age",
   data,
   height = 350,
 }) => {
-  const chartData = data || defaultData;
+  if (!data) {
+    return (
+      <NHCard title={title}>
+        <div className="flex items-center justify-center h-[350px]">
+          <Spin size="large" />
+        </div>
+      </NHCard>
+    );
+  }
+  const chartData = data;
 
   const chartOptions = {
     chart: {
       type: "donut",
     },
-    colors: chartData.map((item) => item.color),
-    labels: chartData.map((item) => item.age),
+    colors: chartData?.map(item => item.color),
+    labels: chartData?.map(item => item.age),
     stroke: {
       width: 0,
     },
@@ -84,7 +94,7 @@ export const PatientAgeDistribution = ({
     ],
   };
 
-  const series = chartData.map((item) => item.value);
+  const series = chartData?.map(item => item.value)
 
   return (
     <NHCard title={title}>

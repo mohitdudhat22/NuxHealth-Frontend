@@ -14,7 +14,6 @@ export const CancelAppointment = () => {
   const handleViewBill = (record) => {
     setSelectedPatient(record);
     setIsModalOpen(true);
-    console.log("Viewing bill for", record);
   };
 
   const handleCloseModal = () => {

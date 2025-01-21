@@ -114,7 +114,7 @@ export const PersonalHealthRecord = () => {
               onEditProfile={() => {}}
             />
 
-            <div className="grid grid-cols-[3fr_2fr] mt-8 grid-rows-1 gap-8">
+            <div className="grid grid-cols-1 xl:grid-cols-[3fr_2fr] mt-8 grid-rows-1 gap-8">
               {/* Medical History Section */}
 
               <NHCard
@@ -185,6 +185,7 @@ export const PersonalHealthRecord = () => {
                     showPagination={true}
                     tableColumn={columns}
                     tableDataSource={prescriptions}
+                    scroll={{x: 800}}
                   />
                 </NHCard>
               </section>

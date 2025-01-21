@@ -4,6 +4,7 @@ import { Space, Tag } from "antd";
 import { useState } from "react";
 import { CreatePrescription, PatientDetails } from "../..";
 import { useTodayAppointments } from "@/hook/Doctor";
+import "./DoctorPri.css";
 
 export const Create = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
@@ -35,6 +36,7 @@ export const Create = () => {
   return (
     <>
       {!selectedAppointment && !viewingPatientDetails ? (
+        <div className="doc-priscription">
         <NHCard
           title="Today Appointment"
           headerContent={
@@ -95,6 +97,7 @@ export const Create = () => {
             ))}
           </div>
         </NHCard>
+        </div>
       ) : viewingPatientDetails ? (
         <PatientDetails />
       ) : (

@@ -22,9 +22,9 @@ export const Login = () => {
         <div className="gap-2 flex flex-col">
           <NHInput
             label={"Email or Phone"}
-            type={"email"}
-            placeholder={"Enter Your Phone Number Or Email"}
+            type={"text"}
             value={email}
+            placeholder={"Enter Your Phone Number Or Email"}
             onChange={(e) => setEmail(e.target.value)}
           />
           <NHPasswordInput

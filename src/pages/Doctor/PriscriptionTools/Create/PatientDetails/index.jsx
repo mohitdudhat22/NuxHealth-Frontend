@@ -167,7 +167,7 @@ export const PatientDetails = () => {
             <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
           }
         >
-          <NHTabs items={tabItems} defaultActiveKey="upcoming" />
+          <NHTabs items={tabItems} defaultActiveKey="upcoming" scroll={{x: 800}} />
         </NHCard>
       </div>
     </>

@@ -20,6 +20,7 @@ import {
 } from "@/hook/Doctor";
 import { useNavigate } from "react-router-dom";
 import { reschedule } from "@/axiosApi/ApiHelper";
+import "./DoctorTelecon.css"
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
 
 export const Teleconsultation = () => {
@@ -59,19 +60,14 @@ export const Teleconsultation = () => {
     searchQuery: cancelSearchQuery,
   } = useCancleTeleconsultation();
 
-  const rescheduleAppointment = async (selectedDate, selectedTime) => {
+  const rescheduleAppointment = async (selectedDate, selectedTime, appointmentId) => {
     const payload = {
       date: selectedDate,
       appointmentTime: selectedTime,
     };
-
-    console.log("Appointment ID:", appointmentId);
-    console.log("Payload:", payload);
-
     try {
       const response = await reschedule(appointmentId, payload);
-      console.log("Response:", response);
-      setIsReshceduleModal(false); // Close modal after successful reschedule
+      setIsReshceduleModal(false);
       fetchAppointments();
     } catch (error) {
       console.error("Error rescheduling appointment:", error);
@@ -273,6 +269,7 @@ export const Teleconsultation = () => {
             dataSource={upcomingTeleconsultation}
             loading={upcomingLoader}
             showPagination={true}
+            scroll={{x: 800}}
           />
         </NHCard>
       ),
@@ -298,6 +295,7 @@ export const Teleconsultation = () => {
             dataSource={privousTeleconsultation}
             loading={privousLoader}
             showPagination={true}
+            scroll={{x: 800}}
           />
         </NHCard>
       ),
@@ -323,6 +321,7 @@ export const Teleconsultation = () => {
             dataSource={cancleTeleconsultation}
             loading={cancleLoader}
             showPagination={true}
+            scroll={{x: 800}}
           />
         </NHCard>
       ),
@@ -331,6 +330,7 @@ export const Teleconsultation = () => {
 
   return (
     <>
+    <div className="doc-telecon">
       <NHCard
         headerContent={
           <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
@@ -338,6 +338,7 @@ export const Teleconsultation = () => {
       >
         <NHTabs items={tabItems} defaultActiveKey="today" />
       </NHCard>
+      </div>
 
       <PatientDetailModal
         isModalOpen={isModalOpen}
@@ -385,13 +386,9 @@ export const Teleconsultation = () => {
                 <NHButton
                   size={"small"}
                   className={"w-full"}
-                  onClick={() =>
-                    navigate("videoCall?room=" + selectedPatientData.key)
-                  }
+                  onClick={() => navigate('videoCall?room=' + selectedPatientData.key)}
                 >
-                  {console.log(selectedPatientData)}
                   Join
-                  {console.log(selectedPatientData._id)}
                 </NHButton>
               </div>
             }

@@ -8,14 +8,12 @@ import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate
 
 export const UpcomingAppointment = () => {
   const { data, loading, error, onSearch } = useUpcomingAppointments();
-  console.log("🚀 ~ UpcomingAppointment ~ data:", data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
     setIsModalOpen(true);
-    console.log("Viewing bill for", record);
   };
 
   const handleCloseModal = () => {

@@ -37,6 +37,7 @@ import {
   DoctorMeetingConference,
   PrescriptionAccess,
   ReceptionBills,
+  AppointmentSchedularPageForReception,
   Record,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/BillingAndPayement/MonitorBilling";
@@ -72,12 +73,6 @@ const NuxHealthRoute = createBrowserRouter(
     {
       path: "/",
       children: [
-        /* Website */
-        {
-          index: true,
-          element: <NavLink to={"/login"}>Login</NavLink>,
-        },
-
         /*temp*/
         {
           path: "tempDoctor",
@@ -95,6 +90,11 @@ const NuxHealthRoute = createBrowserRouter(
             </ProtectedRoute>
           ),
           children: [
+            {
+              // path: "login",
+              index: true,
+              element: <Login />,
+            },
             {
               path: "login",
               element: <Login />,
@@ -493,7 +493,7 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "scheduler",
-                      element: <AppointmentSchedularPage />,
+                      element: <AppointmentSchedularPageForReception />,
                     },
                     {
                       path: "reschedule",

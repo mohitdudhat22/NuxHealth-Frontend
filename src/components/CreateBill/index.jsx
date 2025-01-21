@@ -6,7 +6,8 @@ import {
   createBillForAdmin,
 } from "@/axiosApi/ApiHelper";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Icons from "@/constants/icons";
 
 // Custom Hook
 const useBillForm = () => {
@@ -180,8 +181,11 @@ const useBillForm = () => {
 
 const CreateBill = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { record } = location.state || {};
-
+  const handleBack = () => {
+    navigate(-1);
+  };
   const {
     formData,
     setFormData,
@@ -197,7 +201,6 @@ const CreateBill = () => {
 
   useEffect(() => {
     if (record) {
-      // Pre-fill the form with the record data
       setFormData({
         selectDoctor: record.doctorId,
         selectPatient: record.patientId,
@@ -311,7 +314,7 @@ const CreateBill = () => {
         </div>
       )}
 
-      <NHCard className="p-6" title={record ? "Edit Bill" : "Create Bill"}>
+      <NHCard className="p-6" title={record ? "Edit Bill" : "Create Bill"} headerContent={record ? <button onClick={handleBack} className="close-back-button">{Icons?.CloseCircle}</button> : <></>}>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             <NHInput
@@ -422,13 +425,14 @@ const CreateBill = () => {
             />
           </div>
 
-          {formData.paymentType !== "insurance" && (
-            <div className="flex justify-end mt-6">
-              <NHButton type="submit" variant="primary" onClick={handleSubmit}>
-                {record ? "Save" : "Send"}
-              </NHButton>
-            </div>
-          )}
+          <div className="flex justify-end mt-6">
+            <NHButton type="button" variant="secondary" onClick={() => navigate(-1)}>
+              Cancel
+            </NHButton>
+            <NHButton type="submit" variant="primary" onClick={handleSubmit}>
+              {record ? "Save" : "Send"}
+            </NHButton>
+          </div>
         </form>
       </NHCard>
 
@@ -477,6 +481,9 @@ const CreateBill = () => {
               />
             </div>
             <div className="flex justify-end mt-6">
+              <NHButton type="button" variant="secondary" onClick={() => navigate(-1)}>
+                Cancel
+              </NHButton>
               <NHButton type="submit" variant="primary" onClick={handleSubmit}>
                 Send
               </NHButton>

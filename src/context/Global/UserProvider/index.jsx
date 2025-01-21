@@ -1,3 +1,4 @@
+import { setAuthHeader } from "@/axiosApi";
 import { useDecodeToken } from "@/hook";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
@@ -28,7 +29,8 @@ export const UserProvider = ({ children }) => {
     try {
       const decoded = jwtDecode(token);
       setDecodedToken(decoded);
-      setUserData(decoded);
+      setUserData(decoded)
+      setAuthHeader()
     } catch (error) {
       console.error("Error decoding token:", error);
       setDecodedToken(null);
@@ -39,7 +41,9 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ userData, setUserData, role, setRole }}>
+    <UserContext.Provider
+      value={{ userData, setUserData, role, setRole, decodeToken }}
+    >
       {children}
     </UserContext.Provider>
   );

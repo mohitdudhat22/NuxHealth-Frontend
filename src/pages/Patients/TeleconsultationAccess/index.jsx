@@ -19,6 +19,7 @@ import {
 } from "@/axiosApi/ApiHelper";
 import { AppointmentModal } from "@/components/NHModalComponents/ModalTemplate/AppointmentModal";
 import { AppointmentSchedularPage } from "..";
+import "./Teleconsulation.css"
 
 export const TeleconsultationAccess = () => {
   const [previousAppointments, setPreviousAppointments] = useState([]);
@@ -53,23 +54,18 @@ export const TeleconsultationAccess = () => {
     try {
       const response = await rescheduleForPatient(appointmentId, payload);
       console.log("Response:", response);
-      setIsReshceduleModal(false); // Close modal after successful reschedule
+      setIsReshceduleModal(false);
       fetchAppointments();
     } catch (error) {
       console.error("Error rescheduling appointment:", error);
     }
   };
 
-  // Handle appointment cancellation
   const cancelAppointment = async (id) => {
-    console.log("Cancelling appointment with ID:", id);
     try {
       const response = await cancelAppointmentForPatient(id, {
         status: "canceled",
       });
-      console.log("Appointment canceled successfully:", response);
-
-      // Update the state
       setCanceledAppointments((prev) => [...prev, { id }]);
       setTodaysAppointments((prev) =>
         prev.filter((appointment) => appointment._id !== id)
@@ -82,7 +78,6 @@ export const TeleconsultationAccess = () => {
     setIsReshceduleModal(true);
     setAppointmentId(id);
   };
-  // Use Effect to Update States
   useEffect(() => {
     if (previousData) setPreviousAppointments(previousData);
     if (todaysData) setTodaysAppointments(todaysData);
@@ -90,8 +85,6 @@ export const TeleconsultationAccess = () => {
     if (canceledData) setCanceledAppointments(canceledData);
   }, [previousData, todaysData, upcomingData, canceledData]);
   console.log("🚀 ~ useEffect ~ previousData:", previousData);
-
-  // modal open
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -140,7 +133,7 @@ export const TeleconsultationAccess = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {todaysAppointments.map((data, index) => {
               const {
                 name,
@@ -259,7 +252,7 @@ export const TeleconsultationAccess = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {previousAppointments.map((data, index) => {
               const {
                 name,
@@ -334,7 +327,7 @@ export const TeleconsultationAccess = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {canceledAppointments.map((data, index) => {
               const {
                 name,
@@ -417,7 +410,7 @@ export const TeleconsultationAccess = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {upcomingAppointments.map((data, index) => {
               const {
                 name,
@@ -433,7 +426,6 @@ export const TeleconsultationAccess = () => {
                 patientId,
                 patient_issue,
               } = data;
-              console.log(data, "<<<<<<<<<<<<<");
               return (
                 <AppointmentCard
                   key={"1"}
@@ -502,6 +494,7 @@ export const TeleconsultationAccess = () => {
         {bookAppoinment ? (
           <AppointmentSchedularPage />
         ) : (
+          <div className="teleconsulation-card">
           <NHCard
             headerContent={
               <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
@@ -509,6 +502,7 @@ export const TeleconsultationAccess = () => {
           >
             <NHTabs items={tabItems} defaultActiveKey="upcoming" />
           </NHCard>
+          </div>
         )}
       </>
     </>

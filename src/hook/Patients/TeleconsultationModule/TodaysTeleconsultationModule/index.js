@@ -9,8 +9,6 @@ export const useTodaysTeleconsultationModule = () => {
   const fetchData = async () => {
     try {
       const response = await todaysTeleconsultationAccessForPatient();
-      console.log("API Response:", response);
-
       if (response && response?.data) {
         setData(response?.data?.appointments);
       }
@@ -30,7 +28,6 @@ export const useTodaysTeleconsultationModule = () => {
             console.log(response);
             setData(response.data.appointments);
           } else {
-            console.log("fetching all")
             fetchData();
           }
           setIsDateModalOpen(false);

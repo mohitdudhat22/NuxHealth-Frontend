@@ -109,10 +109,6 @@ export const useCreateDoctor = () => {
       }
     });
 
-    for (let [key, value] of data.entries()) {
-      console.log(`${key}:`, value);
-    }
-
     if (isEditing) {
       const response = await editDoctor(id, data);
       if (response.status === 1) {

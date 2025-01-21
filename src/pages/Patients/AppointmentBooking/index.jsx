@@ -15,20 +15,25 @@ import "./AppointmentBooking.css";
 import modalImg from "../../../assets/images/cover/view_modal_bg.png";
 import maleIcon from "../../../assets/images/cover/male_icon.svg";
 import doctorLogo from "../../../assets/images/cover/Avatar_6.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   cancelAppointmentForPatient,
+  reschedule,
   rescheduleForPatient,
 } from "@/axiosApi/ApiHelper";
 import { AppointmentSchedularPage } from "..";
 import {
   useCancelAppoinmentBookings,
+  usePatientDashboardData,
   usePreviousAppoinmentBookings,
   useTodaysAppoinmentBookings,
   useUpcomingAppoinmentBookings,
 } from "@/hook/Patients";
+import { AppointmentSchedularPageForReception } from "@/pages/Reception";
+import { identifyRole } from "@/utils/identifyRole";
 
 export const AppointmentBooking = () => {
+
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
@@ -36,41 +41,31 @@ export const AppointmentBooking = () => {
   const [tempToDate, setTempToDate] = useState(null);
   const [bookAppoinment, setBookAppointment] = useState(false);
   const [canceledAppointments, setCanceledAppointments] = useState([]);
-
-  // State for OffCanvas
   const [isOffCanvasVisible, setIsOffCanvasVisible] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
-  console.log(selectedAppointment, "selectedAppointment");
+  const [selectedAppointmentForModal, setSelectedAppointmentForModal] = useState(null);
   const [activeTab, setActiveTab] = useState("Scheduled");
-
-  const { data: todayAppointments } = useTodaysAppoinmentBookings();
-  const { data: previousAppointments } = usePreviousAppoinmentBookings();
+   const { data:patientData, loading, error } = usePatientDashboardData();
+  const { data: todayAppointments, patientId } = useTodaysAppoinmentBookings();
+  const { data: previousAppointments, fetchAppointments } = usePreviousAppoinmentBookings();
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings();
   const { data: cancelAppointments } = useCancelAppoinmentBookings();
 
   const navigate = useNavigate();
 
-  const rescheduleAppointment = async (
-    appointmentId,
-    selectedDate,
-    selectedTime
-  ) => {
+  const rescheduleAppointment = async (selectedDate, selectedTime) => {
     const payload = {
       date: selectedDate,
       appointmentTime: selectedTime,
     };
-
     try {
-      const response = await rescheduleForPatient(appointmentId, payload);
-      console.log("Response:", response);
-      setIsReshceduleModal(false); // Close modal after successful reschedule
-      fetchAppointments(); // Refresh the appointment list if needed
+      const response = await reschedule(selectedAppointmentForModal, payload, identifyRole());
+      setIsReshceduleModal(false);
+      fetchAppointments();
     } catch (error) {
       console.error("Error rescheduling appointment:", error);
     }
   };
-
-  // Handle appointment cancellation
   const cancelAppointment = async (id) => {
     try {
       const response = await cancelAppointmentForPatient(id, {
@@ -116,7 +111,6 @@ export const AppointmentBooking = () => {
     setTempToDate(null);
   };
 
-  // Function to format dates into a readable string (e.g., "2 March,2022 - 13 March, 2022")
   const formatDateRange = (fromDate, toDate) => {
     if (!fromDate || !toDate) return "Select Date Range";
     const options = { day: "numeric", month: "long", year: "numeric" };
@@ -125,7 +119,6 @@ export const AppointmentBooking = () => {
     return `${fromDateStr} - ${toDateStr}`;
   };
 
-  // Function to handle "View Details" button click
   const handleViewDetails = (id) => {
     let appointment;
     if (activeTab === "Scheduled") {
@@ -140,7 +133,7 @@ export const AppointmentBooking = () => {
 
     if (appointment) {
       setSelectedAppointment(appointment);
-      setIsOffCanvasVisible(true); // Show OffCanvas
+      setIsOffCanvasVisible(true);
     }
   };
 
@@ -153,7 +146,9 @@ export const AppointmentBooking = () => {
   };
 
   const handleReschedule = (appointment) => {
-    navigate("/patient/appointment/reschedule", { state: { appointment } });
+    // navigate("/patient/appointment/reschedule", { state: { appointment } });
+    setIsReshceduleModal(true)
+    setSelectedAppointmentForModal(appointment.key);
   };
 
   const tabItems = [
@@ -178,7 +173,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {window.location.pathname !== "/reception/appointment" && (
+              {patientId && (
                 <NHButton
                   variant="default"
                   className=""
@@ -190,7 +185,7 @@ export const AppointmentBooking = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {todayAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
@@ -218,7 +213,7 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                      //   onClick={() => handleJoinCall(data)}
+                    //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -266,7 +261,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {window.location.pathname !== "/reception/appointment" && (
+              {patientId && (
                 <NHButton
                   variant="default"
                   className=""
@@ -278,7 +273,7 @@ export const AppointmentBooking = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {previousAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
@@ -330,7 +325,7 @@ export const AppointmentBooking = () => {
                 {Icons.CloseCircle}
               </NHButton>
 
-              {window.location.pathname !== "/reception/appointment" && (
+              {patientId && (
                 <NHButton
                   variant="default"
                   className=""
@@ -342,7 +337,7 @@ export const AppointmentBooking = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {cancelAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
@@ -393,7 +388,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {window.location.pathname !== "/reception/appointment" && (
+              {patientId && (
                 <NHButton
                   variant="default"
                   className=""
@@ -405,7 +400,7 @@ export const AppointmentBooking = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {upcomingAppointments.map((data) => (
               <AppointmentCard
                 key={data.id}
@@ -458,8 +453,25 @@ export const AppointmentBooking = () => {
 
   return (
     <>
+
+      {patientId &&
+        <PatientDetailCard
+          patientName={patientData?.patientProfile?.fullName || "N/A"}
+          doctorName="Dr. Marcus Philips"
+          patientNumber={patientData?.patientProfile?.phone || "N/A"}
+          patientIssue="Feeling tired"
+          patientGender={patientData?.patientProfile?.gender || "N/A"}
+          patientAge={`${patientData?.patientProfile?.age || 0} Years`}
+          appointmentType="Online"
+          patientAddress={`${patientData?.patientProfile?.address?.fullAddress || "N/A"
+            }, ${patientData?.patientProfile?.address?.city || ""}`}
+          lastAppointmentDate="2 Jan, 2022"
+          lastAppointmentTime="4:30 PM"
+          onEditProfile={() => { }}
+        />
+      }
       {bookAppoinment ? (
-        <AppointmentSchedularPage />
+        patientId ? (<AppointmentSchedularPageForReception />) : (<AppointmentSchedularPage />)
       ) : (
         <div className="appo_booking_sec">
           <NHCard
@@ -479,9 +491,9 @@ export const AppointmentBooking = () => {
       <Drawer
         title="Doctor Management"
         placement="right"
-        onClose={() => setIsOffCanvasVisible(false)} // Close OffCanvas
-        open={isOffCanvasVisible} // Control visibility
-        width={400} // Set width of the OffCanvas
+        onClose={() => setIsOffCanvasVisible(false)}
+        open={isOffCanvasVisible}
+        width={400}
       >
         {selectedAppointment && (
           <div>
@@ -490,14 +502,18 @@ export const AppointmentBooking = () => {
               style={{ backgroundImage: `url(${modalImg})` }}
             >
               <div className="flex items-center">
-                <img src={doctorLogo} alt="Doctor" className="rounded-full" />
+                <img
+                  src={selectedAppointment.doctorImage || doctorLogo}
+                  alt="Doctor"
+                  className="rounded-full w-[65px]"
+                />
                 <div className="ml-4">
                   <h3 className="text-[18px] font-semibold text-white">
-                    {selectedAppointment.doctorName}
+                    {selectedAppointment.doctorFullName}
                   </h3>
                   <div className="text-white bg-[#718EBF] rounded-full px-5 py-3 inline-flex items-center">
                     {/* Conditionally render gender icon */}
-                    {selectedAppointment.gender === "male" ? (
+                    {selectedAppointment.doctorGender === "male" ? (
                       <img
                         src={maleIcon} // Replace with your male icon import
                         alt="Male"
@@ -511,7 +527,7 @@ export const AppointmentBooking = () => {
                       />
                     )}
                     <span className="ml-4 font-bold">
-                      {selectedAppointment.gender}
+                      {selectedAppointment.doctorGender}
                     </span>
                   </div>
                 </div>
@@ -539,18 +555,18 @@ export const AppointmentBooking = () => {
               <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
                 <div className="flex flex-col">
                   <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
-                    Break Time
+                    Evening Session
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.breakTime}
+                    {selectedAppointment.doctorEveningSession}
                   </p>
                 </div>
                 <div className="flex flex-col">
                   <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
-                    Working Time
+                    Morning Session
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.workingTime}
+                    {selectedAppointment.doctorMorningSession}
                   </p>
                 </div>
               </div>
@@ -560,15 +576,15 @@ export const AppointmentBooking = () => {
                     Years Of Experience
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.yearsOfExperience}
+                    {selectedAppointment.doctorExperience}
                   </p>
                 </div>
                 <div className="flex flex-col">
                   <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
-                    Emergency Contact Number{" "}
+                    Emergency Number{" "}
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.emergencyContactNumber}
+                    {selectedAppointment.doctorEmergencyContactNo}
                   </p>
                 </div>
               </div>
@@ -578,7 +594,7 @@ export const AppointmentBooking = () => {
                     Specialty Type
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.specialtyType}
+                    {selectedAppointment.doctorSpeciality}
                   </p>
                 </div>
               </div>
@@ -588,7 +604,7 @@ export const AppointmentBooking = () => {
                     Description{" "}
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.description}
+                    {selectedAppointment.doctorDescription}
                   </p>
                 </div>
               </div>

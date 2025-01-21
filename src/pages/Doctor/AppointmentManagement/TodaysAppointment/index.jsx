@@ -52,7 +52,7 @@ export const TodayAppointments = () => {
     {
       title: "Action",
       key: "action",
-      fixed: "right",
+      fixed: "",
       width: 150,
       render: (_, record) => (
         <Space size="middle">
@@ -156,6 +156,7 @@ export const TodayAppointments = () => {
           showPagination={true}
           tableColumn={columns}
           tableDataSource={data}
+          scroll={{x: 800}}
         />
       </NHCard>
 

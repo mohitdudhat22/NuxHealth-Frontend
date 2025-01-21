@@ -69,7 +69,6 @@ const columns = (handleViewPatient) => [
 
 export const UpcomingAppointments = () => {
   const { data, loading, error } = useUpcomingAppointments();
-  console.log("🚀 ~ UpcomingAppointments ~ data:", data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
@@ -134,6 +133,7 @@ export const UpcomingAppointments = () => {
           tableColumn={columns(handleViewPatient)}
           tableDataSource={data}
           route="/doctor"
+          scroll={{x: 800}}
         />
       </NHCard>
 

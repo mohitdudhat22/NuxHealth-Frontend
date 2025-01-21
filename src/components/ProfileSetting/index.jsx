@@ -152,8 +152,23 @@ export const ProfileSetting = () => {
                   {activeTab === "privacy" && <Privacy />}
                 </div>
               </div>
-            </NHCard>
-          </form>
+
+              <div className="w-3/4 p-6">
+                {activeTab === "profile" && (
+                  <Profile
+                    userDetail={userDetail}
+                    setUserDetail={setUserDetail}
+                    handleSubmit={handleSubmitData}
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                  />
+                )}
+                {activeTab === "changePassword" && <ChangePassword />}
+                {activeTab === "terms" && <Terms />}
+                {activeTab === "privacy" && <Privacy />}
+              </div>
+            </div>
+          </NHCard>
         </div>
       </div>
     </div>
@@ -289,10 +304,10 @@ const Profile = ({
               />
               <NHInput
                 label="Hospital Name"
-                name="hospiitalName"
+                name="hospitalName"
                 value={userDetail?.hospitalName}
                 onChange={handleChange}
-                disabled={!isEditing}
+                disabled={true}
               />
               <NHSelect
                 label="Gender"
@@ -381,7 +396,7 @@ const Profile = ({
                 label={"DOB"}
                 name="dob"
                 value={moment(userDetail?.dob)}
-                onChange={(date) => setSelectedToDate(date)} // Update selectedToDate
+                onChange={handleChange} // Update selectedToDate
                 style={{ padding: "10px" }}
               />
               <NHInput
@@ -411,7 +426,9 @@ const Profile = ({
                 label="Blood Group"
                 name="bloodGroup"
                 value={userDetail?.bloodGroup}
-                onChange={handleChange}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, bloodGroup: value }))
+                }
                 disabled={!isEditing}
                 options={[
                   { value: "A+", label: "A+" },
@@ -573,7 +590,13 @@ const Profile = ({
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(e);
+        }}
+        className="space-y-6"
+      >
         {renderFormFields()}
       </form>
     </NHCard>

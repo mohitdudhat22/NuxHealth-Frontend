@@ -102,13 +102,13 @@ export const MonitorBilling = () => {
               >
                 {Icons.EditBillIcon} Edit Invoice Theme
               </NHButton>
-              <NHButton
+              {/* <NHButton
                 icon={Icons.PlusSquare}
                 onClick={() => navigate("/admin/monitor-billing/create-bill")}
                 variant="primary"
               >
                 Create Bill
-              </NHButton>
+              </NHButton> */}
             </>
           }
         >
