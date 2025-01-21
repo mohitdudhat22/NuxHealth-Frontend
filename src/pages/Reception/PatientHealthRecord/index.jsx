@@ -113,6 +113,7 @@ export const PatientHealthRecord = () => {
           tableColumn={columns}
           tableDataSource={filteredData}
           loading={loading}
+          scroll={{ x: 768 }}
         />
       </NHCard>
     </>

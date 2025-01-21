@@ -244,7 +244,7 @@ export const CreatePrescription = ({
               Additional Note
             </label>
             <textarea
-              className="w-full p-2 mt-1 border border-[rgb(211,211,211)]  rounded-md"
+              className="w-full p-2 mt-1 border border-[rgb(211,211,211)] rounded-md"
               rows="3"
               placeholder="Additional notes"
               value={additionalNote}

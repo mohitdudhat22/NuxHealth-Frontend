@@ -479,9 +479,9 @@ export const AppointmentBooking = () => {
       <Drawer
         title="Doctor Management"
         placement="right"
-        onClose={() => setIsOffCanvasVisible(false)} // Close OffCanvas
-        open={isOffCanvasVisible} // Control visibility
-        width={400} // Set width of the OffCanvas
+        onClose={() => setIsOffCanvasVisible(false)}
+        open={isOffCanvasVisible}
+        width={400}
       >
         {selectedAppointment && (
           <div>
@@ -499,13 +499,13 @@ export const AppointmentBooking = () => {
                     {/* Conditionally render gender icon */}
                     {selectedAppointment.gender === "male" ? (
                       <img
-                        src={maleIcon} // Replace with your male icon import
+                        src={maleIcon}
                         alt="Male"
                         className="inline-block mr-1"
                       />
                     ) : (
                       <img
-                        src={maleIcon} // Replace with your female icon import
+                        src={maleIcon}
                         alt="Female"
                         className="inline-block mr-1"
                       />
