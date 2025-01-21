@@ -14,7 +14,7 @@ export const AddNewDoctor = () => {
     isEditing,
   } = useCreateDoctor();
   const countries = Country.getAllCountries().map((country) => ({
-    value: country.name, 
+    value: country.name,
     label: country.name,
   }));
   const states = formData.country
@@ -22,7 +22,7 @@ export const AddNewDoctor = () => {
       Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
     ).map((state) => ({
       value: state.name,
-      label: state.name, 
+      label: state.name,
     }))
     : [];
 
@@ -218,30 +218,38 @@ export const AddNewDoctor = () => {
                   ]}
                 />
                 <NHTimePicker
-                  label="Morning Session"
                   isRange
+                  label="Morning Session"
+                  name="morningSession"
                   format="HH:mm"
                   value={formData.morningSession}
                   onChange={(time, timeString) => {
-                    const demo = timeString?.replace(",", " to ");
+                    // Convert timeString to a simpler format without seconds
+                    const formattedTime = timeString
+                      ?.map((t) => t.slice(0, 5)) // Extract only HH:mm from HH:mm:ss
+                      .join(" to "); // Combine with "to"
+
                     handleChange({
-                      target: { name: "morningSession", value: demo },
+                      target: { name: "morningSession", value: formattedTime },
                     });
                   }}
                 />
+
                 <NHTimePicker
                   label="Evening Session"
+                  name="eveningSession"
                   isRange
                   format="HH:mm"
                   value={formData.eveningSession}
-                  onChange={(time, timeString) =>
+                  onChange={(time, timeString) => {
+                    const formattedTime = timeString
+                      ?.map((t) => t.slice(0, 5)) // Extract only HH:mm from HH:mm:ss
+                      .join(" to "); // Combine with "to"
+
                     handleChange({
-                      target: {
-                        name: "eveningSession",
-                        value: timeString?.replace(",", " to "),
-                      },
-                    })
-                  }
+                      target: { name: "eveningSession", value: formattedTime },
+                    });
+                  }}
                 />
                 <NHInput
                   label="Break Time(minute)"
