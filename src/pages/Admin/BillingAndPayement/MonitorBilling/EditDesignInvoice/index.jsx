@@ -1,7 +1,10 @@
 import { StaticBill1, StaticBill2, StaticBill3 } from '@/components'
+import Icons from '@/constants/icons';
+import { useAppNavigation } from '@/utils/useAppNavigation';
 import React, { useState } from 'react'
 
 export const EditDesignInvoice = () => {
+    const { goBack } = useAppNavigation();
   const [selectedInvoice, setSelectedInvoice] = useState(localStorage.getItem('selectedBill') || "Bill")  // Add state
   const handleSelectInvoice = (billType) => {
     setSelectedInvoice(billType)
@@ -9,11 +12,14 @@ export const EditDesignInvoice = () => {
   }
   return (
     <>
-      <div className="bg-[#F6F8FB] p-6 h-[93%] rounded-lg">
-        <div className="title mb-8">
+      <div className="bg-[#F6F8FB] p-6 h-[93%] rounded-lg relative">
+        <div className="title mb-8 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-900">
             Select Invoice Theme
           </h1>
+          <button onClick={goBack} className="close-back-button text-gray-500 hover:text-gray-700 transition-colors duration-200">
+            {Icons?.CloseCircle}
+          </button>
         </div>
         <div className="theme-selector">
           <div className="invoice-samples grid grid-cols-3 gap-6 w-full">
