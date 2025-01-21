@@ -9,6 +9,7 @@ import {
 import Icons from "@/constants/icons";
 import { usePatientPrescriptionData } from "@/hook/Patients";
 import React, { useEffect, useState } from "react";
+import "./PrescriptionCreate.css"
 
 export const Prescriptions = () => {
   const { loading, data, error } = usePatientPrescriptionData();
@@ -22,6 +23,7 @@ export const Prescriptions = () => {
 
   return (
     <>
+    <div className="precription-create">
       <NHCard
         title={
           <span className="text-[#030229] text-[26px] font-semibold">
@@ -36,7 +38,7 @@ export const Prescriptions = () => {
           </>
         }
       >
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {data?.map((prescriptions, index) => (
             <AppointmentCard
               key={prescriptions.prescriptionId}
@@ -73,6 +75,7 @@ export const Prescriptions = () => {
           />
         )}
       </NHCard>
+      </div>
     </>
   );
 };

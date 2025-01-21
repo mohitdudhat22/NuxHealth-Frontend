@@ -515,13 +515,13 @@ export const AppointmentBooking = () => {
                     {/* Conditionally render gender icon */}
                     {selectedAppointment.doctorGender === "male" ? (
                       <img
-                        src={maleIcon} // Replace with your male icon import
+                        src={maleIcon}
                         alt="Male"
                         className="inline-block mr-1"
                       />
                     ) : (
                       <img
-                        src={maleIcon} // Replace with your female icon import
+                        src={maleIcon}
                         alt="Female"
                         className="inline-block mr-1"
                       />
