@@ -233,7 +233,7 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "insurance-bill-view/:billId",
-                  element: <InsuranceBillView />,
+                  element: <InsuranceBi llView />,
                 },
               ],
             },
