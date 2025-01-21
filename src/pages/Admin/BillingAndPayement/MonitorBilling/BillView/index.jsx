@@ -2,16 +2,13 @@ import { Bill1, Bill2, Bill3, NHCard } from '@/components';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Icons from '@/constants/icons';
+import { useAppNavigation } from '@/utils/useAppNavigation';
 
 export const BillView = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  const { goBack } = useAppNavigation();
   const { billData } = location.state || {};
   const selectedInvoice = localStorage.getItem('selectedBill') || "Bill";
-
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const renderBill = () => {
     switch (selectedInvoice) {
@@ -28,7 +25,7 @@ export const BillView = () => {
 
   return (
     <div className="big-container">
-      <button onClick={handleBack} className="close-back-button">{Icons?.CloseCircle}</button>
+      <button onClick={goBack} className="close-back-button">{Icons?.CloseCircle}</button>
       <NHCard>
         {renderBill()}
       </NHCard>
