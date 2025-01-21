@@ -3,6 +3,7 @@ import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import Icons from "@/constants/icons";
 import { useNavigate } from "react-router-dom";
 import { useRecaptionBillingAndPayments } from "@/hook";
+import "./ReceptionBill.css";
 
 export const Bills = () => {
   const { loading, dataClaims, dataPendingBills, onSearch } =
@@ -70,6 +71,7 @@ export const Bills = () => {
   return (
     <>
       <NHHead />
+      <div className="reception-bill">
       <NHCard
         title="Billing and Payments"
         headerContent={
@@ -99,10 +101,12 @@ export const Bills = () => {
         <NHTable
           loading={loading}
           tableColumn={columns}
-          tableDataSource={dataPendingBills} // Or use dataClaims, depending on what you're rendering
+          tableDataSource={dataPendingBills}
           showPagination={true}
+          scroll={{ x: 768 }}
         />
       </NHCard>
+      </div>
     </>
   );
 };
