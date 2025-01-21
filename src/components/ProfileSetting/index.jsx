@@ -44,100 +44,117 @@ export const ProfileSetting = () => {
           <form action="" onSubmit={handleSubmitData}>
             <h3 className="mb-10 text-4xl text-white">Profile Setting</h3>
             <NHCard className="p-0 bg-white ">
-              <div className="flex flex-wrap">
-                <div className="w-full lg:w-1/4 border-r min-h-[calc(100vh-400px)]">
-                  <div className="flex flex-col items-center px-4 py-8">
-                    <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB] relative flex flex-col items-center">
-                      <img
-                        src={
-                          userDetail?.profileImage ||
-                          "https://i.pravatar.cc/300"
-                        }
-                        alt="Profile"
-                        className="w-[150px] h-[150px] rounded-full"
-                      />
-                      {isEditing && (
-                        <>
-                          <input
-                            type="file"
-                            ref={fileUpload}
-                            style={{ display: "none" }}
-                            onChange={handleFileChange}
-                          />
-                          <button
-                            type="button"
-                            onClick={handleEditImage}
-                            className="mt-4 bg-blue-500 text-white px-2 sm:px-4 rounded-full absolute top-[50px] sm:top-[60px]"
-                          >
-                            Edit
-                          </button>
-                        </>
-                      )}
+              <div>
+                <div className="flex flex-wrap">
+                  <div className="w-full lg:w-1/4 border-r min-h-[calc(100vh-400px)]">
+                    <div className="flex flex-col items-center px-4 py-8">
+                      <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB] relative flex flex-col items-center">
+                        <img
+                          src={
+                            userDetail?.profileImage ||
+                            "https://i.pravatar.cc/300"
+                          }
+                          alt="Profile"
+                          className="w-[150px] h-[150px] rounded-full"
+                        />
+                        {isEditing && (
+                          <>
+                            <input
+                              type="file"
+                              ref={fileUpload}
+                              style={{ display: "none" }}
+                              onChange={handleFileChange}
+                            />
+                            <button
+                              type="button"
+                              onClick={handleEditImage}
+                              className="mt-4 bg-blue-500 text-white px-2 sm:px-4 rounded-full absolute top-[50px] sm:top-[60px]"
+                            >
+                              Edit
+                            </button>
+                          </>
+                        )}
+                      </div>
+
+                      <h2 className="text-xl font-semibold">
+                        {userDetail?.firstName || "Lincoln"}{" "}
+                        {userDetail?.lastName || "Phillips"}
+                      </h2>
                     </div>
 
-                    <h2 className="text-xl font-semibold">
-                      {userDetail?.firstName || "Lincoln"}{" "}
-                      {userDetail?.lastName || "Phillips"}
-                    </h2>
+                    <div className="px-4">
+                      <nav className="p-2 bg-gray-100 rounded-lg">
+                        <ul className="space-y-1 sm:flex flex-wrap justify-around lg:block">
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("profile")}
+                              className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${
+                                activeTab === "profile"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Profile
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("changePassword")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "changePassword"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Change Password
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("terms")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "terms"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Terms & Condition
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("privacy")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "privacy"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Privacy Policy
+                            </button>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
 
-                  <div className="px-4">
-                    <nav className="p-2 bg-gray-100 rounded-lg">
-                      <ul className="space-y-1 sm:flex flex-wrap justify-around lg:block">
-                        <li>
-                          <button
-                            onClick={() => handleTabChange("profile")}
-                            className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${
-                              activeTab === "profile"
-                                ? "bg-white text-blue-600 shadow-sm font-medium"
-                                : "text-gray-600 hover:bg-gray-50"
-                            }`}
-                          >
-                            Profile
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            onClick={() => handleTabChange("changePassword")}
-                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                              activeTab === "changePassword"
-                                ? "bg-white text-blue-600 shadow-sm font-medium"
-                                : "text-gray-600 hover:bg-gray-50"
-                            }`}
-                          >
-                            Change Password
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            onClick={() => handleTabChange("terms")}
-                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                              activeTab === "terms"
-                                ? "bg-white text-blue-600 shadow-sm font-medium"
-                                : "text-gray-600 hover:bg-gray-50"
-                            }`}
-                          >
-                            Terms & Condition
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            onClick={() => handleTabChange("privacy")}
-                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
-                              activeTab === "privacy"
-                                ? "bg-white text-blue-600 shadow-sm font-medium"
-                                : "text-gray-600 hover:bg-gray-50"
-                            }`}
-                          >
-                            Privacy Policy
-                          </button>
-                        </li>
-                      </ul>
-                    </nav>
+                  <div className="w-full lg:w-3/4 p-6">
+                    {activeTab === "profile" && (
+                      <Profile
+                        userDetail={userDetail}
+                        setUserDetail={setUserDetail}
+                        handleSubmit={handleSubmitData}
+                        isEditing={isEditing}
+                        setIsEditing={setIsEditing}
+                      />
+                    )}
+                    {activeTab === "changePassword" && <ChangePassword />}
+                    {activeTab === "terms" && <Terms />}
+                    {activeTab === "privacy" && <Privacy />}
                   </div>
                 </div>
 
-                <div className="w-full lg:w-3/4 p-6">
+                <div className="w-3/4 p-6">
                   {activeTab === "profile" && (
                     <Profile
                       userDetail={userDetail}
@@ -152,23 +169,8 @@ export const ProfileSetting = () => {
                   {activeTab === "privacy" && <Privacy />}
                 </div>
               </div>
-
-              <div className="w-3/4 p-6">
-                {activeTab === "profile" && (
-                  <Profile
-                    userDetail={userDetail}
-                    setUserDetail={setUserDetail}
-                    handleSubmit={handleSubmitData}
-                    isEditing={isEditing}
-                    setIsEditing={setIsEditing}
-                  />
-                )}
-                {activeTab === "changePassword" && <ChangePassword />}
-                {activeTab === "terms" && <Terms />}
-                {activeTab === "privacy" && <Privacy />}
-              </div>
-            </div>
-          </NHCard>
+            </NHCard>
+          </form>
         </div>
       </div>
     </div>
