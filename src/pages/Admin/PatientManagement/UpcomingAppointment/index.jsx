@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
-import { Space, Tag } from "antd";
+import { Avatar, Space, Tag } from "antd";
 import "./UpcomingAppo.css";
 import Icons from "@/constants/icons";
 import { useUpcomingAppointments } from "@/hook/Admin/PatientManagement/UpcomingAppointment";
@@ -27,14 +27,10 @@ export const UpcomingAppointment = () => {
       dataIndex: "patientName",
       key: "patientName",
       render: (text, record) => (
-        <div className="flex items-center gap-2">
-          <img
-            src={record.avatar}
-            alt={text}
-            className="w-8 h-8 rounded-full"
-          />
-          <span>{text || "N/A"}</span>
-        </div>
+        <Space>
+          <Avatar src={record.avatar} alt={text} size={40} />
+          <span>{text}</span>
+        </Space>
       ),
     },
     {
@@ -104,6 +100,10 @@ export const UpcomingAppointment = () => {
             showPagination={true}
             tableColumn={columns}
             tableDataSource={data}
+            scroll={{
+              x: 900,
+              y: 500,
+            }}
           />
         </NHCard>
 

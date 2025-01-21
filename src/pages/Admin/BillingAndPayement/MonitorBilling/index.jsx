@@ -117,6 +117,10 @@ export const MonitorBilling = () => {
             tableColumn={columns}
             tableDataSource={data}
             showPagination={true}
+            scroll={{
+              x: 1200,
+              y: 500,
+            }}
           />
         </NHCard>
       </div>
