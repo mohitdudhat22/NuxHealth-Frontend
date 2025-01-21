@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createDoctor, editDoctor } from "@/axiosApi/ApiHelper";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Country } from "country-state-city";
 
 export const useCreateDoctor = () => {
   const { id } = useParams();
@@ -108,7 +109,9 @@ export const useCreateDoctor = () => {
         data.append(key, formData[key]);
       }
     });
-
+    data.append("phoneCode", Country.getAllCountries().find((c) => c.name === formData.country).phonecode);
+    data.delete("phone");
+    data.append("phone", String("+" +Country.getAllCountries().find((c) => c.name === formData.country).phonecode + formData.phone) );
     if (isEditing) {
       const response = await editDoctor(id, data);
       if (response.status === 1) {

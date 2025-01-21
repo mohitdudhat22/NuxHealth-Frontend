@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { AppointmentScheduler, NHButton, NHCard, NHDatePicker, NHInput, NHModal, NHSelect, PatientDetailCard } from "@/components";
-import { appointmentBooking, getPatientListForReceptionist } from "@/axiosApi/ApiHelper";
-import toast from "react-hot-toast";
+import { getPatientListForReceptionist } from "@/axiosApi/ApiHelper";
 import { useDecodeToken } from "@/hook";
 import { useAppointmentData } from "./useAppointmentData";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Invoice } from "@/pages/Patients";
 import { usePatientDashboardData } from "@/hook/Patients";
 

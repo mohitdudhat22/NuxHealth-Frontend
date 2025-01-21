@@ -1,6 +1,6 @@
 import { useState } from "react";
 import clsx from "clsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { FullLogo, ShortLogo } from "@/assets/images";
 import { useAside } from "@/hook";
@@ -8,14 +8,14 @@ import { AppointmentCard, NHButton } from "..";
 import Icons from "@/constants/Icons";
 import Cookies from "js-cookie";
 import styles from "./NHSidebar.module.css";
+import { useAppNavigation } from "@/utils/useAppNavigation";
 
 const { Sider } = Layout;
 
 export const NHSidebar = ({ collapsed, className, items }) => {
-  const navigate = useNavigate();
   const { currentPage } = useAside();
   const [openKeys, setOpenKeys] = useState([]);
-
+  const { goToLogin } = useAppNavigation();
   const onOpenChange = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
@@ -23,7 +23,7 @@ export const NHSidebar = ({ collapsed, className, items }) => {
 
   const handleLogout = () => {
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME);
-    navigate("/login");
+    goToLogin()
   };
 
   return (

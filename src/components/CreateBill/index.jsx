@@ -5,9 +5,9 @@ import {
   getPatientForAdminBill,
   createBillForAdmin,
 } from "@/axiosApi/ApiHelper";
-import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Icons from "@/constants/icons";
+import { useAppNavigation } from "@/utils/useAppNavigation";
 
 // Custom Hook
 const useBillForm = () => {
@@ -181,11 +181,8 @@ const useBillForm = () => {
 
 const CreateBill = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  const { goBack } = useAppNavigation();
   const { record } = location.state || {};
-  const handleBack = () => {
-    navigate(-1);
-  };
   const {
     formData,
     setFormData,
@@ -314,7 +311,7 @@ const CreateBill = () => {
         </div>
       )}
 
-      <NHCard className="p-6" title={record ? "Edit Bill" : "Create Bill"} headerContent={record ? <button onClick={handleBack} className="close-back-button">{Icons?.CloseCircle}</button> : <></>}>
+      <NHCard className="p-6" title={record ? "Edit Bill" : "Create Bill"} headerContent={record ? <button onClick={goBack} className="close-back-button">{Icons?.CloseCircle}</button> : <></>}>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <NHInput
@@ -435,7 +432,7 @@ const CreateBill = () => {
           </div>
 
           <div className="flex justify-end mt-6">
-            <NHButton type="button" variant="secondary" onClick={() => navigate(-1)}>
+            <NHButton type="button" variant="secondary" onClick={() => goBack}>
               Cancel
             </NHButton>
             <NHButton type="submit" variant="primary" onClick={handleSubmit}>
@@ -490,7 +487,7 @@ const CreateBill = () => {
               />
             </div>
             <div className="flex justify-end mt-6">
-              <NHButton type="button" variant="secondary" onClick={() => navigate(-1)}>
+              <NHButton type="button" variant="secondary" onClick={() => goBack}>
                 Cancel
               </NHButton>
               <NHButton type="submit" variant="primary" onClick={handleSubmit}>

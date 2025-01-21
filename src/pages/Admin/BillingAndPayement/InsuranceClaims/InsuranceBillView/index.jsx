@@ -9,11 +9,6 @@ export const InsuranceBillView = () => {
   const { billData } = location.state || {};
   const { goBack } = useAppNavigation();
   const selectedInvoice = localStorage.getItem('selectedBill') || "Bill";
-
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   const renderBill = () => {
     switch (selectedInvoice) {
       case "Bill":
