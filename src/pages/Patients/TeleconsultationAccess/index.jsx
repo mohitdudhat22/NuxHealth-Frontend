@@ -19,6 +19,7 @@ import {
 } from "@/axiosApi/ApiHelper";
 import { AppointmentModal } from "@/components/NHModalComponents/ModalTemplate/AppointmentModal";
 import { AppointmentSchedularPage } from "..";
+import "./Teleconsulation.css"
 
 export const TeleconsultationAccess = () => {
   const [previousAppointments, setPreviousAppointments] = useState([]);
@@ -140,7 +141,7 @@ export const TeleconsultationAccess = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {todaysAppointments.map((data, index) => {
               const {
                 name,
@@ -259,7 +260,7 @@ export const TeleconsultationAccess = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {previousAppointments.map((data, index) => {
               const {
                 name,
@@ -334,7 +335,7 @@ export const TeleconsultationAccess = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {canceledAppointments.map((data, index) => {
               const {
                 name,
@@ -417,7 +418,7 @@ export const TeleconsultationAccess = () => {
             </>
           }
         >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {upcomingAppointments.map((data, index) => {
               const {
                 name,
@@ -502,6 +503,7 @@ export const TeleconsultationAccess = () => {
         {bookAppoinment ? (
           <AppointmentSchedularPage />
         ) : (
+          <div className="teleconsulation-card">
           <NHCard
             headerContent={
               <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
@@ -509,6 +511,7 @@ export const TeleconsultationAccess = () => {
           >
             <NHTabs items={tabItems} defaultActiveKey="upcoming" />
           </NHCard>
+          </div>
         )}
       </>
     </>

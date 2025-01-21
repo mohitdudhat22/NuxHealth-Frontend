@@ -2,3 +2,15 @@
   background: #f6f8fb !important;
   border-bottom: none !important;
 }
+
+@media (max-width: 768px) {
+  .appo_booking_sec ._header_w7z07_13 {
+      flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 767px) {
+  .appo_booking_sec ._header_w7z07_13 {
+      flex-wrap: wrap;
+  }
+}
