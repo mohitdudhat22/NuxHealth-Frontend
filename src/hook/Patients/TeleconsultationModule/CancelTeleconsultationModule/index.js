@@ -9,8 +9,6 @@ export const useCancelTeleconsultationModule = () => {
     const fetchData = async () => {
       try {
         const response = await cancelTeleconsultationAccessForPatient();
-        console.log("API Response:", response);
-
         if (response && response?.data) {
           setData(response?.data?.appointments);
         }

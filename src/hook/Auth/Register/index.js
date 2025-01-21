@@ -31,8 +31,6 @@ export const useRegister = () => {
     phoneCode: ""
   });
 
-  console.log(formData);
-
   // Fetch hospitals based on zip code
   const fetchHospital = async (zipcode) => {
     try {

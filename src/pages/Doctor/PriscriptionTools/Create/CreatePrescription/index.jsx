@@ -67,15 +67,12 @@ export const CreatePrescription = ({
 
   // Function to handle sending the prescription
   const handleSendPrescription = () => {
-    console.log("Send Prescription button clicked!");
     setIsSending(true);
   };
 
   // useEffect to handle the API call when isSending is true
   useEffect(() => {
     if (isSending) {
-      console.log("Preparing payload...");
-
       const payload = {
         patientId: patientId._id,
         appointmentId: appointment._id,
@@ -89,11 +86,8 @@ export const CreatePrescription = ({
         additionalNote: additionalNote,
       };
 
-      console.log("Payload:", payload);
-
       createPrescription(payload)
         .then((response) => {
-          console.log("Prescription sent successfully!", response);
           setIsSending(false);
 
           window.location.reload();

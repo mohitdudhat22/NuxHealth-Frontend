@@ -58,10 +58,6 @@ export const useCreateReceptionist = () => {
       }
     });
 
-    for (let [key, value] of data.entries()) {
-      console.log(`${key}:`, value);
-    }
-
     const response = await createReceptionist(data);
     if (response.status === 1) {
       navigate('/admin/reception-management')

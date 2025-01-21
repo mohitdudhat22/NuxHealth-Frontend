@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { AppointmentScheduler, NHButton, NHCard, NHDatePicker, NHInput, NHModal, NHSelect } from "@/components";
+import { AppointmentScheduler, NHButton, NHCard, NHDatePicker, NHInput, NHModal, NHSelect, PatientDetailCard } from "@/components";
 import { appointmentBooking, getPatientListForReceptionist } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 import { useDecodeToken } from "@/hook";
 import { useAppointmentData } from "./useAppointmentData";
-import { Invoice } from "..";
-import { useNavigate } from "react-router-dom";
-import { identifyRole } from "@/utils/identifyRole";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Invoice } from "@/pages/Patients";
+import { usePatientDashboardData } from "@/hook/Patients";
 
 export const AppointmentSchedularPage = () => {
   const {
@@ -15,42 +15,48 @@ export const AppointmentSchedularPage = () => {
     selectedTime,
     selectedDoctor,
     timeSlots,
+    isAppointmentModal,
     setSelectedTime,
     handleSelectChange,
     handleDoctorChange,
     handleDateChange,
     handleInputChanges,
+    appointmentTypes,
+    paymentTypes,
+    handleTimeSelect,
+    handleBookAppointment,
+    handleCloseModal,
+    razorPay,
+    showInvoice,
+    billData,
   } = useAppointmentData();
-
+   const { data:patientData, loading, error } = usePatientDashboardData();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const patientId = queryParams.get('patientId');
   const { token } = useDecodeToken();
-  const navigate = useNavigate();
-
-  const [isAppointmentModal, setIsAppointmentModal] = useState(false);
-  const [role, setRole] = useState(false);
+  const [role, setRole] = useState('');
   const [patientList, setPatientList] = useState([]);
-  const [showInvoice, setShowInvoice] = useState(false);
-  const [billData, setBillData] = useState(null);
-  const fetchData = async () => {
-    if (role === "receptionist") {
-      try {
-        const response = await getPatientListForReceptionist();
-        setPatientList(
-          response.data.map((patient) => ({
-            value: patient._id,
-            label: patient.fullName,
-          }))
-        );
-      } catch (error) {
-        console.error("Error fetching Patient List:", error);
-      }
-    }
-  };
+
   useEffect(() => {
     setRole(token?.userData?.role);
-}, [])
-  useEffect(() => {
-    role && fetchData();
-  }, [role]);
+    const fetchData = async () => {
+      if (role === "receptionist") {
+        try {
+          const response = await getPatientListForReceptionist();
+          setPatientList(
+            response.data.map((patient) => ({
+              value: patient._id,
+              label: patient.fullName,
+            }))
+          );
+        } catch (error) {
+          console.error("Error fetching Patient List:", error);
+        }
+      }
+    };
+    fetchData();
+  }, [token, role]);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -59,163 +65,31 @@ export const AppointmentSchedularPage = () => {
     document.body.appendChild(script);
   }, []);
 
-  const handleTimeSelect = (time) => {
-    setSelectedTime(time);
-  };
-
-  const handleBookAppointment = () => {
-    if (selectedTime) {
-      setIsAppointmentModal(true);
-    } else {
-      toast.error("Please choose doctor and time slot.");
-    }
-  };
-
-  const handleCloseModal = () => {
-    setIsAppointmentModal(false);
-  };
-
-  const razorPay = async () => {
-    if (data.paymentType === 'Cash') {
-      await handleBooking();
-      return;
-    }
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/payment/create-order`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          appointmentType: data.appointmentType,
-          doctorId: selectedDoctor
-        })
-      });
-      const order = await response.json();
-
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: "INR",
-        name: "Your Company Name",
-        description: "Test Transaction",
-        order_id: order.id,
-        handler: async function (response) {
-          const verifyResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/payment/verify-payment`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature
-            })
-          });
-
-          const data = await verifyResponse.json();
-          if (data.verified) {
-            toast.success("Payment successful!");
-            await handleBooking();
-            toast.success("Appointment successfully booked!");
-          } else {
-            toast.error("Payment verification failed!");
-          }
-        },
-        prefill: {
-          name: "Customer Name",
-          email: "customer@example.com",
-          contact: "9999999999"
-        },
-        theme: {
-          color: "#3399cc"
-        }
-      };
-
-      const rzp1 = new window.Razorpay(options);
-      rzp1.open();
-    } catch (error) {
-      console.error("Payment error:", error);
-      toast.error("Payment failed!");
-    }
-  };
-
-  const handleBooking = async () => {
-    const payload = {
-      doctorId: selectedDoctor,
-      patientId: data.patientList,
-      date: data.appointmentDate,
-      appointmentTime: selectedTime,
-      type: data.appointmentType,
-      patient_issue: data.patientIssue,
-      dieseas_name: data.diseaseName,
-      city: filters.city,
-      state: filters.state,
-      country: filters.country,
-      paymentType: data.paymentType,
-      paymentStatus: data.paymentType === 'Cash' ? false : true
-    };
-
-    try {
-      const response = await appointmentBooking(payload, role);
-      toast.success("Appointment booked successfully!");
-      handleCloseModal();
-      setBillData(response.data);
-      setShowInvoice(true);
-    } catch (error) {
-      console.error("Error booking appointment:", error);
-      toast.error("Failed to book appointment. Please try again.");
-    }
-  };
-
-  const appointmentTypes = [
-    { value: "onsite", label: "OnSite" },
-    { value: "online", label: "Online" },
-  ];
-
-  const paymentTypes = [
-    { value: "Cash", label: "Cash" },
-    { value: "Online", label: "Online" },
-    { value: "Insurance", label: "Insurance" },
-  ];
-
   return (
     <>
       {showInvoice ?
         <Invoice billData={billData} />
         :
-        <div>
-          <NHCard className="p-6">
+
+        <>
+           <PatientDetailCard
+                      patientName={patientData?.patientProfile?.fullName || "N/A"}
+                      doctorName="Dr. Marcus Philips"
+                      patientNumber={patientData?.patientProfile?.phone || "N/A"}
+                      patientIssue="Feeling tired"
+                      patientGender={patientData?.patientProfile?.gender || "N/A"}
+                      patientAge={`${patientData?.patientProfile?.age || 0} Years`}
+                      appointmentType="Online"
+                      patientAddress={`${
+                        patientData?.patientProfile?.address?.fullAddress || "N/A"
+                      }, ${patientData?.patientProfile?.address?.city || ""}`}
+                      lastAppointmentDate="2 Jan, 2022"
+                      lastAppointmentTime="4:30 PM"
+                      onEditProfile={() => {}}
+                    />
+        <div className="mt-9">
+       { patientId && (<NHCard className="p-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              <NHSelect
-                label="Country"
-                name="country"
-                placeholder="Select Country"
-                onChange={(value) => handleSelectChange(value, "country")}
-                options={data.countries}
-              />
-              <NHSelect
-                label="State"
-                name="state"
-                placeholder="Select State"
-                onChange={(value) => handleSelectChange(value, "state")}
-                options={data.states}
-              />
-              <NHSelect
-                label="City"
-                name="city"
-                placeholder="Select City"
-                onChange={(value) => handleSelectChange(value, "city")}
-                options={data.cities}
-              />
-              <NHSelect
-                label="Hospital"
-                name="hospital"
-                placeholder="Select Hospital"
-                onChange={(value) => handleSelectChange(value, "hospital")}
-                options={data.hospitals}
-              />
               <NHSelect
                 label="Speciality"
                 name="speciality"
@@ -255,16 +129,16 @@ export const AppointmentSchedularPage = () => {
                 placeholder="Disease Name"
                 onChange={(e) => handleInputChanges(e.target.value, "diseaseName")}
               />
-              {role === "receptionist" &&
+              {/* {role === "receptionist" &&
                 <NHSelect
                   label="Patient List"
                   name="patientList"
                   placeholder="Patient List"
                   onChange={(value) => handleSelectChange(value, "patientList")}
                   options={patientList}
-                />}
+                />} */}
             </div>
-          </NHCard>
+          </NHCard>)}
 
           <div className="mt-10">
             <NHCard>
@@ -369,6 +243,7 @@ export const AppointmentSchedularPage = () => {
             </NHModal>
           </div>
         </div>
+        </>
       }
     </>
   );

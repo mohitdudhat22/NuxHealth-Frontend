@@ -24,15 +24,6 @@ export const PatientBills = () => {
   const [cardOption, setCardOption] = useState(false);
   const [payType, setPayType] = useState(false);
   const navigate = useNavigate();
-  const payMethod = () => {
-    console.log("payMethod :-");
-    setPayType(true);
-  };
-  const selectPayType = () => {
-    console.log("payMethod Proccess :-");
-    setSelectPaymentType(true);
-  };
-
   const tabItems = [
     {
       key: "Unpaid Bills",

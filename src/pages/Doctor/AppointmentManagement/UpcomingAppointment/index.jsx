@@ -69,7 +69,6 @@ const columns = (handleViewPatient) => [
 
 export const UpcomingAppointments = () => {
   const { data, loading, error } = useUpcomingAppointments();
-  console.log("🚀 ~ UpcomingAppointments ~ data:", data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);

@@ -5,12 +5,13 @@ import { editProfile } from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 import { setAuthHeader } from "@/axiosApi";
 import Cookies from "js-cookie";
+import { useUserData } from "@/context";
 
 export const useEditProfile = () => {
     const [activeTab, setActiveTab] = useState("profile");
     const [isEditing, setIsEditing] = useState(false);
     const { token, setDecodedToken } = useDecodeToken();
-
+    const { decodeToken } = useUserData();
     const [userDetail, setUserDetail] = useState({
         firstName: "",
         lastName: "",
@@ -25,7 +26,7 @@ export const useEditProfile = () => {
     });
 
     const fileUpload = useRef(null);
-    const [file, setFile] = useState(null); // New state to store the selected file
+    const [file, setFile] = useState(null);
     useEffect(() => {
         if (token?.userData) {
             const {
@@ -186,14 +187,15 @@ export const useEditProfile = () => {
                         expires: 7,
                         secure: process.env.NODE_ENV === "production",
                     });
-                    setAuthHeader(token);
+                    setAuthHeader();
+                    decodeToken()
                 }
-                    toast.success("Profile updated successfully!");
-                    return true;
-                } else {
-                    toast.error(`Failed to update profile: ${response.message}`);
-                    return false;
-                }
+                toast.success("Profile updated successfully!");
+                return true;
+            } else {
+                toast.error(`Failed to update profile: ${response.message}`);
+                return false;
+            }
         } catch (error) {
             toast.error(`An error occurred while updating the profile: ${error.message}`);
             return false;

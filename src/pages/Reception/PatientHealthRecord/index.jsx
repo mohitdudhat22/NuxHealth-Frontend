@@ -82,14 +82,15 @@ export const PatientHealthRecord = () => {
           <NHButton
             isView
             onClick={() => {
-              console.log(record)
-              navigate(`view-patient/${record._id}`, {
+              navigate(`view-patient/${record.patientId}`, {
                 state: { patient: record },
               });
             }}
           />
 
-          <NHButton isReschedule title={"Book Appointment"}></NHButton>
+              <NHButton isReschedule title={"Book Appointment"} onClick={()=> {
+                navigate("/reception/appointment?patientId="+ record.patientId)
+              } }></NHButton>
         </Space>
       ),
     },

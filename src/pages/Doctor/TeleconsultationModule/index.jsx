@@ -60,19 +60,14 @@ export const Teleconsultation = () => {
     searchQuery: cancelSearchQuery,
   } = useCancleTeleconsultation();
 
-  const rescheduleAppointment = async (selectedDate, selectedTime) => {
+  const rescheduleAppointment = async (selectedDate, selectedTime, appointmentId) => {
     const payload = {
       date: selectedDate,
       appointmentTime: selectedTime,
     };
-
-    console.log("Appointment ID:", appointmentId);
-    console.log("Payload:", payload);
-
     try {
       const response = await reschedule(appointmentId, payload);
-      console.log("Response:", response);
-      setIsReshceduleModal(false); // Close modal after successful reschedule
+      setIsReshceduleModal(false);
       fetchAppointments();
     } catch (error) {
       console.error("Error rescheduling appointment:", error);
@@ -391,13 +386,9 @@ export const Teleconsultation = () => {
                 <NHButton
                   size={"small"}
                   className={"w-full"}
-                  onClick={() =>
-                    navigate("videoCall?room=" + selectedPatientData.key)
-                  }
+                  onClick={() => navigate('videoCall?room=' + selectedPatientData.key)}
                 >
-                  {console.log(selectedPatientData)}
                   Join
-                  {console.log(selectedPatientData._id)}
                 </NHButton>
               </div>
             }

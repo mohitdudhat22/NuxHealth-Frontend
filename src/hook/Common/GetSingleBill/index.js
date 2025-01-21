@@ -9,7 +9,6 @@ export const useGetSingleBill = () => {
   
     const fetchBillData = async () => {
       const response = await getbillbyNo(billId);
-      console.log(response.data)
       setData(response.data);
     };  
 

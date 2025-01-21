@@ -46,7 +46,7 @@ export const useAppointmentData = () => {
                 console.error("Error fetching data:", error);
             }
         };
-        fetchData();
+        role && fetchData();
     }, [role]);
 
     const handleSelectChange = (value, key) => {
