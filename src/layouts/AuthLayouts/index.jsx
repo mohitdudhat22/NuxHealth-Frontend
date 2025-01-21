@@ -6,11 +6,22 @@ import { NHSwiperSlider } from "@/components";
 import styles from "./Authentication.module.css";
 import { motion } from "framer-motion";
 import { AuthSliderData } from "@/constants/data";
-import { FullLogo, logoBanner, vector, vector1, vector2, vector3 } from "@/assets/images";
+import {
+  FullLogo,
+  logoBanner,
+  vector,
+  vector1,
+  vector2,
+  vector3,
+} from "@/assets/images";
 
 export const AuthLayouts = () => {
   return (
-    <Layout className={clsx("grid bg-white h-screen grid-cols-2")}>
+    <Layout
+      className={clsx(
+        "bg-white h-screen  !flex flex-col-reverse md:!grid md:grid-cols-2"
+      )}
+    >
       <div className={clsx(styles.AuthenticationRight, "flex flex-col")}>
         <div
           className={clsx(
@@ -100,6 +111,6 @@ export const AuthLayouts = () => {
           </div>
         </motion.div>
       </div>
-    </Layout >
+    </Layout>
   );
 };

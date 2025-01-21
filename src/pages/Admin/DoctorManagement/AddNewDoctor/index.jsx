@@ -46,9 +46,9 @@ export const AddNewDoctor = () => {
         className="p-6"
       >
         <form onSubmit={handleSubmit}>
-          <div className="flex gap-7">
+          <div className="flex flex-wrap justify-between gap-7">
             {/* Profile Photo and Signature Section */}
-            <div className="w-[17%]">
+            <div className="lg:w-[17%] w-full">
               <div className="flex flex-col items-center gap-2 mt-6">
                 <div className="overflow-hidden bg-gray-100 rounded-full w-[22rem] h-[22rem]">
                   <Upload
@@ -113,8 +113,8 @@ export const AddNewDoctor = () => {
                 </div>
               </div>
               {/* <NHProfilePicUploader /> */}
-              <div className="mt-16 text-xl font-medium text-black ps-3">
-                Upload Signature
+              <div className="mt-16 text-xl font-medium text-black ps-3 center">
+                <p className="text-center text-xl"> Upload Signature</p>
               </div>
               <div className="flex flex-col items-center gap-2">
                 <div className="flex items-center justify-center w-[22rem] h-[22rem] border border-gray-300 border-dashed rounded-lg">
@@ -140,8 +140,8 @@ export const AddNewDoctor = () => {
             </div>
 
             {/* Form Fields */}
-            <div className="w-[83%]">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="lg:w-[80%] w-full">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <NHInput
                   label="First Name"
                   name="firstName"
@@ -334,7 +334,7 @@ export const AddNewDoctor = () => {
           </div>
 
           <div className="mt-[40px]">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               <NHInput
                 label="Doctor Current Hospital"
                 // name="doctorCurrentHospital"
@@ -355,8 +355,6 @@ export const AddNewDoctor = () => {
                 placeholder="Enter Hospital Address"
               // onChange={handleChange}
               />
-            </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mt-4">
               <NHInput
                 label="Hospital Website Link"
                 name="worksiteLink"

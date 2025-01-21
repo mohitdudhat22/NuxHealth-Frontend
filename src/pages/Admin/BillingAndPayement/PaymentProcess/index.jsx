@@ -135,6 +135,10 @@ export const PaymentProcess = () => {
             showPagination={true}
             tableColumn={columns}
             tableDataSource={data}
+            scroll={{
+              x: 1200,
+              y: 500,
+            }}
           />
         </NHCard>
 

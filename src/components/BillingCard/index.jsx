@@ -32,7 +32,6 @@ export const BillingCard = ({ data }) => {
     {
       title: "Action",
       key: "action",
-      fixed: "right",
       width: 100,
       render: (_, record) => (
         <NHButton
@@ -71,6 +70,10 @@ export const BillingCard = ({ data }) => {
         columns={columns}
         dataSource={data}
         defaultPageSize="5"
+        scroll={{
+          x: 500,
+          y: 300,
+        }}
       />
     </NHCard>
   );

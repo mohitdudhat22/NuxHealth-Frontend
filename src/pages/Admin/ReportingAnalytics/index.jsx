@@ -106,7 +106,7 @@ export const ReportingAnalytics = () => {
             <PatientSummaryChart data={data?.patientSummary} />
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-6">
           <div className="md:col-span-2">
             <DepartmentCard
               title="Patients Count Department"

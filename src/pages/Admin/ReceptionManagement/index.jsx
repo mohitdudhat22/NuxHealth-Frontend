@@ -112,6 +112,10 @@ export const ReceptionManagement = () => {
           showPagination={true}
           tableColumn={columns}
           tableDataSource={data}
+          scroll={{
+            x: 900,
+            y: 500,
+          }}
         />
 
         {/* Delete Complaint Modal */}

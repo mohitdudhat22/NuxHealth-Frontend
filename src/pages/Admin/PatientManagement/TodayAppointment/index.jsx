@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
-import { Space, Tag } from "antd";
+import { Avatar, Space, Tag } from "antd";
 import Icons from "@/constants/icons";
-import "./TodayAppo.css"
+import "./TodayAppo.css";
 import { useTodaysAppointment } from "@/hook/Admin/PatientManagement/TodaysAppointment";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 
@@ -12,10 +12,19 @@ const columns = (handleViewPatient) => [
     dataIndex: "patientName",
     key: "patientName",
     render: (text, record) => (
-      <div className="flex items-center gap-2">
-        <img src={record.avatar} alt={text} className="w-8 h-8 rounded-full" />
-        <span>{text || "N/A"}</span>
-      </div>
+      <Space>
+        <Avatar src={record.avatar} alt={text} size={40} />
+        <span>{text}</span>
+      </Space>
+
+      // <div className="flex items-center gap-2">
+      //   <img
+      //     src={record.avatar}
+      //     alt={text}
+      //     className="sm:w-[25px] sm:h-[25px] md:w-8 md:h-8 rounded-full"
+      //   />
+      //   <span>{text || "N/A"}</span>
+      // </div>
     ),
   },
   {
@@ -41,7 +50,9 @@ const columns = (handleViewPatient) => [
     dataIndex: "appointmentTime",
     key: "appointmentTime",
     render: (appointmentTime) => (
-      <Tag color={appointmentTime === "#F6F8FB"}>{appointmentTime || "N/A"}</Tag>
+      <Tag color={appointmentTime === "#F6F8FB"}>
+        {appointmentTime || "N/A"}
+      </Tag>
     ),
   },
   {
@@ -57,10 +68,7 @@ const columns = (handleViewPatient) => [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <NHButton
-      isView
-          onClick={() => handleViewPatient(record)}
-        />
+        <NHButton isView onClick={() => handleViewPatient(record)} />
       </Space>
     ),
   },
@@ -86,30 +94,38 @@ export const TodayAppointment = () => {
 
   return (
     <>
-    <div className="today_appo">
-      <NHCard
-        title="Today's Appointments"
-        headerContent={
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" onChange={(e) => onSearch(e.target.value)} />
-        }
-      >
-        <NHTable
-          loading={loading}
-          showPagination={true}
-          tableColumn={columns(handleViewPatient)}
-          tableDataSource={data}
-        />
-      </NHCard>
+      <div className="today_appo">
+        <NHCard
+          title="Today's Appointments"
+          headerContent={
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              onChange={(e) => onSearch(e.target.value)}
+            />
+          }
+        >
+          <NHTable
+            loading={loading}
+            showPagination={true}
+            tableColumn={columns(handleViewPatient)}
+            tableDataSource={data}
+            scroll={{
+              x: 900,
+              y: 500,
+            }}
+          />
+        </NHCard>
 
-      {selectedPatient && (
-        <PatientDetailModal
-          isModalOpen={isModalOpen}
-          onCancel={handleCloseModal}
-          handleClose={handleCloseModal}
-          Title="Patient Details"
-          patientData={selectedPatient}
-        />
-      )}
+        {selectedPatient && (
+          <PatientDetailModal
+            isModalOpen={isModalOpen}
+            onCancel={handleCloseModal}
+            handleClose={handleCloseModal}
+            Title="Patient Details"
+            patientData={selectedPatient}
+          />
+        )}
       </div>
     </>
   );

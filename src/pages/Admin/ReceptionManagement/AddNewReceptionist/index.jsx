@@ -1,6 +1,6 @@
-import { NHCard, NHInput, NHSelect, NHButton, NHHead } from '@/components';
-import { useCreateReceptionist } from '@/hook';
-import { Upload } from 'antd';
+import { NHCard, NHInput, NHSelect, NHButton, NHHead } from "@/components";
+import { useCreateReceptionist } from "@/hook";
+import { Upload } from "antd";
 
 export const AddNewReceptionist = () => {
   const {
@@ -8,7 +8,7 @@ export const AddNewReceptionist = () => {
     handleChange,
     handleSelectChange,
     handleFileChange,
-    handleSubmit
+    handleSubmit,
   } = useCreateReceptionist();
 
   return (
@@ -16,9 +16,9 @@ export const AddNewReceptionist = () => {
       <NHHead title="Add New Receptionist" />
       <NHCard title="Add New Receptionist" className="p-6">
         <form onSubmit={handleSubmit}>
-          <div className="flex gap-7">
+          <div className="flex flex-wrap justify-between gap-7">
             {/* Profile Photo Section */}
-            <div className="w-[17%]">
+            <div className="w-full lg:w-[17%]">
               <div className="flex flex-col items-center gap-2 mt-6">
                 <div className="overflow-hidden bg-gray-100 rounded-full w-[22rem] h-[22rem]">
                   <Upload
@@ -85,8 +85,8 @@ export const AddNewReceptionist = () => {
             </div>
 
             {/* Form Fields */}
-            <div className="w-[83%]">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="w-full lg:w-[80%]">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <NHInput
                   label="First Name"
                   name="firstName"
