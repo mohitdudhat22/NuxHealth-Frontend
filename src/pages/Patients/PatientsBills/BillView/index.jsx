@@ -26,7 +26,7 @@ export const PatientBillView = () => {
     totalAmount: 24668.0,
   };
   return (
-    <div className="w-[50%] m-auto">
+    <div className="w-full md:w-[50%] m-auto">
       <NHCard>
         <div className="head flex justify-between pb-5">
           <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />
