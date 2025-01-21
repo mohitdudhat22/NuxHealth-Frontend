@@ -2,6 +2,7 @@ import { NHCard, NHInput, NHSelect, NHButton, NHHead } from "@/components";
 import { NHTimePicker } from "@/components/FormComponents/NHTimePicker";
 import { useCreateDoctor } from "@/hook";
 import { Upload } from "antd";
+import { City, Country, State } from "country-state-city";
 
 export const AddNewDoctor = () => {
   const {
@@ -12,7 +13,31 @@ export const AddNewDoctor = () => {
     handleSubmit,
     isEditing,
   } = useCreateDoctor();
+  const countries = Country.getAllCountries().map((country) => ({
+    value: country.name, // Use the name as the value
+    label: country.name, // Display the name as the label
+  }));
+  const states = formData.country
+    ? State.getStatesOfCountry(
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
+    ).map((state) => ({
+      value: state.name, // Use the state name as the value
+      label: state.name, // Display the state name as the label
+    }))
+    : [];
 
+  const cities = formData.state
+    ? City.getCitiesOfState(
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode,
+      State.getStatesOfCountry(
+        Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode
+      ).find((s) => s.name === formData.state)?.isoCode
+    ).map((city) => ({
+      value: city.name,
+      label: city.name,
+    }))
+    : [];
+  console.log(formData)
   return (
     <>
       <NHHead title="Add New Doctor" />
@@ -226,37 +251,36 @@ export const AddNewDoctor = () => {
                   onChange={handleChange}
                 />
                 <NHSelect
+                  showSearch
                   label="Country"
                   name="country"
                   placeholder="Select Country"
-                  value={formData.country}
-                  onChange={(value) => handleSelectChange(value, "country")}
-                  options={[
-                    { value: "india", label: "India" },
-                    { value: "usa", label: "USA" },
-                  ]}
+                  options={countries}
+                  value={formData?.country}
+                  onChange={(value) => handleChange({
+                    target: { name: "country", value },
+                  })
+                  }
                 />
                 <NHSelect
+                  showSearch
                   label="State"
                   name="state"
                   placeholder="Select State"
-                  value={formData.state}
-                  onChange={(value) => handleSelectChange(value, "state")}
-                  options={[
-                    { value: "india", label: "India" },
-                    { value: "usa", label: "USA" },
-                  ]}
+                  options={states}
+                  value={formData?.state}
+                  onChange={(value) => handleChange({
+                    target: { name: "state", value },
+                  })}
                 />
                 <NHSelect
                   label="City"
                   name="city"
                   placeholder="Select City"
-                  value={formData.city}
-                  onChange={(value) => handleSelectChange(value, "city")}
-                  options={[
-                    { value: "india", label: "India" },
-                    { value: "usa", label: "USA" },
-                  ]}
+                  options={cities}
+                  onChange={(value) => handleChange({
+                    target: { name: "city", value },
+                  })}
                 />
                 <NHInput
                   label="Zip code"
@@ -315,21 +339,21 @@ export const AddNewDoctor = () => {
                 label="Doctor Current Hospital"
                 // name="doctorCurrentHospital"
                 placeholder="Enter Current Hospital"
-                // value={formData.doctorCurrentHospital}
-                // onChange={handleChange}
+              // value={formData.doctorCurrentHospital}
+              // onChange={handleChange}
               />
               <NHInput
                 label="Hospital Name"
                 // name="hospitalName"
                 placeholder="Enter Hospital Name"
-                // value={formData.hospitalName}
-                // onChange={handleChange}
+              // value={formData.hospitalName}
+              // onChange={handleChange}
               />
               <NHInput
                 label="Hospital Address"
                 // name="hospitalAddress"
                 placeholder="Enter Hospital Address"
-                // onChange={handleChange}
+              // onChange={handleChange}
               />
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mt-4">
