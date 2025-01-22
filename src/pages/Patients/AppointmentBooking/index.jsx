@@ -173,7 +173,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {patientId && (
+              {(patientId || identifyRole() == 'patient') && (
                 <NHButton
                   variant="default"
                   className=""
@@ -261,7 +261,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {patientId && (
+              {(patientId || identifyRole() == 'patient') && (
                 <NHButton
                   variant="default"
                   className=""
@@ -343,7 +343,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {patientId && (
+              {(patientId || identifyRole() == 'patient') && (
                 <NHButton
                   variant="default"
                   className=""
@@ -407,7 +407,7 @@ export const AppointmentBooking = () => {
                 {Icons.CloseCircle}
               </NHButton>
 
-              {patientId && (
+              {(patientId || identifyRole() == 'patient') && (
                 <NHButton
                   variant="default"
                   className=""
