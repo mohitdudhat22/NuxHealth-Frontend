@@ -34,6 +34,7 @@ export const useAppointmentData = () => {
         const fetchData = async () => {
             try {
                 const response = await fetchAppointmentsByPatient(role);
+                console.log(response.data,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
                 if (response.data && response.data.length > 0) {
                     const countries = response.data.map((item) => ({
                         value: item.country,
