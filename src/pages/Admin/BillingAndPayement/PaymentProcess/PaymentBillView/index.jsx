@@ -1,14 +1,14 @@
-import { Bill1, Bill2, Bill3, NHCard } from '@/components';
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import Icons from '@/constants/icons';
-import { useAppNavigation } from '@/utils/useAppNavigation';
+import { Bill1, Bill2, Bill3, NHCard } from "@/components";
+import React from "react";
+import { useLocation } from "react-router-dom";
+import Icons from "@/constants/icons";
+import { useAppNavigation } from "@/utils/useAppNavigation";
 
 export const PaymentBillView = () => {
   const location = useLocation();
   const { goBack } = useAppNavigation();
   const { billData } = location.state || {};
-  const selectedInvoice = localStorage.getItem('selectedBill') || "Bill";
+  const selectedInvoice = localStorage.getItem("selectedBill") || "Bill";
 
   const renderBill = () => {
     switch (selectedInvoice) {
@@ -23,12 +23,5 @@ export const PaymentBillView = () => {
     }
   };
 
-  return (
-    <div className="big-container">
-      <button onClick={goBack} className="close-back-button">{Icons?.CloseCircle}</button>
-      <NHCard>
-        {renderBill()}
-      </NHCard>
-    </div>
-  );
+  return <div className="big-container">{renderBill()}</div>;
 };

@@ -103,14 +103,15 @@ export const PaymentProcess = () => {
               )
             }
           />
-         {record.status !== "Paid" &&
-          <NHButton
-            type="default"
-            size="small"
-            icon={Icons.PaymentIcon}
-            className="lock-btn bg-white"
-            onClick={() => handleCashPayment(record)}
-          />}
+          {record.status !== "Paid" && (
+            <NHButton
+              type="default"
+              size="small"
+              icon={Icons.PaymentIcon}
+              className="lock-btn bg-white"
+              onClick={() => handleCashPayment(record)}
+            />
+          )}
         </Space>
       ),
     },
