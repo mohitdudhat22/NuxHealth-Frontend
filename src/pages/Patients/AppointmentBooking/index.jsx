@@ -32,6 +32,7 @@ import {
 } from "@/hook/Patients";
 import { AppointmentSchedularPageForReception } from "@/pages/Reception";
 import { identifyRole } from "@/utils/identifyRole";
+import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
 
 export const AppointmentBooking = () => {
 
@@ -53,7 +54,7 @@ export const AppointmentBooking = () => {
   const { data: cancelAppointments } = useCancelAppoinmentBookings();
   const [timeSlote, setTimeSlote] = useState([]);
   const navigate = useNavigate();
-
+  const [cancelModal, setIsCancleModal] = useState(false);
   const rescheduleAppointment = async (selectedDate, selectedTime) => {
     const payload = {
       date: selectedDate,
@@ -74,7 +75,7 @@ export const AppointmentBooking = () => {
       });
       console.log("Appointment canceled successfully:", response);
 
-      // Move the canceled appointment to the cancelAppointments list
+      setIsCancleModal(false)
       const canceledAppointment = todayAppointments.find(
         (appointment) => appointment.id === id
       );
@@ -149,7 +150,6 @@ export const AppointmentBooking = () => {
   const handleReschedule = async (appointment) => {
     // navigate("/patient/appointment/reschedule", { state: { appointment } });
     setSelectedAppointmentForModal(appointment.key);
-    console.log("Selected appointment for reschedule:", appointment);
     setIsReshceduleModal(true);
     try {
       const response = await doctorSession(appointment.doctorId);
@@ -159,6 +159,11 @@ export const AppointmentBooking = () => {
     }
   };
 
+  const handleCancleModal = (appointment) => {
+    setSelectedAppointmentForModal(appointment.key);
+    setIsCancleModal(true);
+  };
+  const closeCancleModal = () => setIsCancleModal(false);
   const tabItems = [
     {
       key: "Scheduled",
@@ -221,6 +226,8 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
+                      onClick={() => handleCancleModal(data)}
+                    // onClick={() => cancelAppointment(data?.key)}
                     //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
@@ -310,7 +317,8 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                      onClick={() => cancelAppointment(data?.key)}
+                      onClick={() => handleCancleModal(data)}
+                    // onClick={() => cancelAppointment(data?.key)}
                     >
                       Cancel
                     </NHButton>
@@ -319,7 +327,7 @@ export const AppointmentBooking = () => {
                       icon={Icons.CalenderIcon}
                       className={"w-full py-9"}
                       onClick={() => handleReschedule(data)}
-                      >
+                    >
                       Reschedule
                     </NHButton>
                   </div>
@@ -621,6 +629,11 @@ export const AppointmentBooking = () => {
           </div>
         )}
       </Drawer>
+      <CancelOnlineAppointmentModal
+      handleOk = {() => cancelAppointment(selectedAppointmentForModal)}
+        open={cancelModal}
+        handleClose={closeCancleModal}
+      />
     </>
   );
 };
