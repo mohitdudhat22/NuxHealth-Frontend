@@ -49,15 +49,15 @@ export const BillingCard = ({ data }) => {
   return (
     <NHCard
       title={"Billing & Payments"}
-      headerContent={
-        <NHButton
-          icon={Icons?.PlusSquare}
-          onClick={() => navigate("/admin/monitor-billing/create-bill")}
-          variant="primary"
-        >
-          Create Bill
-        </NHButton>
-      }
+      // headerContent={
+      //   <NHButton
+      //     icon={Icons?.PlusSquare}
+      //     onClick={() => navigate("/admin/monitor-billing/create-bill")}
+      //     variant="primary"
+      //   >
+      //     Create Bill
+      //   </NHButton>
+      // }
     >
       <div className="mb-4">
         <p className="text-xl text-[#030229] font-semibold">

@@ -55,7 +55,7 @@ export const Create = () => {
             </>
           }
         >
-          <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-lg">
+          <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-lg">
             {appointmentData?.map((appointment, index) => (
               <AppointmentCard
                 key={index}
