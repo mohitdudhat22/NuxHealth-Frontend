@@ -39,7 +39,7 @@ export const PrescriptionAccess = () => {
         headerContent={
           <>
             <div className="me-10">
-              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+              <NHInput prefix={Icons.SearchIcon} placeholder="Search Prescription" />
             </div>
           </>
         }
