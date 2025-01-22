@@ -55,7 +55,7 @@ export const RescheduleAppointmentModal = ({
         value: slot.start,
       })
     );
-
+    console.log(morningSlots, eveningSlots);
     return [
       {
         label: "Morning Slots",

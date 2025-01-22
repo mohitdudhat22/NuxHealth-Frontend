@@ -45,7 +45,7 @@ export const AppointmentBooking = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [selectedAppointmentForModal, setSelectedAppointmentForModal] = useState(null);
   const [activeTab, setActiveTab] = useState("Scheduled");
-   const { data:patientData, loading, error } = usePatientDashboardData();
+  const { data: patientData, loading, error } = usePatientDashboardData();
   const { data: todayAppointments, patientId } = useTodaysAppoinmentBookings();
   const { data: previousAppointments, fetchAppointments } = usePreviousAppoinmentBookings();
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings();
@@ -241,6 +241,88 @@ export const AppointmentBooking = () => {
       ),
     },
     {
+      key: "Pending",
+      label: "Pending Appointment",
+      children: (
+        <NHCard
+          title={
+            <span className="text-[#030229] text-[26px] font-semibold">
+              My Appointment
+            </span>
+          }
+          rootClass={"p-0"}
+          headerContent={
+            <>
+              <NHButton
+                variant="default"
+                className="text-black bg-white"
+                onClick={handleOpenModal}
+              >
+                {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
+                {Icons.CloseCircle}
+              </NHButton>
+              {patientId && (
+                <NHButton
+                  variant="default"
+                  className=""
+                  onClick={() => handleAppointment()}
+                >
+                  {Icons.CalenderIcon}Book Appointment
+                </NHButton>
+              )}
+            </>
+          }
+        >
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {upcomingAppointments.map((data) => (
+              <AppointmentCard
+                key={data.id}
+                headerBg={true}
+                headerContent={
+                  <NHButton
+                    isView
+                    onClick={() => handleViewDetails(data.id)}
+                  ></NHButton>
+                }
+                title={
+                  <span className="text-[#030229] text-[18px] font-medium">
+                    Dr. {data.doctorName}
+                  </span>
+                }
+                appointmentType={
+                  <span className="text-[#FFC313]">{data.appointmentType}</span>
+                }
+                hospitalName={data.hospitalName}
+                appointmentDate={data.appointmentDate}
+                appointmentTime={data.appointmentTime}
+                patientIssue={data.patientIssue}
+                footerContent={
+                  <div className="flex justify-between gap-4">
+                    <NHButton
+                      size={"small"}
+                      className={"w-full py-9"}
+                      onClick={() => cancelAppointment(data?.key)}
+                    >
+                      Cancel
+                    </NHButton>
+                    <NHButton
+                      size={"small"}
+                      icon={Icons.CalenderIcon}
+                      className={"w-full py-9"}
+                      onClick={() => handleReschedule(data)}
+                    >
+                      Reschedule
+                    </NHButton>
+                  </div>
+                }
+                className="border border-slate-200"
+              />
+            ))}
+          </div>
+        </NHCard>
+      ),
+    },
+    {
       key: "Previous",
       label: "Previous Appointment",
       children: (
@@ -366,89 +448,7 @@ export const AppointmentBooking = () => {
           </div>
         </NHCard>
       ),
-    },
-    {
-      key: "Pending",
-      label: "Pending Appointment",
-      children: (
-        <NHCard
-          title={
-            <span className="text-[#030229] text-[26px] font-semibold">
-              My Appointment
-            </span>
-          }
-          rootClass={"p-0"}
-          headerContent={
-            <>
-              <NHButton
-                variant="default"
-                className="text-black bg-white"
-                onClick={handleOpenModal}
-              >
-                {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
-                {Icons.CloseCircle}
-              </NHButton>
-              {patientId && (
-                <NHButton
-                  variant="default"
-                  className=""
-                  onClick={() => handleAppointment()}
-                >
-                  {Icons.CalenderIcon}Book Appointment
-                </NHButton>
-              )}
-            </>
-          }
-        >
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {upcomingAppointments.map((data) => (
-              <AppointmentCard
-                key={data.id}
-                headerBg={true}
-                headerContent={
-                  <NHButton
-                    isView
-                    onClick={() => handleViewDetails(data.id)}
-                  ></NHButton>
-                }
-                title={
-                  <span className="text-[#030229] text-[18px] font-medium">
-                    Dr. {data.doctorName}
-                  </span>
-                }
-                appointmentType={
-                  <span className="text-[#FFC313]">{data.appointmentType}</span>
-                }
-                hospitalName={data.hospitalName}
-                appointmentDate={data.appointmentDate}
-                appointmentTime={data.appointmentTime}
-                patientIssue={data.patientIssue}
-                footerContent={
-                  <div className="flex justify-between gap-4">
-                    <NHButton
-                      size={"small"}
-                      className={"w-full py-9"}
-                      onClick={() => cancelAppointment(data?.key)}
-                    >
-                      Cancel
-                    </NHButton>
-                    <NHButton
-                      size={"small"}
-                      icon={Icons.CalenderIcon}
-                      className={"w-full py-9"}
-                      onClick={() => handleReschedule(data)}
-                    >
-                      Reschedule
-                    </NHButton>
-                  </div>
-                }
-                className="border border-slate-200"
-              />
-            ))}
-          </div>
-        </NHCard>
-      ),
-    },
+    }
   ];
 
   return (

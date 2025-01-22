@@ -34,6 +34,7 @@ export const AppointmentSchedularPage = () => {
     if (role === "receptionist") {
       try {
         const response = await getPatientListForReceptionist();
+        console.log("Patient List:", response.data);
         setPatientList(
           response.data.map((patient) => ({
             value: patient._id,
