@@ -19,7 +19,7 @@ import {
 } from "@/axiosApi/ApiHelper";
 import { AppointmentModal } from "@/components/NHModalComponents/ModalTemplate/AppointmentModal";
 import { AppointmentSchedularPage } from "..";
-import "./Teleconsulation.css"
+import "./Teleconsulation.css";
 
 export const TeleconsultationAccess = () => {
   const [previousAppointments, setPreviousAppointments] = useState([]);
@@ -504,13 +504,16 @@ export const TeleconsultationAccess = () => {
           <AppointmentSchedularPage />
         ) : (
           <div className="teleconsulation-card">
-          <NHCard
-            headerContent={
-              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-            }
-          >
-            <NHTabs items={tabItems} defaultActiveKey="upcoming" />
-          </NHCard>
+            <NHCard
+              headerContent={
+                <NHInput
+                  prefix={Icons.SearchIcon}
+                  placeholder="Search Patient"
+                />
+              }
+            >
+              <NHTabs items={tabItems} defaultActiveKey="upcoming" />
+            </NHCard>
           </div>
         )}
       </>

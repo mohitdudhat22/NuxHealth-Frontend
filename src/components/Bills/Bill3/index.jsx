@@ -1,16 +1,24 @@
 import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
 import { useGetSingleBill } from "@/hook/Global";
+import { useNavigate } from "react-router-dom";
 
 export function Bill3() {
   const { data: billData } = useGetSingleBill();
+  const navigate = useNavigate();
 
   if (!billData) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="w-[50%] m-auto">
+    <div className="container m-auto">
+      {/* Back Button */}
+     <div className="flex items-center mb-4 cursor-pointer" onClick={() => navigate(-1)}>
+          {/* <Icons.BackIcon className="w-5 h-5 mr-2" /> Back icon */}
+          <i className="fa-solid fa-circle-chevron-left text-[25px] text-[#0eabeb]"></i>
+          {/* <span className="text-sm font-medium text-gray-700">Back</span> */}
+        </div>
       <NHCard>
       <div className="flex justify-between pb-5 head">
         <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />

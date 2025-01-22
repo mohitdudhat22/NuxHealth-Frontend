@@ -1,10 +1,13 @@
 import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
+import Icons from "@/constants/icons";
 import { useGetSingleBill } from "@/hook/Global";
+import { useNavigate } from "react-router-dom";
 
 export function Bill1({ billData }) {
   // Use the passed `billData` or fallback to data from `useGetSingleBill` or static defaults
   const { data } = useGetSingleBill();
+  const navigate = useNavigate();
   const staticData = {
     doctorName: billData?.doctorName || data?.doctorId?.fullName || "Dr. Bharat Patel",
     doctorDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mattis turpis vitae.",
@@ -27,8 +30,15 @@ export function Bill1({ billData }) {
   };
 
   return (
-   <div className="w-[50%] m-auto">
+   <div className="container m-auto">
+     {/* Back Button */}
+     <div className="flex items-center mb-4 cursor-pointer" onClick={() => navigate(-1)}>
+          {/* <Icons.BackIcon className="w-5 h-5 mr-2" /> Back icon */}
+          <i className="fa-solid fa-circle-chevron-left text-[25px] text-[#0eabeb]"></i>
+          {/* <span className="text-sm font-medium text-gray-700">Back</span> */}
+        </div>
      <NHCard>
+     
       {/* Header Section */}
       <div className="flex justify-between pb-5 head">
         <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />
