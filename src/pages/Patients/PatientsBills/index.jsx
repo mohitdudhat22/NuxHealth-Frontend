@@ -49,7 +49,7 @@ export const PatientBills = () => {
   
         const options = {
           key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-          amount: data.totalAmount * 100,
+          amount: data.totalAmount * 100, 
           currency: "INR",
           name: "Your Company Name",
           description: "Test Transaction",
