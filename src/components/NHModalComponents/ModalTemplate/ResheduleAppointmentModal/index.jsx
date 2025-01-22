@@ -35,7 +35,6 @@ export const RescheduleAppointmentModal = ({
     }
   };
 
-  // Filter and format available time slots
   const getAvailableTimeSlots = () => {
     const filterAvailableSlots = (slots) => {
       if (!Array.isArray(slots)) return [];
@@ -55,7 +54,7 @@ export const RescheduleAppointmentModal = ({
         value: slot.start,
       })
     );
-
+    console.log(morningSlots, eveningSlots);
     return [
       {
         label: "Morning Slots",

@@ -1,4 +1,5 @@
 import { axiosApi } from "@/axiosApi";
+import { identifyRole } from "@/utils/identifyRole";
 
 async function request(method, url, data) {
   try {
@@ -69,8 +70,8 @@ export const createReceptionist = (data) =>
 /* Doctor */
 export const todayAppointment = () =>
   request("get", "/api/doctor/getappointmentforprescription?date=today");
-export const doctorSession = () =>
-  request("get", "api/doctor/getDoctorSession");
+export const doctorSession = (id) =>
+  request("get", (!id) ? "api/doctor/getDoctorSession" : `api/${identifyRole()}/getDoctorSession/${id}`);
 export const rescheduleAppointement = (id, data) =>
   request("post", `/api/doctor/editAppointment/appointmentid/${id}`, data);
 export const getPrivousTeleconsultation = () =>
