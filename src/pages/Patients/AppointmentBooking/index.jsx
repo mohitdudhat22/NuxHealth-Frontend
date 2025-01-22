@@ -18,6 +18,7 @@ import doctorLogo from "../../../assets/images/cover/Avatar_6.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   cancelAppointmentForPatient,
+  doctorSession,
   reschedule,
   rescheduleForPatient,
 } from "@/axiosApi/ApiHelper";
@@ -50,7 +51,7 @@ export const AppointmentBooking = () => {
   const { data: previousAppointments, fetchAppointments } = usePreviousAppoinmentBookings();
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings();
   const { data: cancelAppointments } = useCancelAppoinmentBookings();
-
+  const [timeSlote, setTimeSlote] = useState([]);
   const navigate = useNavigate();
 
   const rescheduleAppointment = async (selectedDate, selectedTime) => {
@@ -145,10 +146,18 @@ export const AppointmentBooking = () => {
     setBookAppointment(true);
   };
 
-  const handleReschedule = (appointment) => {
+  const handleReschedule = async (appointment) => {
     // navigate("/patient/appointment/reschedule", { state: { appointment } });
-    setIsReshceduleModal(true)
     setSelectedAppointmentForModal(appointment.key);
+    console.log("Selected appointment for reschedule:", appointment);
+    setIsReshceduleModal(true);
+    try {
+      const response = await doctorSession(appointment.doctorId);
+      console.log("Doctor session response: ----------------", response);
+      setTimeSlote(response.data);
+    } catch (error) {
+      console.error("Error fetching doctor sessions:", error);
+    }
   };
 
   const tabItems = [
@@ -232,6 +241,7 @@ export const AppointmentBooking = () => {
             ))}
           </div>
           <RescheduleAppointmentModal
+            timeSlote={timeSlote}
             handleOk={rescheduleAppointment}
             handleClose={() => setIsReshceduleModal(false)}
             Title="Reschedule Appointment"
@@ -310,7 +320,8 @@ export const AppointmentBooking = () => {
                       icon={Icons.CalenderIcon}
                       className={"w-full py-9"}
                       onClick={() => handleReschedule(data)}
-                    >
+                      >
+                      {console.log("data----------------------------", data)}
                       Reschedule
                     </NHButton>
                   </div>

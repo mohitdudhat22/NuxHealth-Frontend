@@ -66,7 +66,8 @@ export const useUpcomingAppoinmentBookings = () => {
     doctorGender: appointment?.doctorId?.gender,
     doctorFullName : appointment?.doctorId?.fullName,
     doctorDescription : appointment?.doctorId?.metaData?.doctorData?.description,
-    doctorImage : appointment?.doctorId?.profilePicture
+    doctorImage : appointment?.doctorId?.profilePicture,
+    doctorId: appointment?.doctorId?._id,
   }));
 
   const openDrawer = () => setDrawerVisible(true);

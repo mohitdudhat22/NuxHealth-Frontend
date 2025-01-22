@@ -35,7 +35,6 @@ export const RescheduleAppointmentModal = ({
     }
   };
 
-  // Filter and format available time slots
   const getAvailableTimeSlots = () => {
     const filterAvailableSlots = (slots) => {
       if (!Array.isArray(slots)) return [];

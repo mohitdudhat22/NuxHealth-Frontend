@@ -53,6 +53,7 @@ export const useTodaysAppoinmentBookings = () => {
     patientIssue: appointment?.patient_issue,
     diseaseName: appointment?.dieseas_name,
     doctorName: appointment?.doctorId?.fullName,
+    doctorId: appointment?.doctorId?._id,
     hospitalName: appointment?.hospitalId?.name,
     appointmentTime: appointment?.appointmentTime,
     status: appointment?.status,
