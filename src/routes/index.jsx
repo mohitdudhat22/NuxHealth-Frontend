@@ -425,7 +425,8 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "bill-view",
-                      element: <PatientBillView />,
+                      // element: <PatientBillView />, i think is it useless now
+                      element: <PaymentBillView />,
                     },
                   ],
                 },

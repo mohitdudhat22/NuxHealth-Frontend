@@ -9,7 +9,6 @@ export const PaymentBillView = () => {
   const { goBack } = useAppNavigation();
   const { billData } = location.state || {};
   const selectedInvoice = localStorage.getItem("selectedBill") || "Bill";
-
   const renderBill = () => {
     switch (selectedInvoice) {
       case "Bill":

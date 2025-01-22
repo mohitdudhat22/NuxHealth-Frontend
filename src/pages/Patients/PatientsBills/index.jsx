@@ -58,7 +58,7 @@ export const PatientBills = () => {
                     headerContent={
                       <NHButton
                         isView
-                        onClick={() => navigate(`/patient/bills/bill-view`)}
+                        onClick={() => navigate(`/patient/bills/bill-view`, { state: { billData: data } })}
                       ></NHButton>
                     }
                     footerContent={
