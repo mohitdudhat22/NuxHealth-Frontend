@@ -1,6 +1,8 @@
 import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
+import Icons from "@/constants/icons";
 import { useGetSingleBill } from "@/hook/Global";
+import { useAppNavigation } from "@/utils/useAppNavigation";
 
 export function Bill1({ billData }) {
   // Use the passed `billData` or fallback to data from `useGetSingleBill` or static defaults
@@ -33,8 +35,13 @@ export function Bill1({ billData }) {
     totalAmount: data?.totalAmount || 24668.0,
   };
 
+  const { goBack } = useAppNavigation();
+
   return (
     <div className="w-[80%] md:w-[50%] m-auto">
+      <button onClick={goBack} className="close-back-button">
+        {Icons?.CloseCircle}
+      </button>
       <NHCard>
         {/* Header Section */}
         <div className="flex justify-between pb-5 head">
