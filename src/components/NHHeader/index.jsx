@@ -118,7 +118,7 @@ export const NHHeader = ({ collapsed, collapseHandle }) => {
       <div className={clsx("flex items-center justify-content-center gap-xl")}>
         <NHInput
           prefix={Icons?.SearchIcon}
-          placeholder="Quick Search ad"
+          placeholder="Quick Search"
           value={searchValue}
           onChange={handleSearch}
           addonAfter={
