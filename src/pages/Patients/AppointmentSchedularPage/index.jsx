@@ -81,7 +81,6 @@ export const AppointmentSchedularPage = () => {
       await handleBooking();
       return;
     }
-
     try {
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/payment/create-order`, {
         method: 'POST',
