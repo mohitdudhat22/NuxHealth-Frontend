@@ -23,5 +23,10 @@ export const PaymentBillView = () => {
     }
   };
 
-  return <div className="big-container">{renderBill()}</div>;
+  <div className="big-container">
+    <button onClick={goBack} className="close-back-button">
+      {Icons?.CloseCircle}
+    </button>
+    <NHCard>{renderBill()}</NHCard>
+  </div>
 };
