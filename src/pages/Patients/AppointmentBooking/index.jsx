@@ -153,7 +153,6 @@ export const AppointmentBooking = () => {
     setIsReshceduleModal(true);
     try {
       const response = await doctorSession(appointment.doctorId);
-      console.log("Doctor session response: ----------------", response);
       setTimeSlote(response.data);
     } catch (error) {
       console.error("Error fetching doctor sessions:", error);
@@ -321,7 +320,6 @@ export const AppointmentBooking = () => {
                       className={"w-full py-9"}
                       onClick={() => handleReschedule(data)}
                       >
-                      {console.log("data----------------------------", data)}
                       Reschedule
                     </NHButton>
                   </div>
