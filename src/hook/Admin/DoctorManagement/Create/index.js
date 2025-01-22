@@ -38,6 +38,8 @@ export const useCreateDoctor = () => {
     worksiteLink: "",
     emergencyContactNo: "",
   });
+  const [signature, setSignature] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
 
   useEffect(() => {
     if (isEditing && EditData) {
@@ -95,6 +97,11 @@ export const useCreateDoctor = () => {
         ...prev,
         [name]: file,
       }));
+      if(name == "signature"){
+        setSignature(URL.createObjectURL(file));
+      }else if(name == "profilePicture"){
+        setProfilePicture(URL.createObjectURL(file));
+      }
     } else {
       console.error(`Invalid file for ${name}`);
     }
@@ -134,5 +141,9 @@ export const useCreateDoctor = () => {
     handleFileChange,
     handleSubmit,
     isEditing,
+    signature,
+    profilePicture,
+    setProfilePicture,
+    setSignature,
   };
 };

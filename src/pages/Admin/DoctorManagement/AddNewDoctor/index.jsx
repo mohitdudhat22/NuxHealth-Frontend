@@ -12,6 +12,11 @@ export const AddNewDoctor = () => {
     handleFileChange,
     handleSubmit,
     isEditing,
+    signature,
+    profilePicture,
+    setProfilePicture,
+    setSignature,
+
   } = useCreateDoctor();
   const countries = Country.getAllCountries().map((country) => ({
     value: country.name,
@@ -37,7 +42,6 @@ export const AddNewDoctor = () => {
       label: city.name,
     }))
     : [];
-  console.log(formData)
   return (
     <>
       <NHHead title="Add New Doctor" />
@@ -59,7 +63,7 @@ export const AddNewDoctor = () => {
                       return false;
                     }}
                   >
-                    <div className="text-center">
+                    {!profilePicture && <div className="text-center">
                       <div className="text-gray-400">
                         <svg
                           width="192"
@@ -105,7 +109,12 @@ export const AddNewDoctor = () => {
                           </defs>
                         </svg>
                       </div>
-                    </div>
+                    </div>}
+
+                    {profilePicture && (
+                      <img src={profilePicture} alt="Profile Preview" className="w-full h-full object-cover" />
+                    )
+                    }
                   </Upload>
                 </div>
                 <div className="mt-1 font-medium text-blue-600">
@@ -120,20 +129,24 @@ export const AddNewDoctor = () => {
                 <div className="flex items-center justify-center w-[22rem] h-[22rem] border border-gray-300 border-dashed rounded-lg">
                   <Upload
                     className="flex items-center justify-center w-full h-full cursor-pointer"
-                    showUploadList={false}
+                    showUploadList={false} // Disable default upload list since we are customizing
                     beforeUpload={(file) => {
                       handleFileChange(file, "signature");
                       return false;
                     }}
                   >
-                    <div className="text-center">
-                      <div className="text-lg text-blue-600">
-                        Upload Signature
+                    {signature ? (
+                      <img
+                        src={signature}
+                        alt="Signature Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-center">
+                        <div className="text-lg text-blue-600">Upload Signature</div>
+                        <div className="mt-1 text-lg text-[#A7A7A7]">PNG Up To 5MB</div>
                       </div>
-                      <div className="mt-1 text-lg text-[#A7A7A7]">
-                        PNG Up To 5MB
-                      </div>
-                    </div>
+                    )}
                   </Upload>
                 </div>
               </div>
@@ -386,7 +399,7 @@ export const AddNewDoctor = () => {
             </div>
           </div>
         </form>
-      </NHCard>
+      </NHCard >
     </>
   );
 };

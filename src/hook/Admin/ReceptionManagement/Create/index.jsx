@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createReceptionist } from '@/axiosApi/ApiHelper';
 import { useNavigate } from 'react-router-dom';
+import { Country } from 'country-state-city';
 
 export const useCreateReceptionist = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export const useCreateReceptionist = () => {
     fullAddress: '',
     emergencyContactNo: '',
   });
+  const [profilePicture, setProfilePicture] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +45,9 @@ export const useCreateReceptionist = () => {
         ...prev,
         [name]: file,
       }));
+      if(name == "profilePicture"){
+        setProfilePicture(URL.createObjectURL(file));
+      }
     } else {
       console.error(`Invalid file for ${name}`);
     }
@@ -75,5 +80,7 @@ export const useCreateReceptionist = () => {
     handleSelectChange,
     handleFileChange,
     handleSubmit,
+    profilePicture,
+    setProfilePicture
   };
 };

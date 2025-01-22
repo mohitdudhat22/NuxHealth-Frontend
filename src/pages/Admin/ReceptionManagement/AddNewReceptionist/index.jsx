@@ -10,6 +10,8 @@ export const AddNewReceptionist = () => {
     handleSelectChange,
     handleFileChange,
     handleSubmit,
+    profilePicture,
+    setProfilePicture
   } = useCreateReceptionist();
   const countries = Country.getAllCountries().map((country) => ({
     value: country.name, 
@@ -35,7 +37,6 @@ export const AddNewReceptionist = () => {
       label: city.name,
     }))
     : [];
-  console.log(formData)
   return (
     <>
       <NHHead title="Add New Receptionist" />
@@ -46,7 +47,7 @@ export const AddNewReceptionist = () => {
             <div className="w-full lg:w-[17%]">
               <div className="flex flex-col items-center gap-2 mt-6">
                 <div className="overflow-hidden bg-gray-100 rounded-full w-[22rem] h-[22rem]">
-                  <Upload
+                <Upload
                     className="flex items-center justify-center w-full h-full cursor-pointer"
                     showUploadList={false}
                     beforeUpload={(file) => {
@@ -54,7 +55,7 @@ export const AddNewReceptionist = () => {
                       return false;
                     }}
                   >
-                    <div className="text-center">
+                    {!profilePicture && <div className="text-center">
                       <div className="text-gray-400">
                         <svg
                           width="192"
@@ -100,7 +101,12 @@ export const AddNewReceptionist = () => {
                           </defs>
                         </svg>
                       </div>
-                    </div>
+                    </div>}
+
+                    {profilePicture && (
+                      <img src={profilePicture} alt="Profile Preview" className="w-full h-full object-cover" />
+                    )
+                    }
                   </Upload>
                 </div>
                 <div className="mt-1 font-medium text-blue-600">
