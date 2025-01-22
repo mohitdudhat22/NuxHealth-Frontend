@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Layout } from "antd";
 import clsx from "clsx";
 import Icons from "@/constants/Icons";
@@ -14,9 +13,8 @@ import { useHeader } from "@/hook/Global";
 import { headerDropdownItems } from "@/constants/data";
 import { useUserData } from "@/context";
 import styles from "./NHHeader.module.css";
-
+import { useAppNavigation } from "@/utils/useAppNavigation";
 const { Header } = Layout;
-
 export const NHHeader = ({ collapsed, collapseHandle }) => {
   const {
     notificationVisible,
@@ -32,9 +30,8 @@ export const NHHeader = ({ collapsed, collapseHandle }) => {
     isPatient,
   } = useHeader();
 
-  const navigate = useNavigate();
   const { userData } = useUserData();
-
+  const { goToProfile } = useAppNavigation();
   return (
     <Header
       className={clsx(
@@ -158,7 +155,7 @@ export const NHHeader = ({ collapsed, collapseHandle }) => {
           image={userData?.userData?.profilePicture}
           position={userData?.userData?.role}
           imageAlt={"fakeImg"}
-          onClick={() => navigate("profile")}
+          onClick={() => goToProfile()}
           arrow
         />
       </div>

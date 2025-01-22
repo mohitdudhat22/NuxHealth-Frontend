@@ -1,3 +1,4 @@
+import { useAppNavigation } from "@/utils/useAppNavigation";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
@@ -5,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
   const navigate = useNavigate();
+  const { goToLogin } = useAppNavigation();
   const location = useLocation();
 
   const tokenName = Cookies.get(import.meta.env.VITE_TOKEN_NAME);
@@ -17,20 +19,20 @@ function ProtectedRoute({ children }) {
 
   useEffect(() => {
     if (!tokenName || !role) {
-      navigate("/login");
+      goToLogin();
     }
 
     if (location.pathname.startsWith("/admin") && role !== "admin") {
-      navigate("/login");
+      goToLogin();
     } else if (location.pathname.startsWith("/doctor") && role !== "doctor") {
-      navigate("/login");
+      goToLogin();
     } else if (location.pathname.startsWith("/patient") && role !== "patient") {
-      navigate("/login");
+      goToLogin();
     } else if (
       location.pathname.startsWith("/reception") &&
       role !== "receptionist"
     ) {
-      navigate("/login");
+      goToLogin();
     }
   }, []);
 
