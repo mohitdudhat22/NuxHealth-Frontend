@@ -35,7 +35,7 @@ export const BillingCard = ({ data }) => {
       width: 100,
       render: (_, record) => (
         <NHButton
-          isView
+          isView      
           onClick={() =>
             navigate(`/admin/monitor-billing/bill-view/${record?.billsNo}`, {
               state: { billData: record },
