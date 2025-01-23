@@ -9,3 +9,11 @@
         flex-wrap: wrap;
     }
   }
+
+  .reception-bill .ant-table-wrapper .ant-table-pagination {
+    align-items: center;
+  }
+
+  .reception-bill  .ant-select .ant-select-arrow {
+    top: 38%;
+  }

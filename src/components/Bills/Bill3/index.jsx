@@ -16,9 +16,9 @@ export function Bill3() {
 
   return (
     <div className="w-[80%] md:w-[50%] m-auto">
-      <button onClick={goBack} className="close-back-button">
+      {/* <button onClick={goBack} className="close-back-button">
         {Icons?.CloseCircle}
-      </button>
+      </button> */}
       <NHCard>
         <div className="flex justify-between pb-5 head">
           <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />
