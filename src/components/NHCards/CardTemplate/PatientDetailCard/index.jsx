@@ -1,5 +1,6 @@
 import { NHButton } from "@/components";
 import Icons from "@/constants/icons";
+import { identifyRole } from "@/utils/identifyRole";
 import { useAppNavigation } from "@/utils/useAppNavigation";
 import React from "react";
 
@@ -18,14 +19,17 @@ export const PatientDetailCard = ({
   onAddRecord,
   onEditProfile,
 }) => {
-  const { goToProfile } = useAppNavigation();
+  const { goToProfile, goBack } = useAppNavigation();
   return (
     <div className="p-4 xl:p-6 bg-white rounded-3xl">
       <div className="flex flex-col xl:flex-row items-center justify-between">
-        <div className="title mb-4 xl:mb-0">
+        <div className="title mb-4 xl:mb-0 flex items-center justify-between w-full">
           <p className="text-[#030229] text-2xl xl:text-[26px] font-bold">
             Patient Details
           </p>
+         {identifyRole() === "doctor" && <button onClick={goBack} className="close-back-button mr-2">
+            {Icons?.CloseCircle}
+          </button>}
         </div>
         <div className="flex space-x-2">
           {onEditProfile && (
