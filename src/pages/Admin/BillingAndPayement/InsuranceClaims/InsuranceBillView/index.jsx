@@ -30,12 +30,5 @@ export const InsuranceBillView = () => {
     }
   };
 
-  return (
-    <div className="big-container">
-      <button onClick={goBack} className="close-back-button">
-        {Icons?.CloseCircle}
-      </button>
-      <NHCard>{renderBill()}</NHCard>
-    </div>
-  );
+  return <div className="">{renderBill()}</div>;
 };

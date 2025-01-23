@@ -56,7 +56,7 @@ export const NHTable = ({
           showPagination
             ? {
                 defaultPageSize: defaultPageSize,
-                position: ["bottomRight"],
+                // position: ["bottomRight"],
                 pageSizeOptions: [5, 10, 15, 20, 25, 30, 50],
                 showSizeChanger: showSizeChanger,
                 responsive: true,
