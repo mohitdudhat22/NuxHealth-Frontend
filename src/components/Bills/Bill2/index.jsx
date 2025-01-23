@@ -1,10 +1,12 @@
 import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
+import Icons from "@/constants/icons";
 import { useGetSingleBill } from "@/hook/Global";
 import { useAppNavigation } from "@/utils/useAppNavigation";
 
 export function Bill2() {
   const { data } = useGetSingleBill();
+  const navigate = useNavigate();
   const staticData = {
     doctorName: data?.doctorId?.fullName || "Dr. Bharat Patel",
     doctorDescription:
@@ -32,9 +34,6 @@ export function Bill2() {
 
   return (
     <div className="w-[80%] md:w-[50%] m-auto">
-      <button onClick={goBack} className="close-back-button">
-        {Icons?.CloseCircle}
-      </button>
       <NHCard>
         <div className="flex justify-between pb-5 head">
           <img src={FullLogo} className="w-2/5 h-auto" alt="Logo" />

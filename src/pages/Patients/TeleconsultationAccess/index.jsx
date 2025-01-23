@@ -20,6 +20,8 @@ import {
 import { AppointmentModal } from "@/components/NHModalComponents/ModalTemplate/AppointmentModal";
 import { AppointmentSchedularPage } from "..";
 import "./Teleconsulation.css"
+import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
+import { useNavigate } from "react-router-dom";
 
 export const TeleconsultationAccess = () => {
   const [previousAppointments, setPreviousAppointments] = useState([]);
@@ -39,9 +41,10 @@ export const TeleconsultationAccess = () => {
     isDateModalOpen,
     filterAppointments,
   } = useTodaysTeleconsultationModule();
+  const navigate = useNavigate();
   const { data: upcomingData } = useUpcomingTeleconsultationModule();
   const { data: canceledData } = useCancelTeleconsultationModule();
-
+  const [cancelModal, setIsCancleModal] = useState(false);
   const rescheduleAppointment = async (selectedDate, selectedTime) => {
     const payload = {
       date: selectedDate,
@@ -66,6 +69,7 @@ export const TeleconsultationAccess = () => {
       const response = await cancelAppointmentForPatient(id, {
         status: "canceled",
       });
+      setIsCancleModal(false);
       setCanceledAppointments((prev) => [...prev, { id }]);
       setTodaysAppointments((prev) =>
         prev.filter((appointment) => appointment._id !== id)
@@ -85,9 +89,14 @@ export const TeleconsultationAccess = () => {
     if (canceledData) setCanceledAppointments(canceledData);
   }, [previousData, todaysData, upcomingData, canceledData]);
   console.log("🚀 ~ useEffect ~ previousData:", previousData);
-
+  const [selectedAppointmentForModal, setSelectedAppointmentForModal] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const handleCancleModal = (id) => {
+    // cancelAppointment(id)
+    setSelectedAppointmentForModal(id);
+    setIsCancleModal(true);
+  };
+  const closeCancleModal = () => setIsCancleModal(false);
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -113,7 +122,6 @@ export const TeleconsultationAccess = () => {
           rootClass={"p-0"}
           headerContent={
             <>
-              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
               <NHButton
                 variant="default"
                 className="text-black bg-white"
@@ -158,7 +166,8 @@ export const TeleconsultationAccess = () => {
                       <button
                         className="p-2 bg-white me-4 rounded-xl hover:bg-gray-300"
                         aria-label="View Details"
-                      >
+                        >
+                        {/* // onClick={() => navigate("/patient/appointment/reschedule", { state: { appointment } })} */}
                         {Icons.BlueCalenderIcon}
                       </button>
 
@@ -185,7 +194,7 @@ export const TeleconsultationAccess = () => {
                       <NHButton
                         size={"small"}
                         className={"w-full"}
-                        onClick={() => navigate("videoCall?room=" + _id)}
+                        onClick={() => handleCancleModal(data?._id)}
                       >
                         cancel
                       </NHButton>
@@ -193,7 +202,8 @@ export const TeleconsultationAccess = () => {
                         size={"small"}
                         icon={Icons.call}
                         className={"w-full"}
-                        onClick={() => setSelectedAppointment(data)}
+                        // onClick={() => alert(data)}
+                        onClick={() => navigate("videoCall?room=" + data._id)}
                       >
                         Join Call
                       </NHButton>
@@ -228,156 +238,7 @@ export const TeleconsultationAccess = () => {
         </NHCard>
       ),
     },
-    {
-      key: "Previous",
-      label: "Previous Appointment",
-      children: (
-        <NHCard
-          title={
-            <span className="text-[#030229] text-[26px] font-semibold">
-              My Appointment
-            </span>
-          }
-          rootClass={"p-0"}
-          headerContent={
-            <>
-              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-              <NHButton
-                variant="default"
-                className=""
-                onClick={() => handleAppointment()}
-              >
-                {Icons.CalenderIcon}Book Appointment
-              </NHButton>
-            </>
-          }
-        >
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {previousAppointments.map((data, index) => {
-              const {
-                name,
-                type,
-                patientIssue,
-                diseaseName,
-                appointmentDate,
-                appointmentTime,
-                date,
-                patientName,
-                doctorId,
-                hospitalId,
-                patientId,
-                patient_issue,
-              } = data;
-              return (
-                <AppointmentCard
-                  key={"1"}
-                  headerBg={true}
-                  headerContent={
-                    <NHButton
-                      isView
-                      onClick={() => handleOpenModal()}
-                    ></NHButton>
-                  }
-                  title={
-                    <span className="text-[#030229] text-[18px] font-medium">
-                      Dr. {doctorId?.fullName}
-                    </span>
-                  }
-                  appointmentType={
-                    <span className="text-[#FFC313]">{type}</span>
-                  }
-                  hospitalName={hospitalId?.name}
-                  appointmentDate={date}
-                  appointmentTime={appointmentTime}
-                  patientIssue={patient_issue}
-                  className="border border-slate-200"
-                />
-              );
-            })}
-          </div>
-
-          <AppointmentModal
-            open={isModalOpen}
-            handleClose={() => setIsModalOpen(false)}
-          />
-        </NHCard>
-      ),
-    },
-    {
-      key: "Cancel",
-      label: "Cancel Appointment",
-      children: (
-        <NHCard
-          title={
-            <span className="text-[#030229] text-[26px] font-semibold">
-              My Appointment
-            </span>
-          }
-          rootClass={"p-0"}
-          headerContent={
-            <>
-              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-              <NHButton
-                variant="default"
-                className=""
-                onClick={() => handleAppointment()}
-              >
-                {Icons.CalenderIcon}Book Appointment
-              </NHButton>
-            </>
-          }
-        >
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {canceledAppointments.map((data, index) => {
-              const {
-                name,
-                type,
-                patientIssue,
-                diseaseName,
-                appointmentDate,
-                appointmentTime,
-                date,
-                patientName,
-                doctorId,
-                hospitalId,
-                patientId,
-                patient_issue,
-              } = data;
-              return (
-                <AppointmentCard
-                  key={"1"}
-                  headerBg={true}
-                  headerContent={
-                    <NHButton
-                      isView
-                      onClick={() => handleOpenModal()}
-                    ></NHButton>
-                  }
-                  title={
-                    <span className="text-[#030229] text-[18px] font-medium">
-                      Dr. {doctorId?.fullName}
-                    </span>
-                  }
-                  appointmentType={
-                    <span className="text-[#FFC313]">{type}</span>
-                  }
-                  hospitalName={hospitalId?.name}
-                  appointmentDate={date}
-                  appointmentTime={appointmentTime}
-                  patientIssue={patient_issue}
-                  className="border border-slate-200"
-                />
-              );
-            })}
-          </div>
-
-          <AppointmentModal
-            open={isModalOpen}
-            handleClose={() => setIsModalOpen(false)}
-          />
-        </NHCard>
-      ),
-    },
+    ,
     {
       key: "Pending",
       label: "Pending Appointment",
@@ -453,7 +314,8 @@ export const TeleconsultationAccess = () => {
                       <NHButton
                         size={"small"}
                         className={"w-full"}
-                        onClick={() => cancelAppointment(data?._id)}
+                        // onClick={() => cancelAppointment(data?._id)}
+                        onClick={() => handleCancleModal(data?._id)}
                       >
                         cancel
                       </NHButton>
@@ -486,6 +348,172 @@ export const TeleconsultationAccess = () => {
         </NHCard>
       ),
     },
+    {
+      key: "Previous",
+      label: "Previous Appointment",
+      children: (
+        <NHCard
+          title={
+            <span className="text-[#030229] text-[26px] font-semibold">
+              My Appointment
+            </span>
+          }
+          rootClass={"p-0"}
+          headerContent={
+            <>
+              <NHButton
+                variant="default"
+                className="text-black bg-white"
+                onClick={() => setIsDateModalOpen(true)}
+              >
+                {Icons.CalenderIcon} {fromDate ? fromDate : "From"} -{" "}
+                {toDate ? toDate : "To"}
+                {Icons.CloseCircle}
+              </NHButton>
+              <NHButton
+                variant="default"
+                className=""
+                onClick={() => handleAppointment()}
+              >
+                {Icons.CalenderIcon}Book Appointment
+              </NHButton>
+            </>
+          }
+        >
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {previousAppointments.map((data, index) => {
+              const {
+                name,
+                type,
+                patientIssue,
+                diseaseName,
+                appointmentDate,
+                appointmentTime,
+                date,
+                patientName,
+                doctorId,
+                hospitalId,
+                patientId,
+                patient_issue,
+              } = data;
+              return (
+                <AppointmentCard
+                  key={"1"}
+                  headerBg={true}
+                  headerContent={
+                    <NHButton
+                      isView
+                      onClick={() => handleOpenModal()}
+                    ></NHButton>
+                  }
+                  title={
+                    <span className="text-[#030229] text-[18px] font-medium">
+                      Dr. {doctorId?.fullName}
+                    </span>
+                  }
+                  appointmentType={
+                    <span className="text-[#FFC313]">{type}</span>
+                  }
+                  hospitalName={hospitalId?.name}
+                  appointmentDate={date}
+                  appointmentTime={appointmentTime}
+                  patientIssue={patient_issue}
+                  className="border border-slate-200"
+                />
+              );
+            })}
+          </div>
+
+          <AppointmentModal
+            open={isModalOpen}
+            handleClose={() => setIsModalOpen(false)}
+          />
+        </NHCard>
+      ),
+    },
+    {
+      key: "Cancel",
+      label: "Cancel Appointment",
+      children: (
+        <NHCard
+          title={
+            <span className="text-[#030229] text-[26px] font-semibold">
+              My Appointment
+            </span>
+          }
+          rootClass={"p-0"}
+          headerContent={
+            <>
+              <NHButton
+                variant="default"
+                className="text-black bg-white"
+                onClick={() => setIsDateModalOpen(true)}
+              >
+                {Icons.CalenderIcon} {fromDate ? fromDate : "From"} -{" "}
+                {toDate ? toDate : "To"}
+                {Icons.CloseCircle}
+              </NHButton>
+              <NHButton
+                variant="default"
+                className=""
+                onClick={() => handleAppointment()}
+              >
+                {Icons.CalenderIcon}Book Appointment
+              </NHButton>
+            </>
+          }
+        >
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {canceledAppointments.map((data, index) => {
+              const {
+                name,
+                type,
+                patientIssue,
+                diseaseName,
+                appointmentDate,
+                appointmentTime,
+                date,
+                patientName,
+                doctorId,
+                hospitalId,
+                patientId,
+                patient_issue,
+              } = data;
+              return (
+                <AppointmentCard
+                  key={"1"}
+                  headerBg={true}
+                  headerContent={
+                    <NHButton
+                      isView
+                      onClick={() => handleOpenModal()}
+                    ></NHButton>
+                  }
+                  title={
+                    <span className="text-[#030229] text-[18px] font-medium">
+                      Dr. {doctorId?.fullName}
+                    </span>
+                  }
+                  appointmentType={
+                    <span className="text-[#FFC313]">{type}</span>
+                  }
+                  hospitalName={hospitalId?.name}
+                  appointmentDate={date}
+                  appointmentTime={appointmentTime}
+                  patientIssue={patient_issue}
+                  className="border border-slate-200"
+                />
+              );
+            })}
+          </div>
+
+          <AppointmentModal
+            open={isModalOpen}
+            handleClose={() => setIsModalOpen(false)}
+          />
+        </NHCard>
+      ),
+    },
   ];
 
   return (
@@ -495,13 +523,19 @@ export const TeleconsultationAccess = () => {
           <AppointmentSchedularPage />
         ) : (
           <div className="teleconsulation-card">
-          <NHCard
-            headerContent={
-              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-            }
-          >
-            <NHTabs items={tabItems} defaultActiveKey="upcoming" />
-          </NHCard>
+            <NHCard
+              headerContent={
+                <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+              }
+            >
+              <NHTabs items={tabItems} defaultActiveKey="upcoming" />
+              <CancelOnlineAppointmentModal
+                handleOk={() => cancelAppointment(selectedAppointmentForModal)}
+                open={cancelModal}
+                handleClose={closeCancleModal}
+              />
+            </NHCard>
+
           </div>
         )}
       </>

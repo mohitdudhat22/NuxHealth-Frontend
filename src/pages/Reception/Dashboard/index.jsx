@@ -4,7 +4,7 @@ import { LineChart } from '@/components/Charts';
 import Icons from '@/constants/icons';
 import { useDashboardAndReport } from '@/hook/Admin/DashboardAndReport';
 
-export const Dashboard = () => {
+export const ReceptionDashboard = () => {
   const { data } = useDashboardAndReport();
   return (
     <div className="space-y-6">
@@ -30,7 +30,7 @@ export const Dashboard = () => {
           <LineChart data={data?.patientStats} />
         </div>
         <div className="md:col-span-2">
-          <BillingCard data={data?.billdata} />
+          <BillingCard data={data?.billdata} userRole="reception" />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">

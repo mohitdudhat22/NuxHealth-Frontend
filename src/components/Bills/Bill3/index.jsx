@@ -2,9 +2,11 @@ import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
 import { useGetSingleBill } from "@/hook/Global";
 import { useAppNavigation } from "@/utils/useAppNavigation";
+import { useNavigate } from "react-router-dom";
 
 export function Bill3() {
   const { data: billData } = useGetSingleBill();
+  const navigate = useNavigate();
 
   if (!billData) {
     return <div>Loading...</div>;

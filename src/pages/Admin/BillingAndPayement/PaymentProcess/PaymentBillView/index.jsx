@@ -9,7 +9,6 @@ export const PaymentBillView = () => {
   const { goBack } = useAppNavigation();
   const { billData } = location.state || {};
   const selectedInvoice = localStorage.getItem("selectedBill") || "Bill";
-
   const renderBill = () => {
     switch (selectedInvoice) {
       case "Bill":
@@ -23,5 +22,12 @@ export const PaymentBillView = () => {
     }
   };
 
-  return <div className="big-container">{renderBill()}</div>;
+  return (
+    <div className="big-container">
+      <button onClick={goBack} className="close-back-button">
+        {Icons?.CloseCircle}
+      </button>
+      <NHCard>{renderBill()}</NHCard>
+    </div>
+  )
 };

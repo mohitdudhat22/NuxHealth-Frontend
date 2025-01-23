@@ -2,11 +2,13 @@ import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
 import Icons from "@/constants/icons";
 import { useGetSingleBill } from "@/hook/Global";
+import { useNavigate } from "react-router-dom";
 import { useAppNavigation } from "@/utils/useAppNavigation";
 
 export function Bill1({ billData }) {
   // Use the passed `billData` or fallback to data from `useGetSingleBill` or static defaults
   const { data } = useGetSingleBill();
+  const navigate = useNavigate();
   const staticData = {
     doctorName:
       billData?.doctorName || data?.doctorId?.fullName || "Dr. Bharat Patel",

@@ -65,7 +65,7 @@ export const NHHeader = ({ collapsed, collapseHandle }) => {
                   x2="48"
                   y2="17"
                   stroke="currentColor"
-                  stroke-width="5"
+                  strokeWidth="5"
                 />
                 <line
                   x1="0"
@@ -73,7 +73,7 @@ export const NHHeader = ({ collapsed, collapseHandle }) => {
                   x2="48"
                   y2="31"
                   stroke="currentColor"
-                  stroke-width="5"
+                  strokeWidth="5"
                 />
               </g>
 
@@ -84,7 +84,7 @@ export const NHHeader = ({ collapsed, collapseHandle }) => {
                   x2="48"
                   y2="24"
                   stroke="currentColor"
-                  stroke-width="5"
+                  strokeWidth="5"
                 />
                 <line
                   x1="0"
@@ -92,7 +92,7 @@ export const NHHeader = ({ collapsed, collapseHandle }) => {
                   x2="48"
                   y2="24"
                   stroke="currentColor"
-                  stroke-width="5"
+                  strokeWidth="5"
                 />
               </g>
             </svg>

@@ -23,7 +23,7 @@ import {
   Teleconsultation,
   AddNewReceptionist,
   PatientRegistration,
-  ReceptionDashboard,
+  // ReceptionDashboard,
   Manage,
   Create,
   EditDesignInvoice,
@@ -66,6 +66,7 @@ import CreateBill from "@/components/CreateBill";
 import { PaymentBillView } from "@/pages/Admin/BillingAndPayement/PaymentProcess/PaymentBillView";
 import { NHCard } from "@/components";
 import { PatientBillView } from "@/pages/Patients/PatientsBills/BillView";
+import { ReceptionDashboard } from "@/pages/Reception/Dashboard";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -425,7 +426,8 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "bill-view",
-                      element: <PatientBillView />,
+                      // element: <PatientBillView />, i think is it useless now
+                      element: <PaymentBillView />,
                     },
                   ],
                 },
@@ -503,7 +505,26 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: <ReceptionBills />,
+                  // element: <ReceptionBills />,
+                  children: [
+                    {
+                      index: true,
+                      // element: <AppoinmentManagement />,
+                      element: <ReceptionBills />,
+                    },
+                    {
+                      path: "create-bill",
+                      element: <CreateBillForm />,
+                    },
+                    {
+                      path: "edit-design-invoice",
+                      element: <EditDesignInvoice />,
+                    },
+                    {
+                      path: "bill-view/:billId",
+                      element: <BillView />,
+                    },
+                  ],
                 },
                 {
                   path: "bill-view/:billId",
