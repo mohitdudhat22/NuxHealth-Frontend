@@ -2,6 +2,7 @@ import { NHCard, NHInput, NHSelect, NHButton, NHHead } from "@/components";
 import { NHTimePicker } from "@/components/FormComponents/NHTimePicker";
 import { useCreateDoctor } from "@/hook";
 import { Upload } from "antd";
+import { City, Country, State } from "country-state-city";
 
 export const AddNewDoctor = () => {
   const {
@@ -11,8 +12,36 @@ export const AddNewDoctor = () => {
     handleFileChange,
     handleSubmit,
     isEditing,
-  } = useCreateDoctor();
+    signature,
+    profilePicture,
+    setProfilePicture,
+    setSignature,
 
+  } = useCreateDoctor();
+  const countries = Country.getAllCountries().map((country) => ({
+    value: country.name,
+    label: country.name,
+  }));
+  const states = formData.country
+    ? State.getStatesOfCountry(
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
+    ).map((state) => ({
+      value: state.name,
+      label: state.name,
+    }))
+    : [];
+
+  const cities = formData.state
+    ? City.getCitiesOfState(
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode,
+      State.getStatesOfCountry(
+        Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode
+      ).find((s) => s.name === formData.state)?.isoCode
+    ).map((city) => ({
+      value: city.name,
+      label: city.name,
+    }))
+    : [];
   return (
     <>
       <NHHead title="Add New Doctor" />
@@ -21,9 +50,9 @@ export const AddNewDoctor = () => {
         className="p-6"
       >
         <form onSubmit={handleSubmit}>
-          <div className="flex gap-7">
+          <div className="flex flex-wrap justify-between gap-7">
             {/* Profile Photo and Signature Section */}
-            <div className="w-[17%]">
+            <div className="lg:w-[17%] w-full">
               <div className="flex flex-col items-center gap-2 mt-6">
                 <div className="overflow-hidden bg-gray-100 rounded-full w-[22rem] h-[22rem]">
                   <Upload
@@ -34,7 +63,7 @@ export const AddNewDoctor = () => {
                       return false;
                     }}
                   >
-                    <div className="text-center">
+                    {!profilePicture && <div className="text-center">
                       <div className="text-gray-400">
                         <svg
                           width="192"
@@ -80,7 +109,12 @@ export const AddNewDoctor = () => {
                           </defs>
                         </svg>
                       </div>
-                    </div>
+                    </div>}
+
+                    {profilePicture && (
+                      <img src={profilePicture} alt="Profile Preview" className="w-full h-full object-cover" />
+                    )
+                    }
                   </Upload>
                 </div>
                 <div className="mt-1 font-medium text-blue-600">
@@ -88,35 +122,39 @@ export const AddNewDoctor = () => {
                 </div>
               </div>
               {/* <NHProfilePicUploader /> */}
-              <div className="mt-16 text-xl font-medium text-black ps-3">
-                Upload Signature
+              <div className="mt-16 text-xl font-medium text-black ps-3 center">
+                <p className="text-center text-xl"> Upload Signature</p>
               </div>
               <div className="flex flex-col items-center gap-2">
                 <div className="flex items-center justify-center w-[22rem] h-[22rem] border border-gray-300 border-dashed rounded-lg">
                   <Upload
                     className="flex items-center justify-center w-full h-full cursor-pointer"
-                    showUploadList={false}
+                    showUploadList={false} // Disable default upload list since we are customizing
                     beforeUpload={(file) => {
                       handleFileChange(file, "signature");
                       return false;
                     }}
                   >
-                    <div className="text-center">
-                      <div className="text-lg text-blue-600">
-                        Upload Signature
+                    {signature ? (
+                      <img
+                        src={signature}
+                        alt="Signature Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-center">
+                        <div className="text-lg text-blue-600">Upload Signature</div>
+                        <div className="mt-1 text-lg text-[#A7A7A7]">PNG Up To 5MB</div>
                       </div>
-                      <div className="mt-1 text-lg text-[#A7A7A7]">
-                        PNG Up To 5MB
-                      </div>
-                    </div>
+                    )}
                   </Upload>
                 </div>
               </div>
             </div>
 
             {/* Form Fields */}
-            <div className="w-[83%]">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="lg:w-[80%] w-full">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <NHInput
                   label="First Name"
                   name="firstName"
@@ -193,30 +231,38 @@ export const AddNewDoctor = () => {
                   ]}
                 />
                 <NHTimePicker
-                  label="Morning Session"
                   isRange
+                  label="Morning Session"
+                  name="morningSession"
                   format="HH:mm"
                   value={formData.morningSession}
                   onChange={(time, timeString) => {
-                    const demo = timeString?.replace(",", " to ");
+                    // Convert timeString to a simpler format without seconds
+                    const formattedTime = timeString
+                      ?.map((t) => t.slice(0, 5)) // Extract only HH:mm from HH:mm:ss
+                      .join(" to "); // Combine with "to"
+
                     handleChange({
-                      target: { name: "morningSession", value: demo },
+                      target: { name: "morningSession", value: formattedTime },
                     });
                   }}
                 />
+
                 <NHTimePicker
                   label="Evening Session"
+                  name="eveningSession"
                   isRange
                   format="HH:mm"
                   value={formData.eveningSession}
-                  onChange={(time, timeString) =>
+                  onChange={(time, timeString) => {
+                    const formattedTime = timeString
+                      ?.map((t) => t.slice(0, 5)) // Extract only HH:mm from HH:mm:ss
+                      .join(" to "); // Combine with "to"
+
                     handleChange({
-                      target: {
-                        name: "eveningSession",
-                        value: timeString?.replace(",", " to "),
-                      },
-                    })
-                  }
+                      target: { name: "eveningSession", value: formattedTime },
+                    });
+                  }}
                 />
                 <NHInput
                   label="Break Time(minute)"
@@ -226,37 +272,36 @@ export const AddNewDoctor = () => {
                   onChange={handleChange}
                 />
                 <NHSelect
+                  showSearch
                   label="Country"
                   name="country"
                   placeholder="Select Country"
-                  value={formData.country}
-                  onChange={(value) => handleSelectChange(value, "country")}
-                  options={[
-                    { value: "india", label: "India" },
-                    { value: "usa", label: "USA" },
-                  ]}
+                  options={countries}
+                  value={formData?.country}
+                  onChange={(value) => handleChange({
+                    target: { name: "country", value },
+                  })
+                  }
                 />
                 <NHSelect
+                  showSearch
                   label="State"
                   name="state"
                   placeholder="Select State"
-                  value={formData.state}
-                  onChange={(value) => handleSelectChange(value, "state")}
-                  options={[
-                    { value: "india", label: "India" },
-                    { value: "usa", label: "USA" },
-                  ]}
+                  options={states}
+                  value={formData?.state}
+                  onChange={(value) => handleChange({
+                    target: { name: "state", value },
+                  })}
                 />
                 <NHSelect
                   label="City"
                   name="city"
                   placeholder="Select City"
-                  value={formData.city}
-                  onChange={(value) => handleSelectChange(value, "city")}
-                  options={[
-                    { value: "india", label: "India" },
-                    { value: "usa", label: "USA" },
-                  ]}
+                  options={cities}
+                  onChange={(value) => handleChange({
+                    target: { name: "city", value },
+                  })}
                 />
                 <NHInput
                   label="Zip code"
@@ -310,29 +355,27 @@ export const AddNewDoctor = () => {
           </div>
 
           <div className="mt-[40px]">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               <NHInput
                 label="Doctor Current Hospital"
                 // name="doctorCurrentHospital"
                 placeholder="Enter Current Hospital"
-                // value={formData.doctorCurrentHospital}
-                // onChange={handleChange}
+              // value={formData.doctorCurrentHospital}
+              // onChange={handleChange}
               />
               <NHInput
                 label="Hospital Name"
                 // name="hospitalName"
                 placeholder="Enter Hospital Name"
-                // value={formData.hospitalName}
-                // onChange={handleChange}
+              // value={formData.hospitalName}
+              // onChange={handleChange}
               />
               <NHInput
                 label="Hospital Address"
                 // name="hospitalAddress"
                 placeholder="Enter Hospital Address"
-                // onChange={handleChange}
+              // onChange={handleChange}
               />
-            </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mt-4">
               <NHInput
                 label="Hospital Website Link"
                 name="worksiteLink"
@@ -356,7 +399,7 @@ export const AddNewDoctor = () => {
             </div>
           </div>
         </form>
-      </NHCard>
+      </NHCard >
     </>
   );
 };

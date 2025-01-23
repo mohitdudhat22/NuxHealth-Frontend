@@ -5,8 +5,9 @@ import {
   getPatientForAdminBill,
   createBillForAdmin,
 } from "@/axiosApi/ApiHelper";
-import axios from "axios";
 import { useLocation } from "react-router-dom";
+import Icons from "@/constants/icons";
+import { useAppNavigation } from "@/utils/useAppNavigation";
 
 // Custom Hook
 const useBillForm = () => {
@@ -180,8 +181,8 @@ const useBillForm = () => {
 
 const CreateBill = () => {
   const location = useLocation();
+  const { goBack } = useAppNavigation();
   const { record } = location.state || {};
-
   const {
     formData,
     setFormData,
@@ -197,7 +198,6 @@ const CreateBill = () => {
 
   useEffect(() => {
     if (record) {
-      // Pre-fill the form with the record data
       setFormData({
         selectDoctor: record.doctorId,
         selectPatient: record.patientId,
@@ -311,9 +311,9 @@ const CreateBill = () => {
         </div>
       )}
 
-      <NHCard className="p-6" title={record ? "Edit Bill" : "Create Bill"}>
+      <NHCard className="p-6" title={record ? "Edit Bill" : "Create Bill"} headerContent={record ? <button onClick={goBack} className="close-back-button">{Icons?.CloseCircle}</button> : <></>}>
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             <NHInput
               label="Patient Name"
               name="patientName"
@@ -347,9 +347,6 @@ const CreateBill = () => {
               onChange={handleChange}
               placeholder="22 Years"
             />
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <NHInput
               label="Address"
               name="address"
@@ -383,9 +380,6 @@ const CreateBill = () => {
                 { value: "card", label: "Card" },
               ]}
             />
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <NHInput
               label="Discount (%)"
               name="discount"
@@ -415,9 +409,6 @@ const CreateBill = () => {
               readOnly
               placeholder="2750"
             />
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <NHSelect
               label="Bill Status"
               name="billStatus"
@@ -431,13 +422,14 @@ const CreateBill = () => {
             />
           </div>
 
-          {formData.paymentType !== "insurance" && (
-            <div className="flex justify-end mt-6">
-              <NHButton type="submit" variant="primary" onClick={handleSubmit}>
-                {record ? "Save" : "Send"}
-              </NHButton>
-            </div>
-          )}
+          <div className="flex justify-end mt-6">
+            <NHButton type="button" variant="secondary" onClick={() => goBack}>
+              Cancel
+            </NHButton>
+            <NHButton type="submit" variant="primary" onClick={handleSubmit}>
+              {record ? "Save" : "Send"}
+            </NHButton>
+          </div>
         </form>
       </NHCard>
 
@@ -486,6 +478,9 @@ const CreateBill = () => {
               />
             </div>
             <div className="flex justify-end mt-6">
+              <NHButton type="button" variant="secondary" onClick={() => goBack}>
+                Cancel
+              </NHButton>
               <NHButton type="submit" variant="primary" onClick={handleSubmit}>
                 Send
               </NHButton>

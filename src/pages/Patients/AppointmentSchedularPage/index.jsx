@@ -17,6 +17,7 @@ import { useDecodeToken } from "@/hook";
 import { useAppointmentData } from "./useAppointmentData";
 import { Invoice } from "..";
 import { useNavigate } from "react-router-dom";
+import { identifyRole } from "@/utils/identifyRole";
 
 export const AppointmentSchedularPage = () => {
   const {
@@ -36,30 +37,32 @@ export const AppointmentSchedularPage = () => {
   const navigate = useNavigate();
 
   const [isAppointmentModal, setIsAppointmentModal] = useState(false);
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(false);
   const [patientList, setPatientList] = useState([]);
   const [showInvoice, setShowInvoice] = useState(false);
   const [billData, setBillData] = useState(null);
-
+  const fetchData = async () => {
+    if (role === "receptionist") {
+      try {
+        const response = await getPatientListForReceptionist();
+        console.log("Patient List:", response.data);
+        setPatientList(
+          response.data.map((patient) => ({
+            value: patient._id,
+            label: patient.fullName,
+          }))
+        );
+      } catch (error) {
+        console.error("Error fetching Patient List:", error);
+      }
+    }
+  };
   useEffect(() => {
     setRole(token?.userData?.role);
-    const fetchData = async () => {
-      if (role === "receptionist") {
-        try {
-          const response = await getPatientListForReceptionist();
-          setPatientList(
-            response.data.map((patient) => ({
-              value: patient._id,
-              label: patient.fullName,
-            }))
-          );
-        } catch (error) {
-          console.error("Error fetching Patient List:", error);
-        }
-      }
-    };
-    fetchData();
-  }, [token, role]);
+}, [])
+  useEffect(() => {
+    role && fetchData();
+  }, [role]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -89,7 +92,6 @@ export const AppointmentSchedularPage = () => {
       await handleBooking();
       return;
     }
-
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}api/payment/create-order`,

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
-import { useUserData } from "@/context";
 
 const getCookie = (name) => {
   const cookieMatch = document.cookie.match("(?:^|; )" + name + "=([^;]*)");
@@ -10,7 +9,6 @@ const getCookie = (name) => {
 
 export const useDecodeToken = () => {
   const [decodedToken, setDecodedToken] = useState(null);
-  const { setUserData } = useUserData();
   const decodeToken = () => {
     let token =
       localStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
@@ -26,7 +24,6 @@ export const useDecodeToken = () => {
     try {
       const decoded = jwtDecode(token);
       setDecodedToken(decoded);
-      setUserData(decoded);
     } catch (error) {
       console.error("Error decoding token:", error);
       setDecodedToken(null);

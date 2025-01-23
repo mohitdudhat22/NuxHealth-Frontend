@@ -46,9 +46,18 @@ export const useReceptionManagement = () => {
     receptionistName: reception?.fullName,
     gender: reception?.gender,
     qualification: reception?.metaData?.receptionistData?.qualification,
+    emergencyContactNo: reception?.metaData?.receptionistData?.emergencyContactNo,
+    workingTime: reception?.metaData?.receptionistData?.workingTime,
+    breakTime: reception?.metaData?.receptionistData?.breakTime,
     age: reception?.age,
     email: reception?.email,
     phone: reception?.phone,
+    hospitalName: reception?.hospitalId?.name,
+    country: reception?.address?.country,
+    state: reception?.address?.state,
+    city: reception?.address?.city,
+    zipCode: reception?.address?.zipCode,
+    fullAddress: reception?.address?.fullAddress,
   }));
 
   return {

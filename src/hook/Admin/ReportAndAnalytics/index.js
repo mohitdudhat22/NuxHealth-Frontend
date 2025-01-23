@@ -5,8 +5,8 @@ export const useReportandAnalytics = () => {
   const [data, setData] = useState(null);
 
   const fetchData = async () => {
-    const data = await getReportandAnalytics();
-    setData(data);
+    const response = await getReportandAnalytics();
+    setData(response.data);
   };
 
   useEffect(() => {

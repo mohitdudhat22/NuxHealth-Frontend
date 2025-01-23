@@ -45,6 +45,5 @@ export const useTodaysAppointment = () => {
     fetchAppointments();
   }, []);
 
-  console.log("🚀 ~ useTodaysAppointment ~ data:", data);
   return { data, loading, onSearch };
 };

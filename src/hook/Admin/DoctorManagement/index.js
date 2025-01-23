@@ -38,6 +38,7 @@ export const useDoctorManagement = () => {
   ]);
 
   const data = filteredDoctors?.map((doctor) => ({
+    ...doctor,
     key: doctor?._id,
     avatar: doctor?.profilePicture,
     doctorName: doctor?.fullName,
@@ -47,6 +48,10 @@ export const useDoctorManagement = () => {
     sessionDuration: doctor?.metaData?.doctorData?.duration + " min",
     morningSession: doctor?.metaData?.doctorData?.morningSession,
     eveningSession: doctor?.metaData?.doctorData?.eveningSession,
+    // country : doctor?.address?.country,
+    // state: doctor?.address?.state,
+    // city: doctor?.address?.city,
+    // status: doctor?.metaData?.doctorData?.workOn,
   }));
 
   const openDrawer = () => setDrawerVisible(true);

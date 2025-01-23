@@ -1,5 +1,6 @@
 import { NHButton } from "@/components";
 import Icons from "@/constants/icons";
+import { useAppNavigation } from "@/utils/useAppNavigation";
 import React from "react";
 
 export const PatientDetailCard = ({
@@ -17,6 +18,7 @@ export const PatientDetailCard = ({
   onAddRecord,
   onEditProfile,
 }) => {
+  const { goToProfile } = useAppNavigation();
   return (
     <div className="p-4 xl:p-6 bg-white rounded-3xl">
       <div className="flex flex-col xl:flex-row items-center justify-between">
@@ -32,7 +34,7 @@ export const PatientDetailCard = ({
                 type="primary"
                 size="small"
                 icon={Icons.EditBillIcon}
-                onClick={onEditProfile}
+                onClick={goToProfile}
               >
                 Edit Profile
               </NHButton>

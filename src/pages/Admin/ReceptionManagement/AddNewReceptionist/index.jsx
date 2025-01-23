@@ -1,6 +1,7 @@
-import { NHCard, NHInput, NHSelect, NHButton, NHHead } from '@/components';
-import { useCreateReceptionist } from '@/hook';
-import { Upload } from 'antd';
+import { NHCard, NHInput, NHSelect, NHButton, NHHead } from "@/components";
+import { useCreateReceptionist } from "@/hook";
+import { Upload } from "antd";
+import { City, Country, State } from "country-state-city";
 
 export const AddNewReceptionist = () => {
   const {
@@ -8,20 +9,45 @@ export const AddNewReceptionist = () => {
     handleChange,
     handleSelectChange,
     handleFileChange,
-    handleSubmit
+    handleSubmit,
+    profilePicture,
+    setProfilePicture
   } = useCreateReceptionist();
+  const countries = Country.getAllCountries().map((country) => ({
+    value: country.name, 
+    label: country.name,
+  }));
+  const states = formData.country
+    ? State.getStatesOfCountry(
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
+    ).map((state) => ({
+      value: state.name,
+      label: state.name, 
+    }))
+    : [];
 
+  const cities = formData.state
+    ? City.getCitiesOfState(
+      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode,
+      State.getStatesOfCountry(
+        Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode
+      ).find((s) => s.name === formData.state)?.isoCode
+    ).map((city) => ({
+      value: city.name,
+      label: city.name,
+    }))
+    : [];
   return (
     <>
       <NHHead title="Add New Receptionist" />
       <NHCard title="Add New Receptionist" className="p-6">
-        <form onSubmit={handleSubmit}>
-          <div className="flex gap-7">
+        <form>
+          <div className="flex flex-wrap justify-between gap-7">
             {/* Profile Photo Section */}
-            <div className="w-[17%]">
+            <div className="w-full lg:w-[17%]">
               <div className="flex flex-col items-center gap-2 mt-6">
                 <div className="overflow-hidden bg-gray-100 rounded-full w-[22rem] h-[22rem]">
-                  <Upload
+                <Upload
                     className="flex items-center justify-center w-full h-full cursor-pointer"
                     showUploadList={false}
                     beforeUpload={(file) => {
@@ -29,7 +55,7 @@ export const AddNewReceptionist = () => {
                       return false;
                     }}
                   >
-                    <div className="text-center">
+                    {!profilePicture && <div className="text-center">
                       <div className="text-gray-400">
                         <svg
                           width="192"
@@ -75,7 +101,12 @@ export const AddNewReceptionist = () => {
                           </defs>
                         </svg>
                       </div>
-                    </div>
+                    </div>}
+
+                    {profilePicture && (
+                      <img src={profilePicture} alt="Profile Preview" className="w-full h-full object-cover" />
+                    )
+                    }
                   </Upload>
                 </div>
                 <div className="mt-1 font-medium text-blue-600">
@@ -85,8 +116,8 @@ export const AddNewReceptionist = () => {
             </div>
 
             {/* Form Fields */}
-            <div className="w-[83%]">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="w-full lg:w-[80%]">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <NHInput
                   label="First Name"
                   name="firstName"
@@ -140,34 +171,31 @@ export const AddNewReceptionist = () => {
                   label="Country"
                   name="country"
                   placeholder="Select Country"
-                  value={formData.country}
-                  onChange={(value) => handleSelectChange(value, "country")}
-                  options={[
-                    { value: "India", label: "India" },
-                    { value: "USA", label: "USA" },
-                  ]}
+                  options={countries}
+                  value={formData?.country}
+                  onChange={(value) => handleChange({
+                    target: { name: "country", value },
+                  })
+                  }
                 />
                 <NHSelect
                   label="State"
                   name="state"
                   placeholder="Select State"
-                  value={formData.state}
-                  onChange={(value) => handleSelectChange(value, "state")}
-                  options={[
-                    { value: "Gujarat", label: "Gujarat" },
-                    { value: "Maharashtra", label: "Maharashtra" },
-                  ]}
+                  options={states}
+                  value={formData?.state}
+                  onChange={(value) => handleChange({
+                    target: { name: "state", value },
+                  })}
                 />
                 <NHSelect
                   label="City"
                   name="city"
                   placeholder="Select City"
-                  value={formData.city}
-                  onChange={(value) => handleSelectChange(value, "city")}
-                  options={[
-                    { value: "Ahmedabad", label: "Ahmedabad" },
-                    { value: "Mumbai", label: "Mumbai" },
-                  ]}
+                  options={cities}
+                  onChange={(value) => handleChange({
+                    target: { name: "city", value },
+                  })}
                 />
                 <NHInput
                   label="Zip code"
@@ -216,7 +244,7 @@ export const AddNewReceptionist = () => {
           </div>
 
           <div className="flex justify-end mt-6">
-            <NHButton type="submit" variant="primary">
+            <NHButton variant="primary" onClick={handleSubmit}>
               Add Receptionist
             </NHButton>
           </div>

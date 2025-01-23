@@ -18,7 +18,7 @@ export const Dashboard = () => {
       <div className="space-y-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
           <div className="md:col-span-3">
-            <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-3 md:gap-4">
               <StatisticsCard
                 title="Total Patients"
                 count={data?.totalPatients}

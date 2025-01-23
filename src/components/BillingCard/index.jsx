@@ -32,7 +32,6 @@ export const BillingCard = ({ data, userRole }) => {
     {
       title: "Action",
       key: "action",
-      fixed: "right",
       width: 100,
       render: (_, record) => (
         <NHButton
@@ -61,15 +60,15 @@ export const BillingCard = ({ data, userRole }) => {
   return (
     <NHCard
       title={"Billing & Payments"}
-      headerContent={
-        <NHButton
-          icon={Icons?.PlusSquare}
-          onClick={() => navigate(getCreateBillRoute())}
-          variant="primary"
-        >
-          Create Bill
-        </NHButton>
-      }
+      // headerContent={
+      //   <NHButton
+      //     icon={Icons?.PlusSquare}
+      //     onClick={() => navigate(getCreateBillRoute())}
+      //     variant="primary"
+      //   >
+      //     Create Bill
+      //   </NHButton>
+      // }
     >
       <div className="mb-4">
         <p className="text-xl text-[#030229] font-semibold">
@@ -82,6 +81,10 @@ export const BillingCard = ({ data, userRole }) => {
         columns={columns}
         dataSource={data}
         defaultPageSize="5"
+        scroll={{
+          x: 500,
+          y: 300,
+        }}
       />
     </NHCard>
   );

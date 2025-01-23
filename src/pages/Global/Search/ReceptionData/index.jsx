@@ -45,7 +45,7 @@ export const ReceptionData = ({ loading, tableData }) => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <NHButton size={"small"} icon={Icons.View} className="view-btn" />
+          <NHButton isView />
         </Space>
       ),
     },
@@ -57,6 +57,10 @@ export const ReceptionData = ({ loading, tableData }) => {
       showPagination={true}
       tableColumn={columns}
       tableDataSource={tableData}
+      scroll={{
+        x: 1200,
+        y: 300,
+      }}
     />
   );
 };

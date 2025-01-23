@@ -34,8 +34,9 @@ export const useAppointmentData = () => {
         const fetchData = async () => {
             try {
                 const response = await fetchAppointmentsByPatient(role);
-                if (response && response.length > 0) {
-                    const countries = response.map((item) => ({
+                console.log(response.data,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+                if (response.data && response.data.length > 0) {
+                    const countries = response.data.map((item) => ({
                         value: item.country,
                         label: item.country,
                         states: item.states,
@@ -46,7 +47,7 @@ export const useAppointmentData = () => {
                 console.error("Error fetching data:", error);
             }
         };
-        fetchData();
+        role && fetchData();
     }, [role]);
 
     const handleSelectChange = (value, key) => {

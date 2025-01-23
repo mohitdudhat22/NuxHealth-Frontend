@@ -42,9 +42,7 @@ const PatientData = ({ tableData }) => {
       title: "Action",
       key: "action",
       render: (_, record) => {
-        return (
-          <NHButton isEdit />
-        );
+        return <NHButton isEdit />;
       },
     },
   ];
@@ -55,7 +53,15 @@ const PatientData = ({ tableData }) => {
   };
 
   return (
-    <NHTable tableColumn={columns} tableDataSource={tableData} rowKey="id" />
+    <NHTable
+      tableColumn={columns}
+      tableDataSource={tableData}
+      scroll={{
+        x: 1200,
+        y: 300,
+      }}
+      rowKey="id"
+    />
   );
 };
 

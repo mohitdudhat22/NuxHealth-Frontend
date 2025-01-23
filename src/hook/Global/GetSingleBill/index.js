@@ -14,7 +14,6 @@ export const useGetSingleBill = () => {
 
   useEffect(() => {
     const url = window.location.href;
-    console.log(url)
     if (url.includes("reception")) {
       fetchBillData("receptionist");
     }else{

@@ -15,20 +15,27 @@ import "./AppointmentBooking.css";
 import modalImg from "../../../assets/images/cover/view_modal_bg.png";
 import maleIcon from "../../../assets/images/cover/male_icon.svg";
 import doctorLogo from "../../../assets/images/cover/Avatar_6.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   cancelAppointmentForPatient,
+  doctorSession,
+  reschedule,
   rescheduleForPatient,
 } from "@/axiosApi/ApiHelper";
 import { AppointmentSchedularPage } from "..";
 import {
   useCancelAppoinmentBookings,
+  usePatientDashboardData,
   usePreviousAppoinmentBookings,
   useTodaysAppoinmentBookings,
   useUpcomingAppoinmentBookings,
 } from "@/hook/Patients";
+import { AppointmentSchedularPageForReception } from "@/pages/Reception";
+import { identifyRole } from "@/utils/identifyRole";
+import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
 
 export const AppointmentBooking = () => {
+
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
@@ -36,41 +43,31 @@ export const AppointmentBooking = () => {
   const [tempToDate, setTempToDate] = useState(null);
   const [bookAppoinment, setBookAppointment] = useState(false);
   const [canceledAppointments, setCanceledAppointments] = useState([]);
-
-  // State for OffCanvas
   const [isOffCanvasVisible, setIsOffCanvasVisible] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
-  console.log(selectedAppointment, "selectedAppointment");
+  const [selectedAppointmentForModal, setSelectedAppointmentForModal] = useState(null);
   const [activeTab, setActiveTab] = useState("Scheduled");
-
-  const { data: todayAppointments } = useTodaysAppoinmentBookings();
-  const { data: previousAppointments } = usePreviousAppoinmentBookings();
+  const { data: patientData, loading, error } = usePatientDashboardData();
+  const { data: todayAppointments, patientId } = useTodaysAppoinmentBookings();
+  const { data: previousAppointments, fetchAppointments } = usePreviousAppoinmentBookings();
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings();
   const { data: cancelAppointments } = useCancelAppoinmentBookings();
-
+  const [timeSlote, setTimeSlote] = useState([]);
   const navigate = useNavigate();
-
-  const rescheduleAppointment = async (
-    appointmentId,
-    selectedDate,
-    selectedTime
-  ) => {
+  const [cancelModal, setIsCancleModal] = useState(false);
+  const rescheduleAppointment = async (selectedDate, selectedTime) => {
     const payload = {
       date: selectedDate,
       appointmentTime: selectedTime,
     };
-
     try {
-      const response = await rescheduleForPatient(appointmentId, payload);
-      console.log("Response:", response);
-      setIsReshceduleModal(false); // Close modal after successful reschedule
-      fetchAppointments(); // Refresh the appointment list if needed
+      const response = await reschedule(selectedAppointmentForModal, payload, identifyRole());
+      setIsReshceduleModal(false);
+      fetchAppointments();
     } catch (error) {
       console.error("Error rescheduling appointment:", error);
     }
   };
-
-  // Handle appointment cancellation
   const cancelAppointment = async (id) => {
     try {
       const response = await cancelAppointmentForPatient(id, {
@@ -78,7 +75,7 @@ export const AppointmentBooking = () => {
       });
       console.log("Appointment canceled successfully:", response);
 
-      // Move the canceled appointment to the cancelAppointments list
+      setIsCancleModal(false)
       const canceledAppointment = todayAppointments.find(
         (appointment) => appointment.id === id
       );
@@ -116,7 +113,6 @@ export const AppointmentBooking = () => {
     setTempToDate(null);
   };
 
-  // Function to format dates into a readable string (e.g., "2 March,2022 - 13 March, 2022")
   const formatDateRange = (fromDate, toDate) => {
     if (!fromDate || !toDate) return "Select Date Range";
     const options = { day: "numeric", month: "long", year: "numeric" };
@@ -125,7 +121,6 @@ export const AppointmentBooking = () => {
     return `${fromDateStr} - ${toDateStr}`;
   };
 
-  // Function to handle "View Details" button click
   const handleViewDetails = (id) => {
     let appointment;
     if (activeTab === "Scheduled") {
@@ -140,7 +135,7 @@ export const AppointmentBooking = () => {
 
     if (appointment) {
       setSelectedAppointment(appointment);
-      setIsOffCanvasVisible(true); // Show OffCanvas
+      setIsOffCanvasVisible(true);
     }
   };
 
@@ -152,10 +147,23 @@ export const AppointmentBooking = () => {
     setBookAppointment(true);
   };
 
-  const handleReschedule = (appointment) => {
-    navigate("/patient/appointment/reschedule", { state: { appointment } });
+  const handleReschedule = async (appointment) => {
+    // navigate("/patient/appointment/reschedule", { state: { appointment } });
+    setSelectedAppointmentForModal(appointment.key);
+    setIsReshceduleModal(true);
+    try {
+      const response = await doctorSession(appointment.doctorId);
+      setTimeSlote(response.data);
+    } catch (error) {
+      console.error("Error fetching doctor sessions:", error);
+    }
   };
 
+  const handleCancleModal = (appointment) => {
+    setSelectedAppointmentForModal(appointment.key);
+    setIsCancleModal(true);
+  };
+  const closeCancleModal = () => setIsCancleModal(false);
   const tabItems = [
     {
       key: "Scheduled",
@@ -178,7 +186,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {window.location.pathname !== "/reception/appointment" && (
+              {(patientId || identifyRole() == 'patient') && (
                 <NHButton
                   variant="default"
                   className=""
@@ -218,7 +226,9 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                      //   onClick={() => handleJoinCall(data)}
+                      onClick={() => handleCancleModal(data)}
+                    // onClick={() => cancelAppointment(data?.key)}
+                    //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -237,6 +247,7 @@ export const AppointmentBooking = () => {
             ))}
           </div>
           <RescheduleAppointmentModal
+            timeSlote={timeSlote}
             handleOk={rescheduleAppointment}
             handleClose={() => setIsReshceduleModal(false)}
             Title="Reschedule Appointment"
@@ -266,7 +277,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {window.location.pathname !== "/reception/appointment" && (
+              {(patientId || identifyRole() == 'patient' || identifyRole() !== "reception" || window.location.pathname !== "/reception/appointment") && (
                 <NHButton
                   variant="default"
                   className=""
@@ -306,7 +317,8 @@ export const AppointmentBooking = () => {
                     <NHButton
                       size={"small"}
                       className={"w-full py-9"}
-                      onClick={() => cancelAppointment(data?.key)}
+                      onClick={() => handleCancleModal(data)}
+                    // onClick={() => cancelAppointment(data?.key)}
                     >
                       Cancel
                     </NHButton>
@@ -348,7 +360,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {window.location.pathname !== "/reception/appointment" && (
+              {(patientId || identifyRole() == 'patient') && (
                 <NHButton
                   variant="default"
                   className=""
@@ -412,7 +424,7 @@ export const AppointmentBooking = () => {
                 {Icons.CloseCircle}
               </NHButton>
 
-              {window.location.pathname !== "/reception/appointment" && (
+              {(patientId || identifyRole() == 'patient') && (
                 <NHButton
                   variant="default"
                   className=""
@@ -453,13 +465,30 @@ export const AppointmentBooking = () => {
           </div>
         </NHCard>
       ),
-    },
+    }
   ];
 
   return (
     <>
+
+      {patientId &&
+        <PatientDetailCard
+          patientName={patientData?.patientProfile?.fullName || "N/A"}
+          doctorName="Dr. Marcus Philips"
+          patientNumber={patientData?.patientProfile?.phone || "N/A"}
+          patientIssue="Feeling tired"
+          patientGender={patientData?.patientProfile?.gender || "N/A"}
+          patientAge={`${patientData?.patientProfile?.age || 0} Years`}
+          appointmentType="Online"
+          patientAddress={`${patientData?.patientProfile?.address?.fullAddress || "N/A"
+            }, ${patientData?.patientProfile?.address?.city || ""}`}
+          lastAppointmentDate="2 Jan, 2022"
+          lastAppointmentTime="4:30 PM"
+          onEditProfile={() => { }}
+        />
+      }
       {bookAppoinment ? (
-        <AppointmentSchedularPage />
+        patientId ? (<AppointmentSchedularPageForReception />) : (<AppointmentSchedularPage />)
       ) : (
         <div className="appo_booking_sec">
           <NHCard
@@ -490,14 +519,18 @@ export const AppointmentBooking = () => {
               style={{ backgroundImage: `url(${modalImg})` }}
             >
               <div className="flex items-center">
-                <img src={doctorLogo} alt="Doctor" className="rounded-full" />
+                <img
+                  src={selectedAppointment.doctorImage || doctorLogo}
+                  alt="Doctor"
+                  className="rounded-full w-[65px]"
+                />
                 <div className="ml-4">
                   <h3 className="text-[18px] font-semibold text-white">
-                    {selectedAppointment.doctorName}
+                    {selectedAppointment.doctorFullName}
                   </h3>
                   <div className="text-white bg-[#718EBF] rounded-full px-5 py-3 inline-flex items-center">
                     {/* Conditionally render gender icon */}
-                    {selectedAppointment.gender === "male" ? (
+                    {selectedAppointment.doctorGender === "male" ? (
                       <img
                         src={maleIcon}
                         alt="Male"
@@ -511,7 +544,7 @@ export const AppointmentBooking = () => {
                       />
                     )}
                     <span className="ml-4 font-bold">
-                      {selectedAppointment.gender}
+                      {selectedAppointment.doctorGender}
                     </span>
                   </div>
                 </div>
@@ -539,18 +572,18 @@ export const AppointmentBooking = () => {
               <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
                 <div className="flex flex-col">
                   <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
-                    Break Time
+                    Evening Session
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.breakTime}
+                    {selectedAppointment.doctorEveningSession}
                   </p>
                 </div>
                 <div className="flex flex-col">
                   <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
-                    Working Time
+                    Morning Session
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.workingTime}
+                    {selectedAppointment.doctorMorningSession}
                   </p>
                 </div>
               </div>
@@ -560,15 +593,15 @@ export const AppointmentBooking = () => {
                     Years Of Experience
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.yearsOfExperience}
+                    {selectedAppointment.doctorExperience}
                   </p>
                 </div>
                 <div className="flex flex-col">
                   <h4 className="text-[#A7A7A7] font-semibold text-[14px]">
-                    Emergency Contact Number{" "}
+                    Emergency Number{" "}
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.emergencyContactNumber}
+                    {selectedAppointment.doctorEmergencyContactNo}
                   </p>
                 </div>
               </div>
@@ -578,7 +611,7 @@ export const AppointmentBooking = () => {
                     Specialty Type
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.specialtyType}
+                    {selectedAppointment.doctorSpeciality}
                   </p>
                 </div>
               </div>
@@ -588,7 +621,7 @@ export const AppointmentBooking = () => {
                     Description{" "}
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {selectedAppointment.description}
+                    {selectedAppointment.doctorDescription}
                   </p>
                 </div>
               </div>
@@ -596,6 +629,11 @@ export const AppointmentBooking = () => {
           </div>
         )}
       </Drawer>
+      <CancelOnlineAppointmentModal
+      handleOk = {() => cancelAppointment(selectedAppointmentForModal)}
+        open={cancelModal}
+        handleClose={closeCancleModal}
+      />
     </>
   );
 };

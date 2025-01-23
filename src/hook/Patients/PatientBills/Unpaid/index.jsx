@@ -7,7 +7,6 @@ export const usePatientUnpaidBills = () => {
     const fetchData = async () => {
         try {
             const response = await getUnpaidBills();
-            console.log("Data fetched:", response);
             setData(response.data);
         } catch (error) {
             console.error("Error in fetching data:", error);
