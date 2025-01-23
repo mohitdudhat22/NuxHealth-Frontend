@@ -153,21 +153,6 @@ export const ProfileSetting = () => {
                     {activeTab === "privacy" && <Privacy />}
                   </div>
                 </div>
-
-                <div className="w-3/4 p-6">
-                  {activeTab === "profile" && (
-                    <Profile
-                      userDetail={userDetail}
-                      setUserDetail={setUserDetail}
-                      handleSubmit={handleSubmitData}
-                      isEditing={isEditing}
-                      setIsEditing={setIsEditing}
-                    />
-                  )}
-                  {activeTab === "changePassword" && <ChangePassword />}
-                  {activeTab === "terms" && <Terms />}
-                  {activeTab === "privacy" && <Privacy />}
-                </div>
               </div>
             </NHCard>
           </form>
