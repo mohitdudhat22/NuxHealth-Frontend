@@ -277,7 +277,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {(patientId || identifyRole() == 'patient') && (
+              {(patientId || identifyRole() == 'patient' || identifyRole() !== "reception" || window.location.pathname !== "/reception/appointment") && (
                 <NHButton
                   variant="default"
                   className=""

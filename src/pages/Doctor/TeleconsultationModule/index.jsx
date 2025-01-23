@@ -20,7 +20,7 @@ import {
 } from "@/hook/Doctor";
 import { useNavigate } from "react-router-dom";
 import { reschedule } from "@/axiosApi/ApiHelper";
-import "./DoctorTelecon.css"
+import "./DoctorTelecon.css";
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
 
 export const Teleconsultation = () => {
@@ -269,7 +269,7 @@ export const Teleconsultation = () => {
             dataSource={upcomingTeleconsultation}
             loading={upcomingLoader}
             showPagination={true}
-            scroll={{x: 800}}
+            scroll={{ x: 800 }}
           />
         </NHCard>
       ),
@@ -295,7 +295,7 @@ export const Teleconsultation = () => {
             dataSource={privousTeleconsultation}
             loading={privousLoader}
             showPagination={true}
-            scroll={{x: 800}}
+            scroll={{ x: 800 }}
           />
         </NHCard>
       ),
@@ -321,7 +321,7 @@ export const Teleconsultation = () => {
             dataSource={cancleTeleconsultation}
             loading={cancleLoader}
             showPagination={true}
-            scroll={{x: 800}}
+            scroll={{ x: 800 }}
           />
         </NHCard>
       ),
@@ -330,14 +330,14 @@ export const Teleconsultation = () => {
 
   return (
     <>
-    <div className="doc-telecon">
-      <NHCard
-        headerContent={
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-        }
-      >
-        <NHTabs items={tabItems} defaultActiveKey="today" />
-      </NHCard>
+      <div className="doc-telecon">
+        <NHCard
+          headerContent={
+            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+          }
+        >
+          <NHTabs items={tabItems} defaultActiveKey="today" />
+        </NHCard>
       </div>
 
       <PatientDetailModal

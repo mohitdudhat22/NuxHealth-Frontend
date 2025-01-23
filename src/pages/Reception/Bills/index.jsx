@@ -84,13 +84,13 @@ export const Bills = () => {
             <NHButton
               variant="default"
               className="bg-white border-primary"
-              onClick={() => navigate("edit-design-invoice")}
+              onClick={() => navigate("/reception/bills/edit-design-invoice")}
             >
               {Icons.EditBillIcon} Edit Invoice Theme
             </NHButton>
             <NHButton
               icon={Icons.PlusSquare}
-              onClick={() => navigate("/admin/monitor-billing/create-bill")}
+              onClick={() => navigate("/reception/bills/create-bill")}
               variant="primary"
             >
               Create Bill

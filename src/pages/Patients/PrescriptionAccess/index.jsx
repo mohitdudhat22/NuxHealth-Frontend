@@ -63,39 +63,39 @@ export const PrescriptionAccess = () => {
                       {Icons.Download}
                     </span>
 
-                    <NHButton
-                      isView
-                      onClick={() => handlePresctiptionDetails(prescriptions)}
-                    ></NHButton>
-                  </div>
-                </>
-              }
-              footerContent={
-                <>
-                  <NHInput type="file" />
-                </>
-              }
-              headerBg={true}
-              hospitalName={prescriptions.hospitalName}
-              diseaseName={prescriptions.DiseaseName}
-              date={prescriptions.prescriptionDate}
-              appointmentTime={prescriptions.time}
-              className="border border-slate-200"
+                      <NHButton
+                        isView
+                        onClick={() => handlePresctiptionDetails(prescriptions)}
+                      ></NHButton>
+                    </div>
+                  </>
+                }
+                footerContent={
+                  <>
+                    <NHInput type="file" />
+                  </>
+                }
+                headerBg={true}
+                hospitalName={prescriptions.hospitalName}
+                diseaseName={prescriptions.DiseaseName}
+                date={prescriptions.prescriptionDate}
+                appointmentTime={prescriptions.time}
+                className="border border-slate-200"
+              />
+            ))}
+          </div>
+          {prescriptionData && (
+            <PrescriptionCard
+              isModalOpen={isModalOpen}
+              clickEvent={true}
+              onCancel={() => setIsModalOpen(false)}
+              handleClose={() => setIsModalOpen(false)}
+              Title="Prescription"
+              handleOk={() => setIsModalOpen(false)}
+              patientData={prescriptionData}
             />
-          ))}
-        </div>
-        {prescriptionData && (
-          <PrescriptionCard
-            isModalOpen={isModalOpen}
-            clickEvent={true}
-            onCancel={() => setIsModalOpen(false)}
-            handleClose={() => setIsModalOpen(false)}
-            Title="Prescription"
-            handleOk={() => setIsModalOpen(false)}
-            patientData={prescriptionData}
-          />
-        )}
-      </NHCard>
+          )}
+        </NHCard>
       </div>
     </>
   );

@@ -6,6 +6,7 @@ import { useAppNavigation } from "@/utils/useAppNavigation";
 
 export function Bill2() {
   const { data } = useGetSingleBill();
+  const navigate = useNavigate();
   const staticData = {
     doctorName: data?.doctorId?.fullName || "Dr. Bharat Patel",
     doctorDescription:
