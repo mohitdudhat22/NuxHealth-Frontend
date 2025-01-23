@@ -44,7 +44,7 @@ export const ProfileSetting = () => {
           <form action="" onSubmit={handleSubmitData}>
             <h3 className="mb-10 text-4xl text-white">Profile Setting</h3>
             <NHCard className="p-0 bg-white ">
-              <div>
+            
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-1/4 border-r min-h-[calc(100vh-400px)]">
                     <div className="flex flex-col items-center px-4 py-8">
@@ -153,7 +153,6 @@ export const ProfileSetting = () => {
                     {activeTab === "privacy" && <Privacy />}
                   </div>
                 </div>
-              </div>
             </NHCard>
           </form>
         </div>

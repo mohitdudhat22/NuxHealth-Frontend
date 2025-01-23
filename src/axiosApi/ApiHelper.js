@@ -73,7 +73,7 @@ export const todayAppointment = () =>
 export const doctorSession = (id) =>
   request("get", (!id) ? "api/doctor/getDoctorSession" : `api/${identifyRole()}/getDoctorSession/${id}`);
 export const rescheduleAppointement = (id, data) =>
-  request("post", `/api/doctor/editAppointment/appointmentid/${id}`, data);
+  request("post", `/api/doctor/editAppointment/${id}`, data);
 export const getPrivousTeleconsultation = () =>
   request(
     "get",
