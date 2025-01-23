@@ -11,7 +11,7 @@ import { RescheduleAppointmentModal } from "@/components/NHModalComponents/Modal
 import { doctorSession, rescheduleAppointement } from "@/axiosApi/ApiHelper";
 
 export const TodayAppointments = () => {
-  const { data, loading } = useTodayAppointment();
+  const { data, loading, searchQuery, onSearch } = useTodayAppointment();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
@@ -52,7 +52,7 @@ export const TodayAppointments = () => {
     {
       title: "Action",
       key: "action",
-      fixed: "right",
+      fixed: "",
       width: 150,
       render: (_, record) => (
         <Space size="middle">
@@ -78,15 +78,18 @@ export const TodayAppointments = () => {
     setSelectedPatient(null);
     setModalType(null);
   };
+
   const handelReschedule = async (record) => {
-    // console.log("🚀 ~ handelReschedule ~ id:", id);
     setIsReshceduleModal(true);
     setAppointmentId(record.key);
     try {
       const response = await doctorSession();
       setTimeSlote(response.data);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching doctor sessions:", error);
+    }
   };
+
   const handleOpenDateModal = () => {
     setIsDateModalOpen(true);
   };
@@ -108,9 +111,9 @@ export const TodayAppointments = () => {
     setIsDateModalOpen(false);
   };
 
-  // useEffect(() => {
-  //   setFilteredAppointments(data);
-  // }, [data]);
+  const handleSearch = (e) => {
+    onSearch(e.target.value);
+  };
 
   const rescheduleAppointment = async (selectedDate, selectedTime) => {
     const payload = {
@@ -136,7 +139,12 @@ export const TodayAppointments = () => {
         title="Today's Appointments"
         headerContent={
           <>
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
             <NHButton onClick={handleOpenDateModal} icon={Icons?.CalenderIcon}>
               Any Date
             </NHButton>
@@ -148,6 +156,7 @@ export const TodayAppointments = () => {
           showPagination={true}
           tableColumn={columns}
           tableDataSource={data}
+          scroll={{x: 800}}
         />
       </NHCard>
 
@@ -183,6 +192,7 @@ export const TodayAppointments = () => {
         setFromDate={setFromDate}
         setToDate={setToDate}
       />
+
       <RescheduleAppointmentModal
         timeSlote={timeSlote}
         handleOk={rescheduleAppointment}

@@ -143,6 +143,7 @@ export const PrescriptionCard = ({
       {!clickEvent ? (
         <Modal
           title={Title}
+          open={isModalOpen}
           visible={isModalOpen}
           onOk={handleOk}
           onCancel={onCancel}

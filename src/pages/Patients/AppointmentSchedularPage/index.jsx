@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { AppointmentScheduler, NHButton, NHCard, NHDatePicker, NHInput, NHModal, NHSelect } from "@/components";
-import { appointmentBooking, getPatientListForReceptionist } from "@/axiosApi/ApiHelper";
+import {
+  AppointmentScheduler,
+  NHButton,
+  NHCard,
+  NHDatePicker,
+  NHInput,
+  NHModal,
+  NHSelect,
+} from "@/components";
+import {
+  appointmentBooking,
+  getPatientListForReceptionist,
+} from "@/axiosApi/ApiHelper";
 import toast from "react-hot-toast";
 import { useDecodeToken } from "@/hook";
 import { useAppointmentData } from "./useAppointmentData";
 import { Invoice } from "..";
 import { useNavigate } from "react-router-dom";
+import { identifyRole } from "@/utils/identifyRole";
 
 export const AppointmentSchedularPage = () => {
   const {
@@ -25,34 +37,36 @@ export const AppointmentSchedularPage = () => {
   const navigate = useNavigate();
 
   const [isAppointmentModal, setIsAppointmentModal] = useState(false);
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState(false);
   const [patientList, setPatientList] = useState([]);
   const [showInvoice, setShowInvoice] = useState(false);
   const [billData, setBillData] = useState(null);
-
+  const fetchData = async () => {
+    if (role === "receptionist") {
+      try {
+        const response = await getPatientListForReceptionist();
+        console.log("Patient List:", response.data);
+        setPatientList(
+          response.data.map((patient) => ({
+            value: patient._id,
+            label: patient.fullName,
+          }))
+        );
+      } catch (error) {
+        console.error("Error fetching Patient List:", error);
+      }
+    }
+  };
   useEffect(() => {
     setRole(token?.userData?.role);
-    const fetchData = async () => {
-      if (role === "receptionist") {
-        try {
-          const response = await getPatientListForReceptionist();
-          setPatientList(
-            response.data.map((patient) => ({
-              value: patient._id,
-              label: patient.fullName,
-            }))
-          );
-        } catch (error) {
-          console.error("Error fetching Patient List:", error);
-        }
-      }
-    };
-    fetchData();
-  }, [token, role]);
+}, [])
+  useEffect(() => {
+    role && fetchData();
+  }, [role]);
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
     document.body.appendChild(script);
   }, []);
@@ -74,22 +88,24 @@ export const AppointmentSchedularPage = () => {
   };
 
   const razorPay = async () => {
-    if (data.paymentType === 'Cash') {
+    if (data.paymentType === "Cash") {
       await handleBooking();
       return;
     }
-
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/payment/create-order`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          appointmentType: data.appointmentType,
-          doctorId: selectedDoctor
-        })
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}api/payment/create-order`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            appointmentType: data.appointmentType,
+            doctorId: selectedDoctor,
+          }),
+        }
+      );
       const order = await response.json();
 
       const options = {
@@ -100,17 +116,20 @@ export const AppointmentSchedularPage = () => {
         description: "Test Transaction",
         order_id: order.id,
         handler: async function (response) {
-          const verifyResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/payment/verify-payment`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature
-            })
-          });
+          const verifyResponse = await fetch(
+            `${import.meta.env.VITE_API_BASE_URL}api/payment/verify-payment`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            }
+          );
 
           const data = await verifyResponse.json();
           if (data.verified) {
@@ -124,11 +143,11 @@ export const AppointmentSchedularPage = () => {
         prefill: {
           name: "Customer Name",
           email: "customer@example.com",
-          contact: "9999999999"
+          contact: "9999999999",
         },
         theme: {
-          color: "#3399cc"
-        }
+          color: "#3399cc",
+        },
       };
 
       const rzp1 = new window.Razorpay(options);
@@ -152,7 +171,7 @@ export const AppointmentSchedularPage = () => {
       state: filters.state,
       country: filters.country,
       paymentType: data.paymentType,
-      paymentStatus: data.paymentType === 'Cash' ? false : true
+      paymentStatus: data.paymentType === "Cash" ? false : true,
     };
 
     try {
@@ -180,9 +199,9 @@ export const AppointmentSchedularPage = () => {
 
   return (
     <>
-      {showInvoice ?
+      {showInvoice ? (
         <Invoice billData={billData} />
-        :
+      ) : (
         <div>
           <NHCard className="p-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -232,48 +251,63 @@ export const AppointmentSchedularPage = () => {
                 label="Appointment Type"
                 name="appointmentType"
                 placeholder="Appointment Type"
-                onChange={(value) => handleSelectChange(value, "appointmentType")}
+                onChange={(value) =>
+                  handleSelectChange(value, "appointmentType")
+                }
                 options={appointmentTypes}
               />
               <NHDatePicker
                 label="Appointment Date"
                 name="appointmentDate"
-                onChange={(value, dateString) => handleDateChange(value, dateString)}
+                onChange={(value, dateString) =>
+                  handleDateChange(value, dateString)
+                }
                 format={"YYYY-MM-DD"}
               />
               <NHInput
                 label="Patient Issue"
                 name="patientIssue"
                 placeholder="Patient Issue"
-                onChange={(e) => handleInputChanges(e.target.value, "patientIssue")}
+                onChange={(e) =>
+                  handleInputChanges(e.target.value, "patientIssue")
+                }
               />
               <NHInput
                 label="Disease Name"
                 name="diseaseName"
                 placeholder="Disease Name"
-                onChange={(e) => handleInputChanges(e.target.value, "diseaseName")}
+                onChange={(e) =>
+                  handleInputChanges(e.target.value, "diseaseName")
+                }
               />
-              {role === "receptionist" &&
+              {role === "receptionist" && (
                 <NHSelect
                   label="Patient List"
                   name="patientList"
                   placeholder="Patient List"
                   onChange={(value) => handleSelectChange(value, "patientList")}
                   options={patientList}
-                />}
+                />
+              )}
             </div>
           </NHCard>
 
           <div className="mt-10">
             <NHCard>
-              <h3 className="mb-3 text-3xl font-semibold pb-7">Available Time Slots</h3>
+              <h3 className="mb-3 text-3xl font-semibold pb-7">
+                Available Time Slots
+              </h3>
               <div className="">
-                <p className="mb-8 text-2xl font-semibold text-center">Morning Session</p>
+                <p className="mb-8 text-2xl font-semibold text-center">
+                  Morning Session
+                </p>
                 <div className="grid grid-cols-8 gap-2">
                   {timeSlots?.morningSlots?.map(({ start }) => (
                     <NHButton
                       key={start}
-                      className={`p-2 border rounded-lg ${selectedTime === start ? "bg-blue-500 text-white" : ""}`}
+                      className={`p-2 border rounded-lg ${
+                        selectedTime === start ? "bg-blue-500 text-white" : ""
+                      }`}
                       onClick={() => handleTimeSelect(start)}
                     >
                       {start}
@@ -282,12 +316,16 @@ export const AppointmentSchedularPage = () => {
                 </div>
               </div>
               <div className="">
-                <p className="my-8 text-2xl font-semibold text-center">Evening Session</p>
+                <p className="my-8 text-2xl font-semibold text-center">
+                  Evening Session
+                </p>
                 <div className="grid grid-cols-8 gap-2">
                   {timeSlots?.eveningSlots?.map(({ start }) => (
                     <NHButton
                       key={start}
-                      className={`p-2 border rounded-lg ${selectedTime === start ? "bg-blue-500 text-white" : ""}`}
+                      className={`p-2 border rounded-lg ${
+                        selectedTime === start ? "bg-blue-500 text-white" : ""
+                      }`}
                       onClick={() => handleTimeSelect(start)}
                     >
                       {start}
@@ -296,7 +334,10 @@ export const AppointmentSchedularPage = () => {
                 </div>
               </div>
 
-              <NHButton className="p-3 px-5 mt-10 text-white bg-blue-500 rounded" onClick={handleBookAppointment}>
+              <NHButton
+                className="p-3 px-5 mt-10 text-white bg-blue-500 rounded"
+                onClick={handleBookAppointment}
+              >
                 Book Appointment
               </NHButton>
             </NHCard>
@@ -323,28 +364,61 @@ export const AppointmentSchedularPage = () => {
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div><p className="font-medium text-gray-700">Appointment Type</p></div>
-                  <div><p className="text-gray-600">{data.appointmentType}</p></div>
+                  <div>
+                    <p className="font-medium text-gray-700">
+                      Appointment Type
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">{data.appointmentType}</p>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <div><p className="font-medium text-gray-700">Doctor Name</p></div>
-                  <div><p className="text-gray-600">{data.doctors.find(d => d.value === selectedDoctor)?.label || 'Not selected'}</p></div>
+                  <div>
+                    <p className="font-medium text-gray-700">Doctor Name</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">
+                      {data.doctors.find((d) => d.value === selectedDoctor)
+                        ?.label || "Not selected"}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <div><p className="font-medium text-gray-700">Appointment Date</p></div>
-                  <div><p className="text-gray-600">{data.appointmentDate}</p></div>
+                  <div>
+                    <p className="font-medium text-gray-700">
+                      Appointment Date
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">{data.appointmentDate}</p>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <div><p className="font-medium text-gray-700">Appointment Time</p></div>
-                  <div><p className="text-gray-600">{selectedTime}</p></div>
+                  <div>
+                    <p className="font-medium text-gray-700">
+                      Appointment Time
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">{selectedTime}</p>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <div><p className="font-medium text-gray-700">Patient Issue</p></div>
-                  <div><p className="text-gray-600">{data.patientIssue}</p></div>
+                  <div>
+                    <p className="font-medium text-gray-700">Patient Issue</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">{data.patientIssue}</p>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <div><p className="font-medium text-gray-700">Disease Name</p></div>
-                  <div><p className="text-gray-600">{data.diseaseName}</p></div>
+                  <div>
+                    <p className="font-medium text-gray-700">Disease Name</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">{data.diseaseName}</p>
+                  </div>
                 </div>
 
                 <NHSelect
@@ -356,10 +430,16 @@ export const AppointmentSchedularPage = () => {
                 />
 
                 <div className="flex justify-end mt-6 space-x-4">
-                  <NHButton className="px-4 py-2 text-black bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none" onClick={handleCloseModal}>
+                  <NHButton
+                    className="px-4 py-2 text-black bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none"
+                    onClick={handleCloseModal}
+                  >
                     Cancel
                   </NHButton>
-                  <NHButton className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none" onClick={razorPay}>
+                  <NHButton
+                    className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none"
+                    onClick={razorPay}
+                  >
                     Book Appointment
                   </NHButton>
                 </div>
@@ -367,7 +447,7 @@ export const AppointmentSchedularPage = () => {
             </NHModal>
           </div>
         </div>
-      }
+      )}
     </>
   );
 };

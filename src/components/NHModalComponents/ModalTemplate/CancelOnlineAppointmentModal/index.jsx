@@ -19,6 +19,7 @@ export const CancelOnlineAppointmentModal = ({
             handleClose={handleClose}
             disabledButton={false}
             handleContent={"Payment Return"}
+            handleOk={handleOk}
             IsFooter
             confirmLoading={loading}
             {...rest}

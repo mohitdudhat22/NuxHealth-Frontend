@@ -23,7 +23,7 @@ import {
   Teleconsultation,
   AddNewReceptionist,
   PatientRegistration,
-  ReceptionDashboard,
+  // ReceptionDashboard,
   Manage,
   Create,
   EditDesignInvoice,
@@ -37,6 +37,7 @@ import {
   DoctorMeetingConference,
   PrescriptionAccess,
   ReceptionBills,
+  AppointmentSchedularPageForReception,
   Record,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/BillingAndPayement/MonitorBilling";
@@ -48,7 +49,7 @@ import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
 
 import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
-import NotificationBox from "@/components/NotificationBox";
+import NotificationBox from "@/components/NHHeader/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
 import { BillView } from "@/pages/Admin/BillingAndPayement/MonitorBilling/BillView";
 import { PatientBills } from "@/pages/Patients/PatientsBills";
@@ -64,6 +65,7 @@ import { CreateBill } from "@/components/CreateBill";
 import { PaymentBillView } from "@/pages/Admin/BillingAndPayement/PaymentProcess/PaymentBillView";
 import { NHCard } from "@/components";
 import { PatientBillView } from "@/pages/Patients/PatientsBills/BillView";
+import { ReceptionDashboard } from "@/pages/Reception/Dashboard";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -84,6 +86,11 @@ const NuxHealthRoute = createBrowserRouter(
             </ProtectedRoute>
           ),
           children: [
+            {
+              // path: "login",
+              index: true,
+              element: <Login />,
+            },
             {
               path: "login",
               element: <Login />,
@@ -292,9 +299,10 @@ const NuxHealthRoute = createBrowserRouter(
                         },
                         {
                           path: "record",
-                          element: <Record />
-                        }]
-                    }
+                          element: <Record />,
+                        },
+                      ],
+                    },
                   ],
                 },
                 {
@@ -413,7 +421,8 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "bill-view",
-                      element: <PatientBillView />,
+                      // element: <PatientBillView />, i think is it useless now
+                      element: <PaymentBillView />,
                     },
                   ],
                 },
@@ -481,7 +490,7 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "scheduler",
-                      element: <AppointmentSchedularPage />,
+                      element: <AppointmentSchedularPageForReception />,
                     },
                     {
                       path: "reschedule",
@@ -491,7 +500,26 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: <ReceptionBills />,
+                  // element: <ReceptionBills />,
+                  children: [
+                    {
+                      index: true,
+                      // element: <AppoinmentManagement />,
+                      element: <ReceptionBills />,
+                    },
+                    {
+                      path: "create-bill",
+                      element: <CreateBillForm />,
+                    },
+                    {
+                      path: "edit-design-invoice",
+                      element: <EditDesignInvoice />,
+                    },
+                    {
+                      path: "bill-view/:billId",
+                      element: <BillView />,
+                    },
+                  ],
                 },
                 {
                   path: "bill-view/:billId",

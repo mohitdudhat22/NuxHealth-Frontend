@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+    .precription-create ._header_w7z07_13 {
+      flex-wrap: nowrap;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .precription-create ._header_w7z07_13 {
+      flex-wrap: wrap;
+    }
+  }

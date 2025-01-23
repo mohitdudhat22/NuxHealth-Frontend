@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Button } from 'antd/lib';
 import ReactApexChart from 'react-apexcharts';
-import { NHButton, NHCard } from '@/components';
+import { NHCard } from '@/components';
+import { Spin } from 'antd';
 
 export function AppointmentChart({
   data,
@@ -10,19 +11,43 @@ export function AppointmentChart({
 }) {
   const [viewMode, setViewMode] = useState('year');
 
-  // Transform data based on viewMode
+  if (!data) {
+    return (
+      <NHCard title={title}>
+        <div className="flex items-center justify-center h-[350px]">
+          <Spin size="large" />
+        </div>
+      </NHCard>
+    );
+  }
+
   const getChartData = () => {
+    if (!data) return { categories: [], series: [] };
+
     if (viewMode === 'month') {
-      const monthCategories = Object.keys(data.monthWiseData);
+      const monthWiseData = data?.monthWiseData || {};
+      const monthCategories = Object.keys(monthWiseData);
+      
+      // Only proceed if we have data
+      if (monthCategories.length === 0) {
+        return { categories: [], series: [] };
+      }
+
       const onlineConsultation = monthCategories.map(
-        (key) => data.monthWiseData[key].onlineConsultation || 0
+        (key) => monthWiseData[key]?.onlineConsultation || 0
       );
       const otherAppointment = monthCategories.map(
-        (key) => data.monthWiseData[key].otherAppointment || 0
+        (key) => monthWiseData[key]?.otherAppointment || 0
       );
 
+      const formattedCategories = monthCategories.map(key => {
+        const [year, month] = key.split('-');
+        const date = new Date(year, parseInt(month) - 1);
+        return date.toLocaleString('default', { month: 'short', year: 'numeric' });
+      });
+
       return {
-        categories: monthCategories,
+        categories: formattedCategories,
         series: [
           {
             name: 'Online Consultation',
@@ -37,22 +62,54 @@ export function AppointmentChart({
     }
 
     // Yearly data
+    const yearWiseData = data?.yearWiseData || [];
     return {
-      categories: data?.yearWiseData?.map((item) => item.year.toString()),
+      categories: yearWiseData.map((item) => item.year.toString()),
       series: [
         {
           name: 'Online Consultation',
-          data: data?.yearWiseData?.map((item) => item.onlineConsultation || 0),
+          data: yearWiseData.map((item) => item.onlineConsultation || 0),
         },
         {
           name: 'Other Appointment',
-          data: data?.yearWiseData?.map((item) => item.otherAppointment || 0),
+          data: yearWiseData.map((item) => item.otherAppointment || 0),
         },
       ],
     };
   };
 
   const chartData = getChartData();
+
+  // Don't render chart if no data
+  if (chartData.categories.length === 0) {
+    return (
+      <NHCard 
+        title={title}
+        headerContent={
+          <div className="flex gap-2">
+            <Button
+              type={viewMode === 'year' ? 'primary' : 'default'}
+              onClick={() => setViewMode('year')}
+              className="px-6"
+            >
+              Year
+            </Button>
+            <Button
+              type={viewMode === 'month' ? 'primary' : 'default'}
+              onClick={() => setViewMode('month')}
+              className="px-6"
+            >
+              Month
+            </Button>
+          </div>
+        }
+      >
+        <div className="flex items-center justify-center h-[350px]">
+          <div>No data available</div>
+        </div>
+      </NHCard>
+    );
+  }
 
   const chartOptions = {
     chart: {
@@ -140,14 +197,14 @@ export function AppointmentChart({
       headerContent={
         <div className="flex gap-2">
           <Button
-            variant={viewMode === 'year' ? 'default' : 'outline'}
+            type={viewMode === 'year' ? 'primary' : 'default'}
             onClick={() => setViewMode('year')}
             className="px-6"
           >
             Year
           </Button>
           <Button
-            variant={viewMode === 'month' ? 'default' : 'outline'}
+            type={viewMode === 'month' ? 'primary' : 'default'}
             onClick={() => setViewMode('month')}
             className="px-6"
           >

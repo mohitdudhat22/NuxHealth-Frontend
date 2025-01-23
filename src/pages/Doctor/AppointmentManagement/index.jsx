@@ -3,6 +3,7 @@ import { TodayAppointments } from "./TodaysAppointment";
 import { PreviousAppointments } from "./PreviousAppointment";
 import { UpcomingAppointments } from "./UpcomingAppointment";
 import { CancelAppointments } from "./CancelAppointment";
+import "./DoctorAppo.css"
 import { useDecodeToken } from "@/hook";
 
 export const AppointmentManagement = () => {
@@ -31,10 +32,12 @@ export const AppointmentManagement = () => {
 
   return (
     <>
+    <div className="doc-appointment">
       <NHHead title="Appointment Management" />
       <NHCard>
         <NHTabs items={tabItems} defaultActiveKey="today" />
       </NHCard>
+      </div>
     </>
   );
 };

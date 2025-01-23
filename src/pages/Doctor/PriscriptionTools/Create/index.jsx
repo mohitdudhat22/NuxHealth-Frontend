@@ -4,8 +4,7 @@ import { Space, Tag } from "antd";
 import { useState } from "react";
 import { CreatePrescription, PatientDetails } from "../..";
 import { useTodayAppointments } from "@/hook/Doctor";
-
-// import PatientDetails from "./PatientDetails"; // Import your PatientDetails component
+import "./DoctorPri.css";
 
 export const Create = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
@@ -21,6 +20,7 @@ export const Create = () => {
     fetchAppointments,
     navigate,
     onSearch,
+    searchQuery,
   } = useTodayAppointments();
 
   const appointmentData = appointments || [];
@@ -36,6 +36,7 @@ export const Create = () => {
   return (
     <>
       {!selectedAppointment && !viewingPatientDetails ? (
+        <div className="doc-priscription">
         <NHCard
           title="Today Appointment"
           headerContent={
@@ -44,6 +45,8 @@ export const Create = () => {
                 <NHInput
                   prefix={Icons.SearchIcon}
                   placeholder="Search Patient"
+                  value={searchQuery}
+                  onChange={(e) => onSearch(e.target.value)}
                 />
               </div>
               <NHButton variant="default" className="text-black bg-white">
@@ -52,7 +55,7 @@ export const Create = () => {
             </>
           }
         >
-          <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-lg">
+          <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-lg">
             {appointmentData?.map((appointment, index) => (
               <AppointmentCard
                 key={index}
@@ -94,6 +97,7 @@ export const Create = () => {
             ))}
           </div>
         </NHCard>
+        </div>
       ) : viewingPatientDetails ? (
         <PatientDetails />
       ) : (

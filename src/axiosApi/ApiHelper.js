@@ -1,4 +1,5 @@
 import { axiosApi } from "@/axiosApi";
+import { identifyRole } from "@/utils/identifyRole";
 
 async function request(method, url, data) {
   try {
@@ -69,10 +70,10 @@ export const createReceptionist = (data) =>
 /* Doctor */
 export const todayAppointment = () =>
   request("get", "/api/doctor/getappointmentforprescription?date=today");
-export const doctorSession = () =>
-  request("get", "api/doctor/getDoctorSession");
+export const doctorSession = (id) =>
+  request("get", (!id) ? "api/doctor/getDoctorSession" : `api/${identifyRole()}/getDoctorSession/${id}`);
 export const rescheduleAppointement = (id, data) =>
-  request("post", `/api/doctor/editAppointment/appointmentid/${id}`, data);
+  request("post", `/api/doctor/editAppointment/${id}`, data);
 export const getPrivousTeleconsultation = () =>
   request(
     "get",
@@ -192,14 +193,14 @@ export const cancelAppointments = () =>
 export const getAllUnpaidBills = (id) =>
   request("get", `/api/admin/getbillbystatus?status=Unpaid`);
 // export const scheduledAppointmentsForPatient = () => request("get", "/api/patient/getAppointment?filter=today");
-export const scheduledAppointmentsForPatient = (role = "patient") =>
-  request("get", `/api/${role}/getAppointment?filter=today`);
-export const penddingAppointmentsForPatient = (role = "patient") =>
-  request("get", `/api/${role}/getAppointment?filter=upcoming`);
-export const previousAppointmentsForPatient = (role = "patient") =>
-  request("get", `/api/${role}/getAppointment?filter=previous`);
-export const cancelAppointmentsForPatient = (role = "patient") =>
-  request("get", `/api/${role}/getAppointment?filter=cancel`);
+export const scheduledAppointmentsForPatient = (role = "patient", patientId) =>
+  request("get", `/api/${role}/getAppointment?filter=today${patientId ? "&patientId="+patientId : ""}`);
+export const penddingAppointmentsForPatient = (role = "patient", patientId) =>
+  request("get", `/api/${role}/getAppointment?filter=upcoming${patientId ? "&patientId="+patientId : ""}`);
+export const previousAppointmentsForPatient = (role = "patient", patientId) =>
+  request("get", `/api/${role}/getAppointment?filter=previous${patientId ? "&patientId="+patientId : ""}`);
+export const cancelAppointmentsForPatient = (role = "patient", patientId) =>
+  request("get", `/api/${role}/getAppointment?filter=cancel${patientId ? "&patientId="+patientId : ""}`);
 export const todayManagePriscription = () =>
   request("get", "/api/doctor/getPrescription?dateFilter=today");
 export const olderManagePriscription = () =>
@@ -251,13 +252,8 @@ export const getPatientContact = () =>
   request("get", "/api/patient/chatcontect");
 export const getDoctorContact = () => request("get", "/api/doctor/chatcontect");
 
-export const fetchAppointmentsByPatient = (role) => {
-  const endpoint =
-    role === "receptionist"
-      ? "/api/receptionist/searchAppointment"
-      : "/api/patient/searchAppointment";
-  return request("get", endpoint);
-};
+export const fetchAppointmentsByPatient = (role="patient") => request("get", `/api/${role}/searchAppointment`);
+export const appointmentBooking = (data, role) => request("post", `/api/${role}/createAppointment`, data);
 
 export const fetchDoctorSession = (doctorId, date, role) => {
   const baseUrl =
@@ -270,22 +266,15 @@ export const fetchDoctorSession = (doctorId, date, role) => {
   return request("get", url);
 };
 
-export const appointmentBooking = (data, role) => {
-  const endpoint =
-    role === "receptionist"
-      ? "/api/receptionist/createAppointment"
-      : "/api/patient/createAppointment";
-  return request("post", endpoint, data);
-};
 
-export const reschedule = (id, data) =>
-  request("post", `/api/doctor/editAppointment/${id}`, data);
+export const reschedule = (id, data, role="doctor") =>
+  request("post", `/api/${role}/editAppointment/${id}`, data);
+export const rescheduleForPatient = (id, data) =>
+  request("post", `/api/patient/editAppointment/${id}`, data);
 
 export const getPatientListForReceptionist = () =>
   request("get", "api/receptionist/getPatient");
 
-export const rescheduleForPatient = (id, data) =>
-  request("post", `/api/patient/editAppointment/${id}`, data);
 
 export const getAppointmentsTeleconsultationWithFromAndTo = (
   startDate,

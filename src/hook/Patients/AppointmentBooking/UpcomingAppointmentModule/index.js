@@ -1,8 +1,11 @@
 import { penddingAppointmentsForPatient } from "@/axiosApi/ApiHelper";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const useUpcomingAppoinmentBookings = () => {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const [patientId] = useState(queryParams.get("patientId") || false)
   let navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [isDrawerVisible, setDrawerVisible] = useState(false);
@@ -12,7 +15,7 @@ export const useUpcomingAppoinmentBookings = () => {
   const fetchAppointments = async (role) => {
     try {
       setLoading(true);
-      const response = await penddingAppointmentsForPatient(role);
+      const response = await penddingAppointmentsForPatient(role,patientId);
       if (response.status === 1) {
         setAppointments(response.data.appointments);
       }
@@ -63,7 +66,8 @@ export const useUpcomingAppoinmentBookings = () => {
     doctorGender: appointment?.doctorId?.gender,
     doctorFullName : appointment?.doctorId?.fullName,
     doctorDescription : appointment?.doctorId?.metaData?.doctorData?.description,
-    doctorImage : appointment?.doctorId?.profilePicture
+    doctorImage : appointment?.doctorId?.profilePicture,
+    doctorId: appointment?.doctorId?._id,
   }));
 
   const openDrawer = () => setDrawerVisible(true);

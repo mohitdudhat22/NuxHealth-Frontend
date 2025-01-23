@@ -67,15 +67,12 @@ export const CreatePrescription = ({
 
   // Function to handle sending the prescription
   const handleSendPrescription = () => {
-    console.log("Send Prescription button clicked!");
     setIsSending(true);
   };
 
   // useEffect to handle the API call when isSending is true
   useEffect(() => {
     if (isSending) {
-      console.log("Preparing payload...");
-
       const payload = {
         patientId: patientId._id,
         appointmentId: appointment._id,
@@ -89,11 +86,8 @@ export const CreatePrescription = ({
         additionalNote: additionalNote,
       };
 
-      console.log("Payload:", payload);
-
       createPrescription(payload)
         .then((response) => {
-          console.log("Prescription sent successfully!", response);
           setIsSending(false);
 
           window.location.reload();
@@ -236,6 +230,7 @@ export const CreatePrescription = ({
             columns={columns}
             dataSource={tableData}
             pagination={false}
+            scroll={{ x: 800 }}
           />
 
           <div className="mt-6">
@@ -243,7 +238,7 @@ export const CreatePrescription = ({
               Additional Note
             </label>
             <textarea
-              className="w-full p-2 mt-1 border border-[rgb(211,211,211)]  rounded-md"
+              className="w-full p-2 mt-1 border border-[rgb(211,211,211)] rounded-md"
               rows="3"
               placeholder="Additional notes"
               value={additionalNote}

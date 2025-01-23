@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createDoctor, editDoctor } from "@/axiosApi/ApiHelper";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Country } from "country-state-city";
 
 export const useCreateDoctor = () => {
   const { id } = useParams();
@@ -37,6 +38,8 @@ export const useCreateDoctor = () => {
     worksiteLink: "",
     emergencyContactNo: "",
   });
+  const [signature, setSignature] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
 
   useEffect(() => {
     if (isEditing && EditData) {
@@ -94,6 +97,11 @@ export const useCreateDoctor = () => {
         ...prev,
         [name]: file,
       }));
+      if(name == "signature"){
+        setSignature(URL.createObjectURL(file));
+      }else if(name == "profilePicture"){
+        setProfilePicture(URL.createObjectURL(file));
+      }
     } else {
       console.error(`Invalid file for ${name}`);
     }
@@ -108,11 +116,9 @@ export const useCreateDoctor = () => {
         data.append(key, formData[key]);
       }
     });
-
-    for (let [key, value] of data.entries()) {
-      console.log(`${key}:`, value);
-    }
-
+    data.append("phoneCode", Country.getAllCountries().find((c) => c.name === formData.country).phonecode);
+    data.delete("phone");
+    data.append("phone", String("+" +Country.getAllCountries().find((c) => c.name === formData.country).phonecode + formData.phone) );
     if (isEditing) {
       const response = await editDoctor(id, data);
       if (response.status === 1) {
@@ -135,5 +141,9 @@ export const useCreateDoctor = () => {
     handleFileChange,
     handleSubmit,
     isEditing,
+    signature,
+    profilePicture,
+    setProfilePicture,
+    setSignature,
   };
 };

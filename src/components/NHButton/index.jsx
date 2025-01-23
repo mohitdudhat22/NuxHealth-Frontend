@@ -56,7 +56,7 @@ export const NHButton = ({
       danger={isDelete || isCancel}
       className={clsx(
         className,
-        "shadow-none inline-flex items-center justify-center min-w-[40px] min-h-[40px] gap-md button",
+        "shadow-none inline-flex items-center justify-center min-w-[40px] min-h-[40px] gap-md button sm:text-lg md:text-2xl",
         {
           "bg-[#F6F8FB]":
             isView || isEdit || isDelete || isCancel || isReschedule,

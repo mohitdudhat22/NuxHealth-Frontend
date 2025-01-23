@@ -12,7 +12,7 @@ import {
 import { Avatar } from "antd";
 import { useDeleteModal } from "@/hook/Global";
 import { useState } from "react";
-import DoctorDrawer from "@/components/NHModalComponents/ModalTemplate/DoctorDrawer";
+import ReceptionDrawer from "@/components/NHModalComponents/ModalTemplate/ReceptionDrawer";
 
 export const ReceptionManagement = () => {
   const { data, loading, searchQuery, onSearch, fetchReception, navigate } =
@@ -112,6 +112,10 @@ export const ReceptionManagement = () => {
           showPagination={true}
           tableColumn={columns}
           tableDataSource={data}
+          scroll={{
+            x: 900,
+            y: 500,
+          }}
         />
 
         {/* Delete Complaint Modal */}
@@ -125,7 +129,7 @@ export const ReceptionManagement = () => {
           Are you sure you want to delete this Reception?
         </DeleteModal>
 
-        <DoctorDrawer
+        <ReceptionDrawer
           visible={drawerVisible}
           onClose={onCloseDrawer}
           receptionist={selectedReceptionist}

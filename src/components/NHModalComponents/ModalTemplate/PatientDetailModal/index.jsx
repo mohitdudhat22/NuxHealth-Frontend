@@ -36,12 +36,6 @@ export const PatientDetailModal = ({
       title={
         <div className="flex items-center justify-between">
           <h3>{Title}</h3>
-          <button
-            onClick={onCancel}
-            className="hover:opacity-80"
-          >
-            {Icons.CloseCircle}
-          </button>
         </div>
       }
       open={isModalOpen}
