@@ -35,7 +35,6 @@ import { identifyRole } from "@/utils/identifyRole";
 import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
 
 export const AppointmentBooking = () => {
-
   const [isReshceduleModal, setIsReshceduleModal] = useState(false);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
@@ -45,11 +44,13 @@ export const AppointmentBooking = () => {
   const [canceledAppointments, setCanceledAppointments] = useState([]);
   const [isOffCanvasVisible, setIsOffCanvasVisible] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
-  const [selectedAppointmentForModal, setSelectedAppointmentForModal] = useState(null);
+  const [selectedAppointmentForModal, setSelectedAppointmentForModal] =
+    useState(null);
   const [activeTab, setActiveTab] = useState("Scheduled");
   const { data: patientData, loading, error } = usePatientDashboardData();
   const { data: todayAppointments, patientId } = useTodaysAppoinmentBookings();
-  const { data: previousAppointments, fetchAppointments } = usePreviousAppoinmentBookings();
+  const { data: previousAppointments, fetchAppointments } =
+    usePreviousAppoinmentBookings();
   const { data: upcomingAppointments } = useUpcomingAppoinmentBookings();
   const { data: cancelAppointments } = useCancelAppoinmentBookings();
   const [timeSlote, setTimeSlote] = useState([]);
@@ -61,7 +62,11 @@ export const AppointmentBooking = () => {
       appointmentTime: selectedTime,
     };
     try {
-      const response = await reschedule(selectedAppointmentForModal, payload, identifyRole());
+      const response = await reschedule(
+        selectedAppointmentForModal,
+        payload,
+        identifyRole()
+      );
       setIsReshceduleModal(false);
       fetchAppointments();
     } catch (error) {
@@ -75,7 +80,7 @@ export const AppointmentBooking = () => {
       });
       console.log("Appointment canceled successfully:", response);
 
-      setIsCancleModal(false)
+      setIsCancleModal(false);
       const canceledAppointment = todayAppointments.find(
         (appointment) => appointment.id === id
       );
@@ -186,7 +191,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {(patientId || identifyRole() == 'patient') && (
+              {(patientId || identifyRole() == "patient") && (
                 <NHButton
                   variant="default"
                   className=""
@@ -227,8 +232,8 @@ export const AppointmentBooking = () => {
                       size={"small"}
                       className={"w-full py-9"}
                       onClick={() => handleCancleModal(data)}
-                    // onClick={() => cancelAppointment(data?.key)}
-                    //   onClick={() => handleJoinCall(data)}
+                      // onClick={() => cancelAppointment(data?.key)}
+                      //   onClick={() => handleJoinCall(data)}
                     >
                       Cancel
                     </NHButton>
@@ -277,7 +282,10 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {(patientId || identifyRole() == 'patient' || identifyRole() !== "reception" || window.location.pathname !== "/reception/appointment") && (
+              {(patientId ||
+                identifyRole() == "patient" ||
+                identifyRole() !== "reception" ||
+                window.location.pathname !== "/reception/appointment") && (
                 <NHButton
                   variant="default"
                   className=""
@@ -318,7 +326,7 @@ export const AppointmentBooking = () => {
                       size={"small"}
                       className={"w-full py-9"}
                       onClick={() => handleCancleModal(data)}
-                    // onClick={() => cancelAppointment(data?.key)}
+                      // onClick={() => cancelAppointment(data?.key)}
                     >
                       Cancel
                     </NHButton>
@@ -360,7 +368,7 @@ export const AppointmentBooking = () => {
                 {Icons.CalenderIcon} {formatDateRange(fromDate, toDate)}{" "}
                 {Icons.CloseCircle}
               </NHButton>
-              {(patientId || identifyRole() == 'patient') && (
+              {(patientId || identifyRole() == "patient") && (
                 <NHButton
                   variant="default"
                   className=""
@@ -424,7 +432,7 @@ export const AppointmentBooking = () => {
                 {Icons.CloseCircle}
               </NHButton>
 
-              {(patientId || identifyRole() == 'patient') && (
+              {(patientId || identifyRole() == "patient") && (
                 <NHButton
                   variant="default"
                   className=""
@@ -465,43 +473,54 @@ export const AppointmentBooking = () => {
           </div>
         </NHCard>
       ),
-    }
+    },
   ];
 
   return (
     <>
-
-      {patientId &&
-        <PatientDetailCard
-          patientName={patientData?.patientProfile?.fullName || "N/A"}
-          doctorName="Dr. Marcus Philips"
-          patientNumber={patientData?.patientProfile?.phone || "N/A"}
-          patientIssue="Feeling tired"
-          patientGender={patientData?.patientProfile?.gender || "N/A"}
-          patientAge={`${patientData?.patientProfile?.age || 0} Years`}
-          appointmentType="Online"
-          patientAddress={`${patientData?.patientProfile?.address?.fullAddress || "N/A"
-            }, ${patientData?.patientProfile?.address?.city || ""}`}
-          lastAppointmentDate="2 Jan, 2022"
-          lastAppointmentTime="4:30 PM"
-          onEditProfile={() => { }}
-        />
-      }
       {bookAppoinment ? (
-        patientId ? (<AppointmentSchedularPageForReception />) : (<AppointmentSchedularPage />)
+        patientId ? (
+          <AppointmentSchedularPageForReception />
+        ) : (
+          <AppointmentSchedularPage />
+        )
       ) : (
         <div className="appo_booking_sec">
-          <NHCard
-            headerContent={
-              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-            }
-          >
-            <NHTabs
-              items={tabItems}
-              defaultActiveKey="Scheduled"
-              onChange={handleTabChange}
+          {patientId && (
+            <PatientDetailCard
+              patientName={patientData?.patientProfile?.fullName || "N/A"}
+              doctorName="Dr. Marcus Philips"
+              patientNumber={patientData?.patientProfile?.phone || "N/A"}
+              patientIssue="Feeling tired"
+              patientGender={patientData?.patientProfile?.gender || "N/A"}
+              patientAge={`${patientData?.patientProfile?.age || 0} Years`}
+              appointmentType="Online"
+              patientAddress={`${
+                patientData?.patientProfile?.address?.fullAddress || "N/A"
+              }, ${patientData?.patientProfile?.address?.city || ""}`}
+              lastAppointmentDate="2 Jan, 2022"
+              lastAppointmentTime="4:30 PM"
+              onEditProfile={() => {}}
             />
-          </NHCard>
+          )}
+
+          <div className="all-appo pt-[30px]">
+            <NHCard
+              className={""}
+              headerContent={
+                <NHInput
+                  prefix={Icons.SearchIcon}
+                  placeholder="Search Patient"
+                />
+              }
+            >
+              <NHTabs
+                items={tabItems}
+                defaultActiveKey="Scheduled"
+                onChange={handleTabChange}
+              />
+            </NHCard>
+          </div>
         </div>
       )}
 
@@ -630,7 +649,7 @@ export const AppointmentBooking = () => {
         )}
       </Drawer>
       <CancelOnlineAppointmentModal
-      handleOk = {() => cancelAppointment(selectedAppointmentForModal)}
+        handleOk={() => cancelAppointment(selectedAppointmentForModal)}
         open={cancelModal}
         handleClose={closeCancleModal}
       />

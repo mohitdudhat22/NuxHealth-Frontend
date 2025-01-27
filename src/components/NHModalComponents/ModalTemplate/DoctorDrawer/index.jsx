@@ -12,8 +12,8 @@ import hospitalLoc from "../../../../assets/images/cover/hospital_loc.svg";
 import rightNav from "../../../../assets/images/cover/right_nav_icon.svg";
 
 const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
-  console.log(doctor,"<<<<<<<<<<<<<")
   const dummyDoctor = {
+    doctorName: "Dr. Cristofer Pasquinades",
     avatar: doctorLogo, // Assuming doctorLogo is imported
     gender: "male",
     hospitalName: "General Hospital",
@@ -43,6 +43,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
     ? { ...dummyDoctor, ...receptionist }
     : { ...dummyDoctor, ...doctor };
 
+  console.log(displayDoctor, "displayDoctor<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
   const displayName = receptionist
     ? displayDoctor.receptionistName
     : displayDoctor.doctorName;
@@ -64,7 +65,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <img
-                src={displayDoctor?.avatar}
+                src={displayDoctor.avatar}
                 alt="Doctor"
                 className="rounded-full w-16 h-16"
               />
@@ -73,7 +74,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                   {displayName}
                 </h3>
                 <div className="text-white bg-[#718EBF] rounded-full px-5 py-3 inline-flex items-center">
-                  {displayDoctor?.gender === "male" ? (
+                  {displayDoctor.gender === "male" ? (
                     <img
                       src={maleIcon}
                       alt="Male"
@@ -86,23 +87,23 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                       className="inline-block mr-1"
                     />
                   )}
-                  <span className="ml-4 font-bold">{displayDoctor?.gender}</span>
+                  <span className="ml-4 font-bold">{displayDoctor.gender}</span>
                 </div>
               </div>
             </div>
             <span
               className={`${
-                displayDoctor?.status === "Onsite"
+                displayDoctor.status === "Onsite"
                   ? "bg-[#39973D]"
                   : "bg-[#39973D]"
               } text-white border border-solid border-white py-2 px-5 rounded-[30px]`}
             >
-              {displayDoctor?.status}
+              {displayDoctor.status}
             </span>
           </div>
         </div>
 
-        {displayDoctor?.status === "Onsite" ? (
+        {displayDoctor.status === "Onsite" ? (
           <>
             <div className="mt-5 bg-[#F6F8FB] p-5 rounded-xl">
               <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2">
@@ -111,7 +112,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Doctor Qualification
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.qualification}
+                    {displayDoctor.qualification}
                   </p>
                 </div>
                 <div className="flex flex-col">
@@ -119,7 +120,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Years Of Experience
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.yearsOfExperience}
+                    {displayDoctor.yearsOfExperience}
                   </p>
                 </div>
               </div>
@@ -129,7 +130,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Specialty Type
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.specialty}
+                    {displayDoctor.specialty}
                   </p>
                 </div>
                 <div className="flex flex-col">
@@ -137,7 +138,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Working Time
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.workingTime}
+                    {displayDoctor.workingTime}
                   </p>
                 </div>
               </div>
@@ -147,7 +148,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Patient Check Up Time
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.morningSession}
+                    {displayDoctor.morningSession}
                   </p>
                 </div>
                 <div className="flex flex-col">
@@ -155,7 +156,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Break Time
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.breakTime}
+                    {displayDoctor.breakTime}
                   </p>
                 </div>
               </div>
@@ -165,7 +166,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Description
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.description}
+                    {displayDoctor.description}
                   </p>
                 </div>
               </div>
@@ -175,7 +176,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Signature
                   </h4>
                   <img
-                    src={displayDoctor?.signature}
+                    src={displayDoctor.signature}
                     alt="Doctor"
                     className="rounded-lg w-full mt-1"
                   />
@@ -190,7 +191,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Age
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.age}
+                    {displayDoctor.age}
                   </p>
                 </div>
                 <div className="flex flex-col">
@@ -198,7 +199,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Email
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.doctorMail}
+                    {displayDoctor.doctorMail}
                   </p>
                 </div>
               </div>
@@ -208,7 +209,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Phone
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.phone}
+                    {displayDoctor.phone}
                   </p>
                 </div>
                 <div className="flex flex-col">
@@ -216,7 +217,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Online Consultation Rate
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.rate}
+                    {displayDoctor.rate}
                   </p>
                 </div>
               </div>
@@ -226,7 +227,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Country
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.country}
+                    {displayDoctor.country}
                   </p>
                 </div>
                 <div className="flex flex-col">
@@ -234,7 +235,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     State
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.state}
+                    {displayDoctor.state}
                   </p>
                 </div>
               </div>
@@ -244,7 +245,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Zip Code
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.zipCode}
+                    {displayDoctor.zipCode}
                   </p>
                 </div>
                 <div className="flex flex-col">
@@ -252,7 +253,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     City
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.city}
+                    {displayDoctor.city}
                   </p>
                 </div>
               </div>
@@ -262,7 +263,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Address
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.address}
+                    {`${displayDoctor?.address.fullAddress}`}
                   </p>
                 </div>
               </div>
@@ -284,7 +285,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Hospital Name
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.hospitalName}
+                    {displayDoctor.hospitalName}
                   </p>
                 </div>
               </div>
@@ -297,10 +298,10 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Hospital Website Link
                   </h4>
                   <a
-                    href={displayDoctor?.hospitalWebsite}
+                    href={displayDoctor.hospitalWebsite}
                     className="text-[#141414] font-medium text-[16px] mt-1 underline"
                   >
-                    {displayDoctor?.hospitalWebsite}
+                    {displayDoctor.hospitalWebsite}
                   </a>
                 </div>
               </div>
@@ -313,7 +314,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Emergency Contact Number
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.emergencyContactNumber}
+                    {displayDoctor.emergencyContactNumber}
                   </p>
                 </div>
               </div>
@@ -326,7 +327,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Hospital Address
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor?.hospitalAddress}
+                    {displayDoctor.hospitalAddress}
                   </p>
                 </div>
               </div>

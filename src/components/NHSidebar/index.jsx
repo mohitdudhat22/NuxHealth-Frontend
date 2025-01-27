@@ -16,6 +16,7 @@ export const NHSidebar = ({ collapsed, className, items }) => {
   const { currentPage } = useAside();
   const [openKeys, setOpenKeys] = useState([]);
   const { goToLogin } = useAppNavigation();
+
   const onOpenChange = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
@@ -23,7 +24,7 @@ export const NHSidebar = ({ collapsed, className, items }) => {
 
   const handleLogout = () => {
     Cookies.remove(import.meta.env.VITE_TOKEN_NAME);
-    goToLogin()
+    goToLogin();
   };
 
   return (

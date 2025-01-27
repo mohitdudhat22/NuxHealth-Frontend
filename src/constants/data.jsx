@@ -14,12 +14,12 @@ export const AdminAsideData = [
   },
   {
     key: "patientManagement",
-    icon: Icons.DoctorUser,
+    icon: Icons.patientManagement,
     label: <Link to="/admin/patient-management">Patient Management</Link>,
   },
   {
     key: "receptionManagement",
-    icon: Icons.DoctorUser,
+    icon: Icons.patientManagement,
     label: <Link to="/admin/reception-management">Reception Management</Link>,
   },
   // {
@@ -64,17 +64,17 @@ export const AdminAsideData = [
 export const DoctorPanelData = [
   {
     key: "/doctor",
-    icon: Icons.Analytics,
+    icon: Icons.AppointmentManagement,
     label: <Link to="/doctor">Appointment Management</Link>,
   },
   {
     key: "patientRecordAccess",
-    icon: Icons.Analytics,
+    icon: Icons.PatientRecordAccess,
     label: <Link to="/doctor/patientrecordaccess">Patient Record Accesst</Link>,
   },
   {
     key: "createPrescriptionTools",
-    icon: Icons.Analytics,
+    icon: Icons.PrescriptionTools,
     label: "Prescription Tools",
     children: [
       {
@@ -89,14 +89,14 @@ export const DoctorPanelData = [
   },
   {
     key: "teleConsultationModule",
-    icon: Icons.Analytics,
+    icon: Icons.Teleconsultation,
     label: (
       <Link to="/doctor/teleconsultation-module">Teleconsultation Module</Link>
     ),
   },
   {
     key: "chatScreen",
-    icon: Icons.Analytics,
+    icon: Icons.chat,
     label: <Link to="/doctor/chat-screen">Chat Screen</Link>,
   },
 ];
@@ -104,32 +104,32 @@ export const DoctorPanelData = [
 export const PatientPanelData = [
   {
     key: "/patient",
-    icon: Icons.Analytics,
+    icon: Icons.PersonalHealthRecord,
     label: <Link to="/patient">Personal Health Record</Link>,
   },
   {
     key: "appointment",
-    icon: Icons.Analytics,
+    icon: Icons.appointmentBooking,
     label: <Link to="/patient/appointment">Appointment Booking</Link>,
   },
   {
     key: "prescriptionAccess",
-    icon: Icons.Analytics,
+    icon: Icons.PrescriptionAccess,
     label: <Link to="/patient/prescription-access">Prescription Access</Link>,
   },
   {
     key: "teleConsultation",
-    icon: Icons.Analytics,
+    icon: Icons.TeleconsultationAccess,
     label: <Link to="/patient/teleconsultation">Teleconsultation Access</Link>,
   },
   {
     key: "chatScreen",
-    icon: Icons.Analytics,
+    icon: Icons.chat,
     label: <Link to="/patient/chat-screen">Chat</Link>,
   },
   {
     key: "bills",
-    icon: Icons.Analytics,
+    icon: Icons.bill,
     label: <Link to="/patient/bills">Bills</Link>,
   },
 ];
@@ -137,29 +137,29 @@ export const PatientPanelData = [
 export const ReceptionPanelData = [
   {
     key: "reception",
-    icon: Icons.Analytics,
+    icon: Icons.Dashboard,
     label: <Link to="/reception">Dashboard</Link>,
   },
   {
     key: "patientRegistration",
-    icon: Icons.Analytics,
+    icon: Icons.patientManagement,
     label: (
       <Link to="/reception/patient-registration">Patient Registration</Link>
     ),
   },
   {
     key: "personalHealth",
-    icon: Icons.Analytics,
+    icon: Icons.patientList,
     label: <Link to="/reception/personal-health">Patients List</Link>,
   },
   {
     key: "appointment",
-    icon: Icons.Analytics,
+    icon: Icons.allAppointment,
     label: <Link to="/reception/appointment">All Appointments</Link>,
   },
   {
     key: "bills",
-    icon: Icons.Analytics,
+    icon: Icons.bill,
     label: <Link to="/reception/bills">Bills</Link>,
   },
 ];
@@ -243,7 +243,6 @@ export const headerDropdownItems = [
 
 /* Common Table Columns */
 
-
 /* staticData */
 export const appointmentDataReportAndAnalytics = [
   { year: 2020, onlineConsultation: 30, otherAppointment: 40 },
@@ -277,6 +276,3 @@ export const PatientDataReportAndAnalytics = [
   { age: "40-59 Years", value: 8, color: "#009688" },
   { age: "60 And Above", value: 34, color: "#FF9F83" },
 ];
-
-
-

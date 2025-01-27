@@ -36,36 +36,40 @@ export const useAside = () => {
       setCurrentPage("reportingAnalytics");
     } else if (path === "/doctor") {
       setCurrentPage("/doctor");
-    } else if (path === "/doctor/patientrecordaccesst") {
+    } else if (path === "/doctor/patientrecordaccess") {
       setCurrentPage("patientRecordAccess");
     } else if (path === "/doctor/createPrescriptionTools") {
       setCurrentPage("createPrescriptionTools");
-    } else if (path === "/doctor/teleconsultationModule") {
+    } else if (path === "/doctor/create-prescriptionTools/create") {
+      setCurrentPage("create");
+    } else if (path === "/doctor/create-prescriptionTools/manage") {
+      setCurrentPage("manage");
+    } else if (path === "/doctor/teleconsultation-module") {
       setCurrentPage("teleConsultationModule");
-    } else if (path === "/doctor/chatScreen") {
+    } else if (path === "/doctor/chat-screen") {
       setCurrentPage("chatScreen");
     } else if (path === "/patient") {
       setCurrentPage("/patient");
     } else if (path === "/patient/appointment") {
       setCurrentPage("appointment");
-    } else if (path === "/patient/prescriptionaccess") {
+    } else if (path === "/patient/prescription-access") {
       setCurrentPage("prescriptionAccess");
     } else if (path === "/patient/teleconsultation") {
       setCurrentPage("teleConsultation");
-    } else if (path === "/patient/chatScreen") {
+    } else if (path === "/patient/chat-screen") {
       setCurrentPage("chatScreen");
     } else if (path === "/patient/bills") {
       setCurrentPage("bills");
     } else if (path === "/reception") {
-      setCurrentPage("/reception");
+      setCurrentPage("reception");
     } else if (path === "/reception/patient-registration") {
       setCurrentPage("patientRegistration");
-    } else if (path === "/reception/personalhealth") {
+    } else if (path === "/reception/personal-health") {
       setCurrentPage("personalHealth");
     } else if (path === "/reception/appointment") {
       setCurrentPage("appointment");
-    } else if (path === "/reception/monitorBilling") {
-      setCurrentPage("monitorBilling");
+    } else if (path === "/reception/bills") {
+      setCurrentPage("bills");
     } else {
       setCurrentPage(path);
     }
