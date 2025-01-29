@@ -1,2 +1,2 @@
-    export { Sidebar as ChatSidebar } from "./Sidebar";
+export { Sidebar as ChatSidebar } from "./SideBar";
 export { MessageBar as ChatMessageBar } from "./MessageBar";
