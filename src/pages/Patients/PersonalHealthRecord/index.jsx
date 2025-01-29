@@ -132,7 +132,7 @@ export const PersonalHealthRecord = () => {
                 <div className="grid grid-cols-1 space-y-1 md:grid-cols-3">
                   {medicalHistoryData.map((medicalData, index) => {
                     return (
-                      <NHCard className={"border border-[#F4F4F4] rounded-xl "}>
+                      <NHCard className={"border border-[#F4F4F4] rounded-xl"}>
                         <div className="flex justify-between bg-[#F6F8FB] rounded-lg p-3">
                           <h3 className="text-sm font-medium text-gray-900 ">
                             {medicalData.title}
@@ -185,7 +185,7 @@ export const PersonalHealthRecord = () => {
                     showPagination={true}
                     tableColumn={columns}
                     tableDataSource={prescriptions}
-                    scroll={{x: 800}}
+                    scroll={{ x: 800 }}
                   />
                 </NHCard>
               </section>

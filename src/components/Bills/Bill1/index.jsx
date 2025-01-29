@@ -41,9 +41,9 @@ export function Bill1({ billData }) {
 
   return (
     <div className="w-[80%] md:w-[50%] m-auto">
-      <button onClick={goBack} className="close-back-button">
+      {/* <button onClick={goBack} className="close-back-button">
         {Icons?.CloseCircle}
-      </button>
+      </button> */}
       <NHCard>
         {/* Header Section */}
         <div className="flex justify-between pb-5 head">
