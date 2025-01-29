@@ -117,10 +117,6 @@ export const DoctorManagement = () => {
           showPagination={true}
           tableColumn={columns}
           tableDataSource={data}
-          scroll={{
-            x: 1200,
-            y: 400,
-          }}
         />
 
         {/* Delete Complaint Modal */}

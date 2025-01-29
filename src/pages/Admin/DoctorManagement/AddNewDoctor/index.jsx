@@ -16,7 +16,6 @@ export const AddNewDoctor = () => {
     profilePicture,
     setProfilePicture,
     setSignature,
-
   } = useCreateDoctor();
   const countries = Country.getAllCountries().map((country) => ({
     value: country.name,
@@ -24,23 +23,26 @@ export const AddNewDoctor = () => {
   }));
   const states = formData.country
     ? State.getStatesOfCountry(
-      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode // Get states using the country name
-    ).map((state) => ({
-      value: state.name,
-      label: state.name,
-    }))
+        Country.getAllCountries().find((c) => c.name === formData.country)
+          ?.isoCode // Get states using the country name
+      ).map((state) => ({
+        value: state.name,
+        label: state.name,
+      }))
     : [];
 
   const cities = formData.state
     ? City.getCitiesOfState(
-      Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode,
-      State.getStatesOfCountry(
-        Country.getAllCountries().find((c) => c.name === formData.country)?.isoCode
-      ).find((s) => s.name === formData.state)?.isoCode
-    ).map((city) => ({
-      value: city.name,
-      label: city.name,
-    }))
+        Country.getAllCountries().find((c) => c.name === formData.country)
+          ?.isoCode,
+        State.getStatesOfCountry(
+          Country.getAllCountries().find((c) => c.name === formData.country)
+            ?.isoCode
+        ).find((s) => s.name === formData.state)?.isoCode
+      ).map((city) => ({
+        value: city.name,
+        label: city.name,
+      }))
     : [];
   return (
     <>
@@ -54,7 +56,7 @@ export const AddNewDoctor = () => {
             {/* Profile Photo and Signature Section */}
             <div className="lg:w-[17%] w-full">
               <div className="flex flex-col items-center gap-2 mt-6">
-                <div className="overflow-hidden bg-gray-100 rounded-full w-[22rem] h-[22rem]">
+                <div className="overflow-hidden bg-gray-100">
                   <Upload
                     className="flex items-center justify-center w-full h-full cursor-pointer"
                     showUploadList={false}
@@ -63,58 +65,63 @@ export const AddNewDoctor = () => {
                       return false;
                     }}
                   >
-                    {!profilePicture && <div className="text-center">
-                      <div className="text-gray-400">
-                        <svg
-                          width="192"
-                          height="192"
-                          viewBox="0 0 192 192"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g clipPath="url(#clip0_589_57669)">
-                            <rect
-                              x="3"
-                              y="3"
-                              width="186"
-                              height="186"
-                              rx="93"
-                              fill="#D9D9D9"
-                            />
-                            <path
-                              d="M189 165.705V189.01H3V165.791C13.8186 151.333 27.8613 139.598 44.0114 131.521C60.1614 123.443 77.9735 119.245 96.031 119.26C134.037 119.26 167.796 137.503 189 165.705ZM127.016 72.7519C127.016 80.9737 123.749 88.8586 117.936 94.6723C112.122 100.486 104.237 103.752 96.0155 103.752C87.7938 103.752 79.9088 100.486 74.0952 94.6723C68.2816 88.8586 65.0155 80.9737 65.0155 72.7519C65.0155 64.5302 68.2816 56.6453 74.0952 50.8316C79.9088 45.018 87.7938 41.752 96.0155 41.752C104.237 41.752 112.122 45.018 117.936 50.8316C123.749 56.6453 127.016 64.5302 127.016 72.7519Z"
-                              fill="#A7A7A7"
-                            />
-                          </g>
-                          <rect
-                            x="1.5"
-                            y="1.5"
-                            width="189"
-                            height="189"
-                            rx="94.5"
-                            stroke="#D9D9D9"
-                            strokeWidth="3"
-                          />
-                          <defs>
-                            <clipPath id="clip0_589_57669">
+                    {!profilePicture && (
+                      <div className="text-center">
+                        <div className="text-gray-400">
+                          <svg
+                            width="192"
+                            height="192"
+                            viewBox="0 0 192 192"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clipPath="url(#clip0_589_57669)">
                               <rect
                                 x="3"
                                 y="3"
                                 width="186"
                                 height="186"
                                 rx="93"
-                                fill="white"
+                                fill="#D9D9D9"
                               />
-                            </clipPath>
-                          </defs>
-                        </svg>
+                              <path
+                                d="M189 165.705V189.01H3V165.791C13.8186 151.333 27.8613 139.598 44.0114 131.521C60.1614 123.443 77.9735 119.245 96.031 119.26C134.037 119.26 167.796 137.503 189 165.705ZM127.016 72.7519C127.016 80.9737 123.749 88.8586 117.936 94.6723C112.122 100.486 104.237 103.752 96.0155 103.752C87.7938 103.752 79.9088 100.486 74.0952 94.6723C68.2816 88.8586 65.0155 80.9737 65.0155 72.7519C65.0155 64.5302 68.2816 56.6453 74.0952 50.8316C79.9088 45.018 87.7938 41.752 96.0155 41.752C104.237 41.752 112.122 45.018 117.936 50.8316C123.749 56.6453 127.016 64.5302 127.016 72.7519Z"
+                                fill="#A7A7A7"
+                              />
+                            </g>
+                            <rect
+                              x="1.5"
+                              y="1.5"
+                              width="189"
+                              height="189"
+                              rx="94.5"
+                              stroke="#D9D9D9"
+                              strokeWidth="3"
+                            />
+                            <defs>
+                              <clipPath id="clip0_589_57669">
+                                <rect
+                                  x="3"
+                                  y="3"
+                                  width="186"
+                                  height="186"
+                                  rx="93"
+                                  fill="white"
+                                />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
                       </div>
-                    </div>}
+                    )}
 
                     {profilePicture && (
-                      <img src={profilePicture} alt="Profile Preview" className="w-full h-full object-cover" />
-                    )
-                    }
+                      <img
+                        src={profilePicture}
+                        alt="Profile Preview"
+                        className="w-[192px] h-[192px] rounded-full border-2 border-[#D9D9D9] object-cover"
+                      />
+                    )}
                   </Upload>
                 </div>
                 <div className="mt-1 font-medium text-blue-600">
@@ -122,11 +129,11 @@ export const AddNewDoctor = () => {
                 </div>
               </div>
               {/* <NHProfilePicUploader /> */}
-              <div className="mt-16 text-xl font-medium text-black ps-3 center">
+              <div className="mt-16 text-xl font-medium text-black pb-3 center">
                 <p className="text-center text-xl"> Upload Signature</p>
               </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="flex items-center justify-center w-[22rem] h-[22rem] border border-gray-300 border-dashed rounded-lg">
+              <div className="flex flex-col items-center gap-2 ">
+                <div className="flex items-center justify-center w-[186px] h-[186px] border-2 border-[#D9D9D9] border-[red] border-dashed rounded-xl">
                   <Upload
                     className="flex items-center justify-center w-full h-full cursor-pointer"
                     showUploadList={false} // Disable default upload list since we are customizing
@@ -139,12 +146,16 @@ export const AddNewDoctor = () => {
                       <img
                         src={signature}
                         alt="Signature Preview"
-                        className="w-full h-full object-cover"
+                        className="w-[186px] h-[186px] rounded-xl object-cover"
                       />
                     ) : (
                       <div className="text-center">
-                        <div className="text-lg text-blue-600">Upload Signature</div>
-                        <div className="mt-1 text-lg text-[#A7A7A7]">PNG Up To 5MB</div>
+                        <div className="text-lg text-blue-600">
+                          Upload Signature
+                        </div>
+                        <div className="mt-1 text-lg text-[#A7A7A7]">
+                          PNG Up To 5MB
+                        </div>
                       </div>
                     )}
                   </Upload>
@@ -278,9 +289,10 @@ export const AddNewDoctor = () => {
                   placeholder="Select Country"
                   options={countries}
                   value={formData?.country}
-                  onChange={(value) => handleChange({
-                    target: { name: "country", value },
-                  })
+                  onChange={(value) =>
+                    handleChange({
+                      target: { name: "country", value },
+                    })
                   }
                 />
                 <NHSelect
@@ -290,18 +302,22 @@ export const AddNewDoctor = () => {
                   placeholder="Select State"
                   options={states}
                   value={formData?.state}
-                  onChange={(value) => handleChange({
-                    target: { name: "state", value },
-                  })}
+                  onChange={(value) =>
+                    handleChange({
+                      target: { name: "state", value },
+                    })
+                  }
                 />
                 <NHSelect
                   label="City"
                   name="city"
                   placeholder="Select City"
                   options={cities}
-                  onChange={(value) => handleChange({
-                    target: { name: "city", value },
-                  })}
+                  onChange={(value) =>
+                    handleChange({
+                      target: { name: "city", value },
+                    })
+                  }
                 />
                 <NHInput
                   label="Zip code"
@@ -360,21 +376,21 @@ export const AddNewDoctor = () => {
                 label="Doctor Current Hospital"
                 // name="doctorCurrentHospital"
                 placeholder="Enter Current Hospital"
-              // value={formData.doctorCurrentHospital}
-              // onChange={handleChange}
+                // value={formData.doctorCurrentHospital}
+                // onChange={handleChange}
               />
               <NHInput
                 label="Hospital Name"
                 // name="hospitalName"
                 placeholder="Enter Hospital Name"
-              // value={formData.hospitalName}
-              // onChange={handleChange}
+                // value={formData.hospitalName}
+                // onChange={handleChange}
               />
               <NHInput
                 label="Hospital Address"
                 // name="hospitalAddress"
                 placeholder="Enter Hospital Address"
-              // onChange={handleChange}
+                // onChange={handleChange}
               />
               <NHInput
                 label="Hospital Website Link"
@@ -399,7 +415,7 @@ export const AddNewDoctor = () => {
             </div>
           </div>
         </form>
-      </NHCard >
+      </NHCard>
     </>
   );
 };

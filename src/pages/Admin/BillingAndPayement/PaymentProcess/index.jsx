@@ -144,12 +144,6 @@ export const PaymentProcess = () => {
         </NHCard>
 
         <PaymentProcessModal
-          open={isModalOpen}
-          handleClose={() => setIsModalOpen(false)}
-          // paymentData={record}
-        />
-
-        <CashPaymentModal
           open={isCashPaymentModalOpen}
           handleClose={() => setIsCashPaymentModalOpen(false)}
           handlePay={handlePay}
