@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "antd";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 export const PDFViewerModal = ({ isOpen, onClose, pdfUrl, fileName }) => {
   if (!isOpen) return null;

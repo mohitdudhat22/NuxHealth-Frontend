@@ -8,7 +8,7 @@ import {
 } from "@/components";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import React, { useState } from "react";
 import { Drawer } from "antd";
 import "./AppointmentBooking.css";

@@ -1,7 +1,7 @@
 // Api is not available so I have used static data for now.
 import { getSinglePatient, getSinglePatientForDoctor } from "@/axiosApi/ApiHelper";
 import { NHButton } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { Space, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";

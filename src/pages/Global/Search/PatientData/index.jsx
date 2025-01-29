@@ -1,5 +1,5 @@
 import { NHButton, NHTable } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 const PatientData = ({ tableData }) => {
   const columns = [

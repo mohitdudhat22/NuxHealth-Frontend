@@ -1,6 +1,6 @@
 import { getbill } from "@/axiosApi/ApiHelper";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { Space, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

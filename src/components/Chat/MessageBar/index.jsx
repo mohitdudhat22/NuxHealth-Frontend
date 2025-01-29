@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Avatar, Modal } from "antd";
 import { NHButton, NHInput } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { PDFViewerModal } from "@/components/PDFViewerModal";
 
 export const MessageBar = ({ selectedUser, messages, onSendMessage, userId }) => {

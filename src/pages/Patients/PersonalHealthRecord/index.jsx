@@ -6,7 +6,7 @@ import {
   PatientDetailCard,
   PrescriptionCard,
 } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { usePatientDashboardData } from "@/hook/Patients";
 import React, { useState } from "react";
 import { Prescriptions } from "./Prescriptions";

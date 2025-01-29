@@ -1,6 +1,6 @@
 import { FullLogo } from "@/assets/images";
 import { NHCard } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { useGetSingleBill } from "@/hook/Global";
 import { useAppNavigation } from "@/utils/useAppNavigation";
 

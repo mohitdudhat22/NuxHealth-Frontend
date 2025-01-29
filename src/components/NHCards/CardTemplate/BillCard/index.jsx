@@ -1,5 +1,5 @@
 import { NHButton, NHCard } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 export const BillCard = ({
   doctorName,

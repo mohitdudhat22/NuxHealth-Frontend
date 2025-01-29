@@ -5,7 +5,7 @@ import {
   NHInput,
   NHTabs,
 } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import React, { useEffect, useState } from "react";
 import { usePreviousTeleconsultationModule } from "@/hook/Patients/TeleconsultationModule/PreviousTeleconsultationModule";
 import { useTodaysTeleconsultationModule } from "@/hook/Patients/TeleconsultationModule/TodaysTeleconsultationModule";

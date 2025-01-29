@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { user } from "@/assets/images";
 import { NHInput } from "@/components/FormComponents";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { Avatar, List } from "antd";
 import clsx from "clsx";
 

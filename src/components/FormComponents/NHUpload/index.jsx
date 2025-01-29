@@ -1,6 +1,6 @@
 import Dragger from "antd/es/upload/Dragger";
 import clsx from "clsx";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 export const NHUpload = ({
   rootClassName,

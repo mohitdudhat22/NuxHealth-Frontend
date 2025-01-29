@@ -1,5 +1,5 @@
 import { NHButton } from '@/components'
-import Icons from '@/constants/icons'
+import Icons from '@/constants/Icons'
 import React from 'react'
 
 export const PatientView = () => {

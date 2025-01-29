@@ -7,7 +7,7 @@ import {
   NHHead,
 } from "@/components";
 import { LineChart } from "@/components/Charts";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { useDashboardAndReport } from "@/hook/Admin/DashboardAndReport";
 
 export const Dashboard = () => {

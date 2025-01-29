@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Space, Tag } from "antd";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { useUpcomingAppointments } from "@/hook/Doctor/AppointmentManagement/UpcomingAppointment";
 import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
 import { CancelOnsiteAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnsiteAppointmentModal";

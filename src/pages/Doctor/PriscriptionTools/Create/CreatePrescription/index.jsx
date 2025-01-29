@@ -7,7 +7,7 @@ import {
   NHCard,
   PrescriptionCard,
 } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { createPrescription } from "@/axiosApi/ApiHelper";
 
 export const CreatePrescription = ({

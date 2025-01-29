@@ -6,7 +6,7 @@ import {
   PatientAgeDistribution,
   NHHead,
 } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { useReportandAnalytics } from "@/hook/Admin/ReportAndAnalytics";
 import NoPatientFound from "../../../assets/images/cover/no-patient-found.png";
 import NoDoctorCountFound from "../../../assets/images/cover/no-doctor-count-found.png";

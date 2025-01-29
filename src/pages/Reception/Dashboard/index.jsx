@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatisticsCard, AppointmentsList, BillingCard, PatientDistributionCard } from '@/components';
 import { LineChart } from '@/components/Charts';
-import Icons from '@/constants/icons';
+import Icons from '@/constants/Icons';
 import { useDashboardAndReport } from '@/hook/Admin/DashboardAndReport';
 
 export const ReceptionDashboard = () => {

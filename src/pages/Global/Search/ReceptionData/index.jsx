@@ -1,6 +1,6 @@
 import { NHTable, NHButton } from "@/components";
 import { Avatar, Space } from "antd";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 export const ReceptionData = ({ loading, tableData }) => {
   const columns = [

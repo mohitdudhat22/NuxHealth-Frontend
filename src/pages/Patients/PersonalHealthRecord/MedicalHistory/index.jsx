@@ -1,6 +1,6 @@
 import { login } from "@/axiosApi/ApiHelper";
 import { AppointmentCard, NHButton, NHCard, NHInput } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 export const MedicalHistory = () => {
   const MedicaltData = [

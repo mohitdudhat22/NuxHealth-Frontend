@@ -1,5 +1,5 @@
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { Space, Tag } from "antd";
 import { useInsuranceClaims } from '@/hook/Admin/BillingAndPayments';
 

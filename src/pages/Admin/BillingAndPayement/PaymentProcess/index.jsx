@@ -1,6 +1,6 @@
 import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import { PaymentProcessModal } from "@/components/NHModalComponents/ModalTemplate/PaymentProcessModal";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { Space, Tag } from "antd";
 import "./PaymentProcess.css";
 import { usePaymentProcess } from "@/hook/Admin/BillingAndPayments/PaymentProcess";

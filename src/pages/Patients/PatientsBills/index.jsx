@@ -11,7 +11,7 @@ import {
 import { PaymentMethodModal } from "@/components/NHModalComponents/ModalTemplate/PaymentMethodModal";
 import { PaymentMethodProcessModal } from "@/components/NHModalComponents/ModalTemplate/PaymentMethodProcessModal";
 import { SelectPaymentTypeModal } from "@/components/NHModalComponents/ModalTemplate/SelectPaymentTypeModal";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { usePatientPaidBills } from "@/hook/Patients/PatientBills";
 import { usePatientUnpaidBills } from "@/hook/Patients/PatientBills/Unpaid";
 import React, { useEffect, useState } from "react";

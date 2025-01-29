@@ -1,5 +1,5 @@
 import { NHCard, NHInput, NHSelect, NHTable } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { usePatientRecordAccess } from "@/hook/Doctor/PatientRecordAccess";
 import "./DoctorPatientRecord.css"
 

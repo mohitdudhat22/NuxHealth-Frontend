@@ -1,4 +1,4 @@
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import styles from "./NCHProfilePicUploader.module.css";
 
 export const NHProfilePicUploader = ({

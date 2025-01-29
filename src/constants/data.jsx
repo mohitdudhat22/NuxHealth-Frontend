@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Icons from "./icons";
+import Icons from "./Icons";
 
 export const AdminAsideData = [
   {

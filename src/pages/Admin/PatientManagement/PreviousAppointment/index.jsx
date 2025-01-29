@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NHButton, NHCard, NHInput, NHTable } from "@/components";
 import { Avatar, Space, Tag } from "antd";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import "./PreviousAppo.css";
 import { usePreviousAppointments } from "@/hook/Admin/PatientManagement/PreviousAppontment";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";

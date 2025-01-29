@@ -1,6 +1,6 @@
 import { useReceptionManagement } from "@/hook";
 import { Space } from "antd/lib";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import {
   DeleteModal,
   NHButton,

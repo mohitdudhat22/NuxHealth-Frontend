@@ -1,7 +1,7 @@
 import React from "react";
 import { NHButton, NHTable } from "@/components";
 import { Avatar, Space, Tag } from "antd";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 const DoctorData = ({ tableData, loading }) => {
   const columns = [

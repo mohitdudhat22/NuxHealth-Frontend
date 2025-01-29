@@ -1,5 +1,5 @@
 import { AppointmentCard, NHButton, NHModal, PrescriptionCard } from "@/components/";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 export const PatientDetailModal = ({
   handleOk,

@@ -1,6 +1,6 @@
 import { FullLogo } from "@/assets/images";
 import { NHButton, NHCard, NHModal } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import React from "react";
 
 export const Record = () => {

@@ -1,5 +1,5 @@
 import { NHButton, NHCard, NHInput, NHTable, NHTabs } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";

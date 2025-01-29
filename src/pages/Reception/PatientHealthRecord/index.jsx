@@ -1,5 +1,5 @@
 import { Space } from "antd/lib";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
 import { Avatar } from "antd";
 import { useEffect, useRef, useState } from "react";

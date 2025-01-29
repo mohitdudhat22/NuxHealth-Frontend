@@ -1,6 +1,6 @@
 import { useDoctorManagement } from "@/hook";
 import { Space, Tag } from "antd";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import {
   NHButton,
   NHCard,

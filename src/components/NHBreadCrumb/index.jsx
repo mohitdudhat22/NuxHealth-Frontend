@@ -1,7 +1,7 @@
 import React from "react";
 import { Breadcrumb } from "antd";
 import { useLocation, Link } from "react-router-dom";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 // Convert URL segments into a readable format
 const formatTitle = (segment) => {

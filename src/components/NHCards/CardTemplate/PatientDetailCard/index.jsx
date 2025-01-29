@@ -1,5 +1,5 @@
 import { NHButton } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { identifyRole } from "@/utils/identifyRole";
 import { useAppNavigation } from "@/utils/useAppNavigation";
 import React from "react";

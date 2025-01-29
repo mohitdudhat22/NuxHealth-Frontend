@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NHButton, NHCard, NHTable } from "..";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { useNavigate } from "react-router-dom";
 
 export const BillingCard = ({ data, userRole }) => {

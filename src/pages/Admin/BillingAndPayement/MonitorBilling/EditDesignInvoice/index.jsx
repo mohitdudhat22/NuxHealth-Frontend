@@ -1,5 +1,5 @@
 import { StaticBill1, StaticBill2, StaticBill3 } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { useAppNavigation } from "@/utils/useAppNavigation";
 import React, { useState } from "react";
 

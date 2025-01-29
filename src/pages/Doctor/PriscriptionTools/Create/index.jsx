@@ -1,5 +1,5 @@
 import { AppointmentCard, NHButton, NHCard, NHInput } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { Space, Tag } from "antd";
 import { useState } from "react";
 import { CreatePrescription, PatientDetails } from "../..";

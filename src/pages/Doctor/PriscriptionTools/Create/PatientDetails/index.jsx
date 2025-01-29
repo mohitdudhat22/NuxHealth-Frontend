@@ -8,7 +8,7 @@ import {
   NHTabs,
   PatientDetailCard,
 } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import medicalCertificate from "@/assets/images/Project-images/medicalCerti.png";
 import document from "@/assets/images/Project-images/doc.png";
 import NoPatientDetailsFound from "@/assets/images/cover/no-patient-details-found.png";

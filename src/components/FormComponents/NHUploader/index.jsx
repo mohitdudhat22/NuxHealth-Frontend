@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Icons } from "@/constants/icons";
+import { Icons } from "@/constants/Icons";
 import styles from "./NHUploader.module.css";
 
 export const NHUploader = ({

@@ -1,4 +1,4 @@
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { Button } from "antd";
 import clsx from "clsx";
 

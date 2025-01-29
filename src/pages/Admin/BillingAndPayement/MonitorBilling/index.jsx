@@ -11,7 +11,7 @@ import {
   NHInput,
   NHTable,
 } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import "./Billing.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";

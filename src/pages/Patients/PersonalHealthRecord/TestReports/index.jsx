@@ -1,5 +1,5 @@
 import { AppointmentCard, NHButton, NHCard, NHInput } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { Tag } from "antd";
 
 export const TestReports = () => {

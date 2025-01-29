@@ -5,7 +5,7 @@ import {
   NHInput,
   PrescriptionCard,
 } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { usePatientPrescriptionData } from "@/hook/Patients";
 import { Tag } from "antd";
 import React, { useEffect, useState } from "react";

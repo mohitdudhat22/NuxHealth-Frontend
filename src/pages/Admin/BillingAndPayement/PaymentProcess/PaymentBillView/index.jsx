@@ -1,7 +1,7 @@
 import { Bill1, Bill2, Bill3, NHCard } from "@/components";
 import React from "react";
 import { useLocation } from "react-router-dom";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { useAppNavigation } from "@/utils/useAppNavigation";
 
 export const PaymentBillView = () => {

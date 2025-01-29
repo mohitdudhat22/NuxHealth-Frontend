@@ -1,6 +1,6 @@
 import { Space, Tag } from "antd";
 import { NHButton, NHCard, NHHead, NHInput, NHTable } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { useNavigate } from "react-router-dom";
 import { useRecaptionBillingAndPayments } from "@/hook";
 import "./ReceptionBill.css";

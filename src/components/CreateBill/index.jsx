@@ -6,7 +6,7 @@ import {
   createBillForAdmin,
 } from "@/axiosApi/ApiHelper";
 import { useLocation } from "react-router-dom";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 import { useAppNavigation } from "@/utils/useAppNavigation";
 
 // Custom Hook

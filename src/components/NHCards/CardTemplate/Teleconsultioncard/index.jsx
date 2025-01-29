@@ -1,6 +1,6 @@
 import React from "react";
 import { NHButton, NHCard } from "@/components";
-import Icons from "@/constants/icons";
+import Icons from "@/constants/Icons";
 
 export const TeleconsultationCard = ({
     hospitalName = "abc",
