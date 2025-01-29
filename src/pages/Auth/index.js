@@ -4,3 +4,5 @@ export { ForgetPassword } from "./ForgetPassword/";
 export { OTP } from "./OTP/";
 export { ResetPassword } from "./ResetPassword/";
 export { PatientRegistration } from "./PatientRegistration"
+
+//changes in name
