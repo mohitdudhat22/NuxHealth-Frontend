@@ -9,32 +9,29 @@ const getCookie = (name) => {
 
 export const useDecodeToken = () => {
   const [decodedToken, setDecodedToken] = useState(null);
+  const decodeToken = () => {
+    let token =
+      localStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
+      sessionStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
+      getCookie(import.meta.env.VITE_TOKEN_NAME);
+    if (!token) {
+      toast.error(
+        "Token not found in localStorage, sessionStorage, or cookies"
+      );
+      return;
+    }
 
+    try {
+      const decoded = jwtDecode(token);
+      setDecodedToken(decoded);
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      setDecodedToken(null);
+    }
+  };
   useEffect(() => {
-    const decodeToken = () => {
-            let token =
-        localStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
-        sessionStorage.getItem(import.meta.env.VITE_TOKEN_NAME) ||
-        getCookie(import.meta.env.VITE_TOKEN_NAME);
-
-      if (!token) {
-        toast.error(
-          "Token not found in localStorage, sessionStorage, or cookies"
-        );
-        return;
-      }
-
-      try {
-        const decoded = jwtDecode(token);
-        setDecodedToken(decoded);
-      } catch (error) {
-        console.error("Error decoding token:", error);
-        setDecodedToken(null);
-      }
-    };
-
     decodeToken();
   }, []);
 
-  return { token: decodedToken };
+  return { token: decodedToken, setDecodedToken, decodeToken };
 };

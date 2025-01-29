@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createReceptionist } from '@/axiosApi/ApiHelper';
 import { useNavigate } from 'react-router-dom';
+import { Country } from 'country-state-city';
 
 export const useCreateReceptionist = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export const useCreateReceptionist = () => {
     fullAddress: '',
     emergencyContactNo: '',
   });
+  const [profilePicture, setProfilePicture] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +45,9 @@ export const useCreateReceptionist = () => {
         ...prev,
         [name]: file,
       }));
+      if(name == "profilePicture"){
+        setProfilePicture(URL.createObjectURL(file));
+      }
     } else {
       console.error(`Invalid file for ${name}`);
     }
@@ -50,7 +55,6 @@ export const useCreateReceptionist = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     const data = new FormData();
 
     Object.keys(formData).forEach((key) => {
@@ -58,10 +62,11 @@ export const useCreateReceptionist = () => {
         data.append(key, formData[key]);
       }
     });
-
-    for (let [key, value] of data.entries()) {
-      console.log(`${key}:`, value);
-    }
+    
+    data.append("phoneCode", Country.getAllCountries().find((c) => c.name === formData.country).phonecode);
+    data.delete("phone");
+    data.append("phone", String("+" +Country.getAllCountries().find((c) => c.name === formData.country).phonecode + formData.phone) );
+   
 
     const response = await createReceptionist(data);
     if (response.status === 1) {
@@ -75,5 +80,7 @@ export const useCreateReceptionist = () => {
     handleSelectChange,
     handleFileChange,
     handleSubmit,
+    profilePicture,
+    setProfilePicture
   };
 };

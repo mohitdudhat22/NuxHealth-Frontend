@@ -11,11 +11,9 @@ export const useCancelAppointments = () => {
   const fetchAppointments = async () => {
     try {
       const response = await cancelAppointmentForAdmin();
-      console.log("API Response:", response);
 
       if (response && response?.data) {
         setAppointments(response?.data?.appointments);
-        console.log(response.data.appointments);
       }
     } finally {
       setLoading(false);
@@ -26,13 +24,12 @@ export const useCancelAppointments = () => {
     "patientId.fullName",
     "dieseas_name",
     "doctorId.fullName",
-    "type"
+    "type",
   ]);
-  console.log("Filtered Appointments", filteredAppointments);
 
   const onSearch = (query) => {
     setSearchQuery(query);
-  }
+  };
 
   const data = filteredAppointments?.map((appointment) => ({
     key: appointment?._id,

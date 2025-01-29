@@ -5,22 +5,30 @@ import { user } from "@/assets/images";
 export const useCancelAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchAppointments = async () => {
     try {
       const response = await cancelAppointmentForDoctor();
-      console.log("API Response:", response);
 
       if (response && response?.data) {
         setAppointments(response?.data?.appointments);
-        console.log(response.data.appointments);
       }
     } finally {
       setLoading(false);
     }
   };
 
-  const data = appointments?.map((appointment) => ({
+  const onSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredAppointments = appointments.filter((appointment) => {
+    const patientName = appointment?.patientId?.fullName || "N/A";
+    return patientName.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
+  const data = filteredAppointments?.map((appointment) => ({
     key: appointment?._id,
     avatar: appointment?.profilePicture || user,
     diseaseName: appointment?.dieseas_name,
@@ -34,5 +42,5 @@ export const useCancelAppointments = () => {
     fetchAppointments();
   }, []);
 
-  return { data, loading };
+  return { data, loading, searchQuery, setSearchQuery, onSearch };
 };

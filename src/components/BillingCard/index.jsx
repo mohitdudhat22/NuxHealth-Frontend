@@ -3,7 +3,7 @@ import { NHButton, NHCard, NHTable } from "..";
 import Icons from "@/constants/icons";
 import { useNavigate } from "react-router-dom";
 
-export const BillingCard = ({ data }) => {
+export const BillingCard = ({ data, userRole }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -32,33 +32,43 @@ export const BillingCard = ({ data }) => {
     {
       title: "Action",
       key: "action",
-      fixed: "right",
       width: 100,
       render: (_, record) => (
         <NHButton
           isView
-          onClick={() =>
-            navigate(`/admin/monitor-billing/bill-view/${record?.billsNo}`, {
-              state: { billData: record },
-            })
-          }
+          onClick={() => {
+            const route =
+              userRole === "admin"
+                ? `/admin/monitor-billing/bill-view/${record?.billsNo}`
+                : `/reception/bills/bill-view/${record?.billsNo}`;
+            navigate(route, { state: { billData: record } });
+          }}
         />
       ),
     },
   ];
 
+  const getCreateBillRoute = () => {
+    if (userRole === "admin") {
+      return "/admin/monitor-billing/create-bill";
+    } else if (userRole === "reception") {
+      return "/reception/bills/create-bill";
+    }
+    return "/"; // Default route if user role is not recognized
+  };
+
   return (
     <NHCard
       title={"Billing & Payments"}
-      headerContent={
-        <NHButton
-          icon={Icons?.PlusSquare}
-          onClick={() => navigate("/admin/monitor-billing/create-bill")}
-          variant="primary"
-        >
-          Create Bill
-        </NHButton>
-      }
+      // headerContent={
+      //   <NHButton
+      //     icon={Icons?.PlusSquare}
+      //     onClick={() => navigate(getCreateBillRoute())}
+      //     variant="primary"
+      //   >
+      //     Create Bill
+      //   </NHButton>
+      // }
     >
       <div className="mb-4">
         <p className="text-xl text-[#030229] font-semibold">
@@ -70,8 +80,11 @@ export const BillingCard = ({ data }) => {
         showPagination={true}
         columns={columns}
         dataSource={data}
-        route="/admin"
         defaultPageSize="5"
+        scroll={{
+          x: 500,
+          y: 300,
+        }}
       />
     </NHCard>
   );

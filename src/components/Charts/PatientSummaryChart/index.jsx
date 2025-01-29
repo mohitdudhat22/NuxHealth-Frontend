@@ -8,7 +8,15 @@ export function PatientSummaryChart({
   title = "Patients Summary",
   height = 350,
 }) {
-  console.log(data, "----");
+  if (!data) {
+    return (
+      <NHCard title={title}>
+        <div className="flex items-center justify-center h-[350px]">
+          <Spin size="large" />
+        </div>
+      </NHCard>
+    );
+  }
   const [viewMode, setViewMode] = useState("week");
   const [activeSeries, setActiveSeries] = useState([
     "New Patient",

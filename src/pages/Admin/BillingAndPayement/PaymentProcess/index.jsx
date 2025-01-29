@@ -26,12 +26,9 @@ export const PaymentProcess = () => {
 
   const handleCashPayment = (record) => {
     setIsCashPaymentModalOpen(true);
-    // You can also set any record-specific data here if needed
   };
 
   const handlePay = () => {
-    // Handle the payment logic here
-    console.log("Payment processed");
     setIsCashPaymentModalOpen(false);
   };
 
@@ -106,13 +103,15 @@ export const PaymentProcess = () => {
               )
             }
           />
-          <NHButton
-            type="default"
-            size="small"
-            icon={Icons.PaymentIcon}
-            className="lock-btn bg-white"
-            onClick={() => handleCashPayment(record)}
-          />
+          {record.status !== "Paid" && (
+            <NHButton
+              type="default"
+              size="small"
+              icon={Icons.PaymentIcon}
+              className="lock-btn bg-white"
+              onClick={() => handleCashPayment(record)}
+            />
+          )}
         </Space>
       ),
     },
@@ -137,16 +136,14 @@ export const PaymentProcess = () => {
             showPagination={true}
             tableColumn={columns}
             tableDataSource={data}
+            scroll={{
+              x: 1200,
+              y: 500,
+            }}
           />
         </NHCard>
 
         <PaymentProcessModal
-          open={isModalOpen}
-          handleClose={() => setIsModalOpen(false)}
-          // paymentData={record}
-        />
-
-        <CashPaymentModal
           open={isCashPaymentModalOpen}
           handleClose={() => setIsCashPaymentModalOpen(false)}
           handlePay={handlePay}

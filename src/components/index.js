@@ -15,7 +15,7 @@ export { PatientDistributionCard } from "./PatientDistributionCard/";
 export { AppointmentsList } from "./AppointmentsList/";
 export { LineChart } from "./Charts/";
 export { DepartmentCard } from "./DepartmentCard/";
-
+export { CreateBill } from "./CreateBill";
 /* NHCard */
 export { NHCard } from "./NHCards";
 export * from "./NHCards/CardTemplate/";
@@ -32,4 +32,4 @@ export * from "./Bills";
 
 /* Chart */
 export { AppointmentScheduler } from "./AppointmentScheduler";
-export * from "./Chat/";
+export * from "./Chat";

@@ -8,19 +8,25 @@ import {
 } from "@/components";
 import Icons from "@/constants/icons";
 import { Space, Tag } from "antd";
-import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { useTodayManagePriscription } from "@/hook/Doctor/PriscriptionTools/Manage/TodayPriscription";
 import { useOlderManagePrescription } from "@/hook/Doctor/PriscriptionTools/Manage/OlderPriscription";
-import { user } from "@/assets/images";
+import CustomEmpty from "@/components/CustomEmpty/CustomEmpty";
 
 export const Manage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
-  const { data: today } = useTodayManagePriscription(selectedPatient?.id);
-  const { data: older } = useOlderManagePrescription(selectedPatient?.id);
+  const {
+    data: today,
+    onSearch: onTodaySearch,
+    searchQuery: todaySearchQuery,
+  } = useTodayManagePriscription(selectedPatient?.id);
+  const {
+    data: older,
+    onSearch: onOlderSearch,
+    searchQuery: olderSearchQuery,
+  } = useOlderManagePrescription(selectedPatient?.id);
 
-  //hook -> data
   const handleViewBill = (record) => {
     setSelectedPatient(record);
     setIsModalOpen(true);
@@ -112,8 +118,14 @@ export const Manage = () => {
         <NHCard
           title="Patient Details"
           headerContent={
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={todaySearchQuery}
+              onChange={(e) => onTodaySearch(e.target.value)}
+            />
           }
+          rootClass={"p-0"}
         >
           <NHTable
             columns={columns}
@@ -130,8 +142,14 @@ export const Manage = () => {
         <NHCard
           title="Patient Details"
           headerContent={
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={olderSearchQuery}
+              onChange={(e) => onOlderSearch(e.target.value)}
+            />
           }
+          rootClass={"p-0"}
         >
           <NHTable
             columns={columns}
@@ -153,16 +171,15 @@ export const Manage = () => {
         <NHTabs items={tabItems} defaultActiveKey="today" />
       </NHCard>
 
-      <div className="prescription-tool">
       <PrescriptionCard
         isModalOpen={isModalOpen}
+        clickEvent={true}
         onCancel={() => setIsModalOpen(false)}
         handleClose={() => setIsModalOpen(false)}
         Title="Prescription"
         handleOk={() => setIsModalOpen(false)}
         patientData={selectedPatient}
       />
-      </div>
     </>
   );
 };

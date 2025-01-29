@@ -43,7 +43,7 @@ export const PatientDistributionCard = ({ data }) => {
   return (
     <NHCard title={"Patients Summary"}>
       <div className="flex h-auto items-center justify-between bg-[#F6F8FB] rounded-xl py-6">
-        <div className="w-auto">
+        <div className="w-auto md:w-[50%]">
           <ReactApexChart
             options={chartOptions}
             series={series}

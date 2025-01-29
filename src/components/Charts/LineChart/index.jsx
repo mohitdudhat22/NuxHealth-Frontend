@@ -1,10 +1,23 @@
 import { NHCard } from "@/components";
-import { Button } from "antd/lib";
-import React, { useState } from "react";
+import { Button, Spin } from "antd";
+import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 
 export const LineChart = ({ data }) => {
   const [viewMode, setViewMode] = useState("year");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate data fetching
+    const fetchData = async () => {
+      setLoading(true);
+      // Simulate a delay for fetching data
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [viewMode]);
 
   // Fallback to static data if 'data' prop is unavailable
   const fallbackData = {
@@ -195,12 +208,18 @@ export const LineChart = ({ data }) => {
       }
     >
       <div className="mt-4">
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="line"
-          height={350}
-        />
+        {loading ? (
+          <div className="flex justify-center items-center h-[350px]">
+            <Spin size="large" />
+          </div>
+        ) : (
+          <ReactApexChart
+            options={options}
+            series={series}
+            type="line"
+            height={350}
+          />
+        )}
       </div>
     </NHCard>
   );

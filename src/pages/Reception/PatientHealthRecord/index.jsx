@@ -80,15 +80,21 @@ export const PatientHealthRecord = () => {
       render: (_, record) => (
         <Space size="middle">
           <NHButton
-            size="small"
-            icon={Icons.View}
-            className="view-btn"
+            isView
             onClick={() => {
-              navigate(`view-patient/${record._id}`, {
+              navigate(`view-patient/${record.patientId}`, {
                 state: { patient: record },
               });
             }}
           />
+
+          <NHButton
+            isReschedule
+            title={"Book Appointment"}
+            onClick={() => {
+              navigate("/reception/appointment?patientId=" + record.patientId);
+            }}
+          ></NHButton>
         </Space>
       ),
     },
@@ -106,12 +112,13 @@ export const PatientHealthRecord = () => {
         onChange={(e) => setSearchValue(e.target.value)}
       />
 
-      <NHCard title="Patient Health Record">
+      <NHCard title="Our All Patients">
         <NHTable
           showPagination={true}
           tableColumn={columns}
           tableDataSource={filteredData}
           loading={loading}
+          scroll={{ x: 768 }}
         />
       </NHCard>
     </>

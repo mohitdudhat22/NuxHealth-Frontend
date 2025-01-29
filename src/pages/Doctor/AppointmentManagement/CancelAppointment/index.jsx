@@ -5,6 +5,7 @@ import Icons from "@/constants/icons";
 import { useCancelAppointments } from "@/hook/Doctor/AppointmentManagement/CancelAppointment";
 import { CancelOnlineAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnlineAppointmentModal";
 import { CancelOnsiteAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/CancelOnsiteAppointmentModal";
+import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
 
 const columns = (handleViewPatient) => [
   {
@@ -41,42 +42,14 @@ const columns = (handleViewPatient) => [
       <Tag color={type === "online" ? "blue" : "orange"}>{type}</Tag>
     ),
   },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.RedCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.BlueCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-      </Space>
-    ),
-  },
 ];
 
 export const CancelAppointments = () => {
-  const { data, loading, error } = useCancelAppointments();
+  const { data, loading, searchQuery, onSearch } = useCancelAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
-
-  useEffect(() => {
-    if (data && !loading && !error) {
-      // Ensure initial data is loaded when the component is mounted
-      console.log("Appointments data loaded:", data);
-    }
-  }, [data, loading, error]);
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
@@ -96,7 +69,17 @@ export const CancelAppointments = () => {
     setModalType(null);
   };
 
-  if (error) return <div>Error: {error.message}</div>;
+  const handleOpenDateModal = () => {
+    setIsDateModalOpen(true);
+  };
+
+  const handleCloseDateModal = () => {
+    setIsDateModalOpen(false);
+  };
+
+  const handleSearch = (e) => {
+    onSearch(e.target.value);
+  };
 
   return (
     <>
@@ -104,9 +87,15 @@ export const CancelAppointments = () => {
         title="Cancel Appointments"
         headerContent={
           <>
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-            <NHButton>{Icons.CalenderIcon} Any Date</NHButton>
-            <NHButton>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
+            <NHButton onClick={handleOpenDateModal}>
+              {Icons.CalenderIcon} Any Date
+            </NHButton>
           </>
         }
       >
@@ -114,14 +103,14 @@ export const CancelAppointments = () => {
           loading={loading}
           showPagination={true}
           tableColumn={columns(handleViewPatient)}
-          tableDataSource={data} // Directly bind data here
-          route="/doctor"
+          tableDataSource={data}
+          scroll={{x: 800}}
         />
       </NHCard>
 
       {modalType === "online" && selectedPatient && (
         <CancelOnlineAppointmentModal
-          isModalOpen={isModalOpen}
+          open={isModalOpen}
           onCancel={handleCloseModal}
           handleClose={handleCloseModal}
           Title="Cancel Online Appointment"
@@ -131,6 +120,7 @@ export const CancelAppointments = () => {
 
       {modalType === "onsite" && selectedPatient && (
         <CancelOnsiteAppointmentModal
+          open={isModalOpen}
           isModalOpen={isModalOpen}
           onCancel={handleCloseModal}
           handleClose={handleCloseModal}
@@ -138,6 +128,13 @@ export const CancelAppointments = () => {
           patientData={selectedPatient}
         />
       )}
+
+      <CustomDateModal
+        Title="Select Custom Date Range"
+        open={isDateModalOpen}
+        onCancel={handleCloseDateModal}
+        handleClose={handleCloseDateModal}
+      />
     </>
   );
 };

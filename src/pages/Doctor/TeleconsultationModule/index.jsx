@@ -12,9 +12,15 @@ import { Space, Tag } from "antd";
 import { PatientDetailModal } from "@/components/NHModalComponents/ModalTemplate/PatientDetailModal";
 import { useState } from "react";
 import { CustomDateModal } from "@/components/NHModalComponents/ModalTemplate/CustomDateModal";
-import { useCancleTeleconsultation, usePrivousTeleconsultation, useTodayTeleconsultation, useUpcomingTeleconsultation } from "@/hook/Doctor";
+import {
+  useCancleTeleconsultation,
+  usePrivousTeleconsultation,
+  useTodayTeleconsultation,
+  useUpcomingTeleconsultation,
+} from "@/hook/Doctor";
 import { useNavigate } from "react-router-dom";
 import { reschedule } from "@/axiosApi/ApiHelper";
+import "./DoctorTelecon.css";
 import { RescheduleAppointmentModal } from "@/components/NHModalComponents/ModalTemplate/ResheduleAppointmentModal";
 
 export const Teleconsultation = () => {
@@ -29,25 +35,39 @@ export const Teleconsultation = () => {
   const [toDate, setToDate] = useState(null);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
 
-  const { data: privousTeleconsultation, loading: privousLoader, fetchAppointments, filterAppointments, setIsDateModalOpen,isDateModalOpen } = usePrivousTeleconsultation();
-  const { data: upcomingTeleconsultation, loading: upcomingLoader } = useUpcomingTeleconsultation()
-  const { data: todayTeleconsultation, loading: todayLoader } = useTodayTeleconsultation()
-  const { data: cancleTeleconsultation, loading: cancleLoader } = useCancleTeleconsultation()
+  const {
+    data: privousTeleconsultation,
+    loading: privousLoader,
+    fetchAppointments,
+    filterAppointments,
+    setIsDateModalOpen,
+    isDateModalOpen,
+    onSearch: onPreviousSearch,
+    searchQuery: previousSearchQuery,
+  } = usePrivousTeleconsultation();
+  const {
+    data: upcomingTeleconsultation,
+    loading: upcomingLoader,
+    onSearch: onUpcomingSearch,
+    searchQuery: upcomingSearchQuery,
+  } = useUpcomingTeleconsultation();
+  const { data: todayTeleconsultation, loading: todayLoader } =
+    useTodayTeleconsultation();
+  const {
+    data: cancleTeleconsultation,
+    loading: cancleLoader,
+    onSearch: onCancelSearch,
+    searchQuery: cancelSearchQuery,
+  } = useCancleTeleconsultation();
 
-
-  const rescheduleAppointment = async (selectedDate, selectedTime) => {
+  const rescheduleAppointment = async (selectedDate, selectedTime, appointmentId) => {
     const payload = {
       date: selectedDate,
       appointmentTime: selectedTime,
     };
-
-    console.log("Appointment ID:", appointmentId);
-    console.log("Payload:", payload);
-
     try {
       const response = await reschedule(appointmentId, payload);
-      console.log("Response:", response);
-      setIsReshceduleModal(false); // Close modal after successful reschedule
+      setIsReshceduleModal(false);
       fetchAppointments();
     } catch (error) {
       console.error("Error rescheduling appointment:", error);
@@ -66,8 +86,9 @@ export const Teleconsultation = () => {
 
   const handelReschedule = (id) => {
     setIsReshceduleModal(true);
-    setAppointmentId(id)
+    setAppointmentId(id);
   };
+
   const columns = [
     {
       title: "Patient Name",
@@ -118,8 +139,6 @@ export const Teleconsultation = () => {
     },
   ];
 
-  // const patientData = appointments.appointments || [];
-
   const tabItems = [
     {
       key: "today",
@@ -136,13 +155,14 @@ export const Teleconsultation = () => {
                   className="text-black bg-white"
                   onClick={() => setIsDateModalOpen(true)}
                 >
-                  {Icons.CalenderIcon} {fromDate ? fromDate : "From"} - {toDate ? toDate : "To"}
+                  {Icons.CalenderIcon} {fromDate ? fromDate : "From"} -{" "}
+                  {toDate ? toDate : "To"}
                   {Icons.CloseCircle}
                 </NHButton>
               </div>
             }
           >
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-lg">
               {privousTeleconsultation.map((data, index) => {
                 const {
                   name,
@@ -154,20 +174,23 @@ export const Teleconsultation = () => {
                   patientName,
                   doctorId,
                   hospitalId,
-                  patientId
-
+                  patientId,
                 } = data;
                 return (
                   <AppointmentCard
                     key={index}
                     headerBg={true}
-                    title={<span className="font-semibold text-[18px]">{patientName}</span>}
+                    title={
+                      <span className="font-semibold text-[#030229] text-2xl">
+                        {patientName}
+                      </span>
+                    }
                     patientIssue={patientIssue}
                     diseaseName={diseaseName}
                     appointmentDate={appointmentDate || date}
                     appointmentTime={appointmentTime}
                     footerContent={
-                      <div className="flex justify-between gap-4 w-full">
+                      <div className="flex justify-between w-full gap-4">
                         <NHButton
                           size={"small"}
                           className={"w-full py-3 px-4"}
@@ -216,7 +239,6 @@ export const Teleconsultation = () => {
             setFromDate={setFromDate} // Update fromDate
             setToDate={setToDate} // Update toDate
           />
-
         </>
       ),
     },
@@ -229,7 +251,12 @@ export const Teleconsultation = () => {
           rootClass={"p-0"}
           headerContent={
             <>
-              <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+              <NHInput
+                prefix={Icons.SearchIcon}
+                placeholder="Search Patient"
+                value={upcomingSearchQuery}
+                onChange={(e) => onUpcomingSearch(e.target.value)}
+              />
               <NHButton variant="default" className="text-black bg-white">
                 {Icons.CalenderIcon}2 March,2022 - 13 March, 2022
                 {Icons.CloseCircle}
@@ -237,7 +264,13 @@ export const Teleconsultation = () => {
             </>
           }
         >
-          <NHTable columns={columns} dataSource={upcomingTeleconsultation} loading={upcomingLoader} showPagination={true} />
+          <NHTable
+            columns={columns}
+            dataSource={upcomingTeleconsultation}
+            loading={upcomingLoader}
+            showPagination={true}
+            scroll={{ x: 800 }}
+          />
         </NHCard>
       ),
     },
@@ -249,10 +282,21 @@ export const Teleconsultation = () => {
           title="Previous Appointment"
           rootClass={"p-0"}
           headerContent={
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={previousSearchQuery}
+              onChange={(e) => onPreviousSearch(e.target.value)}
+            />
           }
         >
-          <NHTable columns={columns} dataSource={privousTeleconsultation} loading={privousLoader} showPagination={true} />
+          <NHTable
+            columns={columns}
+            dataSource={privousTeleconsultation}
+            loading={privousLoader}
+            showPagination={true}
+            scroll={{ x: 800 }}
+          />
         </NHCard>
       ),
     },
@@ -264,10 +308,21 @@ export const Teleconsultation = () => {
           title="Cancel Appointment"
           rootClass={"p-0"}
           headerContent={
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={cancelSearchQuery}
+              onChange={(e) => onCancelSearch(e.target.value)}
+            />
           }
         >
-          <NHTable columns={columns} dataSource={cancleTeleconsultation} loading={cancleLoader} showPagination={true} />
+          <NHTable
+            columns={columns}
+            dataSource={cancleTeleconsultation}
+            loading={cancleLoader}
+            showPagination={true}
+            scroll={{ x: 800 }}
+          />
         </NHCard>
       ),
     },
@@ -275,13 +330,15 @@ export const Teleconsultation = () => {
 
   return (
     <>
-      <NHCard
-        headerContent={
-          <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
-        }
-      >
-        <NHTabs items={tabItems} defaultActiveKey="today" />
-      </NHCard>
+      <div className="doc-telecon">
+        <NHCard
+          headerContent={
+            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+          }
+        >
+          <NHTabs items={tabItems} defaultActiveKey="today" />
+        </NHCard>
+      </div>
 
       <PatientDetailModal
         isModalOpen={isModalOpen}
@@ -330,13 +387,12 @@ export const Teleconsultation = () => {
                   size={"small"}
                   className={"w-full"}
                   onClick={() => navigate('videoCall?room=' + selectedPatientData.key)}
-                >{console.log(selectedPatientData)}
+                >
                   Join
-                  {console.log(selectedPatientData._id)}
                 </NHButton>
               </div>
             }
-            className="p-0 "
+            className="p-0"
           />
         )}
       </NHModal>

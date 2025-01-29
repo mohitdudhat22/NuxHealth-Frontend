@@ -43,46 +43,16 @@ const columns = (handleViewPatient) => [
       <Tag color={type === "online" ? "blue" : "orange"}>{type}</Tag>
     ),
   },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.RedCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-        <NHButton
-          type="primary"
-          size="small"
-          icon={Icons.BlueCalenderIcon}
-          onClick={() => handleViewPatient(record)}
-          className="view-btn bg-white"
-        />
-      </Space>
-    ),
-  },
 ];
 
 export const PreviousAppointments = () => {
-  const { data, loading, error } = usePreviousAppointments();
+  const { data, loading, searchQuery, onSearch } = usePreviousAppointments();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-  const [filteredAppointments, setFilteredAppointments] = useState([]); // Initialize with empty array
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-
-  // Update filteredAppointments when data changes
-  useEffect(() => {
-    if (data) {
-      setFilteredAppointments(data); // Set data initially
-    }
-  }, [data]);
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
@@ -123,7 +93,9 @@ export const PreviousAppointments = () => {
     setIsDateModalOpen(false);
   };
 
-  if (error) return <div>Error: {error.message}</div>;
+  const handleSearch = (e) => {
+    onSearch(e.target.value);
+  };
 
   return (
     <>
@@ -131,11 +103,15 @@ export const PreviousAppointments = () => {
         title="Previous Appointments"
         headerContent={
           <>
-            <NHInput prefix={Icons.SearchIcon} placeholder="Search Patient" />
+            <NHInput
+              prefix={Icons.SearchIcon}
+              placeholder="Search Patient"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
             <NHButton onClick={handleOpenDateModal}>
               {Icons.CalenderIcon} Any Date
             </NHButton>
-            <NHButton>{Icons.CalenderIcon} Appointment Time Slot</NHButton>
           </>
         }
       >
@@ -143,8 +119,9 @@ export const PreviousAppointments = () => {
           showPagination={true}
           loading={loading}
           tableColumn={columns(handleViewPatient)}
-          tableDataSource={filteredAppointments}
+          tableDataSource={data}
           route="/doctor"
+          scroll={{x: 800}}
         />
       </NHCard>
 
@@ -169,6 +146,7 @@ export const PreviousAppointments = () => {
       )}
 
       <CustomDateModal
+        open={isDateModalOpen}
         handleOk={handleApplyDateFilter}
         onCancel={handleCloseDateModal}
         handleClose={handleCloseDateModal}

@@ -23,7 +23,7 @@ import {
   Teleconsultation,
   AddNewReceptionist,
   PatientRegistration,
-  ReceptionDashboard,
+  // ReceptionDashboard,
   Manage,
   Create,
   EditDesignInvoice,
@@ -37,6 +37,8 @@ import {
   DoctorMeetingConference,
   PrescriptionAccess,
   ReceptionBills,
+  AppointmentSchedularPageForReception,
+  Record,
 } from "@/pages";
 import { MonitorBilling } from "@/pages/Admin/BillingAndPayement/MonitorBilling";
 import { PatientManagement } from "@/pages/Admin/PatientManagement";
@@ -47,23 +49,23 @@ import { ProfileSetting } from "@/components/ProfileSetting";
 import { AppointmentManagement } from "@/pages/Doctor/AppointmentManagement";
 
 import { AllModalTemplate } from "@/pages/Admin/AllModalTemplate";
-import NotificationBox from "@/components/NotificationBox";
+import NotificationBox from "@/components/NHHeader/NotificationBox";
 import ProtectedRoute from "./ProtectedRoute";
 import { BillView } from "@/pages/Admin/BillingAndPayement/MonitorBilling/BillView";
 import { PatientBills } from "@/pages/Patients/PatientsBills";
 import { AppointmentBooking } from "@/pages/Patients/AppointmentBooking";
-import ChattempComponentforDoctor from "@/components/chatTempComponentforDoctor";
-import ChatempComponentforPateint from "@/components/chatTempComponentforPatient";
+
 import { ChatLayoutForDoctor } from "@/components/ChatLayoutForDoctor";
 import { ChatLayoutForPatient } from "@/components/ChatLayoutForPatients";
 import { PatientMettingConference } from "@/pages/Patients";
 import { PatientHealthRecord } from "@/pages/Reception/PatientHealthRecord";
 import { PatientHelthDetails } from "@/pages/Reception/PatientHealthRecord/PatientHealthDetails";
 import { InsuranceBillView } from "@/pages/Admin/BillingAndPayement/InsuranceClaims/InsuranceBillView";
-import CreateBill from "@/components/CreateBill";
+import { CreateBill } from "@/components/CreateBill";
 import { PaymentBillView } from "@/pages/Admin/BillingAndPayement/PaymentProcess/PaymentBillView";
 import { NHCard } from "@/components";
 import { PatientBillView } from "@/pages/Patients/PatientsBills/BillView";
+import { ReceptionDashboard } from "@/pages/Reception/Dashboard";
 
 const NuxHealthRoute = createBrowserRouter(
   /* All Paths */
@@ -76,16 +78,6 @@ const NuxHealthRoute = createBrowserRouter(
           index: true,
           element: <NavLink to={"/login"}>Login</NavLink>,
         },
-
-        /*temp*/
-        {
-          path: "tempDoctor",
-          element: <ChattempComponentforDoctor />,
-        },
-        {
-          path: "tempPatient",
-          element: <ChatempComponentforPateint />,
-        },
         /* AuthCation */
         {
           element: (
@@ -94,6 +86,11 @@ const NuxHealthRoute = createBrowserRouter(
             </ProtectedRoute>
           ),
           children: [
+            {
+              // path: "login",
+              index: true,
+              element: <Login />,
+            },
             {
               path: "login",
               element: <Login />,
@@ -295,7 +292,16 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "patientviewdetails/:id",
-                      element: <PatientViewDetails />,
+                      children: [
+                        {
+                          index: true,
+                          element: <PatientViewDetails />,
+                        },
+                        {
+                          path: "record",
+                          element: <Record />,
+                        },
+                      ],
                     },
                   ],
                 },
@@ -339,6 +345,10 @@ const NuxHealthRoute = createBrowserRouter(
                       element: <Login />,
                     },
                   ],
+                },
+                {
+                  path: "profile",
+                  element: <ProfileSetting />,
                 },
               ],
             },
@@ -411,9 +421,14 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "bill-view",
-                      element: <PatientBillView />,
+                      // element: <PatientBillView />, i think is it useless now
+                      element: <PaymentBillView />,
                     },
                   ],
+                },
+                {
+                  path: "profile",
+                  element: <ProfileSetting />,
                 },
               ],
             },
@@ -467,7 +482,6 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "appointment",
-                  // element: <AppointmentBooking />,
                   children: [
                     {
                       index: true,
@@ -476,7 +490,7 @@ const NuxHealthRoute = createBrowserRouter(
                     },
                     {
                       path: "scheduler",
-                      element: <AppointmentSchedularPage />,
+                      element: <AppointmentSchedularPageForReception />,
                     },
                     {
                       path: "reschedule",
@@ -486,11 +500,34 @@ const NuxHealthRoute = createBrowserRouter(
                 },
                 {
                   path: "bills",
-                  element: <ReceptionBills />,
+                  // element: <ReceptionBills />,
+                  children: [
+                    {
+                      index: true,
+                      // element: <AppoinmentManagement />,
+                      element: <ReceptionBills />,
+                    },
+                    {
+                      path: "create-bill",
+                      element: <CreateBillForm />,
+                    },
+                    {
+                      path: "edit-design-invoice",
+                      element: <EditDesignInvoice />,
+                    },
+                    {
+                      path: "bill-view/:billId",
+                      element: <BillView />,
+                    },
+                  ],
                 },
                 {
                   path: "bill-view/:billId",
                   element: <BillView />,
+                },
+                {
+                  path: "profile",
+                  element: <ProfileSetting />,
                 },
               ],
             },

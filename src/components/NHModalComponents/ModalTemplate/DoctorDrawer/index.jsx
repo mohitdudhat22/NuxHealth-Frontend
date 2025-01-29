@@ -12,7 +12,6 @@ import hospitalLoc from "../../../../assets/images/cover/hospital_loc.svg";
 import rightNav from "../../../../assets/images/cover/right_nav_icon.svg";
 
 const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
-  console.log(doctor,"<<<<<<<<<<<<")
   const dummyDoctor = {
     doctorName: "Dr. Cristofer Pasquinades",
     avatar: doctorLogo, // Assuming doctorLogo is imported
@@ -44,6 +43,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
     ? { ...dummyDoctor, ...receptionist }
     : { ...dummyDoctor, ...doctor };
 
+  console.log(displayDoctor, "displayDoctor<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
   const displayName = receptionist
     ? displayDoctor.receptionistName
     : displayDoctor.doctorName;
@@ -263,7 +263,7 @@ const DoctorDrawer = ({ visible, onClose, doctor, receptionist }) => {
                     Address
                   </h4>
                   <p className="text-[#141414] font-medium text-[16px] mt-1">
-                    {displayDoctor.address}
+                    {`${displayDoctor?.address.fullAddress}`}
                   </p>
                 </div>
               </div>

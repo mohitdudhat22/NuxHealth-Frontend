@@ -66,7 +66,6 @@ export const TodayAppointment = () => {
 
   const handleViewPatient = (record) => {
     setSelectedPatient(record);
-    console.log(record, "Viewing patient details");
     setIsModalOpen(true);
   };
 

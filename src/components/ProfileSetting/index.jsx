@@ -1,261 +1,158 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./EditProfile.module.css";
-import { NHButton, NHCard, NHInput, NHPasswordInput, NHSelect } from "..";
-import user from "@/assets/images/user/user.png";
+import {
+  NHButton,
+  NHCard,
+  NHDatePicker,
+  NHInput,
+  NHNumberInput,
+  NHPasswordInput,
+  NHSelect,
+} from "..";
 import { useChangePassword } from "@/hook/Admin/AdminEditProfile/ChangePassword";
-import { useDecodeToken } from "@/hook";
-import axios from "axios";
-import { editAdminProfile } from "@/axiosApi/ApiHelper";
-import toast from "react-hot-toast";
+import { useEditProfile } from "@/hook/Admin/ProfileSetting";
 import { identifyRole } from "@/utils/identifyRole";
+import moment from "moment";
 
 export const ProfileSetting = () => {
-  const { token } = useDecodeToken();
-  const [activeTab, setActiveTab] = useState("profile");
-  const [isEditing, setIsEditing] = useState(false);
-
-  const [userdetail, setUserDetail] = useState({
-    firstName: "",
-    lastName: "",
-    fullName: "",
-    phoneNumber: "",
-    email: "",
-    country: "",
-    state: "",
-    city: "",
-    gender: "",
-    profileImage: "",
-  });
-
-  const fileUpload = useRef(null);
-
-  useEffect(() => {
-    if (token?.userData) {
-      const {
-        fullName = "",
-        email = "",
-        phone = "",
-        profilePicture = "",
-        gender = "",
-        role = "",
-        address = {},
-      } = token.userData;
-      const { country = "", state = "", city = "" } = address;
-      const [firstName = "", lastName = ""] = fullName.split(" ");
-
-      setUserDetail({
-        fullName: fullName || "",
-        firstName: firstName || "",
-        lastName: lastName || "",
-        phoneNumber: phone || "",
-        email: email || "",
-        country: country || "",
-        state: state || "",
-        city: city || "",
-        profileImage: profilePicture || "",
-        gender: gender || "",
-        role: role || "",
-      });
-    }
-  }, [token]);
-
-  const handleEditImage = () => {
-    fileUpload.current.click();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (!["image/jpeg", "image/png"].includes(file.type)) {
-        toast.error("Only JPG and PNG files are allowed.");
-        return;
-      }
-      if (file.size > 2 * 1024 * 1024) {
-        toast.error("File size should not exceed 2MB.");
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setUserDetail((prev) => ({
-          ...prev,
-          profileImage: event.target.result,
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserDetail((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmitData = async (e) => {
-    if (e) e.preventDefault();
-
-    const payload = {
-      firstName: userdetail.firstName || "",
-      lastName: userdetail.lastName || "",
-      email: userdetail.email,
-      phone: userdetail.phoneNumber,
-      address: {
-        country: userdetail.country,
-        state: userdetail.state,
-        city: userdetail.city,
-      },
-      gender: userdetail.gender,
-      profilePicture: userdetail.profileImage,
-    };
-
-
-    console.log("Payload being sent to API:", payload);
-
-
-    console.log("Payload being sent to API:", payload);
-
-    try {
-      const response = await editAdminProfile(payload, identifyRole());
-
-      if (response.status === 1) {
-        const {
-          firstName = "",
-          lastName = "",
-          email,
-          phone,
-          address = {},
-          gender,
-          profilePicture,
-        } = response.data;
-
-        setUserDetail((prev) => ({
-          ...prev,
-          fullName: `${firstName} ${lastName}`.trim(),
-          phoneNumber: phone || "",
-          email: email || "",
-          country: address.country || "",
-          state: address.state || "",
-          city: address.city || "",
-          profileImage: profilePicture || "",
-          gender: gender || "",
-        }));
-
-        toast.success("Profile updated successfully!");
-        return true;
-      } else {
-        toast.error(`Failed to update profile: ${response.message}`);
-        return false;
-      }
-    } catch (error) {
-      toast.error(`An error occurred while updating the profile: ${error.message}`);
-      return false;
-    }
-  };
-
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
+  const {
+    activeTab,
+    isEditing,
+    setIsEditing,
+    userDetail,
+    setUserDetail,
+    fileUpload,
+    handleEditImage,
+    handleFileChange,
+    handleInputChange,
+    handleSubmitData,
+    handleTabChange,
+  } = useEditProfile();
   return (
     <div className="bg-gradient-to-b from-indigo-600 to-indigo-700 p-6 relative h-[35%] min-h-[40vh]">
-      <div className={styles.profileCard + " w-full h-full absolute top-1/4 left-[10.5%]"}>
-        <div className={styles.profile + " w-[1200px] flex flex-col"}>
+      <div
+        className={
+          // styles.profileCard + " w-full h-full absolute top-1/4 left-[10.5%]"
+          styles.profileCard + " w-full h-full"
+        }
+      >
+        <div
+          className={
+            styles.profile + " w-full xxl:w-[1200px] flex flex-col m-auto"
+          }
+        >
           <form action="" onSubmit={handleSubmitData}>
             <h3 className="mb-10 text-4xl text-white">Profile Setting</h3>
-            <NHCard className="p-0 bg-white">
-              <div className="flex">
-                <div className="w-1/4 border-r min-h-[calc(100vh-400px)]">
-                  <div className="flex flex-col items-center px-4 py-8">
-                    <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB] relative flex flex-col items-center">
-                      <img
-                        src={userdetail?.profileImage || "https://i.pravatar.cc/300"}
-                        alt="Profile"
-                        className="w-[150px] rounded-full"
-                      />
-                      {isEditing && (
-                        <>
-                          <input
-                            type="file"
-                            ref={fileUpload}
-                            style={{ display: "none" }}
-                            onChange={handleFileChange}
-                          />
-                          <button
-                            type="button"
-                            onClick={handleEditImage}
-                            className="mt-4 bg-blue-500 text-white p-2 rounded-full"
-                          >
-                            Edit
-                          </button>
-                        </>
-                      )}
+            <NHCard className="p-0 bg-white ">
+            
+                <div className="flex flex-wrap">
+                  <div className="w-full lg:w-1/4 border-r min-h-[calc(100vh-400px)]">
+                    <div className="flex flex-col items-center px-4 py-8">
+                      <div className="img-box w-[150px] h-[150px] bg-[#D9D9D9] rounded-full border border-[#DFE0EB] relative flex flex-col items-center">
+                        <img
+                          src={
+                            userDetail?.profileImage ||
+                            "https://i.pravatar.cc/300"
+                          }
+                          alt="Profile"
+                          className="w-[150px] h-[150px] rounded-full"
+                        />
+                        {isEditing && (
+                          <>
+                            <input
+                              type="file"
+                              ref={fileUpload}
+                              style={{ display: "none" }}
+                              onChange={handleFileChange}
+                            />
+                            <button
+                              type="button"
+                              onClick={handleEditImage}
+                              className="mt-4 bg-blue-500 text-white px-2 sm:px-4 rounded-full absolute top-[50px] sm:top-[60px]"
+                            >
+                              Edit
+                            </button>
+                          </>
+                        )}
+                      </div>
+
+                      <h2 className="text-xl font-semibold">
+                        {userDetail?.firstName || "Lincoln"}{" "}
+                        {userDetail?.lastName || "Phillips"}
+                      </h2>
                     </div>
 
-
-                    <h2 className="text-xl font-semibold">
-                      {userdetail.firstName || "Lincoln"}{" "}
-                      {userdetail.lastName || "Phillips"}
-                    </h2>
+                    <div className="px-4">
+                      <nav className="p-2 bg-gray-100 rounded-lg">
+                        <ul className="space-y-1 sm:flex flex-wrap justify-around lg:block">
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("profile")}
+                              className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${
+                                activeTab === "profile"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Profile
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("changePassword")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "changePassword"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Change Password
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("terms")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "terms"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Terms & Condition
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              onClick={() => handleTabChange("privacy")}
+                              className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${
+                                activeTab === "privacy"
+                                  ? "bg-white text-blue-600 shadow-sm font-medium"
+                                  : "text-gray-600 hover:bg-gray-50"
+                              }`}
+                            >
+                              Privacy Policy
+                            </button>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
 
-                  <div className="px-4">
-                    <nav className="p-2 bg-gray-100 rounded-lg">
-                      <ul className="space-y-1">
-                        <li>
-                          <button
-                            onClick={() => handleTabChange("profile")}
-                            className={`w-full text-left px-4 py-3 rounded-xl transition-all  duration-200 ${activeTab === "profile" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
-                          >
-                            Profile
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            onClick={() => handleTabChange("changePassword")}
-                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "changePassword" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
-                          >
-                            Change Password
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            onClick={() => handleTabChange("terms")}
-                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "terms" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
-                          >
-                            Terms & Condition
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            onClick={() => handleTabChange("privacy")}
-                            className={`w-full text-left px-4 py-3 rounded-md transition-all duration-200 ${activeTab === "privacy" ? "bg-white text-blue-600 shadow-sm font-medium" : "text-gray-600 hover:bg-gray-50"}`}
-                          >
-                            Privacy Policy
-                          </button>
-                        </li>
-                      </ul>
-                    </nav>
+                  <div className="w-full lg:w-3/4 p-6">
+                    {activeTab === "profile" && (
+                      <Profile
+                        userDetail={userDetail}
+                        setUserDetail={setUserDetail}
+                        handleSubmit={handleSubmitData}
+                        isEditing={isEditing}
+                        setIsEditing={setIsEditing}
+                      />
+                    )}
+                    {activeTab === "changePassword" && <ChangePassword />}
+                    {activeTab === "terms" && <Terms />}
+                    {activeTab === "privacy" && <Privacy />}
                   </div>
                 </div>
-
-                <div className="w-3/4 p-6">
-                  {activeTab === "profile" && (
-                    <Profile
-                      userDetail={userdetail}
-                      setUserDetail={setUserDetail}
-                      handleSubmit={handleSubmitData}
-                      isEditing={isEditing}
-                      setIsEditing={setIsEditing}
-                    />
-                  )}
-                  {activeTab === "changePassword" && <ChangePassword />}
-                  {activeTab === "terms" && <Terms />}
-                  {activeTab === "privacy" && <Privacy />}
-                </div>
-              </div>
             </NHCard>
           </form>
         </div>
@@ -264,9 +161,13 @@ export const ProfileSetting = () => {
   );
 };
 
-const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEditing }) => {
-  const fileUpload = useRef(null);
-
+const Profile = ({
+  userDetail,
+  setUserDetail,
+  handleSubmit,
+  isEditing,
+  setIsEditing,
+}) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserDetail((prev) => ({
@@ -274,36 +175,374 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
       [name]: value,
     }));
   };
+  const renderFormFields = () => {
+    const role = identifyRole();
+    switch (role) {
+      case "admin":
+        return (
+          <>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-7">
+              <NHInput
+                label="First Name"
+                name="firstName"
+                value={userDetail?.firstName}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Last Name"
+                name="lastName"
+                value={userDetail?.lastName}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Email Address"
+                name="email"
+                value={userDetail?.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Phone Number"
+                name="phoneNumber"
+                value={userDetail?.phoneNumber}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Country"
+                name="country"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="State"
+                name="state"
+                value={userDetail?.state}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="City"
+                name="city"
+                value={userDetail?.city}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHSelect
+                label="Gender"
+                name="gender"
+                value={userDetail?.gender}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, gender: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { label: "Male", value: "male" },
+                  { label: "Female", value: "female" },
+                ]}
+                placeholder="Select Gender"
+              />
+            </div>
+          </>
+        );
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (!["image/jpeg", "image/png"].includes(file.type)) {
-        toast.error("Only JPG and PNG files are allowed.");
-        return;
-      }
-      if (file.size > 2 * 1024 * 1024) {
-        toast.error("File size should not exceed 2MB.");
-        return;
-      }
+      case "doctor":
+        return (
+          <>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="First Name"
+                name="firstName"
+                value={userDetail?.firstName}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Last Name"
+                name="lastName"
+                value={userDetail?.lastName}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Email Address"
+                name="email"
+                value={userDetail?.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+            </div>
 
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setUserDetail((prev) => ({
-          ...prev,
-          profileImage: event.target.result,
-        }));
-      };
-      reader.readAsDataURL(file);
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Phone Number"
+                name="phoneNumber"
+                value={userDetail?.phoneNumber}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Hospital Name"
+                name="hospitalName"
+                value={userDetail?.hospitalName}
+                onChange={handleChange}
+                disabled={true}
+              />
+              <NHSelect
+                label="Gender"
+                name="gender"
+                value={userDetail?.gender}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, gender: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { label: "Male", value: "male" },
+                  { label: "Female", value: "female" },
+                ]}
+                placeholder="Select Gender"
+              />
+              <NHInput
+                label="Country"
+                name="country"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="State"
+                name="state"
+                value={userDetail?.state}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="City"
+                name="city"
+                value={userDetail?.city}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+            </div>
+          </>
+        );
+
+      case "patient":
+        return (
+          <>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Name"
+                name="firstName"
+                value={userDetail?.firstName}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Last Name"
+                name="lastName"
+                value={userDetail?.lastName}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Email Address"
+                name="email"
+                value={userDetail?.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-7">
+              <NHSelect
+                label="Gender"
+                name="gender"
+                value={userDetail?.gender}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, gender: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { label: "Male", value: "male" },
+                  { label: "Female", value: "female" },
+                ]}
+                placeholder="Select Gender"
+              />
+              <NHDatePicker
+                label={"DOB"}
+                name="dob"
+                value={moment(userDetail?.dob)}
+                onChange={handleChange} // Update selectedToDate
+                style={{ padding: "10px" }}
+              />
+              <NHInput
+                label="Age"
+                name="age"
+                value={userDetail?.age}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Height"
+                name="height"
+                value={userDetail?.height}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Weight"
+                name="weight"
+                value={userDetail?.weight}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHSelect
+                label="Blood Group"
+                name="bloodGroup"
+                value={userDetail?.bloodGroup}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, bloodGroup: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { value: "A+", label: "A+" },
+                  { value: "A-", label: "A-" },
+                  { value: "B+", label: "B+" },
+                  { value: "B-", label: "B-" },
+                  { value: "O+", label: "O+" },
+                  { value: "O-", label: "O-" },
+                  { value: "AB+", label: "AB+" },
+                  { value: "AB-", label: "AB-" },
+                ]}
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Country"
+                name="country"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="State"
+                name="state"
+                value={userDetail?.state}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="City"
+                name="city"
+                value={userDetail?.city}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+            </div>
+            <div>
+              <NHInput
+                label="Address"
+                name="fullAddress"
+                value={userDetail?.fullAddress}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+            </div>
+          </>
+        );
+
+      case "receptionist":
+        return (
+          <>
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="First Name"
+                name="firstName"
+                value={userDetail?.firstName}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+              <NHInput
+                label="Last Name"
+                name="lastName"
+                value={userDetail?.lastName}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Email Address"
+                name="email"
+                value={userDetail?.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-7">
+              <NHInput
+                label="Phone Number"
+                name="phoneNumber"
+                value={userDetail?.phoneNumber}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="Country"
+                name="country"
+                value={userDetail?.country}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="State"
+                name="state"
+                value={userDetail?.state}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHInput
+                label="City"
+                name="city"
+                value={userDetail?.city}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+              <NHSelect
+                label="Gender"
+                name="gender"
+                value={userDetail?.gender}
+                onChange={(value) =>
+                  setUserDetail((prev) => ({ ...prev, gender: value }))
+                }
+                disabled={!isEditing}
+                options={[
+                  { label: "Male", value: "male" },
+                  { label: "Female", value: "female" },
+                ]}
+                placeholder="Select Gender"
+              />
+            </div>
+          </>
+        );
+
+      default:
+        return null;
     }
   };
-
-  const handleEditImage = () => {
-    if (isEditing) {
-      fileUpload.current.click();
-    }
-  };
-
   return (
     <NHCard>
       <div className="flex items-center justify-between mb-6">
@@ -324,11 +563,11 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
             onClick={
               isEditing
                 ? async () => {
-                  const updateSuccessful = await handleSubmit();
-                  if (updateSuccessful) {
-                    setIsEditing(false);
+                    const updateSuccessful = await handleSubmit();
+                    if (updateSuccessful) {
+                      setIsEditing(false);
+                    }
                   }
-                }
                 : () => setIsEditing(true)
             }
           >
@@ -337,77 +576,14 @@ const Profile = ({ userDetail, setUserDetail, handleSubmit, isEditing, setIsEdit
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-3 gap-7">
-          <NHInput
-            label="First Name"
-            name="firstName"
-            value={userDetail.firstName}
-            onChange={handleChange}
-            disabled={!isEditing}
-            required
-          />
-          <NHInput
-            label="Last Name"
-            name="lastName"
-            value={userDetail.lastName}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHInput
-            label="Email Address"
-            name="email"
-            value={userDetail.email}
-            onChange={handleChange}
-            disabled={!isEditing}
-            required
-          />
-        </div>
-
-        <div className="grid grid-cols-3 gap-7">
-          <NHInput
-            label="Phone Number"
-            name="phoneNumber"
-            value={userDetail.phoneNumber}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHInput
-            label="Country"
-            name="country"
-            value={userDetail.country}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHInput
-            label="State"
-            name="state"
-            value={userDetail.state}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHInput
-            label="City"
-            name="city"
-            value={userDetail.city}
-            onChange={handleChange}
-            disabled={!isEditing}
-          />
-          <NHSelect
-            label="Gender"
-            name="gender"
-            value={userDetail.gender}
-            onChange={(value) =>
-              setUserDetail((prev) => ({ ...prev, gender: value }))
-            }
-            disabled={!isEditing}
-            options={[
-              { label: "Male", value: "male" },
-              { label: "Female", value: "female" },
-            ]}
-            placeholder="Select Gender"
-          />
-        </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(e);
+        }}
+        className="space-y-6"
+      >
+        {renderFormFields()}
       </form>
     </NHCard>
   );
@@ -417,9 +593,10 @@ const Terms = () => (
   <div className="space-y-6">
     <h3 className="fw-semibold lh-base text-[26px] pl-5">Terms & Conditions</h3>
     <div className="prose max-w-none bg-white p-6 rounded-lg overflow-y-auto h-[calc(100vh-400px)] gap-4 grid">
-      <p className="text-base">
-        The terms and conditions outline the rules and regulations for using the website and the services
-        provided. By accessing this website, we assume you accept these terms and conditions.
+      <p className="text-base text-lg leading-normal">
+        The terms and conditions outline the rules and regulations for using the
+        website and the services provided. By accessing this website, we assume
+        you accept these terms and conditions.
       </p>
     </div>
   </div>
@@ -429,10 +606,10 @@ const Privacy = () => (
   <div className="space-y-6">
     <h3 className="fw-semibold lh-base text-[26px] pl-5">Privacy Policy</h3>
     <div className="prose max-w-none bg-white p-6 rounded-lg overflow-y-auto h-[calc(100vh-400px)] gap-4 grid">
-      <p className="text-base">
-        We value your privacy. The policy explains how we collect, use, and protect your personal data when
-        using our services. By using this site, you consent to the processing of your data as described in
-        this policy.
+      <p className="text-base text-lg leading-normal">
+        We value your privacy. The policy explains how we collect, use, and
+        protect your personal data when using our services. By using this site,
+        you consent to the processing of your data as described in this policy.
       </p>
     </div>
   </div>
@@ -448,10 +625,6 @@ const ChangePassword = () => {
     handleSubmit,
     isFormValid,
   } = useChangePassword();
-
-
-
-
 
   return (
     <div className="space-y-6">
@@ -481,7 +654,7 @@ const ChangePassword = () => {
         <NHButton
           variant="primary"
           onClick={handleSubmit}
-          disabled={!isFormValid() || loading}
+          disabled={!isFormValid || loading}
         >
           Change Password
         </NHButton>

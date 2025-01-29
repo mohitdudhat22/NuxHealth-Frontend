@@ -12,14 +12,13 @@ import { useDecodeToken } from "@/hook";
 
 export const ChatLayoutForPatient = () => {
   const { token } = useDecodeToken();
-  const userId = "677047f308067157dc712f80"; // Patient's user ID
+  const userId = "677047f308067157dc712f80";
   const [users, setUsers] = useState([]);
   const [chats, setChats] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
   const [isOnline, setIsOnline] = useState(false);
-  console.log(isOnline,"<<<<<<<<<<<<<<<<< other person")
-  const fetchContact = async () => {
+    const fetchContact = async () => {
     try {
       const response = await getPatientContact();
       const contacts = response.data.map(contact => ({
@@ -32,7 +31,6 @@ export const ChatLayoutForPatient = () => {
         unreadCount: 0,
       }));
       setUsers(contacts);
-      console.log("checking online for ", contacts[0]?._id)
       joinChat({from:userId, to:contacts[0]?._id});
       socket.emit("check-online", contacts[0]?._id);
       setSelectedUserId(contacts[0]?._id || null);
@@ -58,7 +56,6 @@ export const ChatLayoutForPatient = () => {
   const fetchMessages = async () => {
     try {
       const response = await getOldMessages(userId, selectedUserId);
-      console.log(response)
       const oldMessages = response.data?.map((msg) => ({
         id: msg._id,
         content: msg.message,

@@ -12,7 +12,7 @@ import { useDecodeToken } from "@/hook";
 
 export const ChatLayoutForDoctor = () => {
   const { token } = useDecodeToken();
-  const userId = "6770443dceabc6c708235256"; 
+  const userId = "6770443dceabc6c708235256";
   const [contact, setContact] = useState(null);
   const [users, setUsers] = useState([]);
   const [chats, setChats] = useState([]);
@@ -32,9 +32,7 @@ export const ChatLayoutForDoctor = () => {
         lastMessageTime: "",
         unreadCount: 0,
       }));
-      console.log(contacts)
       setUsers(contacts);
-      console.log("checking online for ", contacts[0]?._id)
       socket.emit("check-online", contacts[0]?._id);
       joinChat({from:userId, to:contacts[0]?._id});
       setSelectedUserId(contacts[0]?._id || null);
@@ -131,7 +129,7 @@ export const ChatLayoutForDoctor = () => {
       socket.off("user-status", handleUserStatus);
     };
   }, []);
- 
+
   useEffect(() => {
     if (selectedUserId) {
       socket.emit("check-online", selectedUserId);
