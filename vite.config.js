@@ -6,6 +6,9 @@ export default defineConfig({
   plugins: [react()],
   include: ['country-state-city'],
   base: "/",
+  build: {
+    outDir: 'dist',
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
